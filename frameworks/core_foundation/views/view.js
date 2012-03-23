@@ -437,7 +437,7 @@ SC.CoreView.reopen(
   	
   	if (this._sc_didNotifyDidCreateLayer) 
   		return;
-  	this._sc_didNotifyDidCreateLayer = true;
+  	//this._sc_didNotifyDidCreateLayer = true;
   	
     this.notifyPropertyChange('layer');
 
