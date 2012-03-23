@@ -317,6 +317,8 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     // property, if it exists, at the end of the run loop. This allows it to
     // be used inside of SC.ScrollView.
     this.invokeLast('invalidateFrame');
+    
+    this.__adjustFrame();
   },
 
   itemTagName: function itemTagName() {

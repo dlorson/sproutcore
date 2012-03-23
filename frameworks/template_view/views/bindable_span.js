@@ -145,6 +145,8 @@ SC._BindableSpan = SC.TemplateView.extend(
     } else {
       this.set('template', function() { return ''; });
     }
+    
+    this.__adjustFrame();
 
     return sc_super();
   },
@@ -175,6 +177,8 @@ SC._BindableSpan = SC.TemplateView.extend(
     this.$().replaceWith(elem);
     this.set('layer', elem);
     this._notifyDidCreateLayer();
+    
+    this.__adjustFrame();
   }
 });
 
