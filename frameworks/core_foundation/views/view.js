@@ -407,7 +407,12 @@ SC.CoreView.reopen(
     @returns {SC.View} receiver
   */
   createLayer: function createLayer() {
-    if (this.get('layer')) { return this ; } // nothing to do
+    if (this.get('layer')) { 
+    	// call didCreateLayer!
+    	// even if the layer children exist, they might not have received the notification yet
+    	this._notifyDidCreateLayer();
+    	return this ; 
+    }
 
     var context = this.renderContext(this.get('tagName')) ;
 
@@ -416,16 +421,24 @@ SC.CoreView.reopen(
     this.set('layer', context.element()) ;
 
     // now notify the view and its child views..
-    this._notifyDidCreateLayer() ;
+    this._notifyDidCreateLayer();
 
     return this ;
   },
+  
+  _sc_didNotifyDidCreateLayer: false,
+  
 
   /** @private -
     Invokes the receivers didCreateLayer() method if it exists and then
     invokes the same on all child views.
   */
   _notifyDidCreateLayer: function _notifyDidCreateLayer() {
+  	
+  	if (this._sc_didNotifyDidCreateLayer) 
+  		return;
+  	this._sc_didNotifyDidCreateLayer = true;
+  	
     this.notifyPropertyChange('layer');
 
     if (this.get('useStaticLayout')) this.viewDidResize();
