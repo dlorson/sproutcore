@@ -32,7 +32,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mousedown event
     @returns {Boolean} YES to receive additional mouse events, NO otherwise
   */
-  mouseDown: function(evt) {},
+  mouseDown: function mouseDown(evt) {},
   
   /**
     Called when the mouse is released.
@@ -40,7 +40,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mouseup event
     @returns {Boolean} YES to handle the mouseUp, NO to allow click() and doubleClick() to be called
   */
-  mouseUp: function(evt) {},
+  mouseUp: function mouseUp(evt) {},
   
   /**
     Called when the mouse is dragged, after responding `YES` to a previous `mouseDown`:
@@ -49,7 +49,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mousemove event
     @returns {void}
   */
-  mouseDragged: function(evt) {},
+  mouseDragged: function mouseDragged(evt) {},
   
   /**
     Called when the mouse exits the view and the root responder is not in a
@@ -58,7 +58,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mousemove event
     @returns {void}
   */
-  mouseExited: function(evt) {},
+  mouseExited: function mouseExited(evt) {},
   
   /**
     Called when the mouse enters the view and the root responder is not in a
@@ -67,7 +67,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mousemove event
     @returns {void}
   */
-  mouseEntered: function(evt) {},
+  mouseEntered: function mouseEntered(evt) {},
   
   /**
     Called when the mouse moves within the view and the root responder is not in a
@@ -76,7 +76,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the mousemove event
     @returns {void}
   */
-  mouseMoved: function(evt) {},
+  mouseMoved: function mouseMoved(evt) {},
   
   
   /**
@@ -86,7 +86,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the selectstart event
     @returns {void}
   */
-  selectStart: function(evt) {},
+  selectStart: function selectStart(evt) {},
   
   /**
      Called when a contextmenu event is triggered. Used to disable contextmenu
@@ -95,7 +95,7 @@ SC.ResponderProtocol = {
      @param evt {SC.Event} the selectstart event
      @returns {void}
    */
-  contextMenu: function(evt) {},
+  contextMenu: function contextMenu(evt) {},
   
   // .......................................................................
   // Event Handlers
@@ -110,7 +110,7 @@ SC.ResponderProtocol = {
     @param {String} the text to insert or respond to
     @returns {Boolean} YES if you handled the method; NO otherwise
   */
-  insertText: function(text) {},
+  insertText: function insertText(text) {},
   
   /**
     When the user presses a key-combination event, this will be called so you
@@ -120,7 +120,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the keydown event
     @returns {Boolean} YES if you handled the method; NO otherwise
   */
-  performKeyEquivalent: function(charCode, evt) { return false; },
+  performKeyEquivalent: function performKeyEquivalent(charCode, evt) { return false; },
   
   /**
     This method is called if no other view in the current view hierarchy is
@@ -131,7 +131,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  cancel: function(sender, evt) {},
+  cancel: function cancel(sender, evt) {},
   
   /**
     Delete the current selection or delete one element backward from the
@@ -141,7 +141,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  deleteBackward: function(sender, evt) {},
+  deleteBackward: function deleteBackward(sender, evt) {},
   
   /**
     Delete the current selection or delete one element forward from the
@@ -151,7 +151,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  deleteForward: function(sender, evt) {},
+  deleteForward: function deleteForward(sender, evt) {},
   
   /**
     A field editor might respond by selecting the field before it.
@@ -160,7 +160,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  insertBacktab: function(sender, evt) {},
+  insertBacktab: function insertBacktab(sender, evt) {},
   
   /**
     Insert a newline character or end editing of the receiver.
@@ -169,7 +169,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  insertNewline: function(sender, evt) {},
+  insertNewline: function insertNewline(sender, evt) {},
   
   /**
     Insert a tab or move forward to the next field.
@@ -178,7 +178,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  insertTab: function(sender, evt) {},
+  insertTab: function insertTab(sender, evt) {},
   
   /**
     Move insertion point/selection backward one. (i.e. left arrow key)
@@ -187,7 +187,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveLeft: function(sender, evt) {},
+  moveLeft: function moveLeft(sender, evt) {},
   
   /**
     Move the insertion point/selection forward one (i.e. right arrow key)
@@ -197,7 +197,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveRight: function(sender, evt) {},
+  moveRight: function moveRight(sender, evt) {},
   
   /**
     Move the insertion point/selection up one (i.e. up arrow key)
@@ -206,7 +206,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveUp: function(sender, evt) {},
+  moveUp: function moveUp(sender, evt) {},
   
   /**
     Move the insertion point/selection down one (i.e. down arrow key)
@@ -215,7 +215,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveDown: function(sender, evt) {},
+  moveDown: function moveDown(sender, evt) {},
   
   /**
     Move left, extending the selection. - shift || alt
@@ -224,7 +224,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveLeftAndModifySelection: function(sender, evt) {},
+  moveLeftAndModifySelection: function moveLeftAndModifySelection(sender, evt) {},
   
   /**
     Move right, extending the seleciton - shift || alt
@@ -233,7 +233,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveRightAndModifySelection: function(sender, evt) {},
+  moveRightAndModifySelection: function moveRightAndModifySelection(sender, evt) {},
   
   /**
     Move up, extending the selection - shift || alt
@@ -242,7 +242,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveUpAndModifySelection: function(sender, evt) {},
+  moveUpAndModifySelection: function moveUpAndModifySelection(sender, evt) {},
   
   /**
     Move down, extending selection - shift || alt
@@ -251,7 +251,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveDownAndModifySelection: function(sender, evt) {},
+  moveDownAndModifySelection: function moveDownAndModifySelection(sender, evt) {},
   
   /**
     Move insertion point/selection to beginning of document.
@@ -260,7 +260,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveToBeginningOfDocument: function(sender, evt) {},
+  moveToBeginningOfDocument: function moveToBeginningOfDocument(sender, evt) {},
   
   /**
     Move insertion point/selection to end of document.
@@ -269,7 +269,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  moveToEndOfDocument: function(sender, evt) {},
+  moveToEndOfDocument: function moveToEndOfDocument(sender, evt) {},
   
   /**
     Page down
@@ -278,7 +278,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  pageDown: function(sender, evt) {},
+  pageDown: function pageDown(sender, evt) {},
   
   /**
     Page up
@@ -287,7 +287,7 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  pageUp: function(sender, evt) {},
+  pageUp: function pageUp(sender, evt) {},
   
   /**
     Select all
@@ -296,6 +296,6 @@ SC.ResponderProtocol = {
     @param evt {SC.Event} the event that triggered the method; may be null
     @returns {Boolean} YES if you handle the event; NO otherwise
   */
-  selectAll: function(sender, evt) {}
+  selectAll: function selectAll(sender, evt) {}
   
 };

@@ -72,7 +72,7 @@ SC.Error = SC.Object.extend(
 
     @type SC.Error
   */
-  errorObject: function() {
+  errorObject: function errorObject() {
     return this;
   }.property().cacheable(),
 
@@ -84,7 +84,7 @@ SC.Error = SC.Object.extend(
   label: null,
 
   /** @private */
-  toString: function() {
+  toString: function toString() {
     return "SC.Error:%@:%@ (%@)".fmt(SC.guidFor(this), this.get('message'), this.get('code'));
   },
 

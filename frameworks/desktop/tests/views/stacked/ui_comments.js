@@ -27,7 +27,7 @@ var CommentView = SC.View.extend(SC.StaticLayout, SC.Control, {
 
   contentCommentKey: 'comment',
 
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
 
     // update everything!
     if (key === '*') {      
@@ -41,7 +41,7 @@ var CommentView = SC.View.extend(SC.StaticLayout, SC.Control, {
     if (this.owner && this.owner.updateHeight) this.owner.updateHeight();
   },
   
-  updateFromLabel: function() {
+  updateFromLabel: function updateFromLabel() {
     var content = this.get('content'),
         from    = content ? content.get('from') : 'Anonymous',
         date    = content ? content.get('date') : 'some date',
@@ -50,7 +50,7 @@ var CommentView = SC.View.extend(SC.StaticLayout, SC.Control, {
     return this ;
   },
   
-  updateCommentLabel: function() {
+  updateCommentLabel: function updateCommentLabel() {
     var content = this.get('content'),
         comment = content ? content.get('comment') : '(No Comment)';
     this.commentLabel.set('value', comment);
@@ -134,7 +134,7 @@ window.pane = pane ;
 // BASIC TESTS
 // 
 module("Basic Tests", {
-  setup: function(){
+  setup: function setup(){
     htmlbody(["<style>",
       '.sc-stacked-view { border-bottom: 1px red solid; }',
       '.comment-view.sel { background-color: #ccc; }',
@@ -143,7 +143,7 @@ module("Basic Tests", {
     '</style>'].join("\n"));
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

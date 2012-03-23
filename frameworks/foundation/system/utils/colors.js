@@ -42,7 +42,7 @@ SC.mixin ( /** @scope SC */ {
   PARSE_COLOR_HEXRE: /^\#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
 
   // return an array of r,g,b colour
-  expandColor: function(color) {
+  expandColor: function expandColor(color) {
     var hexColor, red, green, blue;
     hexColor = this.parseColor(color);
     if (hexColor) {
@@ -54,7 +54,7 @@ SC.mixin ( /** @scope SC */ {
   },
 
   // parse rgb color or 3-digit hex color to return a properly formatted 6-digit hex colour spec, or false
-  parseColor: function(string) {
+  parseColor: function parseColor(string) {
     var i=0, color = '#', match, part;
     if(match = this.PARSE_COLOR_RGBRE.exec(string)) {
       for (i=1; i<=3; i++) {
@@ -76,7 +76,7 @@ SC.mixin ( /** @scope SC */ {
   },
 
   // convert one r,g,b number to a 2 digit hex string
-  toColorPart: function(number) {
+  toColorPart: function toColorPart(number) {
     if (number > 255) number = 255;
     var digits = number.toString(16);
     if (number < 16) return '0' + digits;

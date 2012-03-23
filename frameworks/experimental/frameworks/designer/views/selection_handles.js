@@ -20,7 +20,7 @@ SC.SelectionHandlesView = SC.View.extend(
   
   classNames: 'handles',
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var designer = this.get('designer'),
         vertical = designer ? designer.get('canResizeVertical') : NO,
         horizontal = designer ? designer.get('canResizeHorizontal') : NO,
@@ -55,22 +55,22 @@ SC.SelectionHandlesView = SC.View.extend(
   // 
   // By default just forward to designer
   
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var d = this.designer;
     return (d && d.mouseDown) ? d.mouseDown(evt) : null;
   },
   
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var d = this.designer;
     return (d && d.mouseUp) ? d.mouseUp(evt) : null;
   },
   
-  mouseMoved: function(evt) {
+  mouseMoved: function mouseMoved(evt) {
     var d = this.designer;
     return (d && d.mouseMoved) ? d.mouseMoved(evt) : null;
   },
   
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     var d = this.designer;
     return (d && d.mouseDragged) ? d.mouseDragged(evt) : null;
   }

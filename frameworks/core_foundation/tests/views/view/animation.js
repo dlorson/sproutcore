@@ -23,7 +23,7 @@ function transitionFor(view){
 }
 
 var commonSetup = {
-  setup: function() {
+  setup: function setup() {
 
     SC.RunLoop.begin();
 
@@ -42,7 +42,7 @@ var commonSetup = {
     SC.RunLoop.end();
   },
 
-  teardown: function(){
+  teardown: function teardown(){
     pane.remove();
   }
 };
@@ -252,7 +252,7 @@ if (SC.platform.supportsCSSTransitions) {
   });
 
   module("ANIMATION WITH ACCELERATED LAYER", {
-    setup: function(){
+    setup: function setup(){
       commonSetup.setup();
       view.wantsAcceleratedLayer = YES;
     },
@@ -355,12 +355,12 @@ if (SC.platform.supportsCSSTransitions) {
 }
 
 module("ANIMATION WITHOUT TRANSITIONS", {
-  setup: function(){
+  setup: function setup(){
     commonSetup.setup();
     SC.platform.supportsCSSTransitions = NO;
   },
 
-  teardown: function(){
+  teardown: function teardown(){
     commonSetup.teardown();
     SC.platform.supportsCSSTransitions = originalSupportsTransitions;
   }

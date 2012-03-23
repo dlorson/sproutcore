@@ -64,7 +64,7 @@ SC.Theme = {
     other set of class names can be a hash, an array, a Set, or a space-
     delimited string.
   */
-  _extend_class_names: function(classNames) {
+  _extend_class_names: function _extend_class_names(classNames) {
     // class names may be a CoreSet, array, string, or hash
     if (classNames) {
       if (SC.typeOf(classNames) === SC.T_HASH && !classNames.isSet) {
@@ -87,7 +87,7 @@ SC.Theme = {
 
     Used during Theme.create();
    */
-  _extend_self: function(ext) {
+  _extend_self: function _extend_self(ext) {
     if (ext.classNames) this._extend_class_names(ext.classNames);
 
     // mixin while enabling sc_super();
@@ -109,7 +109,7 @@ SC.Theme = {
     Creates a new theme based on this one. The name of the new theme will
     be added to the classNames set.
   */
-  create: function() {
+  create: function create() {
     var result = SC.beget(this);
     result.baseTheme = this;
 
@@ -150,7 +150,7 @@ SC.Theme = {
     Creates a child theme based on this theme, with the given name,
     and automatically registers it as a child theme.
   */
-  subtheme: function(name) {
+  subtheme: function subtheme(name) {
     // extend the theme
     var t = this.create({ name: name });
 
@@ -180,7 +180,7 @@ SC.Theme = {
     a child theme of "base"; SC.View _needs_ to re-subtheme it, but it won't
     know it needs to, because it has been found.
   */
-  invisibleSubtheme: function(name) {
+  invisibleSubtheme: function invisibleSubtheme(name) {
     // extend the theme
     var t = this.create({ name: name });
 
@@ -205,7 +205,7 @@ SC.Theme = {
     If the theme found is not a root theme, this will specialize the theme so
     that it includes all class names for this theme.
   */
-  find: function(themeName) {
+  find: function find(themeName) {
     if (this === SC.Theme) return this.themes[themeName];
     var theme;
 
@@ -242,7 +242,7 @@ SC.Theme = {
     parent theme's "themes" property, if the theme cannot be found in this
     theme, it will be found in any parent themes.
   */
-  addTheme: function(theme) {
+  addTheme: function addTheme(theme) {
     this.themes[theme.name] = theme;
   }
 };

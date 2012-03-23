@@ -33,7 +33,7 @@ SC.Page = SC.Object.extend(
   */
   owner: null,
   
-  get: function(key) {
+  get: function get(key) {
     var value = this[key] ;
     if (value && value.isClass) {
       this[key] = value = value.create({ page: this }) ;
@@ -50,7 +50,7 @@ SC.Page = SC.Object.extend(
     
     @return {SC.Page} receiver
   */
-  awake: function() {
+  awake: function awake() {
     // step through all views and build them
     var value, key;
     for(key in this) {
@@ -68,7 +68,7 @@ SC.Page = SC.Object.extend(
     been configured.  In that case it will return undefined.  You can use this
     method to safely get a view without waking it up.
   */
-  getIfConfigured: function(key) {
+  getIfConfigured: function getIfConfigured(key) {
     var ret = this[key] ;
     return (ret && ret.isViewClass) ? null : this.get(key);
   },
@@ -76,7 +76,7 @@ SC.Page = SC.Object.extend(
   /**
     Applies a localization to every view builder defined on the page.  You must call this before you construct a view to apply the localization.
   */
-  loc: function(locs) {
+  loc: function loc(locs) {
     var view, key;
     for(key in locs) {
       if (!locs.hasOwnProperty(key)) continue ;

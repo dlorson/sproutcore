@@ -110,7 +110,7 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
     @type Boolean
     @property
   */
-  hintEnabled: function() {
+  hintEnabled: function hintEnabled() {
     return this.get('isEditable');
   }.property('isEditable').cacheable(),
 
@@ -133,10 +133,10 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
   // SUPPORT FOR AUTOMATIC RESIZING
   //
   supportsAutoResize: YES,
-  autoResizeLayer: function() { return this.get('layer'); }
+  autoResizeLayer: function autoResizeLayer() { return this.get('layer'); }
   .property('layer').cacheable(),
 
-  autoResizeText: function() { return this.get('displayTitle'); }
+  autoResizeText: function autoResizeText() { return this.get('displayTitle'); }
   .property('displayTitle').cacheable(),
 
   autoResizePadding: SC.propertyFromRenderDelegate('autoResizePadding', 10),
@@ -156,7 +156,7 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
 
     @field
   */
-  displayTitle: function() {
+  displayTitle: function displayTitle() {
     var value, formatter;
 
     value = this.get('value') ;
@@ -198,7 +198,7 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
     and other normalization utilities.
 
   */
-  hintValue: function() {
+  hintValue: function hintValue() {
     var hintVal = this.get('hint');
     return hintVal ;
   }.property('hint').cacheable(),
@@ -210,14 +210,14 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
     @param {DOMMouseEvent} evt DOM event
 
   */
-  doubleClick: function( evt ) { return this.beginEditing(); },
+  doubleClick: function doubleClick( evt ) { return this.beginEditing(); },
 
   /*
   * @method
   *
   * Hide the label view while the inline editor covers it.
   */
-  inlineEditorDidBeginEditing: function(original, editor, value, editable) {
+  inlineEditorDidBeginEditing: function inlineEditorDidBeginEditing(original, editor, value, editable) {
     this._oldOpacity = this.get('layout').opacity || 1;
     this.adjust('opacity', 0);
 
@@ -229,7 +229,7 @@ SC.LabelView = SC.View.extend(SC.Control, SC.InlineEditable,
   *
   * Restore the label view when the inline editor finishes.
   */
-  inlineEditorDidEndEditing: function() {
+  inlineEditorDidEndEditing: function inlineEditorDidEndEditing() {
     this.adjust('opacity', this._oldOpacity);
     this._oldOpacity = null ;
   }

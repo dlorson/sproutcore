@@ -16,7 +16,7 @@ CoreTools.DataSource = SC.DataSource.extend({
     Fetch a group of records from the data source.  Knows how to fetch 
     a list of targets and tests.
   */
-  fetch: function(store, query) {
+  fetch: function fetch(store, query) {
     var ret = NO;
     switch(query.get('recordType')) {
       case CoreTools.Target:
@@ -37,7 +37,7 @@ CoreTools.DataSource = SC.DataSource.extend({
   /**
     Fetch the actual targets.  Only understands how to handle a remote query.
   */
-  fetchTargets: function(store, query) {
+  fetchTargets: function fetchTargets(store, query) {
     
     if (!query.get('isRemote')) return NO ; 
     
@@ -48,7 +48,7 @@ CoreTools.DataSource = SC.DataSource.extend({
     return YES ;
   },
   
-  fetchTargetsDidComplete: function(request, opts) {
+  fetchTargetsDidComplete: function fetchTargetsDidComplete(request, opts) {
     var response = request.get('response'),
         query    = opts.query,
         store    = opts.store,
@@ -70,7 +70,7 @@ CoreTools.DataSource = SC.DataSource.extend({
     Load tests for a particular URL.  Only understands local querys with a
     URL.
   */
-  fetchTests: function(store, query) {
+  fetchTests: function fetchTests(store, query) {
     var url = query.get('url') ;
         
     if (!query.get('isRemote') || !url) return NO ; // not handled
@@ -82,7 +82,7 @@ CoreTools.DataSource = SC.DataSource.extend({
     return YES ;
   },
   
-  fetchTestsDidComplete: function(request, opts) {
+  fetchTestsDidComplete: function fetchTestsDidComplete(request, opts) {
     var response = request.get('response'),
         store    = opts.store,
         query    = opts.query,

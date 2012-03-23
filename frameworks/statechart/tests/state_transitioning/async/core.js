@@ -10,13 +10,13 @@ var Obj, obj, async, func;
 // 
 
 module("SC.Async Tests", {
-  setup: function() {
+  setup: function setup() {
     Obj = SC.Object.extend({
       fooInvoked: NO,
       arg1: null,
       arg2: null,
 
-      foo: function(arg1, arg2) {
+      foo: function foo(arg1, arg2) {
         this.set('fooInvoked', YES);
         this.set('arg1', arg1);
         this.set('arg2', arg2);
@@ -24,7 +24,7 @@ module("SC.Async Tests", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     Obj = obj = async = func = null;
   }
 });

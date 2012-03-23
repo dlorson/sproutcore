@@ -15,7 +15,7 @@ SC.TableCellView = SC.View.extend({
   escapeHTMLBinding: SC.Binding.oneWay('.column.escapeHTML'),
   formatter: SC.Binding.oneWay('.column.formatter'),
   
-  displayValue: function() {
+  displayValue: function displayValue() {
     var value = this.get('content') ;
     
     // 1. apply the formatter
@@ -42,11 +42,11 @@ SC.TableCellView = SC.View.extend({
     return value ;
   }.property('content', 'escapeHTML', 'formatter').cacheable(),
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     context.push(this.get('displayValue'));
   },
   
-  init: function() {
+  init: function init() {
     sc_super();
 
     var column = this.get('column');
@@ -56,7 +56,7 @@ SC.TableCellView = SC.View.extend({
     column.addObserver('minWidth', this, '_sctcv_layoutDidChange');
   },
     
-  _sctcv_layoutDidChange: function(sender, key, value, rev) {
+  _sctcv_layoutDidChange: function _sctcv_layoutDidChange(sender, key, value, rev) {
     var pv = this.get('parentView');
     SC.run( function() { pv.layoutChildViews(); });
   }

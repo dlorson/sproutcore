@@ -19,7 +19,7 @@ SC.platform = SC.Object.create({
 
     @property
   */
-  scrollbarSize: function() {
+  scrollbarSize: function scrollbarSize() {
     var tester = document.createElement("DIV"),
         child;
     tester.innerHTML = "<div style='height:1px;'></div>";
@@ -83,7 +83,7 @@ SC.platform = SC.Object.create({
     For example, to test to see if the placeholder attribute is supported,
     you would verify that SC.platform.input.placeholder is YES.
   */
-  input: function(attributes) {
+  input: function input(attributes) {
     var ret = {},
         len = attributes.length,
         elem = document.createElement('input'),
@@ -125,7 +125,7 @@ SC.platform = SC.Object.create({
 
     This is useful if you are debugging touch functionality on the desktop.
   */
-  simulateTouchEvents: function() {
+  simulateTouchEvents: function simulateTouchEvents() {
     // Touch events are supported natively, no need for this.
     if (this.touch) {
       // @if (debug)
@@ -165,7 +165,7 @@ SC.platform = SC.Object.create({
 
     @param {Array} events Array of strings representing the events to remove
   */
-  removeEvents: function(events) {
+  removeEvents: function removeEvents(events) {
     var idx, len = events.length, key;
     for (idx = 0; idx < len; idx++) {
       key = events[idx];
@@ -179,7 +179,7 @@ SC.platform = SC.Object.create({
     @param {String} evt The event to replace
     @param {Function} replacement The method that should be called instead
   */
-  replaceEvent: function(evt, replacement) {
+  replaceEvent: function replaceEvent(evt, replacement) {
     SC.Event.remove(document, evt, SC.RootResponder.responder, SC.RootResponder.responder[evt]);
     SC.Event.add(document, evt, this, replacement);
   },
@@ -190,7 +190,7 @@ SC.platform = SC.Object.create({
 
     If the altKey is depressed and pinch center not yet established, we will capture the mouse position.
   */
-  _simtouch_mousemove: function(evt) {
+  _simtouch_mousemove: function _simtouch_mousemove(evt) {
     if (!this._mousedown) {
       /*
         we need to capture when was the first spot that the altKey was pressed and use it as
@@ -219,7 +219,7 @@ SC.platform = SC.Object.create({
     When simulating touch events, this method is called when mousedown events
     are received.
   */
-  _simtouch_mousedown: function(evt) {
+  _simtouch_mousedown: function _simtouch_mousedown(evt) {
     this._mousedown = YES;
 
     var manufacturedEvt = this.manufactureTouchEvent(evt, 'touchstart');
@@ -230,7 +230,7 @@ SC.platform = SC.Object.create({
     When simulating touch events, this method is called when mouseup events
     are received.
   */
-  _simtouch_mouseup: function(evt) {
+  _simtouch_mouseup: function _simtouch_mouseup(evt) {
     var manufacturedEvt = this.manufactureTouchEvent(evt, 'touchend'),
         ret = SC.RootResponder.responder.touchend(manufacturedEvt);
 
@@ -254,7 +254,7 @@ SC.platform = SC.Object.create({
     @param {String} type the type of event (e.g., touchstart)
     @returns {Event} the mouse event with an added changedTouches array
   */
-  manufactureTouchEvent: function(evt, type) {
+  manufactureTouchEvent: function manufactureTouchEvent(evt, type) {
     var realTouch, virtualTouch, realTouchIdentifier = this._simtouch_counter;
 
     realTouch = {
@@ -335,7 +335,7 @@ SC.platform = SC.Object.create({
   /**
     Whether the browser supports the hashchange event.
   */
-  supportsHashChange: function() {
+  supportsHashChange: function supportsHashChange() {
     // Code copied from Modernizr which copied code from YUI (MIT licenses)
     // documentMode logic from YUI to filter out IE8 Compat Mode which false positives
     return ('onhashchange' in window) && (document.documentMode === undefined || document.documentMode > 7);
@@ -344,11 +344,11 @@ SC.platform = SC.Object.create({
   /**
     Whether the browser supports HTML5 history.
   */
-  supportsHistory: function() {
+  supportsHistory: function supportsHistory() {
     return !!(window.history && window.history.pushState);
   }(),
 
-  supportsCanvas: function() {
+  supportsCanvas: function supportsCanvas() {
     return !!document.createElement('canvas').getContext;
   }(),
 

@@ -8,7 +8,7 @@
 // test normalize method for SC.Record
 var storeKeys, rec, rec2, rec3, rec4;
 module("SC.Record normalize method", {
-  setup: function() {
+  setup: function setup() {
 
     SC.RunLoop.begin();
  
@@ -18,7 +18,7 @@ module("SC.Record normalize method", {
     
     MyApp.Foo = SC.Record.extend({
       
-      guid: SC.Record.attr(String, { defaultValue: function() {
+      guid: SC.Record.attr(String, { defaultValue: function defaultValue() {
         var i, rnum, chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz",
           strLen = 8, ret = '';
     		for (i=0; i<strLen; i++) {
@@ -44,7 +44,7 @@ module("SC.Record normalize method", {
       
       // test toOne relationship computed default
       relatedToComputed: SC.Record.toOne('MyApp.Foo', { 
-        defaultValue: function() {
+        defaultValue: function defaultValue() {
           var num = Math.floor(Math.random()*2+1);
           return 'foo' + num;
         }
@@ -111,7 +111,7 @@ module("SC.Record normalize method", {
     
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
   

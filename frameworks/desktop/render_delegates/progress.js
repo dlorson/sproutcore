@@ -25,7 +25,7 @@
 SC.BaseTheme.progressRenderDelegate = SC.RenderDelegate.create({
   className: 'progress',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     var theme = dataSource.get('theme'),
@@ -65,7 +65,7 @@ SC.BaseTheme.progressRenderDelegate = SC.RenderDelegate.create({
     context = context.end();
   },
 
-  update: function(dataSource, $) {
+  update: function update(dataSource, $) {
     this.updateSizeClassName(dataSource, $);
 
     var theme = dataSource.get('theme'),

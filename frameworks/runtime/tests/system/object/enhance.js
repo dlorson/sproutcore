@@ -7,14 +7,14 @@ module("Function#enhance");
 
 test("reopening and enhancing", function() {
   var Klass = SC.Object.extend({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return string + this.get('exclaim');
     },
     exclaim: "!"
   });
 
   Klass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return original(string.toUpperCase());
     }.enhance()
   });
@@ -25,26 +25,26 @@ test("reopening and enhancing", function() {
 
 test("subclassing and then enhancing the parent", function() {
   var Klass = SC.Object.extend({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return string + this.get('exclaim');
     },
     exclaim: "!"
   });
 
   Klass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return original(string.toUpperCase());
     }.enhance()
   });
 
   SubKlass = Klass.extend({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return "ZOMG " + sc_super();
     }
   });
 
   Klass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return "OHAI: " + original(string);
     }.enhance()
   });
@@ -55,14 +55,14 @@ test("subclassing and then enhancing the parent", function() {
 
 test("calling sc_super inside a reopened class", function() {
   var Klass = SC.Object.extend({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return string + this.get('exclaim');
     },
     exclaim: "!"
   });
 
   Klass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return original(string.toUpperCase());
     }.enhance()
   });
@@ -70,19 +70,19 @@ test("calling sc_super inside a reopened class", function() {
   SubKlass = Klass.extend({});
 
   SubKlass.reopen({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return "ZOMG " + sc_super();
     }
   });
 
   SubKlass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return "OHAI: " + original(string);
     }.enhance()
   });
 
   Klass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return "HAHA " + original(string);
     }.enhance()
   });
@@ -95,13 +95,13 @@ test("calling sc_super inside a reopened class, reverse", function() {
   var Klass = SC.Object.extend();
 
   var object = Klass.create({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return sc_super() + "!";
     }
   });
 
   Klass.reopen({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       return string.toUpperCase();
     }
   });
@@ -111,7 +111,7 @@ test("calling sc_super inside a reopened class, reverse", function() {
 
 test("sc_super to a non-method", function() {
   var Klass = SC.Object.extend({
-    wot: function() {
+    wot: function wot() {
       return sc_super();
     }
   });
@@ -129,18 +129,18 @@ test("sc_super to a non-method", function() {
 
 test("sc_super works in enhanced methods", function() {
   var Klass = SC.Object.extend({
-    loudly: function(string) {
+    loudly: function loudly(string) {
       console.log(string);
       return string.toUpperCase();
     }
   });
 
   var SubKlass = Klass.extend({
-    loudly: function(string) {}
+    loudly: function loudly(string) {}
   });
 
   SubKlass.reopen({
-    loudly: function(original, string) {
+    loudly: function loudly(original, string) {
       return sc_super();
     }.enhance()
   });
@@ -183,7 +183,7 @@ test("__sc_super__ semantics", function() {
 
 test("enhance still works if there is no base method to enhance", function() {
   var enhancer = {
-    weirdName: function(original) {
+    weirdName: function weirdName(original) {
       original();
 
       return YES;
@@ -200,13 +200,13 @@ test("should invalidate a computed property added to a subclass via reopen() tha
 // Enable the following once we fix this
 /*
 test("should invalidate a computed property added to a subclass via reopen() that depends on a key defined in original", function() {
-  var MyClass = SC.Object.extend({ property: function() { }.property() });
-  var MySubclass = MyClass.extend({ anotherProperty: function() { }.property() });
+  var MyClass = SC.Object.extend({ property: function property() { }.property() });
+  var MySubclass = MyClass.extend({ anotherProperty: function anotherProperty() { }.property() });
 
   var observerCalled = 0;
 
   MyClass.reopen({
-    yetAnotherProperty: function() {
+    yetAnotherProperty: function yetAnotherProperty() {
       return "Yet Another Property";
     }.property('property')
   });

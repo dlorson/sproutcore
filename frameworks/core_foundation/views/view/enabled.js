@@ -28,7 +28,7 @@ SC.View.reopen(
 
     @property {Boolean}
   */
-  isEnabledInPane: function() {
+  isEnabledInPane: function isEnabledInPane() {
     var ret = this.get('isEnabled'), pv ;
     if (ret && (pv = this.get('parentView'))) { ret = pv.get('isEnabledInPane'); }
     return ret ;
@@ -41,13 +41,13 @@ SC.View.reopen(
 
     @observes isEnabled
   */
-  _sc_view_isEnabledDidChange: function(){
+  _sc_view_isEnabledDidChange: function _sc_view_isEnabledDidChange(){
     if(!this.get('isEnabled') && this.get('isFirstResponder')){
       this.resignFirstResponder();
     }
   }.observes('isEnabled'),
 
-  applyAttributesToContext: function(original, context) {
+  applyAttributesToContext: function applyAttributesToContext(original, context) {
     var isEnabled = this.get('isEnabled');
 
     original(context);

@@ -8,7 +8,7 @@
 var view, content1, content2 ;
 
 module("SC.CollectionView.length", {
-  setup: function() {
+  setup: function setup() {
     
     // stub in collection view to verify that proper method are called
     view = SC.CollectionView.create({
@@ -16,7 +16,7 @@ module("SC.CollectionView.length", {
       observer: CoreTest.stub('observer(length)').observes('length'),
       computeLayout: CoreTest.stub('computeLayout'),
       
-      reset: function(){
+      reset: function reset(){
         this.observer.reset();
         this.computeLayout.reset();
       }    

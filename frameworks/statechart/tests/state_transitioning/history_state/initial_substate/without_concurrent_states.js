@@ -10,7 +10,7 @@ window.statechart = null;
 // 
 
 module("SC.HistoryState - Without Concurrent States Tests", {
-  setup: function() {
+  setup: function setup() {
    
     statechart = SC.Statechart.create({
       
@@ -73,7 +73,7 @@ module("SC.HistoryState - Without Concurrent States Tests", {
     
   },  
   
-  teardown: function() {
+  teardown: function teardown() {
     //statechart = null;
   }
 });

@@ -18,7 +18,7 @@ sc_require('models/record_attribute');
       group: SC.Record.toOne('MyApp.Group', { 
         inverse: 'contacts', // set the key used to represent the inverse 
         isMaster: YES|NO, // indicate whether changing this should dirty
-        transform: function(), // transforms value <=> storeKey,
+        transform: function transform(), // transforms value <=> storeKey,
         isEditable: YES|NO, make editable or not
       });
   
@@ -51,7 +51,7 @@ SC.SingleAttribute = SC.RecordAttribute.extend(
   /**
     @private - implements support for handling inverse relationships.
   */
-  call: function(record, key, newRec) {
+  call: function call(record, key, newRec) {
     var attrKey = this.get('key') || key,
         inverseKey, isMaster, oldRec, attr, ret, nvalue;
     
@@ -106,7 +106,7 @@ SC.SingleAttribute = SC.RecordAttribute.extend(
     @param {SC.Record} inverseRecord record that was removed from inverse
     @param {String} inverseKey key on inverse that was modified
   */
-  inverseDidRemoveRecord: function(record, key, inverseRecord, inverseKey) {
+  inverseDidRemoveRecord: function inverseDidRemoveRecord(record, key, inverseRecord, inverseKey) {
 
     var myInverseKey  = this.get('inverse'),
         curRec   = this._scsa_call(record, key),
@@ -134,7 +134,7 @@ SC.SingleAttribute = SC.RecordAttribute.extend(
     @param {SC.Record} inverseRecord record that was added to inverse
     @param {String} inverseKey key on inverse that was modified
   */
-  inverseDidAddRecord: function(record, key, inverseRecord, inverseKey) {
+  inverseDidAddRecord: function inverseDidAddRecord(record, key, inverseRecord, inverseKey) {
     var myInverseKey  = this.get('inverse'),
         curRec   = this._scsa_call(record, key),
         isMaster = this.get('isMaster'), 

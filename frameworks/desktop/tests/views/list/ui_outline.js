@@ -20,7 +20,7 @@ var TreeItem = SC.Object.extend(SC.TreeItemContent, {
   
   depth: 0,
   
-  treeItemChildren: function() {
+  treeItemChildren: function treeItemChildren() {
     var ret = [], loc = this.get('length'), depth = this.get('depth')+1;
     if (depth>3) loc = loc*3
     while(--loc>=0) ret[loc] = TreeItem.create({ parent: this, unread: loc, depth: depth, treeItemIsExpanded: (depth<2) });
@@ -29,7 +29,7 @@ var TreeItem = SC.Object.extend(SC.TreeItemContent, {
   
   treeItemIsExpanded: YES,
   
-  treeItemBranchIndexes: function() {
+  treeItemBranchIndexes: function treeItemBranchIndexes() {
     return this.depth<3 ? SC.IndexSet.create(0, this.get('length')) : null;
   }
 

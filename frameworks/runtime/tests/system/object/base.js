@@ -13,18 +13,18 @@ var obj, obj1, don, don1 ; // global variables
 
 module("A new SC.Object instance", {
   
-  setup: function() {
+  setup: function setup() {
     obj = SC.Object.create({
       foo: "bar",
       total: 12345,
-      aMethodThatExists: function() {},
-      aMethodThatReturnsTrue: function() { return true; },
-      aMethodThatReturnsFoobar: function() { return "Foobar"; },
-      aMethodThatReturnsFalse: function() { return NO; }
+      aMethodThatExists: function aMethodThatExists() {},
+      aMethodThatReturnsTrue: function aMethodThatReturnsTrue() { return true; },
+      aMethodThatReturnsFoobar: function aMethodThatReturnsFoobar() { return "Foobar"; },
+      aMethodThatReturnsFalse: function aMethodThatReturnsFalse() { return NO; }
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj = undefined ;
   }
   
@@ -81,7 +81,7 @@ test("When the object is destroyed the 'isDestroyed' status should change accord
 });
 
 module("SC.Object observers", {
-  setup: function() {
+  setup: function setup() {
     // create a namespace
     TestNamespace = {
       obj: SC.Object.create({
@@ -94,15 +94,15 @@ module("SC.Object observers", {
       prop1: null,
       
       // normal observer
-      observer: function(){
+      observer: function observer(){
         this._normal = YES;
       }.observes("prop1"),
       
-      globalObserver: function() {
+      globalObserver: function globalObserver() {
         this._global = YES;
       }.observes("TestNamespace.obj.value"),
       
-      bothObserver: function() {
+      bothObserver: function bothObserver() {
         this._both = YES;
       }.observes("prop1", "TestNamespace.obj.value")
     });
@@ -129,14 +129,14 @@ test("Global+Local observer works", function() {
 });
 
 module("SC.Object instance extended", {  
-  setup: function() {
+  setup: function setup() {
     obj = SC.Object.extend();
 	obj1 = obj.create();
 	don = SC.Object.extend();
 	don1 = don.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj = undefined ;
     obj1 = undefined ;
     don = undefined ;
@@ -161,21 +161,21 @@ test("Checking the kind of method for an object", function() {
 
 
 module("SC.Object superclass and subclasses", {  
-  setup: function() {
+  setup: function setup() {
     obj = SC.Object.extend ({
-	  method1: function() {
+	  method1: function method1() {
 		return "hello";
 	  }
 	});
 	obj1 = obj.extend();
 	don = obj1.create ({
-	  method2: function() {
+	  method2: function method2() {
 		  return this.superclass();
 		}
 	});
   },
 
-  teardown: function() {
+  teardown: function teardown() {
 	obj = undefined ;
     obj1 = undefined ;
     don = undefined ;

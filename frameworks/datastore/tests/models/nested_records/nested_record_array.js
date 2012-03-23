@@ -31,7 +31,7 @@ var initModels = function(){
     
     defaultElements: SC.Record.toMany(NestedRecord.ChildRecordTest1, {
       isNested: true,
-      defaultValue: function(record, key) {
+      defaultValue: function defaultValue(record, key) {
         var array = [];
         array.pushObject(record.createNestedRecord(NestedRecord.ChildRecordTest1));
         return array;
@@ -40,7 +40,7 @@ var initModels = function(){
     
     defaultPolymorphicElements: SC.Record.toMany('SC.Record', {
       isNested: true,
-      defaultValue: function(record, key) {
+      defaultValue: function defaultValue(record, key) {
         var array = [];
         array.pushObject(record.createNestedRecord(SC.Record, {
           type: 'ChildRecordTest1',
@@ -59,7 +59,7 @@ var initModels = function(){
 // 
 module("Basic SC.Record w/ a Parent > Array of Children", {
 
-  setup: function() {
+  setup: function setup() {
     NestedRecord = SC.Object.create({
       store: SC.Store.create()
     });
@@ -101,7 +101,7 @@ module("Basic SC.Record w/ a Parent > Array of Children", {
     SC.RunLoop.end();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     delete NestedRecord.ParentRecordTest;
     delete NestedRecord.ChildRecordTest;
     testParent = null;
@@ -404,8 +404,8 @@ test("pushObject should trigger an arrayContentDidChange with only 1 added item"
   var didChangeCalls = [], target;
 
   target = SC.Object.create({
-    willChange: function() {},
-    didChange: function() {
+    willChange: function willChange() {},
+    didChange: function didChange() {
       didChangeCalls.push(arguments);
     }
   });
@@ -427,8 +427,8 @@ test("replace should trigger an arrayContentDidChange with only 1 added item", f
   var didChangeCalls = [], target;
 
   target = SC.Object.create({
-    willChange: function() {},
-    didChange: function() {
+    willChange: function willChange() {},
+    didChange: function didChange() {
       didChangeCalls.push(arguments);
     }
   });

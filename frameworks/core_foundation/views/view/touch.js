@@ -35,7 +35,7 @@ SC.View.reopen(
   /**
     Returns YES if the provided touch is within the boundary.
   */
-  touchIsInBoundary: function(touch) {
+  touchIsInBoundary: function touchIsInBoundary(touch) {
     var f = this.get("_touchBoundaryFrame"), maxX = 0, maxY = 0, boundary = this.get("touchBoundary");
     var x = touch.pageX, y = touch.pageY;
 

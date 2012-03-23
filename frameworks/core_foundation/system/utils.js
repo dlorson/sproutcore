@@ -21,7 +21,7 @@ SC.mixin( /** @scope SC */ {
     @param url {String} the URL
     @returns {String} the normalized URL
   */
-  normalizeURL: function(url) {
+  normalizeURL: function normalizeURL(url) {
     if (url.slice(0,1) == '/') {
       url = window.location.protocol + '//' + window.location.host + url ;
     } else if ((url.slice(0,5) == 'http:') || (url.slice(0,6) == 'https:')) {
@@ -33,47 +33,47 @@ SC.mixin( /** @scope SC */ {
   },
 
   /** Return true if the number is between 0 and 1 */
-  isPercentage: function(val){
+  isPercentage: function isPercentage(val){
     return (val<1 && val>0);
   },
 
   /** Return the left edge of the frame */
-  minX: function(frame) {
+  minX: function minX(frame) {
     return frame.x || 0;
   },
 
   /** Return the right edge of the frame. */
-  maxX: function(frame) {
+  maxX: function maxX(frame) {
     return (frame.x || 0) + (frame.width || 0);
   },
 
   /** Return the midpoint of the frame. */
-  midX: function(frame) {
+  midX: function midX(frame) {
     return (frame.x || 0) + ((frame.width || 0) / 2) ;
   },
 
   /** Return the top edge of the frame */
-  minY: function(frame) {
+  minY: function minY(frame) {
     return frame.y || 0 ;
   },
 
   /** Return the bottom edge of the frame */
-  maxY: function(frame) {
+  maxY: function maxY(frame) {
     return (frame.y || 0) + (frame.height || 0) ;
   },
 
   /** Return the midpoint of the frame */
-  midY: function(frame) {
+  midY: function midY(frame) {
     return (frame.y || 0) + ((frame.height || 0) / 2) ;
   },
 
   /** Returns the point that will center the frame X within the passed frame. */
-  centerX: function(innerFrame, outerFrame) {
+  centerX: function centerX(innerFrame, outerFrame) {
     return (outerFrame.width - innerFrame.width) / 2 ;
   },
 
   /** Return the point that will center the frame Y within the passed frame. */
-  centerY: function(innerFrame, outerFrame) {
+  centerY: function centerY(innerFrame, outerFrame) {
     return (outerFrame.height - innerFrame.height) /2  ;
   },
 
@@ -94,7 +94,7 @@ SC.mixin( /** @scope SC */ {
       One of either: 'document', 'viewport' or 'parent' (default: 'document').
     @returns {Object} the offset of the element as an Object (ie. Hash) in the form { x: value, y: value }.
    */
-  offset: function(elem, relativeToFlag) {
+  offset: function offset(elem, relativeToFlag) {
     var userAgent,
         index,
         mobileBuildNumber,
@@ -161,7 +161,7 @@ SC.mixin( /** @scope SC */ {
     @param el The DOM element
     @returns {Point} A hash with x, y offsets.
   */
-  viewportOffset: function(el) {
+  viewportOffset: function viewportOffset(el) {
     console.warn("SC.viewportOffset() has been deprecated in favor of SC.offset().  Please use SC.offset() from here on.");
     var result = SC.offset(el, 'viewport');
 

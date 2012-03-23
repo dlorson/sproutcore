@@ -32,7 +32,7 @@ SC.Enumerator.prototype = /** @scope SC.Enumerator.prototype */{
 
     @returns {Object} the next object or undefined
   */
-  nextObject: function() {
+  nextObject: function nextObject() {
     var index = this._index ;
     var len = this._length;
     if (index >= len) return undefined ; // nothing to do
@@ -55,7 +55,7 @@ SC.Enumerator.prototype = /** @scope SC.Enumerator.prototype */{
 
     @returns {Object} this
   */
-  reset: function() {
+  reset: function reset() {
     var e = this.enumerable ;
     if (!e) throw SC.$error("Enumerator has been destroyed");
     this._length = e.get ? e.get('length') : e.length ;
@@ -72,7 +72,7 @@ SC.Enumerator.prototype = /** @scope SC.Enumerator.prototype */{
 
     @returns {Object} null
   */
-  destroy: function() {
+  destroy: function destroy() {
     this.enumerable = this._length = this._index = this._previousObject = this._context = null;
   }
 

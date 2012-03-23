@@ -7,7 +7,7 @@
 /*globals module test ok equals same AB */
 
 module("Cyclical relationships", { 
-  setup: function() {
+  setup: function setup() {
 
     // define the application space
     window.AB = SC.Object.create({
@@ -29,7 +29,7 @@ module("Cyclical relationships", {
       name: SC.Record.attr(String),
       
       // dynamically discover contacts for a group using a foreign key
-      contacts: function() {
+      contacts: function contacts() {
         var q = SC.Query.local(AB.Contact, "group = {record}", {
           record: this
         });  
@@ -37,13 +37,13 @@ module("Cyclical relationships", {
       }.property().cacheable(),
       
       // discover favorite contacts only
-      favoriteContacts: function() {
+      favoriteContacts: function favoriteContacts() {
         return this.get('contacts').filterProperty('isFavorite', YES);
       }.property('contacts').cacheable(),
       
       // we need to reset favoriteContacts whenever the contacts themselves
       // change
-      contactsContentDidChange: function() {
+      contactsContentDidChange: function contactsContentDidChange() {
         this.notifyPropertyChange('favoriteContacts');
       }.observes('.contacts*[]')
       
@@ -86,7 +86,7 @@ module("Cyclical relationships", {
     
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end(); 
     AB = null;
   }

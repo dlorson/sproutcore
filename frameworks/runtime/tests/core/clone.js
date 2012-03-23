@@ -10,14 +10,14 @@
 var object ;
 
 module("Cloned Objects", {
-  setup: function() {
+  setup: function setup() {
     
 	object = SC.Object.create({
 	
 	  name:'Cloned Object',
 	  value:'value1',
 	 
-	  clone: function(object) {
+	  clone: function clone(object) {
 	    var ret = object ;
 	    switch (SC.typeOf(object)) {
 	  
@@ -92,7 +92,7 @@ test("should use copy() if isCopyable", function() {
   var obj = SC.Object.create(SC.Copyable, {
     isCopy: NO,
     
-    copy: function() {
+    copy: function copy() {
       return SC.Object.create(SC.Copyable, { isCopy: YES });
     }
     

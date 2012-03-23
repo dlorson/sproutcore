@@ -8,7 +8,7 @@
   var TestObject, textFieldView, pane;
 
   module("Text Field Support", {
-    setup: function() {
+    setup: function setup() {
       TestObject = window.TestObject = SC.Object.create({
         value: null
       });
@@ -23,7 +23,7 @@
       pane.append();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
       TestObject = window.TestObject = textFieldView = pane = null;
     }
@@ -106,7 +106,7 @@
   });
 
   module("SC.TextField", {
-    setup: function() {
+    setup: function setup() {
       TestObject = window.TestObject = SC.Object.create({
         value: null
       });
@@ -119,7 +119,7 @@
       pane.append();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
       TestObject = window.TestObject = textFieldView = pane = null;
     }

@@ -13,35 +13,35 @@ SC.supplement(String.prototype,
   /**
     @see SC.String.capitalize
   */
-  capitalize: function() {
+  capitalize: function capitalize() {
     return SC.String.capitalize(this, arguments);
   },
 
   /**
     @see SC.String.camelize
   */
-  camelize: function() {
+  camelize: function camelize() {
     return SC.String.camelize(this, arguments);
   },
 
   /**
     @see SC.String.decamelize
   */
-  decamelize: function() {
+  decamelize: function decamelize() {
     return SC.String.decamelize(this, arguments);
   },
 
   /**
     @see SC.String.dasherize
   */
-  dasherize: function() {
+  dasherize: function dasherize() {
     return SC.String.dasherize(this, arguments);
   },
 
   /**
     @see SC.String.loc
   */
-  loc: function() {
+  loc: function loc() {
     var args = SC.$A(arguments);
     args.unshift(this);
     return SC.String.loc.apply(SC.String, args);
@@ -50,7 +50,7 @@ SC.supplement(String.prototype,
   /**
     @see SC.String.locWithDefault
   */
-  locWithDefault: function(def) {
+  locWithDefault: function locWithDefault(def) {
     var args = SC.$A(arguments);
     args.unshift(this);
     return SC.String.locWithDefault.apply(SC.String, args);
@@ -59,7 +59,7 @@ SC.supplement(String.prototype,
   /**
     @see SC.String.mult
   */
-  mult: function(value) {
+  mult: function mult(value) {
     return SC.String.mult(this, value);
   }
 

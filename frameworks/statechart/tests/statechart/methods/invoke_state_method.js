@@ -8,18 +8,18 @@ var obj1, rootState1, stateA, stateB;
 var obj2, rootState2, stateC, stateD;
 
 module("SC.Statechart: invokeStateMethod method Tests", {
-  setup: function() {
+  setup: function setup() {
     TestState = SC.State.extend({
       testInvokedCount: 0,
       arg1: undefined,
       arg2: undefined,
       returnValue: undefined,
       
-      testInvoked: function() {
+      testInvoked: function testInvoked() {
         return this.get('testInvokedCount') > 0;
       }.property('testInvokedCount'),
       
-      test: function(arg1, arg2) {
+      test: function test(arg1, arg2) {
         this.set('testInvokedCount', this.get('testInvokedCount') + 1);
         this.set('arg1', arg1);
         this.set('arg2', arg2);
@@ -34,7 +34,7 @@ module("SC.Statechart: invokeStateMethod method Tests", {
       initialState: 'stateA',
       
       rootStateExample: TestState.design({
-        testX: function(arg1, arg2) {
+        testX: function testX(arg1, arg2) {
           this.set('testInvokedCount', this.get('testInvokedCount') + 1);
           this.set('arg1', arg1);
           this.set('arg2', arg2);
@@ -60,7 +60,7 @@ module("SC.Statechart: invokeStateMethod method Tests", {
       statesAreConcurrent: YES,
       
       rootStateExample: TestState.design({
-        testX: function(arg1, arg2) {
+        testX: function testX(arg1, arg2) {
           this.set('testInvokedCount', this.get('testInvokedCount') + 1);
           this.set('arg1', arg1);
           this.set('arg2', arg2);
@@ -82,7 +82,7 @@ module("SC.Statechart: invokeStateMethod method Tests", {
     stateD = obj2.getState('stateD');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     TestState = obj1 = rootState1 = stateA = stateB = null;
     obj2 = rootState2 = stateC = stateD = null;
   }

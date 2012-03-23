@@ -29,7 +29,7 @@ SC.Async = SC.Object.extend(
   /** @private
     Called by the statechart
   */
-  tryToPerform: function(state) {
+  tryToPerform: function tryToPerform(state) {
     var func = this.get('func'),
         arg1 = this.get('arg1'),
         arg2 = this.get('arg2'),
@@ -58,17 +58,17 @@ SC.Async.mixin(/** @scope SC.Async */{
 
       SC.State.extend({
 
-        enterState: function() {
+        enterState: function enterState() {
           return SC.Async.perform('foo');
         },
 
-        exitState: function() {
+        exitState: function exitState() {
           return SC.Async.perform('bar', 100);
         }
 
-        foo: function() { ... },
+        foo: function foo() { ... },
 
-        bar: function(arg) { ... }
+        bar: function bar(arg) { ... }
 
       });
 
@@ -77,7 +77,7 @@ SC.Async.mixin(/** @scope SC.Async */{
     @param arg2 Optional. An argument to pass to the given function
     @return {SC.Async} a new instance of a SC.Async
   */
-  perform: function(func, arg1, arg2) {
+  perform: function perform(func, arg1, arg2) {
     return SC.Async.create({ func: func, arg1: arg1, arg2: arg2 });
   }
 

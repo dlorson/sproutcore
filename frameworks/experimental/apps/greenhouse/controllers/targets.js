@@ -22,7 +22,7 @@ Greenhouse.targetsController = SC.ArrayController.create(
   /**
     Call this method whenever you want to reload the targets from the server.
   */
-  reload: function() {
+  reload: function reload() {
     var targets = Greenhouse.store.find(Greenhouse.TARGETS_QUERY);
     this.set('content', targets);
   },
@@ -30,7 +30,7 @@ Greenhouse.targetsController = SC.ArrayController.create(
   /** 
     Generates the Array of Apps in this project
   */
-  applications: function() {
+  applications: function applications() {
 
     var apps = [];
     this.forEach(function(target) { 

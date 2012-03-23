@@ -8,7 +8,7 @@
 var store, fds, storeKey1,storeKey2;
 
 module("SC.FixturesDataSource", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     
     var Sample = (window.Sample= SC.Object.create());
@@ -30,7 +30,7 @@ module("SC.FixturesDataSource", {
     store = SC.Store.create().from(SC.Record.fixtures);
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
 });

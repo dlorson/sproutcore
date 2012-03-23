@@ -11,7 +11,7 @@
 var pane;
 
 module("SC.Border", {
-  setup: function() {
+  setup: function setup() {
     var boxstyles = '<style>.box1-border { border-top: 10px solid red; border-left: 25px solid red; border-right: 109px solid green; border-bottom: 79px solid red; }'+
                     '.box2-border { border-top: 10px solid red; border-left: 25px solid red; border-right: 109px solid green; border-bottom: 79px solid red; }'+
                     '.box3-border { border-top: 10px solid red; border-left: 25px solid red; border-right: 109px solid green; border-bottom: 79px solid red; }</style>';
@@ -23,7 +23,7 @@ module("SC.Border", {
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = null;
     clearHtmlbody();

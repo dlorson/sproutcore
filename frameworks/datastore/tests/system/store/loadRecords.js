@@ -9,7 +9,7 @@
   var store, people, places, Person, Place;
 
   module("SC.Store#loadRecords", {
-    setup: function() {
+    setup: function setup() {
       Person = SC.Record.extend({
         first: SC.Record.attr(String, { isRequired: YES}),
         last: SC.Record.attr(String),
@@ -55,7 +55,7 @@
 
       SC.RunLoop.end();
     },
-    teardown: function() {
+    teardown: function teardown() {
       store = people = places = Person = Place = null;
     }
   });

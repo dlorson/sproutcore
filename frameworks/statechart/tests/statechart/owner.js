@@ -10,29 +10,29 @@ var owner, owner2;
 var TestObject, TestState;
 
 module("SC.Statechart: Change Statechart Owner Property Tests", {
-  setup: function() {
+  setup: function setup() {
     owner = SC.Object.create({
-      toString: function() { return "owner"; }
+      toString: function toString() { return "owner"; }
     });
     
     owner2 = SC.Object.create({
-      toString: function() { return "owner2"; }
+      toString: function toString() { return "owner2"; }
     });
     
     TestState = SC.State.extend({
       accessedOwner: null,
       
-      reset: function() {
+      reset: function reset() {
         this.set('accessedOwner', null);
       },
       
-      render: function() {
+      render: function render() {
         this.set('accessedOwner', this.get('owner'));
       }
     });
     
     TestObject = SC.Object.extend(SC.StatechartManager, {
-      render: function() {
+      render: function render() {
         this.invokeStateMethod('render');
       }
     });
@@ -42,13 +42,13 @@ module("SC.Statechart: Change Statechart Owner Property Tests", {
       initialState: 'stateA',
       
       stateA: TestState.design({
-        foo: function() {
+        foo: function foo() {
           this.gotoState('stateB');
         }
       }),
       
       stateB: TestState.design({
-        bar: function() {
+        bar: function bar() {
           this.gotoState('stateA');
         }
       }),
@@ -80,13 +80,13 @@ module("SC.Statechart: Change Statechart Owner Property Tests", {
       initialState: 'stateC',
       
       stateC: TestState.design({
-        foo: function() {
+        foo: function foo() {
           this.gotoState('stateD');
         }
       }),
       
       stateD: TestState.design({
-        bar: function() {
+        bar: function bar() {
           this.gotoState('stateC');
         }
       })
@@ -107,13 +107,13 @@ module("SC.Statechart: Change Statechart Owner Property Tests", {
       initialState: 'stateE',
       
       stateE: TestState.design({
-        foo: function() {
+        foo: function foo() {
           this.gotoState('stateF');
         }
       }),
       
       stateF: TestState.design({
-        bar: function() {
+        bar: function bar() {
           this.gotoState('stateE');
         }
       })
@@ -126,7 +126,7 @@ module("SC.Statechart: Change Statechart Owner Property Tests", {
     stateF = obj3.getState('stateF');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj1 = rootState1 = stateA = stateB = stateX = stateY = stateZ = null;
     obj2 = rootState2 = stateC = stateD = null;
     obj3 = rootState3 = stateE = stateF = null;

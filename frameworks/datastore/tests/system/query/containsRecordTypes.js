@@ -9,7 +9,7 @@
 var store, storeKey, rec1, rec2, rec3, rec4, rec5, MyApp, q;
 
 module("SC.Query#containsRecordTypes", {
-  setup: function() {
+  setup: function setup() {
     MyApp = SC.Object.create();
     
     MyApp.Contact  = SC.Record.extend();
@@ -19,7 +19,7 @@ module("SC.Query#containsRecordTypes", {
     
   },
   
-  teardown: function() { MyApp = null ; }
+  teardown: function teardown() { MyApp = null ; }
 });
 
 test("comparing a single record type", function() {

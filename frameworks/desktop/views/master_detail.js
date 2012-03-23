@@ -97,7 +97,7 @@ SC.MasterDetailView = SC.View.extend(
     @type Boolean
     @default NO
   */
-  autoHideMaster: function() {
+  autoHideMaster: function autoHideMaster() {
     if (SC.platform.touch) return YES;
     return NO;
   }.property().cacheable(),
@@ -127,7 +127,7 @@ SC.MasterDetailView = SC.View.extend(
     @observes autoHideMaster
     @observes orientation
   */
-  masterIsHidden: function() {
+  masterIsHidden: function masterIsHidden() {
     if (!this.get("autoHideMaster")) return NO;
     if (this.get("orientation") === SC.HORIZONTAL_ORIENTATION) return NO;
     return YES;
@@ -145,7 +145,7 @@ SC.MasterDetailView = SC.View.extend(
   orientation: SC.VERTICAL_ORIENTATION,
   
   /** @private */
-  _scmd_frameDidChange: function() {
+  _scmd_frameDidChange: function _scmd_frameDidChange() {
     var f = this.get("frame"), ret;
     if (f.width > f.height) ret = SC.HORIZONTAL_ORIENTATION;
     else ret = SC.VERTICAL_ORIENTATION;
@@ -154,7 +154,7 @@ SC.MasterDetailView = SC.View.extend(
   }.observes('frame'),
   
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this._scmd_frameDidChange();
     this._scmd_masterIsHiddenDidChange();
@@ -166,7 +166,7 @@ SC.MasterDetailView = SC.View.extend(
     
     @param {SC.View} view The view to anchor the picker to
   */
-  toggleMasterPicker: function(view) {
+  toggleMasterPicker: function toggleMasterPicker(view) {
     if (!this.get("masterIsHidden")) return;
     if (this._picker && this._picker.get("isVisibleInWindow")) {
       this.hideMasterPicker();
@@ -178,7 +178,7 @@ SC.MasterDetailView = SC.View.extend(
   /**
     @param {SC.View} view The view to anchor the picker to
   */
-  showMasterPicker: function(view) {
+  showMasterPicker: function showMasterPicker(view) {
     if (this._picker && this._picker.get("isVisibleInWindow")) return;
     if (!this._picker) {
       var pp = this.get("pickerPane");
@@ -191,7 +191,7 @@ SC.MasterDetailView = SC.View.extend(
     this.showPicker(this._picker, view);
   },
   
-  hideMasterPicker: function() {
+  hideMasterPicker: function hideMasterPicker() {
     if (this._picker && this._picker.get("isVisibleInWindow")) {
       this.hidePicker(this._picker);
     }
@@ -201,14 +201,14 @@ SC.MasterDetailView = SC.View.extend(
     @param {SC.PickerPane} picker The picker to popup
     @param {SC.View} view The view to anchor the picker to
   */
-  showPicker: function(picker, view) {
+  showPicker: function showPicker(picker, view) {
     picker.popup(view, SC.PICKER_POINTER, [3, 0, 1, 2, 3], [9, -9, -18, 18]);
   },
   
   /**
     @param {SC.PickerPane} picker The picker to popup
   */
-  hidePicker: function(picker) {
+  hidePicker: function hidePicker(picker) {
     picker.remove();
   },
   
@@ -239,7 +239,7 @@ SC.MasterDetailView = SC.View.extend(
   /** @private
     Updates masterIsHidden in child views.
   */
-  _scmd_masterIsHiddenDidChange: function() {
+  _scmd_masterIsHiddenDidChange: function _scmd_masterIsHiddenDidChange() {
     var mih = this.get("masterIsHidden");
     this.get("masterView").set("masterIsHidden", mih);
     this.get("detailView").set("masterIsHidden", mih);
@@ -249,21 +249,21 @@ SC.MasterDetailView = SC.View.extend(
     When the frame changes, we don't need to do anything. We use smart positioning.
     However, if the orientation were to change, well, then we might need to do something.
   */
-  _scmd_orientationDidChange: function() {
+  _scmd_orientationDidChange: function _scmd_orientationDidChange() {
     this.invokeOnce("_scmd_tile");
   }.observes("orientation"),
   
   /** @private
     Observes properties which require retiling.
   */
-  _scmd_retileProperties: function() {
+  _scmd_retileProperties: function _scmd_retileProperties() {
     this.invokeOnce("_scmd_tile");
   }.observes("masterIsHidden", "masterWidth"),
   
   /** @private
     Instantiates master and detail views.
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var master = this.get("masterView");
     master = this.masterView = this.createChildView(master);
 
@@ -280,7 +280,7 @@ SC.MasterDetailView = SC.View.extend(
   /** @private
     Tiles the views as necessary.
   */
-  _scmd_tile: function() {
+  _scmd_tile: function _scmd_tile() {
     // first, determine what is and is not visible.
     var masterIsVisible = !this.get('masterIsHidden');
     

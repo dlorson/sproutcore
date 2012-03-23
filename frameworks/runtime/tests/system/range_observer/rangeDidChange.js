@@ -8,7 +8,7 @@
 
 var source, indexes, observer, obj ; // base array to work with
 module("SC.RangeObserver#rangeDidChange", {
-  setup: function() {
+  setup: function setup() {
     
     // create array with 5 SC.Object's in them
     source = [1,2,3,4,5].map(function(x) {
@@ -26,7 +26,7 @@ module("SC.RangeObserver#rangeDidChange", {
       indexes: NO,
       
       // whenever this is called, verify proper params are passed
-      changeObserver: function(inSource, inObject, inKey, inIndexes, inContext) { 
+      changeObserver: function changeObserver(inSource, inObject, inKey, inIndexes, inContext) { 
         this.callCount++;
         if (this.verify) {
           ok(source === inSource, 'source should match source array');

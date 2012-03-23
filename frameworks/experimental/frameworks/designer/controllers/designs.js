@@ -21,7 +21,7 @@
 SC.designsController = SC.ArrayController.create(SC.CollectionViewDelegate,
 /** @scope SC.designsController.prototype */ {
   
-  setDesigns: function(page, iframe){
+  setDesigns: function setDesigns(page, iframe){
     var designs = [];
     
     for(var v in page){
@@ -54,7 +54,7 @@ SC.designsController = SC.ArrayController.create(SC.CollectionViewDelegate,
   // Drop Target
   // 
   
-  collectionViewComputeDragOperations: function(view, drag, op){
+  collectionViewComputeDragOperations: function collectionViewComputeDragOperations(view, drag, op){
     return SC.DRAG_ANY;
   },
   /**
@@ -86,7 +86,7 @@ SC.designsController = SC.ArrayController.create(SC.CollectionViewDelegate,
     @param proposedDropOperation {String} the proposed drop operation.  Will be one of SC.DROP_ON, SC.DROP_BEFORE, or SC.DROP_ANY.
     @returns the allowed drag operation.  Defaults to op
   */
-  collectionViewValidateDragOperation: function(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
+  collectionViewValidateDragOperation: function collectionViewValidateDragOperation(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
     var data = drag.dataForType('SC.Object');
     if(data){
       return SC.DRAG_ANY;
@@ -114,7 +114,7 @@ SC.designsController = SC.ArrayController.create(SC.CollectionViewDelegate,
     @param proposedDropOperation {String} the proposed drop operation.  Will be one of SC.DROP_ON, SC.DROP_BEFORE, or SC.DROP_ANY.
     @returns the allowed drag operation.  Defaults to proposedDragOperation
   */
-  collectionViewPerformDragOperation: function(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
+  collectionViewPerformDragOperation: function collectionViewPerformDragOperation(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
     var data = drag.dataForType('SC.Object'),
         page = this.get('page'),
         scClass,
@@ -122,7 +122,7 @@ SC.designsController = SC.ArrayController.create(SC.CollectionViewDelegate,
     if(data){
       var actionObj = SC.Object.create({
         data: data,
-        addItemToPage: function(name){
+        addItemToPage: function addItemToPage(name){
           scClass = eval(this.getPath('data.scClass'));
           var type = SC.kindOf(scClass, SC.View) ? 'view' : 'controller';
           

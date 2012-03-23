@@ -49,7 +49,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
     @type Number
     @observes maximum
   */
-  value: function(key, val) {
+  value: function value(key, val) {
     if (val !== undefined) {
       // Don't enforce the maximum now, because the scroll view could change
       // height and we want our content to stay put when it does.
@@ -111,7 +111,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
     @type String
     @default 'verticalScrollOffset'
   */
-  ownerScrollValueKey: function() {
+  ownerScrollValueKey: function ownerScrollValueKey() {
     return 'verticalScrollOffset';
   }.property('layoutDirection').cacheable(),
 
@@ -121,7 +121,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
   //
 
   /** @private */
-  init: function() {
+  init: function init() {
     // Set the scrollerThickness based on controlSize
     switch (this.get('controlSize')) {
       case SC.TINY_CONTROL_SIZE:
@@ -145,7 +145,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
   },
   
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     context.addClass('sc-vertical') ;
     context.addClass(this.get('controlSize'));
     if (firstTime) {
@@ -156,7 +156,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
   },
   
   /** @private */
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     // var callback, amt, layer;
     // 
     // callback = this._sc_scroller_scrollDidChange ;
@@ -170,19 +170,19 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
   },
   
   /** @private */
-  willDestroyLayer: function() {
+  willDestroyLayer: function willDestroyLayer() {
     var callback = this._sc_scroller_scrollDidChange ;
     SC.Event.remove(this.$(), 'scroll', this, callback) ;
   },
   
   /** @private */
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     this.set('isMouseOver', YES);
     this._invokeScrollOnMouseOver();
   },
   
   /** @private */
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     this.set('isMouseOver', NO);
   },
   
@@ -191,11 +191,11 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
     SC.MenuScroller and SC.MenuScroll use valueBinding so this function is
     not necessary.
   */
-  _sc_scroller_valueDidChange: function() {}.observes('value'),
+  _sc_scroller_valueDidChange: function _sc_scroller_valueDidChange() {}.observes('value'),
   
 
   /** @private */
-  _sc_scroller_armScrollTimer: function() {
+  _sc_scroller_armScrollTimer: function _sc_scroller_armScrollTimer() {
     if (!this._sc_scrollTimer) {
       SC.RunLoop.begin() ;
       var method = this._sc_scroller_scrollDidChange ;
@@ -205,7 +205,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
   },
   
   /** @private */
-  _sc_scroller_scrollDidChange: function() {
+  _sc_scroller_scrollDidChange: function _sc_scroller_scrollDidChange() {
     var now = Date.now(), 
         last = this._sc_lastScroll, 
         layer = this.get('layer'), 
@@ -230,7 +230,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
     Scroll the menu if it is is an up or down arrow. This is called by
     the function that simulates mouseOver.
   */
-  _scrollMenu: function(){
+  _scrollMenu: function _scrollMenu(){
     var val = this.get('value'), newval;
     if(this.get('scrollDown')) {
       newval = val+this.verticalLineScroll;
@@ -255,7 +255,7 @@ SC.MenuScrollerView = SC.ScrollerView.extend(
     isMouseOver which is turned on when mouseEntered is called and turned off
     when mouseExited is called. 
   */
-  _invokeScrollOnMouseOver: function(){
+  _invokeScrollOnMouseOver: function _invokeScrollOnMouseOver(){
     this._scrollMenu();
     if(this.get('isMouseOver')){
       this.invokeLater(this._invokeScrollOnMouseOver, 50);
@@ -475,7 +475,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
   /**
     @param {SC.View} view
   */
-  scrollToVisible: function(view) {
+  scrollToVisible: function scrollToVisible(view) {
     // if no view is passed, do default
     if (arguments.length === 0) return sc_super();
 
@@ -512,7 +512,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
     You may also want to override this method to handle layout for any
     additional controls you have added to the view.
   */
-  tile: function() {
+  tile: function tile() {
     // get vertical scroller/determine if we should have a scroller
     var hasScroller, vscroll, vscroll2, hasVertical, clip, clipLayout, viewportHeight;
     hasScroller = this.get('hasVerticalScroller');
@@ -566,7 +566,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
   /** @private
     Called whenever a scroller visibility changes.  Calls the tile() method.
   */
-  scrollerVisibilityDidChange: function() {
+  scrollerVisibilityDidChange: function scrollerVisibilityDidChange() {
     this.tile();
   }.observes('isVerticalScrollerVisible', 'isHorizontalScrollerVisible', 'verticalScrollOffset'),
     
@@ -579,7 +579,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
     Instantiate scrollers & container views as needed.  Replace their classes
     in the regular properties.
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var childViews = [], view, view2, controlSize = this.get('controlSize') ;
     
     // create the containerView.  We must always have a container view. 
@@ -623,7 +623,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
   },
   
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     
     // start observing initial content view.  The content view's frame has
@@ -640,7 +640,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
   },
   
   /** @private Registers/deregisters view with SC.Drag for autoscrolling */
-  _scsv_registerAutoscroll: function() {
+  _scsv_registerAutoscroll: function _scsv_registerAutoscroll() {
     if (this.get('isVisibleInWindow')) SC.Drag.addScrollableView(this);
     else SC.Drag.removeScrollableView(this);
   }.observes('isVisibleInWindow'),
@@ -651,7 +651,7 @@ SC.MenuScrollView = SC.ScrollView.extend(
     size of the contentView changes.  We don't care about the origin since
     that is tracked separately from the offset values.
   */
-  contentViewFrameDidChange: function() {
+  contentViewFrameDidChange: function contentViewFrameDidChange() {
     var view   = this.get('contentView'), view2, 
         f      = (view) ? view.get('frame') : null,
         width  = (f) ? f.width : 0,
@@ -684,13 +684,13 @@ SC.MenuScrollView = SC.ScrollView.extend(
     Whenever the horizontal scroll offset changes, update the scrollers and 
     edit the location of the contentView.
   */
-  _scroll_horizontalScrollOffsetDidChange: function() {},
+  _scroll_horizontalScrollOffsetDidChange: function _scroll_horizontalScrollOffsetDidChange() {},
    
   /** @private
     Whenever the vertical scroll offset changes, update the scrollers and 
     edit the location of the contentView.
   */
-  _scroll_verticalScrollOffsetDidChange: function() {
+  _scroll_verticalScrollOffsetDidChange: function _scroll_verticalScrollOffsetDidChange() {
     var offset = this.get('verticalScrollOffset') ;
     
     // update the offset for the contentView...

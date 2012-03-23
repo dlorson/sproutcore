@@ -54,13 +54,13 @@ SC.NavigationView = SC.WorkspaceView.extend(
   navigationContentView: SC.View,
   
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this._views = [];
   },
   
   /** @private */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     sc_super();
     
     // get the content
@@ -77,7 +77,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   },
   
   /** @private */
-  changeNavigationContent: function(view) {
+  changeNavigationContent: function changeNavigationContent(view) {
     var top = null, bottom = null;
     
     // find top and bottom toolbars if we are setting it to a view
@@ -117,7 +117,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
     
     @param {SC.View} view The view to display
   */
-  push: function(view) {
+  push: function push(view) {
     this._currentDirection = this._current ? SC.TO_LEFT : null;
     
     // add current view to the stack (if needed)
@@ -130,7 +130,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   /**
     Pops the current view off the navigation view stack.
   */
-  pop: function() {
+  pop: function pop() {
     this._currentDirection = SC.TO_RIGHT;
     
     // pop the view
@@ -145,7 +145,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
     
     @param {SC.View} toView The view to display
   */
-  popToView: function(toView) {
+  popToView: function popToView(toView) {
     this._currentDirection = SC.TO_RIGHT;
     var views = this._views,
         idx = views.length - 1, 
@@ -163,7 +163,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   },
   
   /** @private */
-  topToolbarDidChange: function() {
+  topToolbarDidChange: function topToolbarDidChange() {
     var active = this.activeTopToolbar, replacement = this.get("topToolbar");
     
     // if we have an active toolbar, set the build direction and build out
@@ -192,7 +192,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   }.observes("topToolbar"),
   
   /** @private */
-  bottomToolbarDidChange: function() {
+  bottomToolbarDidChange: function bottomToolbarDidChange() {
     var active = this.activeBottomToolbar, replacement = this.get("bottomToolbar");
     
     if (active) {
@@ -217,7 +217,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   }.observes("topToolbar"),
   
   /** @private */
-  contentViewDidChange: function() {
+  contentViewDidChange: function contentViewDidChange() {
     var active = this.activeNavigationContentView, replacement = this.get("navigationContentView");
     
     // mix in navigationbuilder if needed
@@ -235,7 +235,7 @@ SC.NavigationView = SC.WorkspaceView.extend(
   }.observes("navigationContentView"),
   
   /** @private */
-  childDidChange: function() {
+  childDidChange: function childDidChange() {
     var replacement = this._pendingBuildIn, active = this._pendingBuildOut;
     if (active) {
       if (this._currentDirection !== null) {

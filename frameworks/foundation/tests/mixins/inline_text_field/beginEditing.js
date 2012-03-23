@@ -13,11 +13,11 @@ pane = SC.ControlTestPane.design().add("label1", SC.LabelView, {
   notifiedWillBegin: NO,
   notifiedDidBegin: NO,
 
-  inlineEditorShouldBeginEditing: function(inlineEditor) {
+  inlineEditorShouldBeginEditing: function inlineEditorShouldBeginEditing(inlineEditor) {
     return YES;
   },
 
-  inlineEditorWillBeginEditing: function(inlineEditor) {
+  inlineEditorWillBeginEditing: function inlineEditorWillBeginEditing(inlineEditor) {
     this.set('notifiedWillBegin', YES);
 
     // The inline editor is the last view appended to the pane
@@ -29,7 +29,7 @@ pane = SC.ControlTestPane.design().add("label1", SC.LabelView, {
     sc_super();
   },
 
-  inlineEditorDidBeginEditing: function(inlineEditor) {
+  inlineEditorDidBeginEditing: function inlineEditorDidBeginEditing(inlineEditor) {
     this.set('notifiedDidBegin', YES);
 
     // The inline editor is the last view appended to the pane
@@ -43,7 +43,7 @@ pane = SC.ControlTestPane.design().add("label1", SC.LabelView, {
 }).add("label2", SC.LabelView, {
   value: 'Can\'t Touch This',
 
-  inlineEditorShouldBeginEditing: function(inlineEditor) {
+  inlineEditorShouldBeginEditing: function inlineEditorShouldBeginEditing(inlineEditor) {
     console.log('inlineEditorShouldBeginEditing');
     return NO;
   }
@@ -83,7 +83,7 @@ optionsForLabelFromView = function(view) {
   
 */
 module("Test the beginEditing() function of SC.InlineTextFieldView", {
-  setup: function() {
+  setup: function setup() {
 
     pane.standardSetup().setup();
     
@@ -97,7 +97,7 @@ module("Test the beginEditing() function of SC.InlineTextFieldView", {
     optionsForLabel2 = optionsForLabelFromView(view2);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     optionsForLabel1 = optionsForLabel2 = null;
     SC.InlineTextFieldView.discardEditing();
     pane.standardSetup().teardown();

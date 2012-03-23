@@ -8,10 +8,10 @@
 var LocaleObject;
 
 module('SC.Object', {
-  setup: function() {
+  setup: function setup() {
 
     LocaleObject = SC.Locale.create({
-      init: function(){
+      init: function init(){
         sc_super();
         //hash of new languages
         var newLocales = { deflang: 'dl', empty: '' };

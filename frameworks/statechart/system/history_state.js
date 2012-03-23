@@ -83,14 +83,14 @@ SC.HistoryState = SC.Object.extend(
     its historyState property assigned. If not then this object's
     assigned default state is returned.
   */
-  state: function() {
+  state: function state() {
     var defaultState = this.get('defaultState'),
         historyState = this.getPath('parentState.historyState');
     return !!historyState ? historyState : defaultState;
   }.property().cacheable(),
   
   /** @private */
-  parentHistoryStateDidChange: function() {
+  parentHistoryStateDidChange: function parentHistoryStateDidChange() {
     this.notifyPropertyChange('state');
   }.observes('*parentState.historyState')
   

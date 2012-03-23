@@ -15,7 +15,7 @@ var context = null;
 // attr
 // 
 module("SC.RenderContext#attr", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().attr({ foo: 'foo' }) ;
   }
 });

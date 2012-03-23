@@ -10,7 +10,7 @@
 
 var parent, store, child, storeKey, json, args;
 module("SC.NestedStore#discardChanges", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     parent = SC.Store.create();

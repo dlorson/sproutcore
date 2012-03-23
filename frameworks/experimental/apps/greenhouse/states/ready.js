@@ -18,24 +18,24 @@ Greenhouse.mixin( /** @scope Greenhouse */{
     initialSubstate: 'readyWaiting',
     
     
-    enterState: function(){
+    enterState: function enterState(){
       console.log('greenhouse has landed');
       var c = Greenhouse.getPath('mainPage.mainPane.container');
       c.set('nowShowing', Greenhouse.getPath('appPage.mainView'));
     },
-    exitState: function(){
+    exitState: function exitState(){
 
     },
 
     // ..........................................................
     //  Events
     // 
-    run: function(){
+    run: function run(){
       var target = Greenhouse.targetController.get('name');
       window.open(target, "","");
     },
 
-    selectFile: function(){
+    selectFile: function selectFile(){
       var c = Greenhouse.fileController.get('content');
       if(c) {
         c.refresh();
@@ -43,12 +43,12 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       }
     },
 
-    unselectFile: function(){
+    unselectFile: function unselectFile(){
      // TODO: [EG, MB] add the action for unselecting 
      this.gotoState('readyWaiting');
     },
 
-    reloadIframe: function(){
+    reloadIframe: function reloadIframe(){
       Greenhouse.filesController.set('selection', null);
       Greenhouse.gettingFile._firstTime = YES;
 
@@ -56,7 +56,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       this.gotoState('iframeLoading');
     },
 
-    resizePage: function(sender){
+    resizePage: function resizePage(sender){
       var s = sender.getPath('content.size'),
           def = {top: 20, left: 20, right: 20, bottom: 83},
           iframe = Greenhouse.get('iframe'),
@@ -108,34 +108,34 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
     gettingFile: SC.State.design({
 
-      init: function(){
+      init: function init(){
         sc_super();
         this._firstTime = YES;
       },
 
-      enterState: function(){
+      enterState: function enterState(){
         //TODO draw spinner
       },
-      exitState: function(){
+      exitState: function exitState(){
       },
 
-      fileSelectedIsAPage: function(){
+      fileSelectedIsAPage: function fileSelectedIsAPage(){
         Greenhouse.loadIframeWithPage(this._firstTime);
         this._firstTime = NO;
         this.gotoHistoryState('pageSelected');
       },
 
-      fileSelectedIsNotAPage: function(){
+      fileSelectedIsNotAPage: function fileSelectedIsNotAPage(){
         this.gotoState('fileSelected');
       }
     }),
 
     fileSelected: SC.State.design({
 
-      enterState: function(){
+      enterState: function enterState(){
         //TODO: draw message saying we can't do anything with this right now...
       },
-      exitState: function(){}
+      exitState: function exitState(){}
     }),
 
     pageSelected: SC.State.design({
@@ -143,13 +143,13 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       parentState: 'ready',
       initialSubstate: 'noDock',
 
-      enterState: function(){},
-      exitState: function(){},
+      enterState: function enterState(){},
+      exitState: function exitState(){},
 
       // ..........................................................
       // Events
       // 
-      save: function(){
+      save: function save(){
         var designPage, content = Greenhouse.fileController.get('content');
         designPage = Greenhouse.iframe.SC.designsController.get('page');
         //check if this page has a name...
@@ -159,7 +159,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         content.set('body', js_beautify(designPage));
         content.commitRecord(); 
       },
-      addProperty: function(){
+      addProperty: function addProperty(){
         var designer = Greenhouse.designController.get('content');
 
         if(designer){
@@ -168,7 +168,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
           designer.propertyDidChange('editableProperties');
         }
       },
-      deleteProperty: function(){
+      deleteProperty: function deleteProperty(){
         var prop = Greenhouse.propertyController.get('content'),
             designer = Greenhouse.designController.get('content'),
             view;
@@ -188,24 +188,24 @@ Greenhouse.mixin( /** @scope Greenhouse */{
        noDock: SC.State.design({
          parentState: 'pageSelected',
 
-         enterState: function(){
+         enterState: function enterState(){
            var dock = Greenhouse.appPage.get('dockView');
            dock.set('layout', {top: 0, bottom: 0, right: 0, width: 0});
            var design = Greenhouse.appPage.get('designAreaView');
            design.set('layout', {top: 0, bottom: 0, right: 0, left: 0});
          },
-         exitState: function(){
+         exitState: function exitState(){
 
          },
 
          // ..........................................................
          // Events
          //
-         toggleDockedLibrary: function(){
+         toggleDockedLibrary: function toggleDockedLibrary(){
            this.gotoState('docked');
          },
 
-         toggleDockedInspector: function(){
+         toggleDockedInspector: function toggleDockedInspector(){
            this.gotoState('docked');
          }
        }),
@@ -213,20 +213,20 @@ Greenhouse.mixin( /** @scope Greenhouse */{
        docked: SC.State.design({
          parentState: 'pageSelected',
 
-         enterState: function(){
+         enterState: function enterState(){
            var dock = Greenhouse.appPage.get('dockView');
            dock.set('layout', {top: 0, bottom: 0, right: 0, width: 230});
            var design = Greenhouse.appPage.get('designAreaView');
            design.set('layout', {top: 0, left: 0, right: 230, bottom: 0});
          },
-         exitState: function(){
+         exitState: function exitState(){
 
          },
 
          // ..........................................................
          // Events
          //
-         undock: function(){
+         undock: function undock(){
            this.gotoState('noDock');
          }
       })

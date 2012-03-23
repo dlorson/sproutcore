@@ -186,7 +186,7 @@ function checkPositions(view, positions) {
   view.set('isVisibleInWindow', YES);
   var context = {
     position: 0,
-    performNext: function(positions) {
+    performNext: function performNext(positions) {
       var next = checkSteps[this.position];
       this.position++;
       next(view, positions, this);

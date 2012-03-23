@@ -42,13 +42,13 @@ test("returns layer if you set the value", function() {
 
 var parent, child, parentDom, childDom ;
 module("SC.View#layer - autodiscovery", {
-  setup: function() {
+  setup: function setup() {
 
     parent = SC.View.create({
        childViews: [ SC.View.extend({
          // redefine this method in order to isolate testing of layer prop.
          // simple version just returns firstChild of parentLayer.
-         findLayerInParentLayer: function(parentLayer) {
+         findLayerInParentLayer: function findLayerInParentLayer(parentLayer) {
            return parentLayer.firstChild;
          }
        }) ]
@@ -64,7 +64,7 @@ module("SC.View#layer - autodiscovery", {
     parent.set('layer', parentDom);
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     parent = child = parentDom = childDom = null ;
   }
 });
@@ -91,10 +91,10 @@ test("returns null again if parent view's layer is destroyed");
 
 var pane, view ;
 module("SC.View#$", {
-  setup: function() {
+  setup: function setup() {
     pane = SC.Pane.design()
       .childView(SC.View.design({
-        render: function(context, firstTime) {
+        render: function render(context, firstTime) {
           context.push('<span></span>');
         }
       })).create();
@@ -106,7 +106,7 @@ module("SC.View#$", {
     SC.RunLoop.end();
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.begin();
     pane.remove();
     SC.RunLoop.end();

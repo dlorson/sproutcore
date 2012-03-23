@@ -37,7 +37,7 @@ SC.SelectViewMenu = {
     @private 
     Invalidates menu items' isChecked property when the selectView's value changes.
   */
-  valueDidChange: function() {
+  valueDidChange: function valueDidChange() {
     var items = this.get('menuItemViews'), idx, len = items.length, item;
     for (idx = 0; idx < len; idx++) {
       // if the item currently is checked, or if it _should_ be checked, we need to
@@ -62,7 +62,7 @@ SC.SelectViewMenu = {
     @default SC.MenuItemView subclass
   */
   exampleView: SC.MenuItemView.extend({
-    isChecked: function() {
+    isChecked: function isChecked() {
       // _lastIsChecked is used by the SelectViewMenu mixin above to determine whether
       // the isChecked property needs to be invalidated.
       this._lastIsChecked = this.getContentProperty('itemValueKey') === this.getPath('parentMenu.rootMenu.value');
@@ -88,7 +88,7 @@ SC.SelectViewMenu = {
   ],
 
   /** @private */
-  _svm_setupBindings: function() {
+  _svm_setupBindings: function _svm_setupBindings() {
     var bindTo = this.get('selectView');
     if (!bindTo) {
       return;
@@ -105,7 +105,7 @@ SC.SelectViewMenu = {
   },
 
   /** @private */
-  _svm_clearBindings: function() {
+  _svm_clearBindings: function _svm_clearBindings() {
     var boundTo = this._svm_isBoundTo;
     if (!boundTo) {
       return;
@@ -120,18 +120,18 @@ SC.SelectViewMenu = {
   },
 
   /** @private */
-  _svm_selectViewDidChange: function() {
+  _svm_selectViewDidChange: function _svm_selectViewDidChange() {
     this._svm_clearBindings();
     this._svm_setupBindings();
   }.observes('selectView'),
 
   /** @private */
-  initMixin: function() {
+  initMixin: function initMixin() {
     this._svm_setupBindings();
   },
 
   /** @private */
-  destroyMixin: function() {
+  destroyMixin: function destroyMixin() {
     this._svm_clearBindings();
   }
 };

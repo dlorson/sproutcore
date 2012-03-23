@@ -6,7 +6,7 @@
 var obj, monitor, rootState, a, b, c, d, e, m, n, o, p, x, y;
 
 module("SC.Statechart: Destroy Statechart Tests", {
-  setup: function() {
+  setup: function setup() {
     
     obj = SC.Object.create(SC.StatechartManager, {
       
@@ -42,7 +42,7 @@ module("SC.Statechart: Destroy Statechart Tests", {
     monitor = SC.StatechartMonitor.create({ statechart: obj });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj = monitor = rootState = null;
     a = b = c = d = e = m = n = o = p = x = y = null;
   }

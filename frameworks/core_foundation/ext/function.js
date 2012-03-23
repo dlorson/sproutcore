@@ -21,7 +21,7 @@ SC.mixin(Function.prototype, /** @scope Function.prototype */ {
     @param interval {Number} the time to wait, in msec
     @returns {SC.Timer} scheduled timer
   */
-  invokeLater: function(target, interval) {
+  invokeLater: function invokeLater(target, interval) {
     if (interval === undefined) interval = 1 ;
     var f = this;
     if (arguments.length > 2) {

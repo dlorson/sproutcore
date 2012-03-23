@@ -11,12 +11,12 @@ sc_require('render_delegates/picker');
 SC.BaseTheme.menuRenderDelegate = SC.BaseTheme.pickerRenderDelegate.create({
   className: 'menu',
 
-  render: function(orig, dataSource, context) {
+  render: function render(orig, dataSource, context) {
     this.addSizeClassName(dataSource, context);
     orig(dataSource, context);
   }.enhance(),
 
-  update: function(orig, dataSource, jquery) {
+  update: function update(orig, dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
     orig(dataSource, jquery);
   }.enhance(),

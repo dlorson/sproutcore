@@ -13,7 +13,7 @@ var fromObject, toObject, binding, Bon1, bon2 ; // global variables
 
 module("basic object binding", {
   
-  setup: function() {
+  setup: function setup() {
     fromObject = SC.Object.create({ value: 'start' }) ;
     toObject = SC.Object.create({ value: 'end' }) ;
     binding = SC.Binding.from("value", fromObject).to("value", toObject).connect() ;
@@ -71,7 +71,7 @@ test("suspended observing during bindings", function() {
     
     callCount: 0,
     
-    observer: function() {
+    observer: function observer() {
       equals(this.get('value1'), 'CHANGED', 'value1 when observer fires');
       equals(this.get('value2'), 'CHANGED', 'value2 when observer fires');
       this.callCount++;
@@ -128,7 +128,7 @@ test("should connect when multiple instances of class are created", function() {
 });
 
 module("one way binding", {
-  setup: function() {
+  setup: function setup() {
     fromObject = SC.Object.create({ value: 'start' }) ;
     toObject = SC.Object.create({ value: 'end' }) ;
     binding = SC.Binding.from("value", fromObject).to("value", toObject).oneWay().connect() ;
@@ -165,14 +165,14 @@ var first, second, third, binding1, binding2 ; // global variables
 
 module("chained binding", {
   
-  setup: function() {
+  setup: function setup() {
     first = SC.Object.create({ output: 'first' }) ;
     
     second = SC.Object.create({ 
       input: 'second',
       output: 'second',
       
-      inputDidChange: function() {
+      inputDidChange: function inputDidChange() {
         this.set("output", this.get("input")) ;
       }.observes("input")  
     }) ;
@@ -206,7 +206,7 @@ test("changing first output should propagate to third after flush", function() {
 
 module("Custom Binding", {
   
-  setup: function() {
+  setup: function setup() {
 	Bon1 = SC.Object.extend({
 		value1: "hi",
 		value2: 83,
@@ -225,7 +225,7 @@ module("Custom Binding", {
     } ;
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     bon2.destroy();
   }
 });
@@ -288,7 +288,7 @@ test("two bindings to the same value should sync in the order they are initializ
       fooBinding: "*owner.foo"
     }),
     
-    init: function() {
+    init: function init() {
       sc_super();
       this.set('c', this.C.create({ owner: this }));
     }
@@ -311,7 +311,7 @@ test("two bindings to the same value should sync in the order they are initializ
 
 module("AND binding", {
 
-  setup: function() {
+  setup: function setup() {
     // temporarily set up two source objects in the SC namespace so we can
     // use property paths to access them
     SC.testControllerA = SC.Object.create({ value: NO });
@@ -323,7 +323,7 @@ module("AND binding", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     SC.testControllerA.destroy();
     SC.testControllerB.destroy();
   }
@@ -368,7 +368,7 @@ test("toObject.value should be NO if either source is NO", function() {
 
 module("OR binding", {
 
-  setup: function() {
+  setup: function setup() {
     // temporarily set up two source objects in the SC namespace so we can
     // use property paths to access them
     SC.testControllerA = SC.Object.create({ value: NO });
@@ -380,7 +380,7 @@ module("OR binding", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     SC.testControllerA.destroy();
     SC.testControllerB.destroy();
   }
@@ -408,7 +408,7 @@ test("toObject.value should be second value if first is falsy", function() {
 });
 
 module("Binding with '[]'", {
-  setup: function() {
+  setup: function setup() {
     fromObject = SC.Object.create({ value: [] });
     toObject = SC.Object.create({ value: '' });
     binding = SC.Binding.transform(function(v) {
@@ -425,7 +425,7 @@ test("Binding refreshes after a couple of items have been pushed in the array", 
 
 
 module("propertyNameBinding with longhand", {
-  setup: function(){
+  setup: function setup(){
     TestNamespace = {
       fromObject: SC.Object.create({
         value: "originalValue"
@@ -437,7 +437,7 @@ module("propertyNameBinding with longhand", {
       })
     };
   },
-  teardown: function(){
+  teardown: function teardown(){
     TestNamespace.fromObject.destroy();
     TestNamespace.toObject.destroy();
     delete TestNamespace.fromObject;

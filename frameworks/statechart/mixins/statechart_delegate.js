@@ -36,7 +36,7 @@ SC.StatechartDelegate = /** @scope SC.StatechartDelegate.prototype */ {
     @param {String|Hash} location the new location 
     @param {SC.State} state the state requesting the location update
   */
-  statechartUpdateLocationForState: function(statechart, location, state) {
+  statechartUpdateLocationForState: function statechartUpdateLocationForState(statechart, location, state) {
     SC.routes.set('location', location);
   },
   
@@ -47,7 +47,7 @@ SC.StatechartDelegate = /** @scope SC.StatechartDelegate.prototype */ {
     @param {SC.State} state the state requesting the location
     @returns {String} the location 
   */
-  statechartAcquireLocationForState: function(statechart, state) {
+  statechartAcquireLocationForState: function statechartAcquireLocationForState(statechart, state) {
     return SC.routes.get('location');
   },
   
@@ -73,7 +73,7 @@ SC.StatechartDelegate = /** @scope SC.StatechartDelegate.prototype */ {
       
     @see SC.State#representRoute
   */
-  statechartBindStateToRoute: function(statechart, state, route, handler) {
+  statechartBindStateToRoute: function statechartBindStateToRoute(statechart, state, route, handler) {
     SC.routes.add(route, state, handler);
   },
   
@@ -93,7 +93,7 @@ SC.StatechartDelegate = /** @scope SC.StatechartDelegate.prototype */ {
     
     @see #statechartStateCancelledHandlingTriggeredRoute
   */
-  statechartShouldStateHandleTriggeredRoute: function(statechart, state, context) {
+  statechartShouldStateHandleTriggeredRoute: function statechartShouldStateHandleTriggeredRoute(statechart, state, context) {
     return YES;
   },
   
@@ -108,6 +108,6 @@ SC.StatechartDelegate = /** @scope SC.StatechartDelegate.prototype */ {
     
     @see #statechartShouldStateHandleTriggeredRoute
   */
-  statechartStateCancelledHandlingTriggeredRoute: function(statechart, state, context) { }
+  statechartStateCancelledHandlingTriggeredRoute: function statechartStateCancelledHandlingTriggeredRoute(statechart, state, context) { }
   
 };

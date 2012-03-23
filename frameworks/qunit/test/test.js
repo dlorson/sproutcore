@@ -14,7 +14,7 @@ test("expect in test", 1, function() {
 });
 
 module("setup test", {
-	setup: function() {
+	setup: function setup() {
 		ok(true);
 	}
 });
@@ -31,11 +31,11 @@ test("module with setup, expect in test call", 2, function() {
 var state;
 
 module("setup/teardown test", {
-	setup: function() {
+	setup: function setup() {
 		state = true;
 		ok(true);
 	},
-	teardown: function() {
+	teardown: function teardown() {
 		ok(true);
 	}
 });
@@ -56,7 +56,7 @@ if (typeof setTimeout !== 'undefined') {
 state = 'fail';
 
 module("teardown and stop", {
-	teardown: function() {
+	teardown: function teardown() {
 		equal(state, "done", "Test teardown.");
 	}
 });
@@ -71,7 +71,7 @@ test("teardown must be called after test ended", function() {
 });
 
 module("async setup test", {
-	setup: function() {
+	setup: function setup() {
 		stop();
 		setTimeout(function(){
 			ok(true);
@@ -87,7 +87,7 @@ asyncTest("module with async setup", function() {
 });
 
 module("async teardown test", {
-	teardown: function() {
+	teardown: function teardown() {
 		stop();
 		setTimeout(function(){
 			ok(true);
@@ -138,10 +138,10 @@ test("sync", 2, function() {
 }
 
 module("save scope", {
-	setup: function() {
+	setup: function setup() {
 		this.foo = "bar";
 	},
-	teardown: function() {
+	teardown: function teardown() {
 		deepEqual(this.foo, "bar");
 	}
 });

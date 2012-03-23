@@ -12,7 +12,7 @@
 var objectA, objectB, object;
 
 module("SC.Timer.fireTime + SC.Timer.performAction ",{
-  	setup: function() {
+  	setup: function setup() {
     	objectA = {} ;
     	objectB = {} ;
 		
@@ -57,7 +57,7 @@ test("fire() should call the action", function() {
 	var start = SC.RunLoop.currentRunLoop.get('startTime') ;
 	var t = SC.Timer.schedule({
 		target: this,
-		action: function() {
+		action: function action() {
 			count++;
 		},
 		interval: 100

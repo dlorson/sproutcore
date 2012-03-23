@@ -54,7 +54,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     Invoke this method to set the builtin defaults.  This will cause all
     properties to change.
   */
-  defaults: function(newDefaults) {
+  defaults: function defaults(newDefaults) {
     this._defaults = newDefaults ;
     this.allPropertiesDidChange();
   },
@@ -67,7 +67,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     @param {String} keyName
     @returns {Object} read value
   */
-  readDefault: function(keyName) {
+  readDefault: function readDefault(keyName) {
     var isIE7, ret, userKeyName, localStorage, key, del, storageSafari3;
 
     // namespace keyname
@@ -133,7 +133,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     @param {Object} value
     @returns {SC.UserDefault} receiver
   */
-  writeDefault: function(keyName, value) {
+  writeDefault: function writeDefault(keyName, value) {
     var isIE7, userKeyName, written, localStorage, key, del, storageSafari3;
 
     keyName = this._normalizeKeyName(keyName);
@@ -203,7 +203,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     @param {String} keyName
     @returns {SC.UserDefaults} receiver
   */
-  resetDefault: function(keyName) {
+  resetDefault: function resetDefault(keyName) {
     var fullKeyName, isIE7, userKeyName, written, localStorage, key, storageSafari3;
     fullKeyName = this._normalizeKeyName(keyName);
     userKeyName = this._userKeyName(fullKeyName);
@@ -266,7 +266,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     @param {Object} value
     @returns {Object}
   */
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     if (value === undefined) {
       return this.readDefault(key) ;
     } else {
@@ -279,7 +279,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     Normalize the passed key name.  Used by all accessors to automatically
     insert an appName if needed.
   */
-  _normalizeKeyName: function(keyName) {
+  _normalizeKeyName: function _normalizeKeyName(keyName) {
     if (keyName.indexOf(':')<0) {
       var domain = this.get('appDomain') || 'app';
       keyName = [domain, keyName].join(':');
@@ -290,12 +290,12 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
   /**
     Builds a user key name from the passed key name
   */
-  _userKeyName: function(keyName) {
+  _userKeyName: function _userKeyName(keyName) {
     var user = this.get('userDomain') || '(anonymous)' ;
     return [user,keyName].join('-at-');
   },
 
-  _domainDidChange: function() {
+  _domainDidChange: function _domainDidChange() {
     var didChange = NO;
     if (this.get("userDomain") !== this._scud_userDomain) {
       this._scud_userDomain = this.get('userDomain');
@@ -310,7 +310,7 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
     if (didChange) this.allPropertiesDidChange();
   }.observes('userDomain', 'appDomain'),
 
-  init: function() {
+  init: function init() {
     sc_super();
     var isIE7;
 
@@ -395,11 +395,11 @@ SC.UserDefaults = SC.Object.extend(/** @scope SC.UserDefaults.prototype */ {
 
 
   //Private methods to use if user defaults uses the database in safari 3
-  _killTransaction: function(transaction, error){
+  _killTransaction: function _killTransaction(transaction, error){
     return true; // fatal transaction error
   },
 
-  _nullDataHandler: function(transaction, results){}
+  _nullDataHandler: function _nullDataHandler(transaction, results){}
 });
 
 /** global user defaults. */

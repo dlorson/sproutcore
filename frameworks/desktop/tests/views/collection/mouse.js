@@ -8,7 +8,7 @@
 var view, content, contentController, pane, actionCalled = 0;
 
 module("SC.CollectionView Mouse Events", {
-  setup: function() {
+  setup: function setup() {
     
     SC.RunLoop.begin();
     
@@ -26,13 +26,13 @@ module("SC.CollectionView Mouse Events", {
 
       layout: { top: 0, left: 0, width: 300, height: 500 },
       
-      layoutForContentIndex: function(idx) {
+      layoutForContentIndex: function layoutForContentIndex(idx) {
         return { left: 0, right: 0, top: idx * 50, height: 50 };
       },
       
       isVisibleInWindow: YES,
       acceptsFirstResponder: YES,
-      action: function() {
+      action: function action() {
         actionCalled++;
       }
     });
@@ -44,7 +44,7 @@ module("SC.CollectionView Mouse Events", {
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.begin();
     pane.remove();
     actionCalled = 0;

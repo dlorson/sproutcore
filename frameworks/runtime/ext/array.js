@@ -15,7 +15,7 @@ SC.mixin(Array.prototype,
   /** @lends Array.prototype */ {
 
   // primitive for array support.
-  replace: function(idx, amt, objects) {
+  replace: function replace(idx, amt, objects) {
     if (this.isFrozen) { throw SC.FROZEN_ERROR ; }
 
     var args;
@@ -38,7 +38,7 @@ SC.mixin(Array.prototype,
 
   // If you ask for an unknown property, then try to collect the value
   // from member items.
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     var ret = this.reducedProperty(key, value) ;
     if ((value !== undefined) && ret === undefined) {
       ret = this[key] = value;

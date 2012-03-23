@@ -11,13 +11,13 @@ var Rectangle = SC.Object.extend({
   length: 0,
   width: 0,
   
-  area: function() {
+  area: function area() {
     return this.get('length') * this.get('width');
   }
 });
 
 Rectangle.mixin(SC.Comparable, {
-  compare: function(a, b) {
+  compare: function compare(a, b) {
     return SC.compare(a.area(), b.area());
   }
 });
@@ -26,12 +26,12 @@ var r1, r2;
 
 module("Comparable", {
   
-  setup: function() {
+  setup: function setup() {
     r1 = Rectangle.create({length: 6, width: 12});
     r2 = Rectangle.create({length: 6, width: 13});
   },
   
-  teardown: function() {
+  teardown: function teardown() {
   }
   
 });

@@ -10,7 +10,7 @@ test("SC.typeOf", function() {
 	var a = null,
 	    arr = [1,2,3],
 	    obj = {},
-      object = SC.Object.create({ method: function() {} }),
+      object = SC.Object.create({ method: function method() {} }),
       E = SC.Error.extend();
 
   equals(SC.T_UNDEFINED,  SC.typeOf(undefined),         "item of type undefined");

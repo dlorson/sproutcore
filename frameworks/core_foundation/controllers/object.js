@@ -91,7 +91,7 @@ SC.ObjectController = SC.Controller.extend(
     
     @property {Boolean}
   */
-  hasContent: function() {
+  hasContent: function hasContent() {
     return !SC.none(this.get('observableContent'));
   }.property('observableContent'),
   
@@ -117,7 +117,7 @@ SC.ObjectController = SC.Controller.extend(
     
     @property {Object}
   */
-  observableContent: function() {
+  observableContent: function observableContent() {
     var content = this.get('content'),
         len, allowsMultiple;
         
@@ -152,7 +152,7 @@ SC.ObjectController = SC.Controller.extend(
     
     @returns {SC.ObjectController} receiver
   */
-  destroy: function() {
+  destroy: function destroy() {
     var content = this.get('observableContent') ;
     if (content && SC.typeOf(content.destroy) === SC.T_FUNCTION) {
       content.destroy();
@@ -179,7 +179,7 @@ SC.ObjectController = SC.Controller.extend(
     @param {String} key the property that changes
     @returns {void}
   */
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
     if (key === '*') this.allPropertiesDidChange();
     else this.notifyPropertyChange(key);
   },
@@ -194,7 +194,7 @@ SC.ObjectController = SC.Controller.extend(
     @property {Object} value value to set or undefined if reading only
     @returns {Object} property value
   */
-  unknownProperty: function(key,value) {
+  unknownProperty: function unknownProperty(key,value) {
     
     // avoid circular references
     if (key==='content') {
@@ -245,7 +245,7 @@ SC.ObjectController = SC.Controller.extend(
   //
 
   /** @private - setup observer on init if needed. */
-  init: function() {
+  init: function init() {
     sc_super();
     if (this.get('content')) this._scoc_contentDidChange();
     if (this.get('observableContent')) this._scoc_observableContentDidChange();
@@ -274,7 +274,7 @@ SC.ObjectController = SC.Controller.extend(
     Called whenever the observable content property changes.  This will setup
     observers on the content if needed.
   */
-  _scoc_observableContentDidChange: function() {
+  _scoc_observableContentDidChange: function _scoc_observableContentDidChange() {
     var last = this._scoc_observableContent,
         cur  = this.get('observableContent'),
         func = this.contentPropertyDidChange,
@@ -309,7 +309,7 @@ SC.ObjectController = SC.Controller.extend(
     contentPropertyDidChange().  This method may be called even if the new
     'cur' is not enumerable but the last content was enumerable.
   */
-  _scoc_enumerableContentDidChange: function() {
+  _scoc_enumerableContentDidChange: function _scoc_enumerableContentDidChange() {
     var cur  = this.get('observableContent'),
         set  = this._scoc_observableContentItems,
         func = this.contentPropertyDidChange;

@@ -7,7 +7,7 @@
 /*global module test equals context ok same */
 var set ;
 module("SC.IndexSet#addEach", {
-  setup: function() {
+  setup: function setup() {
     set = SC.IndexSet.create().add(1000,2).add(1010).add(1020).add(1030);
   }
 });

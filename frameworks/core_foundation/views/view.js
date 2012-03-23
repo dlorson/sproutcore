@@ -71,7 +71,7 @@ SC.CoreView.reopen(
     The current pane.
     @property {SC.Pane}
   */
-  pane: function() {
+  pane: function pane() {
     var view = this ;
     while (view && !view.isPane) { view = view.get('parentView') ; }
     return view ;
@@ -146,7 +146,7 @@ SC.CoreView.reopen(
 
     @property {DOMElement} the layer
   */
-  layer: function(key, value) {
+  layer: function layer(key, value) {
     if (value !== undefined) {
       this._view_layer = value ;
 
@@ -169,7 +169,7 @@ SC.CoreView.reopen(
     @param {String} sel a CoreQuery-compatible selector string
     @returns {SC.CoreQuery} the CoreQuery object for the DOM node
   */
-  $: function(sel) {
+  $: function (sel) {
     var layer = this.get('layer') ;
 
     if(!layer) { return SC.$(); }
@@ -185,7 +185,7 @@ SC.CoreView.reopen(
 
     @property {DOMElement} the container layer
   */
-  containerLayer: function() {
+  containerLayer: function containerLayer() {
     return this.get('layer') ;
   }.property('layer').cacheable(),
 
@@ -197,7 +197,7 @@ SC.CoreView.reopen(
     @property {String}
     @readOnly
   */
-  layerId: function(key, value) {
+  layerId: function layerId(key, value) {
     if (value) { this._layerId = value; }
     if (this._layerId) { return this._layerId; }
     return SC.guidFor(this) ;
@@ -213,7 +213,7 @@ SC.CoreView.reopen(
     @param {DOMElement} parentLayer the parent's DOM layer
     @returns {DOMElement} the discovered layer
   */
-  findLayerInParentLayer: function(parentLayer) {
+  findLayerInParentLayer: function findLayerInParentLayer(parentLayer) {
     var id = "#" + this.get('layerId');
     return jQuery(id)[0] || jQuery(id, parentLayer)[0] ;
   },
@@ -224,7 +224,7 @@ SC.CoreView.reopen(
 
     @property {SC.View} view
   */
-  isDescendantOf: function(view) {
+  isDescendantOf: function isDescendantOf(view) {
     var parentView = this.get('parentView');
 
     if(this === view) { return YES; }
@@ -239,7 +239,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  displayDidChange: function() {
+  displayDidChange: function displayDidChange() {
     this.set('layerNeedsUpdate', YES) ;
     return this;
   },
@@ -251,7 +251,7 @@ SC.CoreView.reopen(
     into its own observer so that it can be overridden with additional
     functionality if the visibility module is applied to SC.View.
   */
-  _sc_isVisibleDidChange: function() {
+  _sc_isVisibleDidChange: function _sc_isVisibleDidChange() {
     this.displayDidChange();
   }.observes('isVisible'),
 
@@ -270,7 +270,7 @@ SC.CoreView.reopen(
     Schedules the updateLayerIfNeeded method to run at the end of the runloop
     if layerNeedsUpdate is set to YES.
   */
-  _view_layerNeedsUpdateDidChange: function() {
+  _view_layerNeedsUpdateDidChange: function _view_layerNeedsUpdateDidChange() {
     if (this.get('layerNeedsUpdate')) {
       this.invokeOnce(this.updateLayerIfNeeded) ;
     }
@@ -293,7 +293,7 @@ SC.CoreView.reopen(
     @returns {SC.View} receiver
     @test in updateLayer
   */
-  updateLayerIfNeeded: function(skipIsVisibleInWindowCheck) {
+  updateLayerIfNeeded: function updateLayerIfNeeded(skipIsVisibleInWindowCheck) {
     var needsUpdate  = this.get('layerNeedsUpdate'),
         shouldUpdate = needsUpdate  &&  (skipIsVisibleInWindowCheck || this.get('isVisibleInWindow'));
     if (shouldUpdate) {
@@ -328,7 +328,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  updateLayer: function(optionalContext) {
+  updateLayer: function updateLayer(optionalContext) {
     var mixins, idx, len, hasLegacyRenderMethod;
 
     var context = optionalContext || this.renderContext(this.get('layer')) ;
@@ -372,7 +372,7 @@ SC.CoreView.reopen(
     return this ;
   },
 
-  parentViewDidResize: function() {
+  parentViewDidResize: function parentViewDidResize() {
     if (!this.get('hasLayout')) { this.notifyPropertyChange('frame'); }
     this.viewDidResize();
   },
@@ -381,7 +381,7 @@ SC.CoreView.reopen(
     Override this in a child class to define behavior that should be invoked
     when a parent's view was resized.
    */
-  viewDidResize: function() {},
+  viewDidResize: function viewDidResize() {},
 
   /**
     Creates a new renderContext with the passed tagName or element.  You
@@ -390,7 +390,7 @@ SC.CoreView.reopen(
 
     @returns {SC.RenderContext}
   */
-  renderContext: function(tagNameOrElement) {
+  renderContext: function renderContext(tagNameOrElement) {
     return SC.RenderContext(tagNameOrElement) ;
   },
 
@@ -406,7 +406,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  createLayer: function() {
+  createLayer: function createLayer() {
     if (this.get('layer')) { return this ; } // nothing to do
 
     var context = this.renderContext(this.get('tagName')) ;
@@ -425,7 +425,7 @@ SC.CoreView.reopen(
     Invokes the receivers didCreateLayer() method if it exists and then
     invokes the same on all child views.
   */
-  _notifyDidCreateLayer: function() {
+  _notifyDidCreateLayer: function _notifyDidCreateLayer() {
     this.notifyPropertyChange('layer');
 
     if (this.get('useStaticLayout')) this.viewDidResize();
@@ -482,7 +482,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  destroyLayer: function() {
+  destroyLayer: function destroyLayer() {
     var layer = this.get('layer') ;
     if (layer) {
 
@@ -503,7 +503,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  replaceLayer: function() {
+  replaceLayer: function replaceLayer() {
     this.destroyLayer();
     this.set('layerLocationNeedsUpdate', YES) ;
     this.invokeOnce(this.updateLayerLocationIfNeeded);
@@ -513,7 +513,7 @@ SC.CoreView.reopen(
     If the parent view has changed, we need to insert this
     view's layer into the layer of the new parent view.
   */
-  parentViewDidChange: function() {
+  parentViewDidChange: function parentViewDidChange() {
     this.parentViewDidResize();
     this.updateLayerLocation();
   },
@@ -536,7 +536,7 @@ SC.CoreView.reopen(
     @returns {SC.View} receiver
     @test in updateLayerLocation
   */
-  updateLayerLocationIfNeeded: function(force) {
+  updateLayerLocationIfNeeded: function updateLayerLocationIfNeeded(force) {
     if (this.get('layerLocationNeedsUpdate')) {
       this.updateLayerLocation() ;
     }
@@ -550,7 +550,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  updateLayerLocation: function() {
+  updateLayerLocation: function updateLayerLocation() {
     // collect some useful value
     // if there is no node for some reason, just exit
     var node = this.get('layer'),
@@ -614,7 +614,7 @@ SC.CoreView.reopen(
     Invokes willDestroyLayer() on view and child views.  Then sets layer to
     null for receiver.
   */
-  _notifyWillDestroyLayer: function() {
+  _notifyWillDestroyLayer: function _notifyWillDestroyLayer() {
     if (this.willDestroyLayer) { this.willDestroyLayer() ; }
     var mixins = this.willDestroyLayerMixin, len, idx,
         childViews = this.get('childViews') ;
@@ -644,7 +644,7 @@ SC.CoreView.reopen(
     @param {SC.RenderContext} context the render context.
     @param {Boolean} firstTime Provided for compatibility when rendering legacy views only.
   */
-  renderToContext: function(context, firstTime) {
+  renderToContext: function renderToContext(context, firstTime) {
     var hasLegacyRenderMethod, mixins, idx, len;
 
     this.beginPropertyChanges() ;
@@ -690,14 +690,14 @@ SC.CoreView.reopen(
     this.endPropertyChanges() ;
   },
 
-  _renderLayerSettings: function(context, firstTime) {
+  _renderLayerSettings: function _renderLayerSettings(context, firstTime) {
     context.resetClassNames();
     context.resetStyles();
 
     this.applyAttributesToContext(context);
   },
 
-  applyAttributesToContext: function(context) {
+  applyAttributesToContext: function applyAttributesToContext(context) {
     if (!this.get('layer')) {
       this._applyClassNameBindings();
       this._applyAttributeBindings(context);
@@ -727,7 +727,7 @@ SC.CoreView.reopen(
     observer to update the view's element if the bound property ever changes
     in the future.
   */
-  _applyClassNameBindings: function() {
+  _applyClassNameBindings: function _applyClassNameBindings() {
     var classBindings = this.get('classNameBindings'),
         classNames = this.get('classNames'),
         elem, newClass, dasherizedClass;
@@ -792,7 +792,7 @@ SC.CoreView.reopen(
 
     @param {SC.RenderBuffer} buffer
   */
-  _applyAttributeBindings: function(context) {
+  _applyAttributeBindings: function _applyAttributeBindings(context) {
     var attributeBindings = this.get('attributeBindings'),
         attributeValue, elem, type;
 
@@ -842,7 +842,7 @@ SC.CoreView.reopen(
     For example, if the view has property `isUrgent` that evaluates to true,
     passing `isUrgent` to this method will return `"is-urgent"`.
   */
-  _classStringForProperty: function(property) {
+  _classStringForProperty: function _classStringForProperty(property) {
     var split = property.split(':'), className = split[1];
     property = split[0];
 
@@ -883,7 +883,7 @@ SC.CoreView.reopen(
     @param {Boolean} firstTime YES if this is creating a layer
     @returns {void}
   */
-  prepareContext: function(context, firstTime) {
+  prepareContext: function prepareContext(context, firstTime) {
     // eventually, firstTime will be removed because it is ugly.
     // for now, we will sense whether we are doing things the ugly way or not.
     // if ugly, we will allow updates through.
@@ -907,7 +907,7 @@ SC.CoreView.reopen(
     @returns {SC.RenderContext} the render context
     @test in render
   */
-  renderChildViews: function(context, firstTime) {
+  renderChildViews: function renderChildViews(context, firstTime) {
     var cv = this.get('childViews'), len = cv.length, idx, view ;
     for (idx=0; idx<len; ++idx) {
       view = cv[idx] ;
@@ -924,14 +924,14 @@ SC.CoreView.reopen(
   /** @private -
     override to add support for theming or in your view
   */
-  render: function() { },
+  render: function render() { },
 
   /** @private -
     Invokes the receivers didAppendLayerToDocument() method if it exists and
     then invokes the same on all child views.
   */
 
-  _notifyDidAppendToDocument: function() {
+  _notifyDidAppendToDocument: function _notifyDidAppendToDocument() {
     if (!this.get('hasLayout')) { this.notifyPropertyChange('frame'); }
     if (this.didAppendToDocument) { this.didAppendToDocument(); }
 
@@ -944,7 +944,7 @@ SC.CoreView.reopen(
     }
   },
 
-  childViewsObserver: function(){
+  childViewsObserver: function childViewsObserver(){
     var childViews = this.get('childViews'), i, iLen, child;
     for(i=0, iLen = childViews.length; i<iLen; i++){
       child = childViews[i];
@@ -992,7 +992,7 @@ SC.CoreView.reopen(
 
     @property {String}
   */
-  displayToolTip: function() {
+  displayToolTip: function displayToolTip() {
     var ret = this.get('toolTip');
     return (ret && this.get('localize')) ? SC.String.loc(ret) : (ret || '');
   }.property('toolTip','localize').cacheable(),
@@ -1044,7 +1044,7 @@ SC.CoreView.reopen(
   /** @property
     The nextResponder is usually the parentView.
   */
-  nextResponder: function() {
+  nextResponder: function nextResponder() {
     return this.get('parentView') ;
   }.property('parentView').cacheable(),
 
@@ -1068,7 +1068,7 @@ SC.CoreView.reopen(
      - register the view with the global views hash, which is used for event
        dispatch
   */
-  init: function() {
+  init: function init() {
     var parentView = this.get('parentView'),
         path, root, lp, displayProperties ;
 
@@ -1105,7 +1105,7 @@ SC.CoreView.reopen(
 
     @returns {void}
   */
-  awake: function() {
+  awake: function awake() {
     sc_super();
     var childViews = this.get('childViews'), len = childViews.length, idx ;
     for (idx=0; idx<len; ++idx) {
@@ -1121,7 +1121,7 @@ SC.CoreView.reopen(
     @property {Rect}
     @test in layoutStyle
   */
-  frame: function() {
+  frame: function frame() {
     return this.computeFrameWithParentFrame(null) ;
   }.property('useStaticLayout').cacheable(),    // We depend on the layout, but layoutDidChange will call viewDidResize to check the frame for us
 
@@ -1134,7 +1134,7 @@ SC.CoreView.reopen(
 
     @returns {Rect} the computed frame
   */
-  computeFrameWithParentFrame: function() {
+  computeFrameWithParentFrame: function computeFrameWithParentFrame() {
     var layer,                            // The view's layer
         pv = this.get('parentView'),      // The view's parent view (if it exists)
         f;                                // The layer's coordinates in the document
@@ -1172,7 +1172,7 @@ SC.CoreView.reopen(
 
     @property {Rect}
   */
-  clippingFrame: function() {
+  clippingFrame: function clippingFrame() {
     var f = this.get('frame'),
         ret = f,
         pv, cf;
@@ -1194,7 +1194,7 @@ SC.CoreView.reopen(
     This method is invoked whenever the clippingFrame changes, notifying
     each child view that its clippingFrame has also changed.
   */
-  _sc_view_clippingFrameDidChange: function() {
+  _sc_view_clippingFrameDidChange: function _sc_view_clippingFrameDidChange() {
     var cvs = this.get('childViews'), len = cvs.length, idx, cv ;
     for (idx=0; idx<len; ++idx) {
       cv = cvs[idx] ;
@@ -1210,7 +1210,7 @@ SC.CoreView.reopen(
     @param {SC.View} view
     @returns {SC.View} receiver
   */
-  removeChild: function(view) {
+  removeChild: function removeChild(view) {
     // update parent node
     view.set('parentView', null) ;
 
@@ -1227,7 +1227,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  removeAllChildren: function() {
+  removeAllChildren: function removeAllChildren() {
     var childViews = this.get('childViews'), view ;
     while (view = childViews.objectAt(childViews.get('length')-1)) {
       this.removeChild(view) ;
@@ -1241,7 +1241,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  removeFromParent: function() {
+  removeFromParent: function removeFromParent() {
     var parent = this.get('parentView') ;
     if (parent) { parent.removeChild(this) ; }
     return this ;
@@ -1253,7 +1253,7 @@ SC.CoreView.reopen(
     sure that the DOM element managed by the view can be released by the
     memory manager.
   */
-  destroy: function() {
+  destroy: function destroy() {
     if (this.get('isDestroyed')) { return this; } // nothing to do
 
     this._destroy(); // core destroy method
@@ -1266,7 +1266,7 @@ SC.CoreView.reopen(
     return this; // done with cleanup
   },
 
-  _destroy: function() {
+  _destroy: function _destroy() {
     if (this.get('isDestroyed')) { return this ; } // nothing to do
 
     // destroy the layer -- this will avoid each child view destroying
@@ -1308,7 +1308,7 @@ SC.CoreView.reopen(
 
     @returns {SC.View} receiver
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var childViews = this.get('childViews'),
         len        = childViews.length,
         idx, key, views, view ;
@@ -1356,7 +1356,7 @@ SC.CoreView.reopen(
     @returns {SC.View} new instance
     @test in createChildViews
   */
-  createChildView: function(view, attrs) {
+  createChildView: function createChildView(view, attrs) {
     if (!view.isClass) {
       attrs = view;
     } else {
@@ -1402,7 +1402,7 @@ SC.CoreView.reopen(
     @param evt {SC.Event} the selectstart event
     @returns YES if selectable
   */
-  selectStart: function(evt) {
+  selectStart: function selectStart(evt) {
     return this.get('isTextSelectable');
   },
 
@@ -1412,7 +1412,7 @@ SC.CoreView.reopen(
     @param evt {SC.Event} the contextmenu event
     @returns YES if the contextmenu can show up
   */
-  contextMenu: function(evt) {
+  contextMenu: function contextMenu(evt) {
     if (this.get('isContextMenuEnabled')) { return YES; }
   }
 
@@ -1432,7 +1432,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     @returns {Class} SC.View subclass to create
     @function
   */
-  design: function() {
+  design: function design() {
     if (this.isDesign) {
       // @if (debug)
       SC.Logger.warn("SC.View#design called twice for %@.".fmt(this));
@@ -1448,7 +1448,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     return ret ;
   },
 
-  extend: function() {
+  extend: function extend() {
     var last = arguments[arguments.length - 1];
 
     if (last && !SC.none(last.theme)) {
@@ -1462,7 +1462,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Helper applies the layout to the prototype.
   */
-  layout: function(layout) {
+  layout: function layout(layout) {
     this.prototype.layout = layout ;
     return this ;
   },
@@ -1470,7 +1470,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Helper applies the classNames to the prototype
   */
-  classNames: function(sc) {
+  classNames: function classNames(sc) {
     sc = (this.prototype.classNames || []).concat(sc);
     this.prototype.classNames = sc;
     return this ;
@@ -1479,7 +1479,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Help applies the tagName
   */
-  tagName: function(tg) {
+  tagName: function tagName(tg) {
     this.prototype.tagName = tg;
     return this ;
   },
@@ -1487,7 +1487,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Helper adds the childView
   */
-  childView: function(cv) {
+  childView: function childView(cv) {
     var childViews = this.prototype.childViews || [];
     if (childViews === this.superclass.prototype.childViews) {
       childViews = childViews.slice();
@@ -1500,7 +1500,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Helper adds a binding to a design
   */
-  bind: function(keyName, path) {
+  bind: function bind(keyName, path) {
     var p = this.prototype, s = this.superclass.prototype;
     var bindings = p._bindings ;
     if (!bindings || bindings === s._bindings) {
@@ -1517,7 +1517,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
   /**
     Helper sets a generic property on a design.
   */
-  prop: function(keyName, value) {
+  prop: function prop(keyName, value) {
     this.prototype[keyName] = value;
     return this ;
   },
@@ -1526,7 +1526,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     Used to construct a localization for a view.  The default implementation
     will simply return the passed attributes.
   */
-  localization: function(attrs, rootElement) {
+  localization: function localization(attrs, rootElement) {
     // add rootElement
     if (rootElement) attrs.rootElement = SC.$(rootElement)[0];
     return attrs;
@@ -1542,7 +1542,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     @param {Hash} attrs
     @returns {SC.View} instance
   */
-  viewFor: function(element, attrs) {
+  viewFor: function viewFor(element, attrs) {
     var args = SC.$A(arguments); // prepare to edit
     if (SC.none(element)) {
       args.shift(); // remove if no element passed
@@ -1556,7 +1556,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     Create a new view with the passed attributes hash.  If you have the
     Designer module loaded, this will also create a peer designer if needed.
   */
-  create: function() {
+  create: function create() {
     var last = arguments[arguments.length - 1];
 
     if (last && last.theme) {
@@ -1582,7 +1582,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     @param rootElement {String} optional rootElement with prepped HTML
     @returns {SC.View} receiver
   */
-  loc: function(loc) {
+  loc: function loc(loc) {
     var childLocs = loc.childViews;
     delete loc.childViews; // clear out child views before applying to attrs
 
@@ -1607,7 +1607,7 @@ SC.CoreView.mixin(/** @scope SC.CoreView.prototype */ {
     Internal method actually updates the localized attributes on the view
     class.  This is overloaded in design mode to also save the attributes.
   */
-  applyLocalizedAttributes: function(loc) {
+  applyLocalizedAttributes: function applyLocalizedAttributes(loc) {
     SC.mixin(this.prototype, loc) ;
   },
 

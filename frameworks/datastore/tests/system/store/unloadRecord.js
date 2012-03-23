@@ -8,7 +8,7 @@
   var store, Person, Place;
 
   module("SC.Store#unloadRecord", {
-    setup: function() {
+    setup: function setup() {
       Person = SC.Record.extend({
         name: SC.Record.attr(String)
       });
@@ -34,7 +34,7 @@
 
       SC.RunLoop.end();
     },
-    teardown: function() {
+    teardown: function teardown() {
       store = Person = Place = null;
     }
   });

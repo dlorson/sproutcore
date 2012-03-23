@@ -20,7 +20,7 @@ test("calls renderToContext() and sets layer to resulting element", function() {
   var v= SC.View.create({
     tagName: 'span',
     
-    renderToContext: function(context, firstTime) {
+    renderToContext: function renderToContext(context, firstTime) {
       context.push("foo");
     }
   });
@@ -39,14 +39,14 @@ test("invokes didCreateLayer() on receiver and all child views", function() {
   var callCount = 0, mixinCount = 0;
   var v= SC.View.create({
     
-    didCreateLayer: function() { callCount++; },
-    didCreateLayerMixin: function() { mixinCount++; },
+    didCreateLayer: function didCreateLayer() { callCount++; },
+    didCreateLayerMixin: function didCreateLayerMixin() { mixinCount++; },
     
     childViews: [SC.View.extend({
-      didCreateLayer: function() { callCount++; },
+      didCreateLayer: function didCreateLayer() { callCount++; },
       childViews: [SC.View.extend({
-        didCreateLayer: function() { callCount++; },
-        didCreateLayerMixin: function() { mixinCount++; }
+        didCreateLayer: function didCreateLayer() { callCount++; },
+        didCreateLayerMixin: function didCreateLayerMixin() { mixinCount++; }
       }), SC.View.extend({ /* no didCreateLayer */ })]
     })]
   });

@@ -56,7 +56,7 @@ SC.MainPane = SC.Pane.extend({
   },
   
   /** @private - extends SC.Pane's method */
-  paneDidAttach: function() {
+  paneDidAttach: function paneDidAttach() {
     var ret = sc_super(),
         responder = this.rootResponder;
     responder.makeMainPane(this);

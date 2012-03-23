@@ -18,11 +18,11 @@
   pane.show(); 
 
 module("TODO: Test SC.Separator UI", {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style> .sc-static-layout { border: 1px red dotted; } </style>');
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

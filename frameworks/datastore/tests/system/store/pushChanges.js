@@ -7,7 +7,7 @@
 
 var store, storeKey, json;
 module("SC.Store#pushChanges", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     store = SC.Store.create();
     

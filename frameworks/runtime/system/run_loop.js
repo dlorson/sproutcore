@@ -58,7 +58,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
 
     @returns {SC.RunLoop} receiver
   */
-  beginRunLoop: function() {
+  beginRunLoop: function beginRunLoop() {
     this._start = new Date().getTime() ; // can't use Date.now() in runtime
     if (SC.LOG_BINDINGS || SC.LOG_OBSERVERS) {
       SC.Logger.log("-- SC.RunLoop.beginRunLoop at %@".fmt(this._start));
@@ -74,7 +74,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     @property
     @type Boolean
   */
-  isRunLoopInProgress: function() {
+  isRunLoopInProgress: function isRunLoopInProgress() {
     return this._runLoopInProgress;
   }.property(),
 
@@ -87,7 +87,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
 
     @returns {SC.RunLoop} receiver
   */
-  endRunLoop: function() {
+  endRunLoop: function endRunLoop() {
     // at the end of a runloop, flush all the delayed actions we may have
     // stored up.  Note that if any of these queues actually run, we will
     // step through all of them again.  This way any changes get flushed
@@ -114,7 +114,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
   /**
     Repeatedly flushes all bindings, observers, and other queued functions until all queues are empty.
   */
-  flushAllPending: function() {
+  flushAllPending: function flushAllPending() {
     var didChange ;
 
     do {
@@ -139,7 +139,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     @param {Function} method
     @returns {SC.RunLoop} receiver
   */
-  invokeOnce: function(target, method) {
+  invokeOnce: function invokeOnce(target, method) {
     // normalize
     if (method === undefined) {
       method = target; target = this ;
@@ -199,7 +199,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     @param {Function} method
     @returns {SC.RunLoop} receiver
   */
-  invokeLast: function(target, method) {
+  invokeLast: function invokeLast(target, method) {
     // normalize
     if (method === undefined) {
       method = target; target = this ;
@@ -259,7 +259,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     @param {Function} method
     @returns {SC.RunLoop} receiver
   */
-  invokeNext: function(target, method) {
+  invokeNext: function invokeNext(target, method) {
     // normalize
     if (method === undefined) {
       method = target; target = this ;
@@ -287,7 +287,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
 
     @returns {Boolean} YES if items were found in any queue, NO otherwise
   */
-  flushApplicationQueues: function() {
+  flushApplicationQueues: function flushApplicationQueues() {
     var hadContent = NO,
         // execute any methods in the invokeQueue.
         queue = this._invokeQueue;
@@ -302,7 +302,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     return SC.Binding.flushPendingChanges() || hadContent ;
   },
 
-  _flushinvokeLastQueue: function() {
+  _flushinvokeLastQueue: function _flushinvokeLastQueue() {
     var queue = this._invokeLastQueue, hadContent = NO ;
     if (queue && queue.getMembers().length ) {
       this._invokeLastQueue = null; // reset queue.
@@ -312,7 +312,7 @@ SC.RunLoop = SC.Object.extend(/** @scope SC.RunLoop.prototype */ {
     return hadContent ;
   },
 
-  _flushinvokeNextQueue: function() {
+  _flushinvokeNextQueue: function _flushinvokeNextQueue() {
     var queue = this._invokeNextQueue, hadContent = NO ;
     if (queue && queue.getMembers().length ) {
       this._invokeNextQueue = null; // reset queue.

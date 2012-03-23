@@ -16,7 +16,7 @@ SC.DateTime.mixin(
     Because localizations may have been modified by an application developer,
     we need to wait for the ready event to actually evaluate the localizations.
   */
-  _setup: function() {
+  _setup: function _setup() {
     SC.DateTime.dayNames = SC.String.w(SC.String.loc('_SC.DateTime.dayNames'));
     SC.DateTime.abbreviatedDayNames = SC.String.w(SC.String.loc('_SC.DateTime.abbreviatedDayNames'));
     SC.DateTime.monthNames = SC.String.w(SC.String.loc('_SC.DateTime.monthNames'));

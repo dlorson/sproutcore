@@ -11,7 +11,7 @@
 */
 Greenhouse.ApplicationListItem = SC.ListItemView.extend(
 /** @scope Greenhouse.ApplicationListItem.prototype */ {
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     if(this.get('contentIndex') === 0) context.addClass('first')
     sc_super();
   }

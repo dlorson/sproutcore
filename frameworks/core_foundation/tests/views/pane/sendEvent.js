@@ -7,7 +7,7 @@
 /*global module test equals context ok same Q$ htmlbody */
 var pane, fooView, barView, defaultResponder, evt, callCount ;
 module("SC.Pane#sendEvent", {
-  setup: function() {
+  setup: function setup() {
 
     callCount = 0;
     var handler = function(theEvent) {
@@ -35,7 +35,7 @@ module("SC.Pane#sendEvent", {
     evt = SC.Object.create(); // mock
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     pane = fooView = barView = defaultResponder = evt = null ;
   }
 });

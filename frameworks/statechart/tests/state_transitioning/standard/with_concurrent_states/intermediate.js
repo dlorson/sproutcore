@@ -7,7 +7,7 @@ var statechart = null;
 var monitor, root, stateA, stateB, stateC, stateD, stateE, stateF, stateG, stateZ;
 
 module("SC.Statechart: With Concurrent States - Goto State Intermediate Tests", {
-  setup: function() {
+  setup: function setup() {
     
     statechart = SC.Statechart.create({
       
@@ -51,7 +51,7 @@ module("SC.Statechart: With Concurrent States - Goto State Intermediate Tests", 
     stateZ = statechart.getState('z');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = monitor = root = null;
     stateA = stateB = stateC = stateD = stateE = stateF = stateG = stateZ = null;

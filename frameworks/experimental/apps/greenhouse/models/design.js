@@ -19,7 +19,7 @@ Greenhouse.Design = SC.Record.extend(
   scClass: SC.Record.attr(String),
   defaults: SC.Record.attr(Object),
   
-  canEdit: function(){
+  canEdit: function canEdit(){
     return this.getPath('parentRecord.canEdit');
   }.property('parentRecord').cacheable()
   

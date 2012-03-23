@@ -16,10 +16,10 @@
 // appendTo()
 //
 module("SC.Pane#appendTo", {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<div id="appendtest"></div>');
   },
-  teardown: function(){
+  teardown: function teardown(){
     clearHtmlbody()
   }
 });

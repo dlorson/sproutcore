@@ -12,7 +12,7 @@ SC.BaseTheme.splitDividerRenderDelegate = SC.RenderDelegate.create({
   splitPositionOffset: -5,
   splitSizeOffset: 10,
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     // the divider view itself is the grabber, but the visible line
@@ -20,7 +20,7 @@ SC.BaseTheme.splitDividerRenderDelegate = SC.RenderDelegate.create({
     context.push("<div class='line'></div>");
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
   }
 });

@@ -119,7 +119,7 @@ SC.Gesture = SC.Object.extend({
     hash, which is unique for both the gesture instance and the touch instance,
     which you may use for your own purposes. 
   */
-  touchIsInGesture: function(touch, status) {
+  touchIsInGesture: function touchIsInGesture(touch, status) {
     return NO;
   },
   
@@ -135,7 +135,7 @@ SC.Gesture = SC.Object.extend({
     If NO (the default), the gesture will only receive touchStart for the first touch
     assigned to it, and only receive touchEnd for the last touch that ends.
   */
-  touchStart: function(touch) {
+  touchStart: function touchStart(touch) {
     
   },
   
@@ -145,7 +145,7 @@ SC.Gesture = SC.Object.extend({
     This is where you update the gesture's state, potentially calling change() to
     notify the view.
   */
-  touchesDragged: function(evt, touches) {
+  touchesDragged: function touchesDragged(evt, touches) {
     
   },
   
@@ -160,7 +160,7 @@ SC.Gesture = SC.Object.extend({
     If NO (the default), the gesture will only receive touchStart for the first touch
     assigned to it, and only receive touchEnd for the last touch that ends.
   */
-  touchEnd: function(touch) {
+  touchEnd: function touchEnd(touch) {
     
   },
   
@@ -171,7 +171,7 @@ SC.Gesture = SC.Object.extend({
     the gesture instance itself, will be passed to the appropriate gesture 
     event on the SC.View.
   */
-  start: function() {
+  start: function start() {
     if (!this.get("isActive")) {
       this.set("isActive", YES);
       
@@ -190,7 +190,7 @@ SC.Gesture = SC.Object.extend({
     You may pass any number of arguments to end(). They, along with your gesture
     instance itself, will be passed to the appropriate gesture event on the SC.View.
   */
-  end: function() {
+  end: function end() {
     if (this.get("isActive")) {
       this.set("isActive", NO);
 
@@ -209,7 +209,7 @@ SC.Gesture = SC.Object.extend({
     The gesture, along with any arguments to change(), will be passed to
     the appropriate method on the SC.View.
   */
-  change: function() {
+  change: function change() {
     if (this.get('isActive')) {
       var args = SC.$A(arguments);
       args.unshift(this);
@@ -229,7 +229,7 @@ SC.Gesture = SC.Object.extend({
     The gesture, along with any arguments to cancel(), will be passed to the
     appropriate method on the SC.View.
   */
-  cancel: function(){
+  cancel: function cancel(){
     if (this.get('isActive')) {
       this.set('isActive', NO);
 
@@ -254,7 +254,7 @@ SC.Gesture = SC.Object.extend({
     For SC.SwipeGesture, this allows a view to implement only swipe(), and then be 
     automatically notified whenever any swipe has occurred.
   */
-  trigger: function() {
+  trigger: function trigger() {
     var args = SC.$A(arguments);
     args.unshift(this);
     
@@ -268,7 +268,7 @@ SC.Gesture = SC.Object.extend({
     
     This is called automatically when you return YES from touchIsInGesture.
   */
-  take: function(touch) {
+  take: function take(touch) {
     touch.isTaken = YES; // because even changing responder won't prevent it from being used this cycle.
     if (SC.none(touch.touchResponder) || touch.touchResponder !== this) touch.makeTouchResponder(this, YES);
   },
@@ -280,7 +280,7 @@ SC.Gesture = SC.Object.extend({
     This takes effect immediately, because you would usually call this from
     touchesDragged or such.
   */
-  release: function(touch) {
+  release: function release(touch) {
     touch.isTaken = NO;
     if (touch.nextTouchResponder) touch.makeTouchResponder(touch.nextTouchResponder);
   },
@@ -290,7 +290,7 @@ SC.Gesture = SC.Object.extend({
     come back—not to this gesture, nor to any other, nor to the view, nor to any other
     view.
   */
-  discardTouch: function(touch) {
+  discardTouch: function discardTouch(touch) {
     touch.isTaken = YES; // because even changing responder won't prevent it from being used this cycle.
     touch.makeTouchResponder(null);
   },
@@ -299,7 +299,7 @@ SC.Gesture = SC.Object.extend({
     Returns a status hash (which gestures may and should modify) for a given touch, for tracking
     whether it is a potential match, etc.
   */
-  statusForTouch: function(touch) {
+  statusForTouch: function statusForTouch(touch) {
     var key = SC.guidFor(touch.view) + this.name;
     var status = touch[key];
     if (!status) status = touch[key] = {};
@@ -310,7 +310,7 @@ SC.Gesture = SC.Object.extend({
     Called when an unassigned touch has started. By default, this calls touchIsInGesture, and,
     if it returns YES, takes possesion of the touch (causing touchStart to  be called).
   */
-  unassignedTouchDidStart: function(touch) {
+  unassignedTouchDidStart: function unassignedTouchDidStart(touch) {
     if (touch.isTaken) return;
     if (this.touchIsInGesture(touch, this.statusForTouch(touch))) {
       this.take(touch);
@@ -321,7 +321,7 @@ SC.Gesture = SC.Object.extend({
     This is called when the unassigned touches (touches not in a gesture) change or move
     in some way. By default, this calls touchIsInGesture(touch, status) for each touch.
   */
-  unassignedTouchesDidChange: function(evt, touches) {
+  unassignedTouchesDidChange: function unassignedTouchesDidChange(evt, touches) {
     touches.forEach(function(touch) {
       if (touch.isTaken) return;
       if (this.touchIsInGesture(touch, this.statusForTouch(touch))) {
@@ -335,7 +335,7 @@ SC.Gesture = SC.Object.extend({
     Default does nothing. Some gestures may want to implement this even if they don't implement
     unassignedTouchesDidChange.
   */
-  unassignedTouchDidEnd: function(touch) {
+  unassignedTouchDidEnd: function unassignedTouchDidEnd(touch) {
     
   },
   
@@ -344,7 +344,7 @@ SC.Gesture = SC.Object.extend({
     property of the touch to see if any gestures are interested in it, potentially delaying any
     action of releasing the touch to another view.
   */
-  interestedInTouch: function(touch) {
+  interestedInTouch: function interestedInTouch(touch) {
     var status = this.statusForTouch(touch);
     if (status.isInterested) return;
     status.isInterested = YES;
@@ -354,7 +354,7 @@ SC.Gesture = SC.Object.extend({
   /**
     Marks the touch as "uninteresting" to this gesture.
   */
-  uninterestedInTouch: function(touch) {
+  uninterestedInTouch: function uninterestedInTouch(touch) {
     var status = this.statusForTouch(touch);
     if (!status.isInterested) return;
     status.isInterested = NO;

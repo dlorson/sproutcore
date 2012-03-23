@@ -263,7 +263,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @param {Hash} props the properties you want to add.
     @returns {Object} receiver
   */
-  mixin: function(props) {
+  mixin: function mixin(props) {
     var len = arguments.length, loc ;
     for(loc =0;loc<len;loc++) SC.mixin(this, arguments[loc]);
     return this ;
@@ -297,7 +297,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @param {Hash} props the methods of properties you want to add
     @returns {Class} A new object class
   */
-  extend: function(props) {
+  extend: function extend(props) {
     var bench = SC.BENCHMARK_OBJECTS ;
     if (bench) SC.Benchmark.start('SC.Object.extend') ;
 
@@ -336,7 +336,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     return ret ;
   },
 
-  reopen: function(props) {
+  reopen: function reopen(props) {
     return SC._object_extend(this.prototype, props, this.__sc_super__);
   },
 
@@ -362,7 +362,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
 
     @returns {SC.Object} new instance of the receiver class.
   */
-  create: function() {
+  create: function create() {
     var C=this, ret = new C(arguments);
     if (SC.ObjectDesigner) {
       SC.ObjectDesigner.didCreateObject(ret, SC.$A(arguments));
@@ -385,7 +385,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
   subclasses: SC.Set.create(),
 
   /** @private */
-  toString: function() { return SC._object_className(this); },
+  toString: function toString() { return SC._object_className(this); },
 
   // ..........................................
   // PROPERTY SUPPORT METHODS
@@ -407,7 +407,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @param {Class} scClass class to compare
     @returns {Boolean}
   */
-  subclassOf: function(scClass) {
+  subclassOf: function subclassOf(scClass) {
     if (this === scClass) return NO ;
     var t = this ;
     while(t = t.superclass) if (t === scClass) return YES ;
@@ -421,7 +421,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @param {Class} scClass class to compare
     @returns {Boolean}
   */
-  hasSubclass: function(scClass) {
+  hasSubclass: function hasSubclass(scClass) {
     return (scClass && scClass.subclassOf) ? scClass.subclassOf(this) : NO;
   },
 
@@ -442,7 +442,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @param {Class} scClass class to compare
     @returns {Boolean}
   */
-  kindOf: function(scClass) {
+  kindOf: function kindOf(scClass) {
     return (this === scClass) || this.subclassOf(scClass) ;
   },
 
@@ -457,7 +457,7 @@ SC.mixin(SC.Object, /** @scope SC.Object */ {
     @returns {Class} SC.Object subclass to create
     @function
   */
-  design: function() {
+  design: function design() {
     if (this.isDesign) {
       // @if (debug)
       SC.Logger.warn("SC.Object#design called twice for %@.".fmt(this));
@@ -489,7 +489,7 @@ SC.Object.prototype = {
     @param {Array} extensions an array-like object with hashes to apply.
     @returns {Object} receiver
   */
-  _object_init: function(extensions) {
+  _object_init: function _object_init(extensions) {
     // apply any new properties
     var idx, len = (extensions) ? extensions.length : 0;
     for(idx=0;idx<len;idx++) { SC._object_extend(this, extensions[idx], this.__sc_super__) ; }
@@ -519,7 +519,7 @@ SC.Object.prototype = {
           var MyClass = SC.Object.extend({
              extraMixin: null,
 
-             init: function() {
+             init: function init() {
                this.mixin(this.extraMixin);
                sc_super();
              }
@@ -534,7 +534,7 @@ SC.Object.prototype = {
     @param {Hash} ext a hash to copy.  Only one.
     @returns {Object} receiver
   */
-  mixin: function() {
+  mixin: function mixin() {
     var idx, len = arguments.length, init;
     for(idx=0;idx<len;idx++) SC.mixin(this, arguments[idx]) ;
 
@@ -560,7 +560,7 @@ SC.Object.prototype = {
 
 
   */
-  init: function() {
+  init: function init() {
     this.initObservable();
     return this ;
   },
@@ -584,7 +584,7 @@ SC.Object.prototype = {
 
     @returns {SC.Object} receiver
   */
-  destroy: function() {
+  destroy: function destroy() {
     if (this.get('isDestroyed')) return this; // nothing to do
     this.set('isDestroyed', YES);
 
@@ -612,7 +612,7 @@ SC.Object.prototype = {
     @param {String} methodName the property name to check
     @returns {Boolean}
   */
-  respondsTo: function( methodName ) {
+  respondsTo: function respondsTo( methodName ) {
     return !!(this[methodName] instanceof Function);
   },
 
@@ -629,7 +629,7 @@ SC.Object.prototype = {
     @param {Object} arg2
     @returns {Boolean} YES if handled, NO if not handled
   */
-  tryToPerform: function(methodName, arg1, arg2) {
+  tryToPerform: function tryToPerform(methodName, arg1, arg2) {
     return this.respondsTo(methodName) && (this[methodName](arg1, arg2) !== NO);
   },
 
@@ -649,17 +649,17 @@ SC.Object.prototype = {
           SC.Object.create({
 
             // DOES NOT WORK IN SAFARI 2 OR EARLIER
-            method1: function() {
+            method1: function method1() {
               this.superclass();
             },
 
             // REQUIRES SC-BUILD TOOLS
-            method2: function() {
+            method2: function method2() {
               sc_super();
             },
 
             // WORKS ANYTIME
-            method3: function() {
+            method3: function method3() {
               arguments.callee.base.apply(this, arguments);
             }
           });
@@ -667,7 +667,7 @@ SC.Object.prototype = {
     @param {*args} args any arguments you want to pass along.
     @returns {Object} return value from super
   */
-  superclass: function(args) {
+  superclass: function superclass(args) {
     var caller = arguments.callee.caller;
     if (!caller) throw "superclass cannot determine the caller method" ;
     return caller.superclass ? caller.superclass.apply(this, arguments) : null;
@@ -691,7 +691,7 @@ SC.Object.prototype = {
     @param {Class} scClass the class
     @returns {Boolean}
   */
-  instanceOf: function(scClass) {
+  instanceOf: function instanceOf(scClass) {
     return this.constructor === scClass ;
   },
 
@@ -713,10 +713,10 @@ SC.Object.prototype = {
     @param {Class} scClass the class
     @returns {Boolean}
   */
-  kindOf: function(scClass) { return this.constructor.kindOf(scClass); },
+  kindOf: function kindOf(scClass) { return this.constructor.kindOf(scClass); },
 
   /** @private */
-  toString: function() {
+  toString: function toString() {
     if (!this._object_toString) {
       // only cache the string if the klass name is available
       var klassName = SC._object_className(this.constructor),
@@ -734,7 +734,7 @@ SC.Object.prototype = {
 
 
   */
-  awake: function() {
+  awake: function awake() {
     var outlets = this.outlets,
         i, len, outlet;
     for (i = 0, len = outlets.length;  i < len;  ++i) {
@@ -756,7 +756,7 @@ SC.Object.prototype = {
     @param {Function|String} method method or method name
     @returns {SC.Object} receiver
   */
-  invokeOnce: function(method) {
+  invokeOnce: function invokeOnce(method) {
     //@if(debug)
     // If we're logging deferred calls, send along the information that needs to
     // be recorded.
@@ -788,7 +788,7 @@ SC.Object.prototype = {
 
           // Creates a new MyRecord object and sets the selection of the
           // myRecord collection controller to the new object.
-          createObjectAction: function(sender, evt) {
+          createObjectAction: function createObjectAction(sender, evt) {
             // create a new record and add it to the store
             var obj = MyRecord.newRecord() ;
 
@@ -804,7 +804,7 @@ SC.Object.prototype = {
     @param {Function|String} method method or method name
     @returns {SC.Object} receiver
   */
-  invokeLast: function(method) {
+  invokeLast: function invokeLast(method) {
     //@if(debug)
     // If we're logging deferred calls, send along the information that needs to
     // be recorded.

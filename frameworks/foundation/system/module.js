@@ -30,7 +30,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     @param {String} moduleName the name of the module to check
     @returns {Boolean}
   */
-  isModuleReady: function(moduleName) {
+  isModuleReady: function isModuleReady(moduleName) {
     var moduleInfo = SC.MODULE_INFO[moduleName] ;
     return moduleInfo ? !!moduleInfo.isReady : NO ;
   },
@@ -49,7 +49,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     @param method {Function}
     @returns {Boolean} YES if already loaded, NO otherwise
   */
-  loadModule: function(moduleName, target, method) {
+  loadModule: function loadModule(moduleName, target, method) {
     var module = SC.MODULE_INFO[moduleName], callbacks, targets,
         args   = SC.A(arguments).slice(3),
         log    = SC.LOG_MODULE_LOADING,
@@ -149,7 +149,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     }
   },
 
-  _addCallbackForModule: function(moduleName, target, method, args) {
+  _addCallbackForModule: function _addCallbackForModule(moduleName, target, method, args) {
     var module = SC.MODULE_INFO[moduleName];
 
     // Retrieve array of callbacks from MODULE_INFO hash.
@@ -177,7 +177,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
 
     @param {String} moduleName the name of the module to prefetch
   */
-  prefetchModule: function(moduleName) {
+  prefetchModule: function prefetchModule(moduleName) {
     var module = SC.MODULE_INFO[moduleName];
 
     if (module.isLoading || module.isLoaded) return;
@@ -198,7 +198,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     If a module is marked for lazy instantiation, this method will execute the closure and call
     any registered callbacks.
   */
-  _executeLazilyInstantiatedModule: function(moduleName, targetName, methodName){
+  _executeLazilyInstantiatedModule: function _executeLazilyInstantiatedModule(moduleName, targetName, methodName){
     var lazyInfo =  SC.LAZY_INSTANTIATION[moduleName];
     var target;
     var method;
@@ -236,7 +236,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
 
     @param {Hash} module the module to evaluate
   */
-  _evaluateStringLoadedModule: function(module) {
+  _evaluateStringLoadedModule: function _evaluateStringLoadedModule(module) {
     var moduleSource = module.source;
 
     // so, force a run loop.
@@ -267,7 +267,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
 
     @param {String} moduleName the name of the module whose CSS should be loaded
   */
-  _loadCSSForModule: function(moduleName) {
+  _loadCSSForModule: function _loadCSSForModule(moduleName) {
     var head = document.getElementsByTagName('head')[0] ;
     var module = SC.MODULE_INFO[moduleName];
     var styles = module.styles || [];
@@ -295,7 +295,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     el = null;
   },
 
-  _loadJavaScriptForModule: function(moduleName) {
+  _loadJavaScriptForModule: function _loadJavaScriptForModule(moduleName) {
     var module = SC.MODULE_INFO[moduleName];
     var el;
     var url;
@@ -358,7 +358,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     @param {String} moduleName the name of the module being checked
     @returns {Boolean} whether the dependencies are loaded
   */
-  _dependenciesMetForModule: function(moduleName) {
+  _dependenciesMetForModule: function _dependenciesMetForModule(moduleName) {
     var dependencies = SC.MODULE_INFO[moduleName].dependencies || [];
     var idx, len = dependencies.length;
     var dependencyName;
@@ -382,7 +382,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     Loads all unloaded dependencies for a module, then creates the <script> and <link> tags to
     load the JavaScript and CSS for the module.
   */
-  _loadDependenciesForModule: function(moduleName) {
+  _loadDependenciesForModule: function _loadDependenciesForModule(moduleName) {
       // Load module's dependencies first.
       var moduleInfo      = SC.MODULE_INFO[moduleName];
       var log             = SC.LOG_MODULE_LOADING;
@@ -440,7 +440,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
 
       Calls an action on a target to notify the target that a module has loaded.
     */
-    _invokeCallback: function(moduleName, targetName, methodName, args) {
+    _invokeCallback: function _invokeCallback(moduleName, targetName, methodName, args) {
       var method;
       var target;
 
@@ -481,7 +481,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     /** @private
       Given a module name, iterates through all registered callbacks and calls them.
     */
-    _invokeCallbacksForModule: function(moduleName) {
+    _invokeCallbacksForModule: function _invokeCallbacksForModule(moduleName) {
       var moduleInfo = SC.MODULE_INFO[moduleName], callbacks ;
       if (!moduleInfo) return ; // shouldn't happen, but recover anyway
 
@@ -494,7 +494,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
       }
     },
 
-    _evaluateAndInvokeCallbacks: function(moduleName) {
+    _evaluateAndInvokeCallbacks: function _evaluateAndInvokeCallbacks(moduleName) {
       var moduleInfo = SC.MODULE_INFO;
       var module = moduleInfo[moduleName];
       var log = SC.LOG_MODULE_LOADING;
@@ -516,7 +516,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
       });
     },
 
-    _moduleDidBecomeReady: function(moduleName) {
+    _moduleDidBecomeReady: function _moduleDidBecomeReady(moduleName) {
       var moduleInfo = SC.MODULE_INFO;
       var module = moduleInfo[moduleName];
       var log = SC.LOG_MODULE_LOADING;
@@ -557,7 +557,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
 
     @param moduleName {String} the name of the module that just loaded
 */
-  _moduleDidLoad: function(moduleName) {
+  _moduleDidLoad: function _moduleDidLoad(moduleName) {
     var module = SC.MODULE_INFO[moduleName];
     var log    = SC.LOG_MODULE_LOADING;
     var dependenciesMet;
@@ -601,7 +601,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     @param {String|Object} targetName the string or object representing the target
     @returns Object
   */
-  _targetForTargetName: function(targetName){
+  _targetForTargetName: function _targetForTargetName(targetName){
     if (SC.typeOf(targetName) === SC.T_STRING) {
       return SC.objectForPropertyPath(targetName);
     }
@@ -618,7 +618,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     @param {Object} target the target from which to retrieve the method
     @returns Object
   */
-  _methodForMethodNameInTarget: function(methodName, target){
+  _methodForMethodNameInTarget: function _methodForMethodNameInTarget(methodName, target){
     if (SC.typeOf(methodName) === SC.T_STRING) {
       return SC.objectForPropertyPath(methodName, target);
     }
@@ -634,7 +634,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
   /**
     Call this in order to prevent expensive tasks from occurring at inopportune times.
   */
-  suspend: function() {
+  suspend: function suspend() {
 
     //Increment the suspension count, to support nested suspend()/resume() pairs.
     //We only do anything if the suspend count ends up at 1, as that implies it's
@@ -674,7 +674,7 @@ SC.Module = SC.Object.create(/** @scope SC.Module */ {
     finally perform any calls that may have occurred during suspension. Calls
     will run in the order they were received.
   */
-  resume: function() {
+  resume: function resume() {
 
     //First, we need to decrement the suspension count, and warn if the suspension
     //count implied that we weren't already suspended. Furthermore, if the suspend
@@ -730,7 +730,7 @@ SC.ready(function() {
 
 SC.Module.PrefetchModuleTask = SC.Task.extend({
   prefetchedModuleName: null,
-  run: function() {
+  run: function run() {
     SC.Module.prefetchModule(this.prefetchedModuleName);
   }
 });

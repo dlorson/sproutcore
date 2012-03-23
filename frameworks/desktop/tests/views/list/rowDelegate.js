@@ -7,7 +7,7 @@
 
 var view, del, content;
 module("SC.ListView.rowDelegate", {
-  setup: function() {
+  setup: function setup() {
     del = SC.Object.create(SC.CollectionRowDelegate);
     
     // fake empty array that implements delegate
@@ -17,7 +17,7 @@ module("SC.ListView.rowDelegate", {
       
       length: 0,
       
-      objectAt: function(idx) { return undefined; }
+      objectAt: function objectAt(idx) { return undefined; }
     });
     
   }
@@ -110,7 +110,7 @@ test("changing the rowHeight should invalidate all row heights", function() {
     delegate: del,
     
     // override for testing
-    rowHeightDidChangeForIndexes: function(passed) {
+    rowHeightDidChangeForIndexes: function rowHeightDidChangeForIndexes(passed) {
       indexes = passed;
     }
   });
@@ -141,7 +141,7 @@ test("changing the customRowHeightIndexes should invalidate impacted row heights
     delegate: del,
     
     // override for testing
-    rowHeightDidChangeForIndexes: function(passed) {
+    rowHeightDidChangeForIndexes: function rowHeightDidChangeForIndexes(passed) {
       indexes = passed;
     }
   });

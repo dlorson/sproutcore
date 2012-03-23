@@ -28,7 +28,7 @@ SC.Validator.CreditCard = SC.Validator.extend(
   /**
     Expects a string of 16 digits.  Will split into groups of 4 for display.
   */
-  fieldValueForObject: function(object, form, field) {
+  fieldValueForObject: function fieldValueForObject(object, form, field) {
     if (typeof(object) == "string" && object.length == 16) {
       object = [object.slice(0,4),object.slice(4,8),object.slice(8,12),object.slice(12,16)].join(' ') ;
     }
@@ -38,15 +38,15 @@ SC.Validator.CreditCard = SC.Validator.extend(
   /**
     Removes all whitespace or dashes to make a single string.
   */
-  objectForFieldValue: function(value, form, field) {
+  objectForFieldValue: function objectForFieldValue(value, form, field) {
     return value.replace(/[\s-\.\:]/g,'') ;
   },
   
-  validate: function(form, field) { 
+  validate: function validate(form, field) { 
     return this.checkNumber(field.get('fieldValue')) ; 
   },
   
-  validateError: function(form, field) {
+  validateError: function validateError(form, field) {
     var label = field.get('errorLabel') || 'Field' ;
     return SC.$error(SC.String.loc("Invalid.CreditCard(%@)", label), label);
   },
@@ -54,11 +54,11 @@ SC.Validator.CreditCard = SC.Validator.extend(
   /** 
     Allow only numbers, dashes, and spaces 
   */
-  validateKeyDown: function(form, field, charStr) {
+  validateKeyDown: function validateKeyDown(form, field, charStr) {
     return !!charStr.match(/[0-9\- ]/);
   },
   
-  checkNumber: function(ccNumb) {
+  checkNumber: function checkNumber(ccNumb) {
     
     if (!ccNumb || ccNumb.length===0) return YES; // do not validate empty
     

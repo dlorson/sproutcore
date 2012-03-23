@@ -12,7 +12,7 @@ var MyApp = {};
 
 var store, child, storeKey, json;
 module("SC.Store#dataHashDidChange", {
-  setup: function() {
+  setup: function setup() {
     store = SC.Store.create();
     
     json = {

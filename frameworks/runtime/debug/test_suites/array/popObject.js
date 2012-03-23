@@ -14,7 +14,7 @@ SC.ArraySuite.define(function(T) {
   var observer, obj ;
   
   module(T.desc("popObject"), {
-    setup: function() {
+    setup: function setup() {
       obj = T.newObject();
       observer = T.observer(obj);
     }

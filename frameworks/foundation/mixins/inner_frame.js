@@ -87,7 +87,7 @@ SC.InnerFrame = {
     @param {Number} destHeight
     @returns {Object} the inner frame with properties: {x: value, y: value, width: value, height: value }
   */
-  innerFrameForSize: function(sourceWidth, sourceHeight, destWidth, destHeight) {
+  innerFrameForSize: function innerFrameForSize(sourceWidth, sourceHeight, destWidth, destHeight) {
     var align = this.get('align'),
         scale = this.get('scale'),
         scaleX,

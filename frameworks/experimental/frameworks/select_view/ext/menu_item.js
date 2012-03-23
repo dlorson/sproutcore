@@ -50,12 +50,12 @@ SC.AutoResizingMenuItemView = SC.MenuItemView.extend(SC.AutoResize,
   autoResizePadding: 0,
   
   /** @private */
-  autoResizeText: function() {
+  autoResizeText: function autoResizeText() {
     return this.get('title');
   }.property('title'),
 
   /** @private */
-  autoResizeLayer: function() {
+  autoResizeLayer: function autoResizeLayer() {
     return this.$('.value')[0];
   }.property('layer').cacheable(),
   
@@ -68,7 +68,7 @@ SC.AutoResizingMenuItemView = SC.MenuItemView.extend(SC.AutoResize,
     This won't cover cases where the menu has items of multiple sizes, but that's
     an edge case that can address the issue by overriding batchResizeId to null.
   */
-  batchResizeId: function() {
+  batchResizeId: function batchResizeId() {
     return 'menu-' + SC.guidFor(this.parentMenu);
   }.property().cacheable(),
 
@@ -91,7 +91,7 @@ SC.AutoResizingMenuItemView = SC.MenuItemView.extend(SC.AutoResize,
    *   would need some way to access the DOM. Maybe data sources can have $ properties or
    *   methods? Maybe a jQuery property/method?
   */
-  didUpdateLayer: function() {
+  didUpdateLayer: function didUpdateLayer() {
     this.notifyPropertyChange('autoResizeLayer');
     this.scheduleMeasurement();
   }

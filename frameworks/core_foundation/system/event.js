@@ -124,7 +124,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @type Number
     @default 1
   */
-  MOUSE_WHEEL_MULTIPLIER: function() {
+  MOUSE_WHEEL_MULTIPLIER: function MOUSE_WHEEL_MULTIPLIER() {
     var deltaMultiplier = 1,
         version = SC.browser.engineVersion;
 
@@ -167,7 +167,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     Standard method to create a new event.  Pass the native browser event you
     wish to wrap if needed.
   */
-  create: function(e) { return new SC.Event(e); },
+  create: function create(e) { return new SC.Event(e); },
 
   // the code below was borrowed from jQuery, Dean Edwards, and Prototype.js
 
@@ -233,7 +233,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param {Object} context optional context to pass to the handler as event.data
     @returns {Object} receiver
   */
-  add: function(elem, eventType, target, method, context, useCapture) {
+  add: function add(elem, eventType, target, method, context, useCapture) {
 
     // if a CQ object is passed in, either call add on each item in the
     // matched set, or simply get the first element and use that.
@@ -313,7 +313,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param {Object} method optional name of method
     @returns {Object} receiver
   */
-  remove: function(elem, eventType, target, method) {
+  remove: function remove(elem, eventType, target, method) {
 
     // if a CQ object is passed in, either call add on each item in the
     // matched set, or simply get the first element and use that.
@@ -407,13 +407,13 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param {Hash} attrs optional additional attributes to apply to event.
     @returns {Hash} simulated event object
   */
-  simulateEvent: function(elem, eventType, attrs) {
+  simulateEvent: function simulateEvent(elem, eventType, attrs) {
     var ret = SC.Event.create({
       type: eventType,
       target: elem,
-      preventDefault: function(){ this.cancelled = YES; },
-      stopPropagation: function(){ this.bubbles = NO; },
-      allowDefault: function() { this.hasCustomEventHandling = YES; },
+      preventDefault: function preventDefault(){ this.cancelled = YES; },
+      stopPropagation: function stopPropagation(){ this.bubbles = NO; },
+      allowDefault: function allowDefault() { this.hasCustomEventHandling = YES; },
       timeStamp: Date.now(),
       bubbles: (this.NO_BUBBLE.indexOf(eventType)<0),
       cancelled: NO,
@@ -446,7 +446,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param donative ??
     @returns {Boolean} Return value of trigger or undefined if not fired
   */
-  trigger: function(elem, eventType, args, donative) {
+  trigger: function trigger(elem, eventType, args, donative) {
 
     // if a CQ object is passed in, either call add on each item in the
     // matched set, or simply get the first element and use that.
@@ -520,7 +520,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param event {Event} the event to handle
     @returns {Boolean}
   */
-  handle: function(event) {
+  handle: function handle(event) {
 
     // ignore events triggered after window is unloaded or if double-called
     // from within a trigger.
@@ -570,7 +570,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     This method is called just before the window unloads to unhook all
     registered events.
   */
-  unload: function() {
+  unload: function unload() {
     var key, elements = this._elements ;
     for(key in elements) this.remove(elements[key]) ;
 
@@ -591,32 +591,32 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
   special: {
 
     ready: {
-      setup: function() {
+      setup: function setup() {
         // Make sure the ready event is setup
         SC._bindReady() ;
         return;
       },
 
-      teardown: function() { return; }
+      teardown: function teardown() { return; }
 
     },
 
     /** @private
         Implement support for mouseenter on browsers other than IE */
     mouseenter: {
-      setup: function() {
+      setup: function setup() {
         if ( SC.browser.name === SC.BROWSER.ie ) return NO;
         SC.Event.add(this, 'mouseover', SC.Event.special.mouseenter.handler);
         return YES;
       },
 
-      teardown: function() {
+      teardown: function teardown() {
         if ( SC.browser.name === SC.BROWSER.ie ) return NO;
         SC.Event.remove(this, 'mouseover', SC.Event.special.mouseenter.handler);
         return YES;
       },
 
-      handler: function(event) {
+      handler: function handler(event) {
         // If we actually just moused on to a sub-element, ignore it
         if ( SC.Event._withinElement(event, this) ) return YES;
         // Execute the right handlers by setting the event type to mouseenter
@@ -628,19 +628,19 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     /** @private
         Implement support for mouseleave on browsers other than IE */
     mouseleave: {
-      setup: function() {
+      setup: function setup() {
         if ( SC.browser.name === SC.BROWSER.ie ) return NO;
         SC.Event.add(this, "mouseout", SC.Event.special.mouseleave.handler);
         return YES;
       },
 
-      teardown: function() {
+      teardown: function teardown() {
         if ( SC.browser.name === SC.BROWSER.ie ) return NO;
         SC.Event.remove(this, "mouseout", SC.Event.special.mouseleave.handler);
         return YES;
       },
 
-      handler: function(event) {
+      handler: function handler(event) {
         // If we actually just moused on to a sub-element, ignore it
         if ( SC.Event._withinElement(event, this) ) return YES;
         // Execute the right handlers by setting the event type to mouseleave
@@ -665,7 +665,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
   KEY_PAGEDOWN: 34,
   KEY_INSERT:   45,
 
-  _withinElement: function(event, elem) {
+  _withinElement: function _withinElement(event, elem) {
     // Check if mouse(over|out) are still within the same parent element
     var parent = event.relatedTarget;
 
@@ -688,7 +688,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param elem {Element} the target element
     @param eventType {String} the event type
   */
-  _addEventListener: function(elem, eventType, useCapture) {
+  _addEventListener: function _addEventListener(elem, eventType, useCapture) {
     var listener, special = this.special[eventType] ;
 
 		if (!useCapture) {
@@ -740,7 +740,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
     @param elem {Element} the target element
     @param eventType {String} the event type
   */
-  _removeEventListener: function(elem, eventType) {
+  _removeEventListener: function _removeEventListener(elem, eventType) {
     var listener, special = SC.Event.special[eventType] ;
     if (!special || (special.teardown.call(elem)===NO)) {
       listener = SC.data(elem, "listener") ;
@@ -761,7 +761,7 @@ SC.mixin(SC.Event, /** @scope SC.Event */ {
   // implement preventDefault() in a cross platform way
 
   /** @private Take an incoming event and convert it to a normalized event. */
-  normalizeEvent: function(event) {
+  normalizeEvent: function normalizeEvent(event) {
     if (event === window.event) {
       // IE can't do event.normalized on an Event object
       return SC.Event.create(event) ;
@@ -794,7 +794,7 @@ SC.Event.prototype = {
     @param {SC.View}
     @returns {Array} touches an array of SC.Touch objects
   */
-  touchesForView: function(view) {
+  touchesForView: function touchesForView(view) {
     if (this.touchContext) return this.touchContext.touchesForView(view);
   },
 
@@ -804,7 +804,7 @@ SC.Event.prototype = {
     @param {SC.RootResponder}
     @returns {Array} touches an array of SC.Touch objects
   */
-  touchesForResponder: function(responder) {
+  touchesForResponder: function touchesForResponder(responder) {
     if (this.touchContext) return this.touchContext.touchesForView(responder);
   },
 
@@ -815,7 +815,7 @@ SC.Event.prototype = {
     @param {SC.View}
     @returns {Array} touches an array of SC.Touch objects
   */
-  averagedTouchesForView: function(view) {
+  averagedTouchesForView: function averagedTouchesForView(view) {
     if (this.touchContext) return this.touchContext.averagedTouchesForView(view);
     return null;
   },
@@ -826,7 +826,7 @@ SC.Event.prototype = {
 
     @returns {SC.Event} receiver
   */
-  allowDefault: function() {
+  allowDefault: function allowDefault() {
     this.hasCustomEventHandling = YES ;
     return this ;
   },
@@ -837,7 +837,7 @@ SC.Event.prototype = {
 
     @returns {SC.Event} receiver
   */
-  preventDefault: function() {
+  preventDefault: function preventDefault() {
     var evt = this.originalEvent ;
     if (evt) {
       if (evt.preventDefault) evt.preventDefault() ;
@@ -852,7 +852,7 @@ SC.Event.prototype = {
 
     @returns {SC.Event} receiver
   */
-  stopPropagation: function() {
+  stopPropagation: function stopPropagation() {
     var evt = this.originalEvent ;
     if (evt) {
       if (evt.stopPropagation) evt.stopPropagation() ;
@@ -868,7 +868,7 @@ SC.Event.prototype = {
 
     @returns {SC.Event} receiver
   */
-  stop: function() {
+  stop: function stop() {
     return this.preventDefault().stopPropagation();
   },
 
@@ -893,7 +893,7 @@ SC.Event.prototype = {
   // in IE 7 & IE 8.
   //
   // Reference: http://unixpapa.com/js/key.html
-  getCharString: function() {
+  getCharString: function getCharString() {
     if(SC.browser.name === SC.BROWSER.ie &&
         SC.browser.compare(SC.browser.version, '9.0') < 0) {
       // Return an empty String for backspace, tab, left, right, up or down.
@@ -916,7 +916,7 @@ SC.Event.prototype = {
 
     @returns {Array}
   */
-  commandCodes: function() {
+  commandCodes: function commandCodes() {
     var code=this.keyCode, ret=null, key=null, modifiers='', lowercase ;
 
     // handle function keys.

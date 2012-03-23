@@ -20,7 +20,7 @@ SC.ThumbView = SC.View.extend(SC.SplitThumb,
 /** @scope SC.ThumbView.prototype */ {
   classNames: ['sc-thumb-view'],
   
-  init: function() {
+  init: function init() {
     sc_super();
     console.warn("SC.ThumbView is deprecated. Please use a normal view and mix in SC.SplitThumb instead.");
   }

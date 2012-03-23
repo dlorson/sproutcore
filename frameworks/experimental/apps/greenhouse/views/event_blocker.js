@@ -14,19 +14,19 @@ Greenhouse.EventBlocker = SC.View.extend(
   
   isVisible: NO,
     
-  dragStarted: function(drag, evt) {
+  dragStarted: function dragStarted(drag, evt) {
     this.set('isVisible', YES);
   },
-  dragEnded: function(drag, evt) {
+  dragEnded: function dragEnded(drag, evt) {
     this.set('isVisible', NO);
   },
   
   isDropTarget: YES,
   
-  mouseMoved: function(evt){
+  mouseMoved: function mouseMoved(evt){
     return this.get('isVisible');
   },
-  mouseDragged: function(evt){
+  mouseDragged: function mouseDragged(evt){
     return this.get('isVisible');
   }
 });

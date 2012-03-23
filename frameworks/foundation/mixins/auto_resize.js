@@ -147,14 +147,14 @@ SC.AutoResize = {
   */
   calculatedFontSize: 20,
   
-  fontPropertyDidChange: function() {
+  fontPropertyDidChange: function fontPropertyDidChange() {
     if(this.get('shouldAutoFitText')) this.invokeLast(this.fitTextToFrame);
   }.observes('shouldAutoFitText', 'minFontSize', 'maxFontSize', 'measuredSize'),
 
   /**
     Observes the measured size and actually performs the resize if necessary.
   */
-  measuredSizeDidChange: function() {
+  measuredSizeDidChange: function measuredSizeDidChange() {
     var measuredSize = this.get('measuredSize'),
     calculatedWidth = measuredSize.width, calculatedHeight = measuredSize.height,
     paddingHeight, paddingWidth,
@@ -196,7 +196,7 @@ SC.AutoResize = {
     @private
     Begins observing the auto resize field.
   */
-  initMixin: function() {
+  initMixin: function initMixin() {
     // @if (debug)
     if (!this.get('supportsAutoResize')) {
       throw "View `%@` does not support automatic resize. See documentation for SC.AutoResize".fmt(this);
@@ -214,7 +214,7 @@ SC.AutoResize = {
   /**
     Schedules a measurement to happen later.
   */
-  scheduleMeasurement: function() {
+  scheduleMeasurement: function scheduleMeasurement() {
     var batchResizeId = this.get('batchResizeId');
 
     // only measure if we are visible, active, and the text or style actually changed
@@ -227,7 +227,7 @@ SC.AutoResize = {
 
   _lastMeasuredText: null,
 
-  _cachedMetrics: function(key, value) {
+  _cachedMetrics: function _cachedMetrics(key, value) {
     if(!this.get('shouldCacheSizes')) return;
 
     // if we don't have a tag, then it is unique per view
@@ -246,7 +246,7 @@ SC.AutoResize = {
 
     @param batch For internal use during batch resizing.
   */
-  measureSize: function(batch) {
+  measureSize: function measureSize(batch) {
     var metrics, layer = this.get('autoResizeLayer'), autoResizeText = this.get('autoResizeText'),
         ignoreEscape = !this.get('escapeHTML'),
         batchResizeId = this.get('batchResizeId'),
@@ -304,7 +304,7 @@ SC.AutoResize = {
     If we are fitting text, the layer must be measured with its font size set to our
     maximum font size.
   */
-  prepareLayerForStringMeasurement: function(layer) {
+  prepareLayerForStringMeasurement: function prepareLayerForStringMeasurement(layer) {
     var maxFontSize = this.get('maxFontSize');
 
     if (this.get('shouldAutoFitText') && this.get('calculatedFontSize') !== maxFontSize) {
@@ -315,7 +315,7 @@ SC.AutoResize = {
   /**
     Whenever the view resizes, the text fitting must be reevaluated.
   */
-  viewDidResize: function(orig) {
+  viewDidResize: function viewDidResize(orig) {
     orig();
 
     this.fontPropertyDidChange();
@@ -324,7 +324,7 @@ SC.AutoResize = {
   /**
     Fits the text into the frame's size, minus autoResizePadding.
   */
-  fitTextToFrame: function() {      
+  fitTextToFrame: function fitTextToFrame() {      
     // we can only fit text when we have a layer.
     var layer = this.get('autoResizeLayer');
     if (!layer) return;
@@ -436,7 +436,7 @@ SC.AutoResize = {
   /**
     Extends renderSettingsToContext to add font size if shouldAutoFitText is YES.
   */
-  applyAttributesToContext: function(orig, context) {
+  applyAttributesToContext: function applyAttributesToContext(orig, context) {
     orig(context);
     
     if (this.get('shouldAutoFitText')) {
@@ -448,7 +448,7 @@ SC.AutoResize = {
     @private
     When the layer is first created, measurement will need to take place.
   */
-  didCreateLayer: function(orig) {
+  didCreateLayer: function didCreateLayer(orig) {
     orig();
 
     this.scheduleMeasurement();
@@ -481,7 +481,7 @@ SC.AutoResizeManager = {
     @param view The view to measure.
     @param id The id of the batch to measure the view in.
   */
-  scheduleMeasurementForView: function(view) {
+  scheduleMeasurementForView: function scheduleMeasurementForView(view) {
     this.measurementQueue.add(view);
 
     SC.RunLoop.currentRunLoop.invokeLast(this.doBatchResize);
@@ -493,7 +493,7 @@ SC.AutoResizeManager = {
     @param view The view that was scheduled for measurement.
     @param id The batch id the view was scheduled in.
   */
-  cancelMeasurementForView: function(view, id) {
+  cancelMeasurementForView: function cancelMeasurementForView(view, id) {
     this.measurementQueue.remove(view);
   },
 
@@ -501,7 +501,7 @@ SC.AutoResizeManager = {
     Processes all autoResize batches. This will automatically be invoked at the
     end of any run loop in which measurements were scheduled.
   */
-  doBatchResize: function() {
+  doBatchResize: function doBatchResize() {
     // make sure we are called from the correct scope.
     // this will make our property references below clearer.
     if (this !== SC.AutoResizeManager) {

@@ -23,7 +23,7 @@ SC.View.reopen(
 
     @param {SC.Responder} responder
   */
-  willLoseKeyResponderTo: function(responder) {},
+  willLoseKeyResponderTo: function willLoseKeyResponderTo(responder) {},
 
   /**
     This method is invoked just before you become the key responder.  The
@@ -35,13 +35,13 @@ SC.View.reopen(
 
     @param {SC.Responder} responder
   */
-  willBecomeKeyResponderFrom: function(responder) {},
+  willBecomeKeyResponderFrom: function willBecomeKeyResponderFrom(responder) {},
 
   /**
     Invokved just after the responder loses key responder status.
     @param {SC.Responder} responder
   */
-  didLoseKeyResponderTo: function(responder) {},
+  didLoseKeyResponderTo: function didLoseKeyResponderTo(responder) {},
 
   /**
     Invoked just after the responder gains key responder status.
@@ -50,7 +50,7 @@ SC.View.reopen(
   
     @param {SC.Responder} responder
   */
-  didBecomeKeyResponderFrom: function(responder) {},
+  didBecomeKeyResponderFrom: function didBecomeKeyResponderFrom(responder) {},
 
   /**
     This method will process a key input event, attempting to convert it to
@@ -62,7 +62,7 @@ SC.View.reopen(
     @param {SC.Event} event
     @returns {Object} object that handled event, if any
   */
-  interpretKeyEvents: function(event) {
+  interpretKeyEvents: function interpretKeyEvents(event) {
     var codes = event.commandCodes(), cmd = codes[0], chr = codes[1], ret;
 
     if (!cmd && !chr) { return null ; } //nothing to do.
@@ -98,7 +98,7 @@ SC.View.reopen(
     @param {SC.Event} event
     @returns {Object} receiver or object that handled event
   */
-  insertText: function(chr) {
+  insertText: function insertText(chr) {
     return NO ;
   },
 
@@ -116,7 +116,7 @@ SC.View.reopen(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  performKeyEquivalent: function(keystring, evt) {
+  performKeyEquivalent: function performKeyEquivalent(keystring, evt) {
     var ret = NO,
         childViews = this.get('childViews'),
         len = childViews.length,
@@ -148,7 +148,7 @@ SC.View.reopen(
 
     @returns {SC.View}
   */
-  _getFirstKeyView: function() {
+  _getFirstKeyView: function _getFirstKeyView() {
     // if first was given, just return it
     var firstKeyView = this.get('firstKeyView');
     if(firstKeyView) return firstKeyView;
@@ -177,7 +177,7 @@ SC.View.reopen(
 
     @returns {SC.View}
   */
-  _getLastKeyView: function() {
+  _getLastKeyView: function _getLastKeyView() {
     // if last was given, just return it
     var lastKeyView = this.get('lastKeyView');
     if(lastKeyView) return lastKeyView;
@@ -234,7 +234,7 @@ SC.View.reopen(
 
     @return {SC.View}
   */
-  _getNextKeyView: function() {
+  _getNextKeyView: function _getNextKeyView() {
     var pv = this.get('parentView'),
     nextKeyView = this.get('nextKeyView');
 
@@ -262,7 +262,7 @@ SC.View.reopen(
     @property
     @type SC.View
   */
-  nextValidKeyView: function() {
+  nextValidKeyView: function nextValidKeyView() {
     var cur = this, next;
     while(next !== this) {
       next = null;
@@ -326,7 +326,7 @@ SC.View.reopen(
 
     @return {SC.View}
   */
-  _getPreviousKeyView: function() {
+  _getPreviousKeyView: function _getPreviousKeyView() {
     var pv = this.get('parentView'),
     previousKeyView = this.get('previousKeyView');
 
@@ -356,7 +356,7 @@ SC.View.reopen(
     @type SC.View
   */
   // TODO: clean this up
-  previousValidKeyView: function() {
+  previousValidKeyView: function previousValidKeyView() {
     var cur = this, prev;
 
     while(prev !== this) {

@@ -8,7 +8,7 @@
 /*global module test htmlbody ok equals same stop start */
 /*
 module("SC.ProgressView Methods", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -24,7 +24,7 @@ module("SC.ProgressView Methods", {
     view = pane.childViews[0];
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }
@@ -61,7 +61,7 @@ test("changing value of a disabled progress view", function() {
 //
 
 module("SC.SliderView Methods", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -77,7 +77,7 @@ module("SC.SliderView Methods", {
     view = pane.childViews[0];
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }

@@ -67,7 +67,7 @@ SC.PalettePane = SC.PanelPane.extend(
   /** @private
     Drag & drop palette to new position.
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var f=this.get('frame');
     this._mouseOffsetX = f ? (f.x - evt.pageX) : 0;
     this._mouseOffsetY = f ? (f.y - evt.pageY) : 0;
@@ -75,7 +75,7 @@ SC.PalettePane = SC.PanelPane.extend(
   },
 
   /** @private */
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     if(!this.isAnchored) {
       this.set('layout', { width: this.layout.width, height: this.layout.height, left: this._mouseOffsetX + evt.pageX, top: this._mouseOffsetY + evt.pageY });
       this.updateLayout();
@@ -84,12 +84,12 @@ SC.PalettePane = SC.PanelPane.extend(
   },
   
   /** @private */
-  touchStart: function(evt){
+  touchStart: function touchStart(evt){
     return this.mouseDown(evt);
   },
   
   /** @private */
-  touchesDragged: function(evt){
+  touchesDragged: function touchesDragged(evt){
     return this.mouseDragged(evt);
   }
 

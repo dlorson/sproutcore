@@ -7,7 +7,7 @@
 
 // test querying through find() on the store
 module("SC.Query querying find() on a store", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     // setup dummy app and store
     MyApp = SC.Object.create({});
@@ -19,7 +19,7 @@ module("SC.Query querying find() on a store", {
     // setup data source that just returns cached storeKeys
     MyApp.DataSource = SC.DataSource.create({
 
-      fetch: function(store, query) {
+      fetch: function fetch(store, query) {
         this.query = query;
         this.store = store;
         this.fetchCount++ ;
@@ -34,12 +34,12 @@ module("SC.Query querying find() on a store", {
         return YES ;
       },
 
-      reset: function() {
+      reset: function reset() {
         this.query = this.store = null ;
         this.fetchCount = this.prepareCount = 0 ;
       },
 
-      fetchEquals: function(store, query, count, desc) {
+      fetchEquals: function fetchEquals(store, query, count, desc) {
         if (desc===undefined && typeof count === 'string') {
           desc = count;  count = undefined;
         }
@@ -50,7 +50,7 @@ module("SC.Query querying find() on a store", {
         equals(this.fetchCount, count, desc + ': should get count');
       },
 
-      destroyRecord: function(store, storeKey){
+      destroyRecord: function destroyRecord(store, storeKey){
         store.dataSourceDidDestroy(storeKey);
         return YES;
       }
@@ -78,7 +78,7 @@ module("SC.Query querying find() on a store", {
 
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     MyApp = null ;
     SC.Record.subclasses.clear(); //reset
   }

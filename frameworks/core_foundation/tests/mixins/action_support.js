@@ -10,13 +10,13 @@
   var target, pane, sendActionSpy, view;
 
   module("SC.ActionSupport", {
-    setup: function() {
+    setup: function setup() {
       target = SC.Object.create({
-        mainAction: function() {},
-        someAction: function() {}
+        mainAction: function mainAction() {},
+        someAction: function someAction() {}
       });
 
-      var rootResponder = {sendAction: function(){} };
+      var rootResponder = {sendAction: function sendAction(){} };
       sendActionSpy = CoreTest.spyOn(rootResponder, 'sendAction');
 
       pane = SC.Object.create({
@@ -28,13 +28,13 @@
         zomgAction: null,
         pane: pane,
 
-        someEvent: function() {
+        someEvent: function someEvent() {
           return this.fireAction(this.get('zomgAction'));
         }
       });
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       target = pane = sendActionSpy = view = null;
     }
   });

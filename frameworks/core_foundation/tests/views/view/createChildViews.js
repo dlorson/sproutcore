@@ -24,7 +24,7 @@ test("calls createChildView() for each class or string in childViews array", fun
     customClassName: SC.View.extend({ key: 2 }),
 
     // patch to record results...
-    createChildView: function(childView) {
+    createChildView: function createChildView(childView) {
       if(childView.isClass) {
         called.push(childView.prototype.key);
       } else {
@@ -56,7 +56,7 @@ test("should not error when there is a dud view name in childViews list.", funct
     customClassName: SC.View.extend({ key: 2 }),
 
     // patch to record results...
-    createChildView: function(childView) {
+    createChildView: function createChildView(childView) {
       called.push(childView.prototype.key);
       ok(childView.isClass, "childView: %@ isClass".fmt(childView));
       return sc_super();
@@ -94,7 +94,7 @@ test("should not create layer for created child views", function() {
 
 var view, myViewClass ;
 module("SC.View#createChildView", {
-  setup: function() {
+  setup: function setup() {
     view = SC.View.create({ page: SC.Object.create() });
     myViewClass = SC.View.extend({ isMyView: YES, foo: 'bar' });
   }

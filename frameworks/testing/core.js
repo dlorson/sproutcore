@@ -29,7 +29,7 @@ CoreTest = {
   /** 
     Empty function.  Useful for some operations. 
   */
-  K: function() { return this; },
+  K: function K() { return this; },
 
   /**
     Copied from SproutCore Runtime Core.  Included here to avoid dependencies.
@@ -37,7 +37,7 @@ CoreTest = {
     @param obj {Object} the object to beget
     @returns {Object} the new object.
   */
-  beget: function(obj) {
+  beget: function beget(obj) {
     if (!obj) return null ;
     var K = CoreTest.K; K.prototype = obj ;
     var ret = new K();
@@ -53,7 +53,7 @@ CoreTest = {
     @returns {Object} the target object.
     @static
   */
-  mixin: function() {
+  mixin: function mixin() {
     // copy reference to target object
     var target = arguments[0] || {};
     var idx = 1;
@@ -82,7 +82,7 @@ CoreTest = {
   
   
   /** Borrowed from SproutCore Runtime Core */
-  fmt: function(str) {
+  fmt: function fmt(str) {
     // first, replace any ORDERED replacements.
     var args = arguments;
     var idx  = 1; // the current index for non-numerical replacements
@@ -120,7 +120,7 @@ CoreTest = {
     @param {Function|Hash} func the function or hash
     @returns {Function} stub function
   */
-  stub: function(name, func) {  
+  stub: function stub(name, func) {  
 
     // normalize param
     var attrs = {};
@@ -193,7 +193,7 @@ CoreTest = {
 
   showUI : false,
 
-  spyOn: function(object, method) {
+  spyOn: function spyOn(object, method) {
     if(!object) throw new Error('ERROR: Attempted to spy upon an invalid object');
     if(!object[method]) throw new Error('ERROR: The requested method does not exist on the given object');
 
@@ -202,7 +202,7 @@ CoreTest = {
     return spy;
   },
 
-  stubMethod: function(object, method) {
+  stubMethod: function stubMethod(object, method) {
     if(!object) throw new Error('ERROR: Attempted to spy upon an invalid object');
     if(!object[method]) throw new Error('ERROR: The requested method does not exist on the given object');
 

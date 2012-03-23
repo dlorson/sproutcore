@@ -66,7 +66,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     @type Boolean
     @default YES
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     if (SC.FOCUS_ALL_CONTROLS) { return this.get('isEnabled'); }
     return NO;
   }.property('isEnabled'),
@@ -213,7 +213,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     @observes 'title'
     @observes 'localize'
   */
-  displayTitle: function() {
+  displayTitle: function displayTitle() {
     var ret = this.get('title');
     return (ret && this.get('localize')) ? SC.String.loc(ret) : (ret || '');
   }.property('title','localize').cacheable(),
@@ -346,13 +346,13 @@ SC.ButtonView = SC.View.extend(SC.Control,
     TODO get this from the render delegate so other elements may be used.
   */
   /** @private */
-  autoResizeLayer: function() {
+  autoResizeLayer: function autoResizeLayer() {
     var ret = this.invokeRenderDelegateMethod('getRenderedAutoResizeLayer', this.$());
     return ret || this.get('layer');
   }.property('layer').cacheable(),
 
   /** @private */
-  autoResizeText: function() {
+  autoResizeText: function autoResizeText() {
     return this.get('displayTitle');
   }.property('displayTitle').cacheable(),
 
@@ -384,7 +384,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     @param {Event} evt
     @returns {Boolean} YES if successful, NO otherwise
   */
-  triggerActionAfterDelay: function(evt) {
+  triggerActionAfterDelay: function triggerActionAfterDelay(evt) {
     // If this button is disabled, we have nothing to do
     if (!this.get('isEnabled')) return NO;
 
@@ -404,7 +404,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
 
     @param {Event} evt
   */
-  triggerAction: function(evt) {
+  triggerAction: function triggerAction(evt) {
     this._action(evt, YES);
     this.didTriggerAction();
     this.set('isActive', NO);
@@ -415,7 +415,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     implement this method in your own subclass to perform any cleanup needed
     after an action is performed.
   */
-  didTriggerAction: function() {},
+  didTriggerAction: function didTriggerAction() {},
 
 
   // ................................................................
@@ -423,7 +423,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   //
 
   /** @private - save keyEquivalent for later use */
-  init: function() {
+  init: function init() {
     sc_super();
 
     var keyEquivalent = this.get('keyEquivalent');
@@ -487,7 +487,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
    },
 
   /** @private - when title changes, dirty display. */
-  _button_displayObserver: function() {
+  _button_displayObserver: function _button_displayObserver() {
     this.displayDidChange();
   }.observes('title', 'icon', 'value'),
 
@@ -499,7 +499,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     @param {SC.Event} evt
     @returns {Boolean}  YES if handled, NO otherwise
   */
-  performKeyEquivalent: function(keystring, evt) {
+  performKeyEquivalent: function performKeyEquivalent(keystring, evt) {
     //If this is not visible
     if (!this.get('isVisibleInWindow')) return NO;
 
@@ -536,7 +536,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     @param {Object} value
     @returns {Boolean} return state
   */
-  computeIsSelectedForValue: function(value) {
+  computeIsSelectedForValue: function computeIsSelectedForValue(value) {
     var targetValue = this.get('toggleOnValue'), state, next ;
 
     if (SC.typeOf(value) === SC.T_ARRAY) {
@@ -568,7 +568,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   /** @private
     Whenever the button value changes, update the selected state to match.
   */
-  _button_valueDidChange: function() {
+  _button_valueDidChange: function _button_valueDidChange() {
     var value = this.get('value'),
         state = this.computeIsSelectedForValue(value);
     this.set('isSelected', state) ; // set new state...
@@ -579,7 +579,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     also updated.  Note that this may be called because the value has just
     changed.  In that case this should do nothing.
   */
-  _button_isSelectedDidChange: function() {
+  _button_isSelectedDidChange: function _button_isSelectedDidChange() {
     var newState = this.get('isSelected'),
         curState = this.computeIsSelectedForValue(this.get('value'));
 
@@ -609,7 +609,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
     Whenever the isDefault or isCancel property changes, re-render and change
     the keyEquivalent property so that we respond to the return or escape key.
   */
-  _isDefaultOrCancelDidChange: function() {
+  _isDefaultOrCancelDidChange: function _isDefaultOrCancelDidChange() {
     var isDefault = !!this.get('isDefault'),
         isCancel = !isDefault && this.get('isCancel') ;
 
@@ -626,7 +626,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   /** @private
     On mouse down, set active only if enabled.
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var buttonBehavior = this.get('buttonBehavior');
 
     if (!this.get('isEnabled')) return YES ; // handled event, but do nothing
@@ -646,7 +646,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   /** @private
     Remove the active class on mouseExited if mouse is down.
   */
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     if (this._isMouseDown) {
       this.set('isActive', NO);
     }
@@ -656,7 +656,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   /** @private
     If mouse was down and we renter the button area, set the active state again.
   */
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     if (this._isMouseDown) {
       this.set('isActive', YES);
     }
@@ -666,7 +666,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   /** @private
     ON mouse up, trigger the action only if we are enabled and the mouse was released inside of the view.
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (this._isMouseDown) this.set('isActive', NO); // track independently in case isEnabled has changed
     this._isMouseDown = false;
 
@@ -679,7 +679,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  touchStart: function(touch){
+  touchStart: function touchStart(touch){
     var buttonBehavior = this.get('buttonBehavior');
 
     if (!this.get('isEnabled')) return YES ; // handled event, but do nothing
@@ -699,7 +699,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  touchesDragged: function(evt, touches) {
+  touchesDragged: function touchesDragged(evt, touches) {
     if (!this.touchIsInBoundary(evt)) {
       if (!this._touch_exited) this.set('isActive', NO);
       this._touch_exited = YES;
@@ -713,7 +713,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  touchEnd: function(touch){
+  touchEnd: function touchEnd(touch){
     this._touch_exited = NO;
     this.set('isActive', NO); // track independently in case isEnabled has changed
 
@@ -728,7 +728,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     // handle tab key
      if(!this.get('isEnabled')) return YES;
     if (evt.which === 9 || evt.keyCode === 9) {
@@ -756,7 +756,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
      - off behavior: turn off.
      - otherwise: invoke target/action
   */
-  _action: function(evt, skipHoldRepeat) {
+  _action: function _action(evt, skipHoldRepeat) {
     switch(this.get('buttonBehavior')) {
 
     // When toggling, try to invert like values. i.e. 1 => 0, etc.
@@ -791,7 +791,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  _runAction: function(evt) {
+  _runAction: function _runAction(evt) {
     var action = this.get('action'),
         target = this.get('target') || null,
         rootResponder;
@@ -811,7 +811,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  _runHoldAction: function(evt, skipRepeat) {
+  _runHoldAction: function _runHoldAction(evt, skipRepeat) {
     if (this.get('isActive')) {
       this._runAction();
 
@@ -826,7 +826,7 @@ SC.ButtonView = SC.View.extend(SC.Control,
 
 
   /** @private */
-  didBecomeKeyResponderFrom: function(keyView) {
+  didBecomeKeyResponderFrom: function didBecomeKeyResponderFrom(keyView) {
     // focus the text field.
     if (!this._isFocused) {
       this._isFocused = YES ;
@@ -838,12 +838,12 @@ SC.ButtonView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  willLoseKeyResponderTo: function(responder) {
+  willLoseKeyResponderTo: function willLoseKeyResponderTo(responder) {
     if (this._isFocused) this._isFocused = NO ;
   },
 
   /** @private */
-  didAppendToDocument: function() {
+  didAppendToDocument: function didAppendToDocument() {
     if(SC.browser.isIE &&
         SC.browser.compare(SC.browser.engineVersion, '7') === 0 &&
         this.get('useStaticLayout')){

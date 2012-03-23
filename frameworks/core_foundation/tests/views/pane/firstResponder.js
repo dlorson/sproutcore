@@ -8,7 +8,7 @@
 
 var pane, r, view0, view1 ;
 CommonSetup = {
-  setup: function() {
+  setup: function setup() {
     pane = SC.Pane.create({
       childViews: [SC.View, SC.View]
     });
@@ -19,7 +19,7 @@ CommonSetup = {
     r = pane.get('rootResponder');
     ok(r, 'has root responder');
   },
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = r = view0 = view1 = null ;
   }

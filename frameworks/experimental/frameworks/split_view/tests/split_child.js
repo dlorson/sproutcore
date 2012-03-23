@@ -26,7 +26,7 @@ var splitView;
 
 function setupSuite(layoutDirection) {
 module("SplitView - SplitChild (" + (layoutDirection === SC.LAYOUT_HORIZONTAL ? "HORIZONTAL" : "VERTICAL") + ")", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     splitView = SC.SplitView.create({
       childViews: [ 'left', 'middle', 'right' ],

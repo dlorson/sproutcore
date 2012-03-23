@@ -9,7 +9,7 @@ var stateI, stateJ, stateK, stateL, stateM, stateN, monitor;
 var allState;
 
 module("SC.Statechart: No Concurrent States - Goto State Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -79,7 +79,7 @@ module("SC.Statechart: No Concurrent States - Goto State Tests", {
     stateN = statechart.getState('n');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = monitor = root = null;
     stateA = stateB = stateC = stateD = stateE = stateF = stateG = stateH = stateI = stateJ = null;

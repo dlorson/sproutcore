@@ -39,19 +39,19 @@ SC.SplitDividerView = SC.View.extend(
   /** @private */
 
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var splitView = this.get('splitView');
     return (splitView) ? splitView.mouseDownInThumbView(evt, this) : sc_super();
   },
   
   /** @private */
-  doubleClick: function(evt) {
+  doubleClick: function doubleClick(evt) {
     var splitView = this.get('splitView');
     return (splitView) ? splitView.doubleClickInThumbView(evt, this) : sc_super();
   },
   
   /** @private */
-  touchStart: function(evt){
+  touchStart: function touchStart(evt){
     return this.mouseDown(evt);
   }
   

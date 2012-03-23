@@ -12,7 +12,7 @@
   
 var parent, child;
 module("SC.View#removeChild", {
-	setup: function() {
+	setup: function setup() {
 		parent = SC.View.create({ childViews: [SC.View] });
 		child = parent.childViews[0];
 	}
@@ -136,7 +136,7 @@ test("should not move layer immediately", function() {
 //
 var view;
 module("SC.View#removeAllChildren", {
- setup: function() { 
+ setup: function setup() { 
   view = SC.View.create({
     childViews: [SC.View, SC.View, SC.View]
   });

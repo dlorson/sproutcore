@@ -8,7 +8,7 @@
 
 var source, indexes, observer, obj ; // base array to work with
 module("SC.RangeObserver#objectPropertyDidChange", {
-  setup: function() {
+  setup: function setup() {
     
     // create array with 5 SC.Object's in them
     source = [1,2,3,4,5].map(function(x) {
@@ -31,7 +31,7 @@ module("SC.RangeObserver#objectPropertyDidChange", {
       
       context: NO,
       
-      setupVerify: function(object, key, indexes, context) {
+      setupVerify: function setupVerify(object, key, indexes, context) {
         this.verify = YES ;  
         this.object = (object === undefined) ? NO : object ;
         this.key = (key === undefined) ? NO : key ;
@@ -41,7 +41,7 @@ module("SC.RangeObserver#objectPropertyDidChange", {
       },
       
       // whenever this is called, verify proper params are passed
-      changeObserver: function(inSource, inObject, inKey, inIndexes, inContext) { 
+      changeObserver: function changeObserver(inSource, inObject, inKey, inIndexes, inContext) { 
         this.callCount++;
         if (this.verify) {
           ok(source === inSource, 'source should match source array');

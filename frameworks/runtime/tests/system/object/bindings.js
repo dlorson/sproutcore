@@ -13,7 +13,7 @@ var testObject, fromObject, extraObject, TestObject;
 
 module("bind() method", {
   
-  setup: function() {
+  setup: function setup() {
     testObject = SC.Object.create({
       foo: "bar",
       bar: "foo",
@@ -35,7 +35,7 @@ module("bind() method", {
     } ;
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     testObject = fromObject = extraObject = null ; 
   }
   
@@ -118,7 +118,7 @@ test("bind(*extraObject.foo) should be disconnectable", function() {
 
 module("fooBinding method", {
   
-  setup: function() {
+  setup: function setup() {
     TestObject = SC.Object.extend({
       foo: "bar",
       bar: "foo",
@@ -140,7 +140,7 @@ module("fooBinding method", {
     } ;
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     TestObject = fromObject = extraObject = null ;
   //  delete TestNamespace ;
   }
@@ -236,7 +236,7 @@ test('fooBinding: should disconnect bindings when destroyed', function () {
 
 module("fooBindingDefault: SC.Binding.Bool (old style)", {
   
-  setup: function() {
+  setup: function setup() {
     TestObject = SC.Object.extend({
       foo: "bar",
       fooBindingDefault: SC.Binding.bool(),
@@ -255,7 +255,7 @@ module("fooBindingDefault: SC.Binding.Bool (old style)", {
     } ;
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     TestObject = fromObject = null ;
  //   delete TestNamespace ;
   }
@@ -302,7 +302,7 @@ test("fooBinding: SC.Binding.not(TestNamespace.fromObject.bar should override de
 
 module("fooBindingDefault: SC.Binding.bool() (new style)", {
   
-  setup: function() {
+  setup: function setup() {
     TestObject = SC.Object.extend({
       foo: "bar",
       fooBindingDefault: SC.Binding.bool(),
@@ -321,7 +321,7 @@ module("fooBindingDefault: SC.Binding.bool() (new style)", {
     } ;
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     TestObject = fromObject = null ;
    // delete TestNamespace ;
   }

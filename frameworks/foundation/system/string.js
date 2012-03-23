@@ -123,7 +123,7 @@ SC.mixin(SC.String, {
     @param {String} str String to capitalize each letter2
     @returns {String} capitalized string
   */
-  capitalizeEach: function(str) {
+  capitalizeEach: function capitalizeEach(str) {
     return str.replace(SC.STRING_TITLEIZE_REGEXP,
       function(subStr, sep, character) {
         return (character) ? (sep + character.toUpperCase()) : sep;
@@ -145,7 +145,7 @@ SC.mixin(SC.String, {
     @param {String} str String to titleize
     @return {String} titleized string.
   */
-  titleize: function(str) {
+  titleize: function titleize(str) {
     var ret = str.replace(SC.STRING_DECAMELIZE_REGEXP,'$1_$2'); // decamelize
     return ret.replace(SC.STRING_TITLEIZE_REGEXP,
       function(subStr, separater, character) {
@@ -168,7 +168,7 @@ SC.mixin(SC.String, {
     @param {String} str String to classify
     @returns {String}
   */
-  classify: function(str) {
+  classify: function classify(str) {
     var ret = str.replace(SC.STRING_TITLEIZE_REGEXP,
       function(subStr, separater, character) {
         return character ? character.toUpperCase() : '';
@@ -192,7 +192,7 @@ SC.mixin(SC.String, {
     @param {String} str String to humanize
     @returns {String} the humanized string.
   */
-  humanize: function(str) {
+  humanize: function humanize(str) {
     return SC.String.decamelize(str).replace(SC.STRING_HUMANIZE_REGEXP,' ');
   },
 
@@ -206,7 +206,7 @@ SC.mixin(SC.String, {
     @param {String} str String to escape for regex
     @returns {String} the string properly escaped for use in a regexp.
   */
-  escapeForRegExp: function(str) {
+  escapeForRegExp: function escapeForRegExp(str) {
     return str.replace(SC.STRING_REGEXP_ESCAPED_REGEXP, "\\$1");
   },
 
@@ -217,7 +217,7 @@ SC.mixin(SC.String, {
     @param {String} str String to remove diacritics from
     @returns {String} the modified string
   */
-  removeDiacritics: function(str) {
+  removeDiacritics: function removeDiacritics(str) {
     // Lazily create the SC.diacriticMappingTable object.
     var diacriticMappingTable = SC.diacriticMappingTable;
     if (!diacriticMappingTable) {
@@ -307,7 +307,7 @@ SC.mixin(SC.String, {
     @param {String} str String to pluralize
     @returns {String} the plural form of the string
   */
-  pluralize: function(str) {
+  pluralize: function pluralize(str) {
       var idx, len,
           compare = str.split(/\s/).pop(), //check only the last word of a string
           restOfString = str.replace(compare,''),
@@ -343,7 +343,7 @@ SC.mixin(SC.String, {
     @param {String} str String to singularize
     @returns {String} the singular form of the string
   */
-  singularize: function(str) {
+  singularize: function singularize(str) {
       var idx, len,
           compare = str.split(/\s/).pop(), //check only the last word of a string
           restOfString = str.replace(compare,''),

@@ -10,12 +10,12 @@
 var root, content, controller, extra, flattened;
 
 var TestObject = SC.Object.extend({
-  toString: function() { return "TestObject(%@)".fmt(this.get('title')); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get('title')); }
 });
 
 
 module("SC.TreeController - tree_case", {
-  setup: function() {
+  setup: function setup() {
     
     // setup a basic tree 
     content = [
@@ -90,7 +90,7 @@ module("SC.TreeController - tree_case", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

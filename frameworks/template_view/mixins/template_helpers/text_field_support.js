@@ -12,7 +12,7 @@ sc_require('views/template');
 */
 SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
 
-  $input: function() {
+  $input: function input() {
     return this.$('input');
   },
 
@@ -40,7 +40,7 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     @type String
     @default  null
   */
-  value: function(key, value) {
+  value: function value(key, value) {
     var input = this.$input();
 
     if (value !== undefined) {
@@ -59,7 +59,7 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     return value;
   }.property().idempotent(),
 
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     var input = this.$input(),
         self = this;
 
@@ -74,7 +74,7 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     }
   },
 
-  willDestroyLayerMixin: function() {
+  willDestroyLayerMixin: function willDestroyLayerMixin() {
     var input = this.$input();
 
     if (SC.browser.isIE) {
@@ -86,22 +86,22 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     }
   },
 
-  focusIn: function(event) {
+  focusIn: function focusIn(event) {
     this.becomeFirstResponder();
     this.tryToPerform('focus', event);
   },
 
-  focusOut: function(event) {
+  focusOut: function focusOut(event) {
     this.resignFirstResponder();
     this.tryToPerform('blur', event);
   },
 
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     evt.allowDefault();
     return YES;
   },
 
-  touchEnd: function(evt) {
+  touchEnd: function touchEnd(evt) {
     evt.allowDefault();
     return YES;
   },
@@ -113,15 +113,15 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     on focusOut, but blur can potentially get called
     after other events.
   */
-  willLoseFirstResponder: function() {
+  willLoseFirstResponder: function willLoseFirstResponder() {
     this.notifyPropertyChange('value');
   },
 
-  domValueDidChange: function(jquery) {
+  domValueDidChange: function domValueDidChange(jquery) {
     this.set('value', jquery.val());
   },
 
-  keyUp: function(event) {
+  keyUp: function keyUp(event) {
     this.domValueDidChange(this.$input());
 
     if (event.keyCode === SC.Event.KEY_RETURN) {
@@ -137,7 +137,7 @@ SC.TextFieldSupport = /** @scope SC.TextFieldSupport */{
     true so that all selection events bubble up to the browser,
     triggering the default browser behavior.
   */
-  selectStart: function() {
+  selectStart: function selectStart() {
     return true;
   }
 
@@ -173,11 +173,11 @@ SC.TextField = SC.TemplateView.extend(SC.TextFieldSupport,
   // In short, because we need to be able to catch changes to the
   // DOM made directly, we cannot also rely on bindAttr to update
   // the property: a chicken-and-egg problem.
-  template: function(){
+  template: function template(){
     return SC.Handlebars.compile(this.get('isMultiline') ? '<textarea></textarea>' : '<input type="text">');
   }.property('isMultiline').cacheable(),
 
-  $input: function() {
+  $input: function input() {
     var tagName = this.get('isMultiline') ? 'textarea' : 'input';
     return this.$(tagName);
   }

@@ -21,7 +21,7 @@ Greenhouse.layoutController = SC.ObjectController.create(
     Determines which set of dimensions should be visible in the layout 
     palette in the horizontal direction.
   */
-  hDimNowShowing: function() {
+  hDimNowShowing: function hDimNowShowing() {
     var loc = this.get('anchorLocation'),
         K   = SC.ViewDesigner, 
         ret = 'leftDimensions';
@@ -37,7 +37,7 @@ Greenhouse.layoutController = SC.ObjectController.create(
     Determines which set of dimensions should be visible in the layout 
     palette in the vertical direction.
   */
-  vDimNowShowing: function() {
+  vDimNowShowing: function vDimNowShowing() {
     var loc = this.get('anchorLocation'),
         K   = SC.ViewDesigner, 
         ret = 'topDimensions';

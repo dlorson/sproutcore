@@ -90,7 +90,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} context a context object you can use to maintain state.
     @returns {Object} the next object in the iteration or undefined
   */
-  nextObject: function(index, previousObject, context) {
+  nextObject: function nextObject(index, previousObject, context) {
     return this.objectAt ? this.objectAt(index) : this[index] ;
   },
 
@@ -106,7 +106,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
 
     @returns {Object} the object or undefined
   */
-  firstObject: function() {
+  firstObject: function firstObject() {
     if (this.get('length')===0) return undefined ;
     if (this.objectAt) return this.objectAt(0); // support arrays out of box
 
@@ -122,7 +122,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
 
     @returns {Object} the object or undefined
   */
-  lastObject: function() {
+  lastObject: function lastObject() {
     var len = this.get('length');
     if (len===0) return undefined ;
     if (this.objectAt) return this.objectAt(len-1); // support arrays out of box
@@ -135,7 +135,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
 
     @returns {SC.Enumerator} an enumerator for the receiver
   */
-  enumerator: function() { return SC.Enumerator.create(this); },
+  enumerator: function enumerator() { return SC.Enumerator.create(this); },
 
   /**
     Iterates through the enumerable, calling the passed function on each
@@ -159,7 +159,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Object} this
   */
-  forEach: function(callback, target) {
+  forEach: function forEach(callback, target) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
@@ -185,7 +185,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} key the key to retrieve
     @returns {Array} extracted values
   */
-  getEach: function(key) {
+  getEach: function getEach(key) {
     return this.map(function(next) {
       return next ? (next.get ? next.get(key) : next[key]) : null;
     }, this);
@@ -201,7 +201,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} value the object to set
     @returns {Object} receiver
   */
-  setEach: function(key, value) {
+  setEach: function setEach(key, value) {
     this.forEach(function(next) {
       if (next) {
         if (next.set) next.set(key, value) ;
@@ -234,7 +234,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Array} The mapped array.
   */
-  map: function(callback, target) {
+  map: function map(callback, target) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
@@ -259,7 +259,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} key name of the property
     @returns {Array} The mapped array.
   */
-  mapProperty: function(key) {
+  mapProperty: function mapProperty(key) {
     return this.map(function(next) {
       return next ? (next.get ? next.get(key) : next[key]) : null;
     });
@@ -289,7 +289,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Array} A filtered array.
   */
-  filter: function(callback, target) {
+  filter: function filter(callback, target) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
@@ -315,7 +315,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} key one or more key names
     @returns {Array}
   */
-  sortProperty: function(key) {
+  sortProperty: function sortProperty(key) {
     var keys = (typeof key === SC.T_STRING) ? arguments : key,
         len  = keys.length,
         src;
@@ -351,7 +351,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} value optional value to test against.
     @returns {Array} filtered array
   */
-  filterProperty: function(key, value) {
+  filterProperty: function filterProperty(key, value) {
     var len = this.get ? this.get('length') : this.length ;
     var ret  = [];
     var last = null ;
@@ -392,7 +392,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Object} Found item or null.
   */
-  find: function(callback, target) {
+  find: function find(callback, target) {
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
 
@@ -419,7 +419,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} value optional value to test against.
     @returns {Object} found item or null
   */
-  findProperty: function(key, value) {
+  findProperty: function findProperty(key, value) {
     var len = this.get ? this.get('length') : this.length ;
     var found = NO, ret = null, last = null, next, cur ;
     var context = SC.Enumerator._popContext();
@@ -462,7 +462,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Boolean}
   */
-  every: function(callback, target) {
+  every: function every(callback, target) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
@@ -488,7 +488,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} value optional value to test against.
     @returns {Array} filtered array
   */
-  everyProperty: function(key, value) {
+  everyProperty: function everyProperty(key, value) {
     var len = this.get ? this.get('length') : this.length ;
     var ret  = YES;
     var last = null ;
@@ -532,7 +532,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object} target the target object to use
     @returns {Array} A filtered array.
   */
-  some: function(callback, target) {
+  some: function some(callback, target) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
     if (target === undefined) target = null;
@@ -558,7 +558,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} value optional value to test against.
     @returns {Boolean} YES
   */
-  someProperty: function(key, value) {
+  someProperty: function someProperty(key, value) {
     var len = this.get ? this.get('length') : this.length ;
     var ret  = NO;
     var last = null ;
@@ -604,7 +604,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} reducerProperty internal use only.  May not be available.
     @returns {Object} The reduced value.
   */
-  reduce: function(callback, initialValue, reducerProperty) {
+  reduce: function reduce(callback, initialValue, reducerProperty) {
     if (typeof callback !== "function") throw new TypeError() ;
     var len = this.get ? this.get('length') : this.length ;
 
@@ -646,7 +646,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object...} args optional arguments to pass as well.
     @returns {Array} return values from calling invoke.
   */
-  invoke: function(methodName) {
+  invoke: function invoke(methodName) {
     var len = this.get ? this.get('length') : this.length ;
     if (len <= 0) return [] ; // nothing to invoke....
 
@@ -685,7 +685,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {Object...} args optional arguments to pass as well.
     @returns {Array} return values from calling invoke.
   */
-  invokeWhile: function(targetValue, methodName) {
+  invokeWhile: function invokeWhile(targetValue, methodName) {
     var len = this.get ? this.get('length') : this.length ;
     if (len <= 0) return null; // nothing to invoke....
 
@@ -720,7 +720,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
 
     @returns {Array} the enumerable as an array.
   */
-  toArray: function() {
+  toArray: function toArray() {
     var ret = [];
     this.forEach(function(o) { ret.push(o); }, this);
     return ret ;
@@ -733,7 +733,7 @@ SC.Enumerable = /** @scope SC.Enumerable.prototype */{
     @param {String} key the property to test
     @returns {Array} matrix of arrays
   */
-  groupBy: function(key){
+  groupBy: function groupBy(key){
     var len = this.get ? this.get('length') : this.length,
         ret = [],
         last = null,
@@ -790,7 +790,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @property {SC.Array}
   */
-  '[]': function(key, value) { return this ; }.property(),
+  '[]': function (key, value) { return this ; }.property(),
 
   /**
     Invoke this method when the contents of your enumerable has changed.
@@ -806,7 +806,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
     @param {Array} removedObjects the objects that were removed
     @returns {Object} receiver
   */
-  enumerableContentDidChange: function(start, length, deltas) {
+  enumerableContentDidChange: function enumerableContentDidChange(start, length, deltas) {
     this.notifyPropertyChange('[]') ;
   },
 
@@ -823,7 +823,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
     property.  You can call this at the top of your unknownProperty handler
     like so:
 
-      unknownProperty: function(key, value) {
+      unknownProperty: function unknownProperty(key, value) {
         var ret = this.handleReduceProperty(key, value) ;
         if (ret === undefined) {
           // process like normal
@@ -839,7 +839,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} the reduced property or undefined
   */
-  reducedProperty: function(key, value, generateProperty) {
+  reducedProperty: function reducedProperty(key, value, generateProperty) {
 
     if (!key || typeof key !== SC.T_STRING || key.charAt(0) !== '@') return undefined ; // not a reduced property
 
@@ -890,7 +890,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceMax: function(previousValue, item, index, e, reducerProperty) {
+  reduceMax: function reduceMax(previousValue, item, index, e, reducerProperty) {
     if (reducerProperty && item) {
       item = item.get ? item.get(reducerProperty) : item[reducerProperty];
     }
@@ -910,7 +910,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceMaxObject: function(previousItem, item, index, e, reducerProperty) {
+  reduceMaxObject: function reduceMaxObject(previousItem, item, index, e, reducerProperty) {
 
     // get the value for both the previous and current item.  If no
     // reducerProperty was supplied, use the items themselves.
@@ -940,7 +940,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceMin: function(previousValue, item, index, e, reducerProperty) {
+  reduceMin: function reduceMin(previousValue, item, index, e, reducerProperty) {
     if (reducerProperty && item) {
       item = item.get ? item.get(reducerProperty) : item[reducerProperty];
     }
@@ -960,7 +960,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceMinObject: function(previousItem, item, index, e, reducerProperty) {
+  reduceMinObject: function reduceMinObject(previousItem, item, index, e, reducerProperty) {
 
     // get the value for both the previous and current item.  If no
     // reducerProperty was supplied, use the items themselves.
@@ -990,7 +990,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceAverage: function(previousValue, item, index, e, reducerProperty) {
+  reduceAverage: function reduceAverage(previousValue, item, index, e, reducerProperty) {
     if (reducerProperty && item) {
       item = item.get ? item.get(reducerProperty) : item[reducerProperty];
     }
@@ -1012,7 +1012,7 @@ SC.Reducers = /** @scope SC.Reducers.prototype */ {
 
     @returns {Object} reduced value
   */
-  reduceSum: function(previousValue, item, index, e, reducerProperty) {
+  reduceSum: function reduceSum(previousValue, item, index, e, reducerProperty) {
     if (reducerProperty && item) {
       item = item.get ? item.get(reducerProperty) : item[reducerProperty];
     }
@@ -1047,7 +1047,7 @@ Array.prototype.isEnumerable = YES ;
     sortProperty: SC.Enumerable.sortProperty,
 
     // see above...
-    mapProperty: function(key) {
+    mapProperty: function mapProperty(key) {
       var len = this.length ;
       var ret  = [];
       for(var idx=0;idx<len;idx++) {
@@ -1057,7 +1057,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    filterProperty: function(key, value) {
+    filterProperty: function filterProperty(key, value) {
       var len = this.length ;
       var ret  = [];
       for(var idx=0;idx<len;idx++) {
@@ -1070,7 +1070,7 @@ Array.prototype.isEnumerable = YES ;
     },
 
     //returns a matrix
-    groupBy: function(key) {
+    groupBy: function groupBy(key) {
       var len = this.length,
           ret = [],
           grouped = [],
@@ -1090,7 +1090,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    find: function(callback, target) {
+    find: function find(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
       var len = this.length ;
       if (target === undefined) target = null;
@@ -1104,7 +1104,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    findProperty: function(key, value) {
+    findProperty: function findProperty(key, value) {
       var len = this.length ;
       var next, cur, found=NO, ret=null;
       for(var idx=0;idx<len && !found;idx++) {
@@ -1116,7 +1116,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    everyProperty: function(key, value) {
+    everyProperty: function everyProperty(key, value) {
       var len = this.length ;
       var ret  = YES;
       for(var idx=0;ret && (idx<len);idx++) {
@@ -1127,7 +1127,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    someProperty: function(key, value) {
+    someProperty: function someProperty(key, value) {
       var len = this.length ;
       var ret  = NO;
       for(var idx=0; !ret && (idx<len); idx++) {
@@ -1138,7 +1138,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;  // return the invert
     },
 
-    invoke: function(methodName) {
+    invoke: function invoke(methodName) {
       var len = this.length ;
       if (len <= 0) return [] ; // nothing to invoke....
 
@@ -1161,7 +1161,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    invokeWhile: function(targetValue, methodName) {
+    invokeWhile: function invokeWhile(targetValue, methodName) {
       var len = this.length ;
       if (len <= 0) return null ; // nothing to invoke....
 
@@ -1184,7 +1184,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    toArray: function() {
+    toArray: function toArray() {
       var len = this.length ;
       if (len <= 0) return [] ; // nothing to invoke....
 
@@ -1197,7 +1197,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    getEach: function(key) {
+    getEach: function getEach(key) {
       var ret = [];
       var len = this.length ;
       for(var idx=0;idx<len;idx++) {
@@ -1207,7 +1207,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    setEach: function(key, value) {
+    setEach: function setEach(key, value) {
       var len = this.length;
       for(var idx=0;idx<len;idx++) {
         var obj = this[idx];
@@ -1227,7 +1227,7 @@ Array.prototype.isEnumerable = YES ;
   var mixinIfMissing = {
 
     // QUESTION: The lack of DRY is burning my eyes [YK]
-    forEach: function(callback, target) {
+    forEach: function forEach(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
 
       // QUESTION: Is this necessary?
@@ -1240,7 +1240,7 @@ Array.prototype.isEnumerable = YES ;
       return this ;
     },
 
-    map: function(callback, target) {
+    map: function map(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
 
       if (target === undefined) target = null;
@@ -1253,7 +1253,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    filter: function(callback, target) {
+    filter: function filter(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
 
       if (target === undefined) target = null;
@@ -1266,7 +1266,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    every: function(callback, target) {
+    every: function every(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
       var len = this.length ;
       if (target === undefined) target = null;
@@ -1279,7 +1279,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    some: function(callback, target) {
+    some: function some(callback, target) {
       if (typeof callback !== "function") throw new TypeError() ;
       var len = this.length ;
       if (target === undefined) target = null;
@@ -1292,7 +1292,7 @@ Array.prototype.isEnumerable = YES ;
       return ret ;
     },
 
-    reduce: function(callback, initialValue, reducerProperty) {
+    reduce: function reduce(callback, initialValue, reducerProperty) {
       if (typeof callback !== "function") throw new TypeError() ;
       var len = this.length ;
 

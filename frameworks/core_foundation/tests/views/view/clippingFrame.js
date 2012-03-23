@@ -8,7 +8,7 @@
 
 var pane, a, aa ;
 module("SC.View#clippingFrame", {
-  setup: function() {
+  setup: function setup() {
     htmlbody('<style> .sc-view { border: 1px blue solid; position: absolute;  overflow: hidden; }</style>');
     SC.RunLoop.begin();
     pane = SC.Pane.design()
@@ -23,7 +23,7 @@ module("SC.View#clippingFrame", {
     aa = a.childViews[0];
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     pane.remove();
     pane = a = aa = null ;
     SC.RunLoop.end();

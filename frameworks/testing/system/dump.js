@@ -51,7 +51,7 @@
   
   jsDump = CoreTest.jsDump = {
 
-    parse: function(obj, type) {
+    parse: function parse(obj, type) {
       if (obj && obj.toString) {
         var toString = obj.toString;
         if ((toString !== Object.prototype.toString) && (toString !== Array.toString)) return obj.toString();
@@ -65,7 +65,7 @@
     },
     
     //type is used mostly internally, you can fix a (custom)type in advance
-    _parse: function( obj, type ) {
+    _parse: function _parse( obj, type ) {
       
       
       var parser = this.parsers[ type || this.typeOf(obj) ];
@@ -145,7 +145,7 @@
       array: array,
       nodelist: array,
       'arguments': array,
-      scobj: function(obj) { return obj.toString(); },
+      scobj: function scobj(obj) { return obj.toString(); },
       object:function( map ){
         
         var ret = [ ];

@@ -13,7 +13,7 @@ var context = null;
 // classNames()
 // 
 module("SC.RenderContext#classNames", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext() ;
   }
 });
@@ -57,7 +57,7 @@ test("extracts class names from element on first retrieval", function() {
 // hasClass()
 // 
 module("SC.RenderContext#hasClass", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().classNames('foo bar'.w()) ;
   }
 });
@@ -80,7 +80,7 @@ test("should return false if context has no classNames", function() {
 // addClass()
 //
 module("SC.RenderContext#addClass", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().classNames(['foo']) ;
   }
 });
@@ -108,7 +108,7 @@ test("should only add class name once - does nothing if name already in array", 
 // removeClass()
 // 
 module("SC.RenderContext#removeClass", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().classNames(['foo', 'bar']) ;
   }
 });
@@ -145,7 +145,7 @@ test("should do nothing if there are no class names", function() {
 // setClass
 // 
 module("SC.RenderContext#setClass", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().addClass('foo') ;
   }
 });

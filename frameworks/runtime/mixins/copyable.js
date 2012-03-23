@@ -35,7 +35,7 @@ SC.Copyable = /** @scope SC.Copyable.prototype */{
     @param deep {Boolean} if true, a deep copy of the object should be made
     @returns {Object} copy of receiver
   */
-  copy: function(deep) {
+  copy: function copy(deep) {
     var className = SC._object_className(this.constructor);
     throw "%@.copy() is not implemented".fmt(className);
   },
@@ -53,7 +53,7 @@ SC.Copyable = /** @scope SC.Copyable.prototype */{
 
     @returns {Object} copy of receiver or receiver
   */
-  frozenCopy: function() {
+  frozenCopy: function frozenCopy() {
     var isFrozen = this.get ? this.get('isFrozen') : this.isFrozen;
     if (isFrozen === YES) return this;
     else if (isFrozen === undefined) throw "%@ does not support freezing".fmt(this);

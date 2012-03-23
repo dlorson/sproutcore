@@ -32,7 +32,7 @@ Greenhouse = SC.Object.create( SC.StatechartManager,
   
   
     
-  loadIframeWithPage: function(firstTime){
+  loadIframeWithPage: function loadIframeWithPage(firstTime){
     var c = Greenhouse.fileController.get('content'), iframe = Greenhouse.get('iframe'), namespace, page;
     var r = c.get('pageRegex'), mainPane;
     namespace = r[1];

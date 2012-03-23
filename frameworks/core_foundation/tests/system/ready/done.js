@@ -7,7 +7,7 @@
 
 var realMainFunction, realApplicationMode, timesMainCalled;
 module("SC.onReady.done", {
-  setup: function() {
+  setup: function setup() {
     timesMainCalled = 0;
 
     realMainFunction = window.main;
@@ -18,7 +18,7 @@ module("SC.onReady.done", {
     realApplicationMode = SC.mode;
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     window.main = realMainFunction;
     SC.mode = realApplicationMode;
     SC.isReady = false;

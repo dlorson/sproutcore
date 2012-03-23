@@ -15,7 +15,7 @@ var renderFunc = CoreTest.stub("render", function() {
 
 module("SC.ListView.render", {
   
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     
     content = "1 2 3 4 5 6 7 8 9 10".w().map(function(x) {
@@ -27,7 +27,7 @@ module("SC.ListView.render", {
       
       layout: { top: 0, left: 0, width: 300, height: 500 },
       
-      layoutForContentIndex: function(idx) {
+      layoutForContentIndex: function layoutForContentIndex(idx) {
         return { left: 0, right: 0, top: idx * 50, height: 50 };
       },
       
@@ -46,7 +46,7 @@ module("SC.ListView.render", {
       }),
       
       // reset stubs
-      reset: function() {
+      reset: function reset() {
         this.didReload.reset();
         this._cv_isVisibleInWindowDidChange.reset();
         this._cv_nowShowingDidChange.reset();
@@ -62,7 +62,7 @@ module("SC.ListView.render", {
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.begin();
     pane.remove();
     SC.RunLoop.end();

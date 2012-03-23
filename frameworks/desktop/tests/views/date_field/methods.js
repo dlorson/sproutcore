@@ -11,7 +11,7 @@
 var pane, view0, view1, view2;
 
 module("SC.DateFieldView", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -40,7 +40,7 @@ module("SC.DateFieldView", {
     view2 = pane.childViews[2];
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view0 = view1 = view2 = null;
   }

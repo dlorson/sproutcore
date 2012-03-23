@@ -33,7 +33,7 @@ CoreTools.Target = SC.Record.extend(
   /**  
     URL to use to load the app.  If no an app, returns null
   */
-  appUrl: function() {
+  appUrl: function appUrl() {
     return (this.get('kind') === 'app') ? CoreTools.attachUrlPrefix(this.get('name')) : null;
   }.property('kind', 'name').cacheable(),
   
@@ -45,7 +45,7 @@ CoreTools.Target = SC.Record.extend(
   /**
     Children of this target.  Computed by getting the loaded targets
   */
-  children: function() {
+  children: function children() {
     var store = this.get('store'),
         query = CoreTools.TARGETS_QUERY,
         ret   = store.find(query).filterProperty('parent', this);
@@ -57,7 +57,7 @@ CoreTools.Target = SC.Record.extend(
   /**
     Display name for this target
   */
-  displayName: function() {
+  displayName: function displayName() {
     var name = (this.get('name') || '(unknown)').split('/');
     return name[name.length-1];
   }.property('name').cacheable(),
@@ -65,7 +65,7 @@ CoreTools.Target = SC.Record.extend(
   /**
     The icon to display.  Based on the type.
   */
-  targetIcon: function() {
+  targetIcon: function targetIcon() {
     var ret = 'sc-icon-document-16';
     switch(this.get('kind')) {
       case "framework":
@@ -83,7 +83,7 @@ CoreTools.Target = SC.Record.extend(
     This is the group key used to display.  Will be the kind unless the item
     belongs to the sproutcore target.
   */
-  sortKind: function() {
+  sortKind: function sortKind() {
     if (this.get('name') === '/sproutcore') return null;
     var parent = this.get('parent');
     if (parent && (parent.get('name') === '/sproutcore')) return 'sproutcore';
@@ -91,7 +91,7 @@ CoreTools.Target = SC.Record.extend(
   }.property('kind', 'parent').cacheable(),
   
   
-  testsQuery: function() {
+  testsQuery: function testsQuery() {
     return SC.Query.remote(CoreTools.Test, { url: this.get('testsUrl') });
   }.property('testsUrl').cacheable(),
   
@@ -99,7 +99,7 @@ CoreTools.Target = SC.Record.extend(
     Returns all of the tests associated with this target by fetching the
     testsUrl.
   */
-  tests: function() {
+  tests: function tests() {
     return this.get('store').find(this.get('testsQuery'));
   }.property('testsQuery').cacheable()
   

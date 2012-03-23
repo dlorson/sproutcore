@@ -27,13 +27,13 @@ var pane, view ; // test globals
 
 module("isVisibleInWindow", {
   
-  setup: function() {
+  setup: function setup() {
     pane = SC.MainPane.create() ;
     pane.append() ;
     view = SC.View.create() ; 
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     view = null ;
     pane.remove().destroy() ;
     pane = null ;

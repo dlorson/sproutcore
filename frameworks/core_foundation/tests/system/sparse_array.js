@@ -46,7 +46,7 @@ test("objectAt() should get the object at the specified index",function() {
 });
 
 module("SC.replace",{
-	setup: function() {
+	setup: function setup() {
 		// create objects...
 		numbers= [1,2,3] ;
 		new_numbers = [4,5,6];
@@ -86,7 +86,7 @@ test("should work with @each dependent keys", function() {
   array.provideLength(1);
 
   var obj = SC.Object.create({
-    total: function() {
+    total: function total() {
       return this.get('content').reduce(function(prev, item) {
         return prev + item.get('value');
       }, 0);
@@ -114,17 +114,17 @@ test("modifying a range should not require the rest of the array to refetch", fu
   var del = {
     cnt: 0,
     
-    sparseArrayDidRequestIndex: function(sparseArray, idx) {
+    sparseArrayDidRequestIndex: function sparseArrayDidRequestIndex(sparseArray, idx) {
       this.cnt++;
       sparseArray.provideObjectAtIndex(idx, "foo");
     },
     
-    sparseArrayDidRequestLength: function(sparseArray) {
+    sparseArrayDidRequestLength: function sparseArrayDidRequestLength(sparseArray) {
       sparseArray.provideLength(100);
     },
     
     // make editable
-    sparseArrayShouldReplace: function() { return YES; }
+    sparseArrayShouldReplace: function sparseArrayShouldReplace() { return YES; }
     
   };
   
@@ -149,23 +149,23 @@ test("Check that requestIndex works with a rangeWindowSize larger than 1", funct
 	var DummyDelegate = SC.Object.extend({
     content: [], // source array
 
-    sparseArrayDidRequestLength: function(sparseArray) {
+    sparseArrayDidRequestLength: function sparseArrayDidRequestLength(sparseArray) {
       sparseArray.provideLength(this.content.length);
     },
 
-    sparseArrayDidRequestIndex: function(sparseArray, index) {
+    sparseArrayDidRequestIndex: function sparseArrayDidRequestIndex(sparseArray, index) {
       sparseArray.provideObjectAtIndex(index, this.content[index]);
     },
 
-    sparseArrayDidRequestIndexOf: function(sparseArray, object) {
+    sparseArrayDidRequestIndexOf: function sparseArrayDidRequestIndexOf(sparseArray, object) {
       return this.content.indexOf(object);    
     },
 
-    sparseArrayShouldReplace: function(sparseArray, idx, amt, objects) {
+    sparseArrayShouldReplace: function sparseArrayShouldReplace(sparseArray, idx, amt, objects) {
       this.content.replace(idx, amt, objects) ; // keep internal up-to-date
       return YES ; // allow anything
     },
-    sparseArrayDidRequestRange: function(sparseArray, range) {
+    sparseArrayDidRequestRange: function sparseArrayDidRequestRange(sparseArray, range) {
        didRequestRange=YES;
      }
 
@@ -202,19 +202,19 @@ test("definedIndexes", function() {
 var DummyDelegate = SC.Object.extend({
   content: [], // source array
 
-  sparseArrayDidRequestLength: function(sparseArray) {
+  sparseArrayDidRequestLength: function sparseArrayDidRequestLength(sparseArray) {
     sparseArray.provideLength(this.content.length);
   },
   
-  sparseArrayDidRequestIndex: function(sparseArray, index) {
+  sparseArrayDidRequestIndex: function sparseArrayDidRequestIndex(sparseArray, index) {
     sparseArray.provideObjectAtIndex(index, this.content[index]);
   },
   
-  sparseArrayDidRequestIndexOf: function(sparseArray, object) {
+  sparseArrayDidRequestIndexOf: function sparseArrayDidRequestIndexOf(sparseArray, object) {
     return this.content.indexOf(object);    
   },
   
-  sparseArrayShouldReplace: function(sparseArray, idx, amt, objects) {
+  sparseArrayShouldReplace: function sparseArrayShouldReplace(sparseArray, idx, amt, objects) {
     this.content.replace(idx, amt, objects) ; // keep internal up-to-date
     return YES ; // allow anything
   }
@@ -222,7 +222,7 @@ var DummyDelegate = SC.Object.extend({
 });
 
 SC.ArraySuite.generate("SC.SparseArray", {
-  newObject: function(amt) {
+  newObject: function newObject(amt) {
     if (amt === undefined || typeof amt === SC.T_NUMBER) {
       amt = this.expected(amt);
     }
@@ -265,7 +265,7 @@ test("should notify range observers", function() {
 test("test updating SparseArray length via delegate", function() {
     var delegate = SC.Object.create({
         arrlen: null,
-        sparseArrayDidRequestLength: function(arr) {
+        sparseArrayDidRequestLength: function sparseArrayDidRequestLength(arr) {
             arr.provideLength(this.arrlen);
         }
     });

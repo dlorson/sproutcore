@@ -6,7 +6,7 @@ module("SC.Array mixin - Array observers");
     var start, added, removed;
 
     content.addArrayObservers({
-      didChange: function(s, r, a) {
+      didChange: function didChange(s, r, a) {
         start = s;
         added = a;
         removed = r;

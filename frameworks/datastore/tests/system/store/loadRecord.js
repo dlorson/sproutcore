@@ -10,7 +10,7 @@ var Person;
 
 
 module("SC.Store#loadRecord", {
-  setup: function() {
+  setup: function setup() {
   
     Person = SC.Record.extend({
       first: SC.Record.attr(String, { isRequired: YES}),

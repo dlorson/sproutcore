@@ -14,7 +14,7 @@ SC.ArraySuite.define(function(T) {
   var observer, obj ;
   
   module(T.desc("insertAt"), {
-    setup: function() {
+    setup: function setup() {
       obj = T.newObject();
       observer = T.observer(obj);
     }

@@ -7,7 +7,7 @@ var sc, root, stateA, stateB, stateC, stateD, stateE, stateF;
 
 module("SC.State: findFirstRelativeCurrentState method Tests (without concurrent states)", {
   
-  setup: function() {
+  setup: function setup() {
     
     sc = SC.Statechart.create({
       initialState: 'a',
@@ -45,7 +45,7 @@ module("SC.State: findFirstRelativeCurrentState method Tests (without concurrent
     stateF = sc.getState('f');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     sc = root = stateA = stateB = stateC = stateD = stateE = stateF = null;
   }
   

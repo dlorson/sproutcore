@@ -8,13 +8,13 @@
 
 var view ;
 module("SC.Control#displayProperties", {
-  setup: function() {
+  setup: function setup() {
     view = SC.View.create(SC.Control, { 
         isVisibleInWindow: YES 
     }).createLayer();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     view.destroy();
   }
 });

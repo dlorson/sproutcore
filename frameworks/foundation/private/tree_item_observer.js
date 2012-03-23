@@ -58,7 +58,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     The parent item for the observer item.  Computed automatically from the
     parent.  If the value of this is null, then this is the root of the tree.
   */
-  parentItem: function() {
+  parentItem: function parentItem() {
     var p = this.get('parentObserver');
     return p ? p.get('item') : null;
   }.property('parentObserver').cacheable(),
@@ -99,7 +99,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     @property
     @type SC.IndexSet
   */
-  branchIndexes: function() {
+  branchIndexes: function branchIndexes() {
     var item = this.get('item'),
         len, pitem, idx, children, ret;
 
@@ -136,7 +136,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Returns YES if the item itself should be shown, NO if only its children
     should be shown.  Normally returns YES unless the parentObject is null.
   */
-  isHeaderVisible: function() {
+  isHeaderVisible: function isHeaderVisible() {
     return !!this.get('parentObserver');
   }.property('parentObserver').cacheable(),
 
@@ -161,7 +161,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     @param {Boolean} omitMaterializing
     @returns {Object}
   */
-  objectAt: function(index, omitMaterializing) {
+  objectAt: function objectAt(index, omitMaterializing) {
     var len   = this.get('length'),
         item  = this.get('item'),
         cache = this._objectAtCache,
@@ -237,7 +237,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     @param {Number} operation either SC.DROP_BEFORE or SC.DROP_AFTER
     @returns {SC.TreeItemObserver} receiver
   */
-  replace: function(start, amt, objects, operation) {
+  replace: function replace(start, amt, objects, operation) {
 
     var cur      = start,
         observer = null,
@@ -316,7 +316,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     The start, amt and delta params should reflect changes to the children
     array, not to the expanded range for the wrapper.
   */
-  observerContentDidChange: function(start, amt, delta) {
+  observerContentDidChange: function observerContentDidChange(start, amt, delta) {
 
     // clear caches
     this.invalidateBranchObserversAt(start);
@@ -363,7 +363,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Accepts a child index and expands it to reflect any nested groups.
   */
-  expandChildIndex: function(index) {
+  expandChildIndex: function expandChildIndex(index) {
 
     var ret = index;
     if (this.get('isHeaderVisible')) index++;
@@ -391,7 +391,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     implementation will compute the indexes one time based on the delegate
     treeItemIsGrouped
   */
-  contentGroupIndexes: function(view, content) {
+  contentGroupIndexes: function contentGroupIndexes(view, content) {
     if (content !== this) return null; // only care about receiver
 
     var ret = this._contentGroupIndexes;
@@ -434,7 +434,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     return ret;
   },
 
-  contentIndexIsGroup: function(view, content, idx) {
+  contentIndexIsGroup: function contentIndexIsGroup(view, content, idx) {
     var indexes = this.contentGroupIndexes(view, content);
     return indexes ? indexes.contains(idx) : NO ;
   },
@@ -442,7 +442,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Returns the outline level for the specified index.
   */
-  contentIndexOutlineLevel: function(view, content, index) {
+  contentIndexOutlineLevel: function contentIndexOutlineLevel(view, content, index) {
     if (content !== this) return -1; // only care about us
 
     var cache = this._outlineLevelCache;
@@ -490,7 +490,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Returns the disclosure state for the specified index.
   */
-  contentIndexDisclosureState: function(view, content, index) {
+  contentIndexDisclosureState: function contentIndexDisclosureState(view, content, index) {
     if (content !== this) return -1; // only care about us
 
     var cache = this._disclosureStateCache;
@@ -540,7 +540,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     the branchObserver responsible for this item and then calls _collapse on
     it.
   */
-  contentIndexExpand: function(view, content, idx) {
+  contentIndexExpand: function contentIndexExpand(view, content, idx) {
 
     var indexes, cur = idx, children, item;
 
@@ -584,7 +584,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     @param {Number} idx the content index
     @returns {void}
   */
-  contentIndexCollapse: function(view, content, idx) {
+  contentIndexCollapse: function contentIndexCollapse(view, content, idx) {
 
     var indexes, children, item, cur = idx;
 
@@ -628,7 +628,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Returns the branch item for the specified index.  If none exists yet, it
     will be created.
   */
-  branchObserverAt: function(index) {
+  branchObserverAt: function branchObserverAt(index) {
     var byIndex = this._branchObserversByIndex,
         indexes = this._branchObserverIndexes,
         ret, parent, pitem, item, children, guid, del ;
@@ -660,7 +660,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Invalidates any branch observers on or after the specified index range.
   */
-  invalidateBranchObserversAt: function(index) {
+  invalidateBranchObserversAt: function invalidateBranchObserversAt(index) {
     var byIndex = this._branchObserversByIndex,
         indexes = this._branchObserverIndexes;
 
@@ -682,7 +682,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   // INTERNAL METHODS
   //
 
-  init: function() {
+  init: function init() {
     sc_super();
 
     // begin all properties on item if there is one.  This will allow us to
@@ -699,7 +699,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Called just before a branch observer is removed.  Should stop any
     observing and invalidate any child observers.
   */
-  destroy: function() {
+  destroy: function destroy() {
     this.invalidateBranchObserversAt(0);
     this._objectAtCache = null ;
     this._notifyParent = NO ; // parent doesn't care anymore
@@ -722,7 +722,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     children array or the disclosure state has changed and then notifies as
     necessary..
   */
-  _itemPropertyDidChange: function(target, key) {
+  _itemPropertyDidChange: function _itemPropertyDidChange(target, key) {
     var children = this.get('children'),
         state    = this.get('disclosureState'),
         item     = this.get('item'),
@@ -743,7 +743,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Called whenever the children or disclosure state changes.  Begins or ends
     observing on the children array so that changes can propogate outward.
   */
-  _childrenDidChange: function() {
+  _childrenDidChange: function _childrenDidChange() {
     var state = this.get('disclosureState'),
         cur   = state === SC.BRANCH_OPEN ? this.get('children') : null,
         last  = this._children,
@@ -766,7 +766,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     changes the length property, then notifies the parent that the content
     might have changed.
   */
-  _childrenRangeDidChange: function(array, objects, key, indexes) {
+  _childrenRangeDidChange: function _childrenRangeDidChange(array, objects, key, indexes) {
     var children = this.get('children'),
         len = children ? children.get('length') : 0,
         min = indexes ? indexes.get('min') : 0,
@@ -782,7 +782,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     the delegate.  If no pitem or index is passed, the parentItem and index
     will be used.
   */
-  _computeDisclosureState: function(item, pitem, index) {
+  _computeDisclosureState: function _computeDisclosureState(item, pitem, index) {
     var key, del;
 
     // no item - assume leaf node
@@ -810,7 +810,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Collapse the item at the specified index.  This will either directly
     modify the property on the item or call the treeItemCollapse() method.
   */
-  _collapse: function(item, pitem, index) {
+  _collapse: function _collapse(item, pitem, index) {
     var key, del;
 
     // no item - assume leaf node
@@ -840,7 +840,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
     Expand the item at the specified index.  This will either directly
     modify the property on the item or call the treeItemExpand() method.
   */
-  _expand: function(item, pitem, index) {
+  _expand: function _expand(item, pitem, index) {
     var key, del;
 
     // no item - assume leaf node
@@ -869,7 +869,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Computes the children for the passed item.
   */
-  _computeChildren: function(item) {
+  _computeChildren: function _computeChildren(item) {
     var del, key;
 
     // no item - no children
@@ -893,7 +893,7 @@ SC.TreeItemObserver = SC.Object.extend(SC.Array, SC.CollectionContent, {
   /**
     Computes the length of the array by looking at children.
   */
-  _computeLength: function() {
+  _computeLength: function _computeLength() {
     var ret = this.get('isHeaderVisible') ? 1 : 0,
         state = this.get('disclosureState'),
         children = this.get('children'),

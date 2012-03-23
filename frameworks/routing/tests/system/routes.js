@@ -21,9 +21,9 @@ test('Setup', function() {
 
 module('SC.routes setup', {
   
-  setup: function() {
+  setup: function setup() {
     router = SC.Object.create({
-      route: function() {
+      route: function route() {
         return;
       }
     });
@@ -44,9 +44,9 @@ test('Initial route', function() {
 
 module('SC.routes._Route', {
   
-  setup: function() {
+  setup: function setup() {
     router = SC.Object.create({
-      route: function() {
+      route: function route() {
         return;
       }
     });
@@ -113,7 +113,7 @@ test('Route tree', function() {
 
 module('SC.routes location', {
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.routes.set('location', null);
   }
   
@@ -150,20 +150,20 @@ test('Already escaped route', function() {
 
 module('SC.routes defined routes', {
   
-  setup: function() {
+  setup: function setup() {
     router = SC.Object.create({
       params: null,
       triggered: NO,
-      route: function(params) {
+      route: function route(params) {
         this.set('params', params);
       },
-      triggerRoute: function() {
+      triggerRoute: function triggerRoute() {
         this.triggered = YES;
       }
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.routes.set('location', null);
   }
   
@@ -297,16 +297,16 @@ test('A mix of everything', function() {
 
 module('SC.routes location observing', {
   
-  setup: function() {
+  setup: function setup() {
     router = SC.Object.create({
       hasBeenNotified: NO,
-      route: function(params) {
+      route: function route(params) {
         this.set('hasBeenNotified', YES);
       }
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.routes.set('location', null);
   }
   

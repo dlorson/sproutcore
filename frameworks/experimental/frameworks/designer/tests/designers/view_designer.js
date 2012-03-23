@@ -14,13 +14,13 @@
   module('SC.ViewDesigner', {
     setup: function () {
       testView = SC.View.extend({
-        mouseDown: function(){
+        mouseDown: function mouseDown(){
           var page = this.get('page');
           page.set('mouseDownInView', YES);
         }
       });
       testView.Designer = SC.ViewDesigner.extend({
-        mouseDown: function(){
+        mouseDown: function mouseDown(){
           var page = this.get('page');
           page.set('mouseDownInDesigner', YES);
         }

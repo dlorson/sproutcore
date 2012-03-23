@@ -11,7 +11,7 @@ var content, controller, extra;
 
 var TestObject = SC.Object.extend({
   title: "test",  
-  toString: function() { return "TestObject(%@)".fmt(this.get("title")); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get("title")); }
 });
 
 
@@ -20,13 +20,13 @@ var TestObject = SC.Object.extend({
 // 
 
 module("SC.ArrayController - null_case", {
-  setup: function() {
+  setup: function setup() {
     content = null;
     controller = SC.ArrayController.create({ content: content });
     extra = TestObject.create({ title: "FOO" });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

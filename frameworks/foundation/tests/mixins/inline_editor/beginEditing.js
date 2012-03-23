@@ -13,7 +13,7 @@ var fakeDelegate, fakeEditor, view;
 fakeDelegate = {
   acquireEditorCalled: NO,
   acquireEditorAllowed: YES,
-  acquireEditor: function() {
+  acquireEditor: function acquireEditor() {
     this.acquireEditorCalled = YES;
 
     return this.acquireEditorAllowed ? fakeEditor : null;
@@ -21,24 +21,24 @@ fakeDelegate = {
 
   shouldBeginCalled: NO,
   shouldBeginAllowed: YES,
-  inlineEditorShouldBeginEditing: function() {
+  inlineEditorShouldBeginEditing: function inlineEditorShouldBeginEditing() {
     this.shouldBeginCalled = YES;
 
     return this.shouldBeginAllowed;
   },
 
   willBeginCalled: NO,
-  inlineEditorWillBeginEditing: function() {
+  inlineEditorWillBeginEditing: function inlineEditorWillBeginEditing() {
     this.willBeginCalled = YES;
   },
 
   didBeginCalled: NO,
-  inlineEditorDidBeginEditing: function() {
+  inlineEditorDidBeginEditing: function inlineEditorDidBeginEditing() {
     ok(this.willBeginCalled, "willBegin was called before didBegin");
     this.didBeginCalled = YES;
   },
 
-  inlineEditorShouldDiscardEditing: function() {
+  inlineEditorShouldDiscardEditing: function inlineEditorShouldDiscardEditing() {
     return YES;
   }
 };
@@ -48,7 +48,7 @@ fakeEditor = SC.View.create(SC.InlineEditor, {
 
   beginEditingCalled: NO,
   beginEditingAllowed: YES,
-  beginEditing: function(original, editable) {
+  beginEditing: function beginEditing(original, editable) {
     this.beginEditingCalled = YES;
 
     var ret = original(editable);

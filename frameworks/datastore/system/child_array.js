@@ -59,7 +59,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type SC.Store
     @property
   */
-  store: function() {
+  store: function store() {
     return this.getPath('record.store');
   }.property('record').cacheable(),
 
@@ -70,7 +70,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Number
     @property
   */
-  storeKey: function() {
+  storeKey: function storeKey() {
     return this.getPath('record.storeKey');
   }.property('record').cacheable(),
 
@@ -81,7 +81,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type SC.Array
     @property
   */
-  readOnlyChildren: function() {
+  readOnlyChildren: function readOnlyChildren() {
     return this.get('record').readAttribute(this.get('propertyName'));
   }.property(),
 
@@ -92,7 +92,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type {SC.Array}
     @property
   */
-  editableChildren: function() {
+  editableChildren: function editableChildren() {
     var store    = this.get('store'),
         storeKey = this.get('storeKey'),
         pname    = this.get('propertyName'),
@@ -117,7 +117,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Number
     @property
   */
-  length: function() {
+  length: function length() {
     var children = this.get('readOnlyChildren');
     return children ? children.length : 0;
   }.property('readOnlyChildren'),
@@ -129,7 +129,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {Number} idx index of the object to retrieve.
     @returns {SC.Record} The record if found or undefined.
   */
-  objectAt: function(idx) {
+  objectAt: function objectAt(idx) {
     var recs      = this._records,
         children = this.get('readOnlyChildren'),
         hash, ret, pname = this.get('propertyName'),
@@ -161,7 +161,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @returns {SC.Record} The record if found or undefined.
 
   */
-  replace: function(idx, amt, recs) {
+  replace: function replace(idx, amt, recs) {
     var children = this.get('editableChildren'),
         len      = recs ? (recs.get ? recs.get('length') : recs.length) : 0,
         record   = this.get('record'), newRecs,
@@ -189,7 +189,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {SC.Array} recs records to be converted to hashes.
     @returns {SC.Array} array of hashes.
   */
-  _processRecordsToHashes: function(recs){
+  _processRecordsToHashes: function _processRecordsToHashes(recs){
     var store, sk;
     recs = recs || [];
     recs.forEach( function(me, idx){
@@ -206,7 +206,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
   /**
     Calls normalize on each object in the array
   */
-  normalize: function(){
+  normalize: function normalize(){
     this.forEach(function(child,id){
       if(child.normalize) child.normalize();
     });
@@ -222,7 +222,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {SC.Array} keys optional
     @returns {SC.ChildArray} itself.
   */
-  recordPropertyDidChange: function(keys) {
+  recordPropertyDidChange: function recordPropertyDidChange(keys) {
     this._performRecordPropertyChange(keys, true);
     return this;
   },
@@ -236,7 +236,7 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {Boolean} doReset optional
     @returns {SC.ChildArray} itself.
   */
-  _performRecordPropertyChange: function(keys, doReset){
+  _performRecordPropertyChange: function _performRecordPropertyChange(keys, doReset){
     if (keys && !keys.contains(this.get('propertyName'))) return this;
 
     var children = this.get('readOnlyChildren'), oldLen = 0, newLen = 0;
@@ -284,13 +284,13 @@ SC.ChildArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {Number} value
     @param {Number} rev
   */
-  _childrenContentDidChange: function(start, removedCount, addedCount) {
+  _childrenContentDidChange: function _childrenContentDidChange(start, removedCount, addedCount) {
     this._records = null ; // clear cache
     this.arrayContentDidChange(start, removedCount, addedCount);
   },
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this.recordPropertyDidChange();
   }

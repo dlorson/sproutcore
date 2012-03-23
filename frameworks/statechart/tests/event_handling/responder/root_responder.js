@@ -11,7 +11,7 @@ var responder, fooInvokedCount;
 // 
 
 module("SC.Statechart: No Concurrent States - Root Responder Default Responder Tests", {
-  setup: function() {
+  setup: function setup() {
     fooInvokedCount = 0;
     
     window.statechart = SC.Statechart.create({
@@ -21,14 +21,14 @@ module("SC.Statechart: No Concurrent States - Root Responder Default Responder T
         initialSubstate: 'a',
         
         a: SC.State.design({
-          foo: function() { 
+          foo: function foo() { 
             fooInvokedCount++;
             this.gotoState('b'); 
           }
         }),
         
         b: SC.State.design({
-          foo: function() {
+          foo: function foo() {
             fooInvokedCount++;
             this.gotoState('a'); 
           }
@@ -47,7 +47,7 @@ module("SC.Statechart: No Concurrent States - Root Responder Default Responder T
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     window.statechart = null;
     responder = null;
     SC.RootResponder.responder.set('defaultResponder', null);

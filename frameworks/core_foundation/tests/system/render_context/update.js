@@ -10,12 +10,12 @@
 var context = null, elem = null;
 
 module("SC.RenderContext#update", {
-  setup: function() {
+  setup: function setup() {
     elem = document.createElement('div');
     context = SC.RenderContext(elem) ;
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     elem = context = null; // avoid memory leaks
   }
 });
@@ -51,13 +51,13 @@ test("clears internal _elem to avoid memory leaks on update", function() {
 // Attribute Editing
 //
 module("SC.RenderContext#update - attrs", {
-  setup: function() {
+  setup: function setup() {
     elem = document.createElement('div');
     SC.$(elem).attr("foo", "initial");
     context = SC.RenderContext(elem);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     elem = context = null ;
   }
 });
@@ -89,13 +89,13 @@ test("removes attribute if value is null", function() {
 // ID
 //
 module("SC.RenderContext#update - id", {
-  setup: function() {
+  setup: function setup() {
     elem = document.createElement('div');
     SC.$(elem).attr("id", "foo");
     context = SC.RenderContext(elem);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     elem = context = null ;
   }
 });
@@ -123,13 +123,13 @@ test("set id overrides attr", function() {
 // Class Name Editing
 //
 module("SC.RenderContext#update - className", {
-  setup: function() {
+  setup: function setup() {
     elem = document.createElement('div');
     SC.$(elem).attr("class", "foo bar");
     context = SC.RenderContext(elem);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     elem = context = null ;
   }
 });
@@ -157,13 +157,13 @@ test("set class names override class attr", function() {
 // Style Editing
 //
 module("SC.RenderContext#update - style", {
-  setup: function() {
+  setup: function setup() {
     elem = document.createElement('div');
     SC.$(elem).attr("style", "color: red;");
     context = SC.RenderContext(elem);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     elem = context = null ;
   }
 });

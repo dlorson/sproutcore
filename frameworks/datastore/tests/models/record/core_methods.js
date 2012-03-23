@@ -7,13 +7,13 @@
 
 var MyApp, dataSource;
 module("SC.Record core methods", {
-  setup: function() {
+  setup: function setup() {
     dataSource = SC.DataSource.create({
 
       gotParams: NO,
       wasCommitted: NO,
 
-      createRecord: function(store, storeKey, params) {
+      createRecord: function createRecord(store, storeKey, params) {
         this.wasCommitted = YES;
         this.gotParams = params && params['param1'] ? YES: NO;
       }});

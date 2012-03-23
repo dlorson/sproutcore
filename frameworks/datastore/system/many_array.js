@@ -66,7 +66,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type SC.Store
     @property
   */
-  store: function() {
+  store: function store() {
     return this.get('record').get('store');
   }.property('record').cacheable(),
 
@@ -77,7 +77,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Number
     @property
   */
-  storeKey: function() {
+  storeKey: function storeKey() {
     return this.get('record').get('storeKey');
   }.property('record').cacheable(),
 
@@ -89,7 +89,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type SC.Array
     @property
   */
-  readOnlyStoreIds: function() {
+  readOnlyStoreIds: function readOnlyStoreIds() {
     return this.get('record').readAttribute(this.get('propertyName'));
   }.property(),
 
@@ -101,7 +101,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type {SC.Array}
     @property
   */
-  editableStoreIds: function() {
+  editableStoreIds: function editableStoreIds() {
     var store    = this.get('store'),
         storeKey = this.get('storeKey'),
         pname    = this.get('propertyName'),
@@ -128,7 +128,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Boolean
     @property
   */
-  isEditable: function() {
+  isEditable: function isEditable() {
     // NOTE: can't use get() b/c manyAttribute looks like a computed prop
     var attr = this.manyAttribute;
     return attr ? attr.get('isEditable') : NO;
@@ -140,7 +140,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type String
     @property
   */
-  inverse: function() {
+  inverse: function inverse() {
     // NOTE: can't use get() b/c manyAttribute looks like a computed prop
     var attr = this.manyAttribute;
     return attr ? attr.get('inverse') : null;
@@ -152,7 +152,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Boolean
     @property
   */
-  isMaster: function() {
+  isMaster: function isMaster() {
     // NOTE: can't use get() b/c manyAttribute looks like a computed prop
     var attr = this.manyAttribute;
     return attr ? attr.get('isMaster') : null;
@@ -164,7 +164,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Array
     @property
   */
-  orderBy: function() {
+  orderBy: function orderBy() {
     // NOTE: can't use get() b/c manyAttribute looks like a computed prop
     var attr = this.manyAttribute;
     return attr ? attr.get('orderBy') : null;
@@ -180,7 +180,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @type Number
     @property
   */
-  length: function() {
+  length: function length() {
     var storeIds = this.get('readOnlyStoreIds');
     return storeIds ? storeIds.get('length') : 0;
   }.property('readOnlyStoreIds'),
@@ -189,7 +189,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     Looks up the store id in the store ids array and materializes a
     records.
   */
-  objectAt: function(idx) {
+  objectAt: function objectAt(idx) {
     var recs      = this._records,
         storeIds  = this.get('readOnlyStoreIds'),
         store     = this.get('store'),
@@ -221,7 +221,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     Pass through to the underlying array.  The passed in objects must be
     records, which can be converted to `storeId`s.
   */
-  replace: function(idx, amt, recs) {
+  replace: function replace(idx, amt, recs) {
 
     if (!this.get('isEditable')) {
       throw "%@.%@[] is not editable".fmt(this.get('record'), this.get('propertyName'));
@@ -301,7 +301,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {SC.Record} inverseRecord the record that was removed
     @returns {SC.ManyArray} receiver
   */
-  removeInverseRecord: function(inverseRecord) {
+  removeInverseRecord: function removeInverseRecord(inverseRecord) {
 
     if (!inverseRecord) return this; // nothing to do
     var id = inverseRecord.get('id'),
@@ -326,7 +326,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     @param {SC.Record} inverseRecord the record this array is a part of
     @returns {SC.ManyArray} receiver
   */
-  addInverseRecord: function(inverseRecord) {
+  addInverseRecord: function addInverseRecord(inverseRecord) {
 
     if (!inverseRecord) return this;
     var id = inverseRecord.get('id'),
@@ -351,7 +351,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
   /** @private
       binary search to find insertion location
   */
-  _findInsertionLocation: function(rec, min, max, orderBy) {
+  _findInsertionLocation: function _findInsertionLocation(rec, min, max, orderBy) {
     var idx   = min+Math.floor((max-min)/2),
         cur   = this.objectAt(idx),
         order = this._compare(rec, cur, orderBy);
@@ -367,7 +367,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
   /** @private
       function to compare to objects
   */
-  _compare: function(a, b, orderBy) {
+  _compare: function _compare(a, b, orderBy) {
     var t = SC.typeOf(orderBy),
         ret, idx, len;
 
@@ -389,7 +389,7 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
   /** @private
     Invoked whenever the `storeIds` array changes.  Observes changes.
   */
-  recordPropertyDidChange: function(keys) {
+  recordPropertyDidChange: function recordPropertyDidChange(keys) {
 
     if (keys && !keys.contains(this.get('propertyName'))) return this;
 
@@ -432,20 +432,20 @@ SC.ManyArray = SC.Object.extend(SC.Enumerable, SC.Array,
     dump any cached record lookup and then notify that the enumerable content
     has changed.
   */
-  _storeIdsContentDidChange: function(start, removedCount, addedCount) {
+  _storeIdsContentDidChange: function _storeIdsContentDidChange(start, removedCount, addedCount) {
     this._records = null ; // clear cache
     this.arrayContentDidChange(start, removedCount, addedCount);
   },
 
   /** @private */
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     var ret;
     if (SC.typeOf(key) === SC.T_STRING) ret = this.reducedProperty(key, value);
     return ret === undefined ? sc_super() : ret;
   },
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this.recordPropertyDidChange();
   }

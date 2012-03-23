@@ -8,7 +8,7 @@
 var view, sel, beforeLen, afterLen, content ;
 
 module("SC.CollectionView.deleteSelection", {
-  setup: function() {
+  setup: function setup() {
 
     content = "1 2 3 4 5 6 7 8 9 10".w().map(function(x) {
       return SC.Object.create({ title: x });
@@ -59,7 +59,7 @@ test("delegate.collectionViewShouldDeleteIndexes", function() {
     
     v: null,
     
-    collectionViewShouldDeleteIndexes: function() { return this.v; }
+    collectionViewShouldDeleteIndexes: function collectionViewShouldDeleteIndexes() { return this.v; }
   });
 
   // delegate returns NO

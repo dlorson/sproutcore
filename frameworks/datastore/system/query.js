@@ -201,7 +201,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
     @property
     @type SC.Enumerable
   */
-  expandedRecordTypes: function() {
+  expandedRecordTypes: function expandedRecordTypes() {
     var ret = SC.CoreSet.create(), rt, q  ;
 
     if (rt = this.get('recordType')) this._scq_expandRecordType(rt, ret);
@@ -222,7 +222,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
   /** @private
     expands a single record type into the set. called recursively
   */
-  _scq_expandRecordType: function(recordType, set) {
+  _scq_expandRecordType: function _scq_expandRecordType(recordType, set) {
     if (set.contains(recordType)) return; // nothing to do
     set.add(recordType);
 
@@ -286,7 +286,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
 		@property
     @type Boolean
   */
-  isRemote: function() {
+  isRemote: function isRemote() {
     return this.get('location') === SC.Query.REMOTE;
   }.property('location').cacheable(),
 
@@ -297,7 +297,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
 		@property
     @type Boolean
   */
-  isLocal: function() {
+  isLocal: function isLocal() {
     return this.get('location') === SC.Query.LOCAL;
   }.property('location').cacheable(),
 
@@ -320,7 +320,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Hash} parameters optional override parameters
     @returns {Boolean} YES if record belongs, NO otherwise
   */
-  contains: function(record, parameters) {
+  contains: function contains(record, parameters) {
 
     // check the recordType if specified
     var rtype, ret = YES ;
@@ -353,7 +353,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.Set} types set of record types
     @returns {Boolean} YES if record types match
   */
-  containsRecordTypes: function(types) {
+  containsRecordTypes: function containsRecordTypes(types) {
     var rtype = this.get('recordType');
     if (rtype) {
       return !!types.find(function(t) { return SC.kindOf(t, rtype); });
@@ -378,7 +378,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
                       +1 if record1 > record2,
                       0 if equal
   */
-  compare: function(record1, record2) {
+  compare: function compare(record1, record2) {
     var result = 0,
         propertyName, order, len, i;
 
@@ -435,7 +435,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
 
     @returns {Boolean} true if parsing succeeded, false otherwise
   */
-  parse: function() {
+  parse: function parse() {
     var conditions = this.get('conditions'),
         lang       = this.get('queryLanguage'),
         tokens, tree;
@@ -457,7 +457,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.RecordArray} recordArray the scope
     @returns {SC.Query} new query
   */
-  queryWithScope: function(recordArray) {
+  queryWithScope: function queryWithScope(recordArray) {
     // look for a cached query on record array.
     var key = SC.keyFor('__query__', SC.guidFor(this)),
         ret = recordArray[key];
@@ -487,7 +487,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
     Implement the Copyable API to clone a query object once it has been
     created.
   */
-  copy: function() {
+  copy: function copy() {
     var opts = {},
         keys = this.get('copyKeys'),
         loc  = keys ? keys.length : 0,
@@ -1048,7 +1048,7 @@ SC.Query = SC.Object.extend(SC.Copyable, SC.Freezable,
 
     // empty tokenList is a special case
     if (!tokenList || tokenList.length === 0) {
-      return { evaluate: function(){ return true; } };
+      return { evaluate: function evaluate(){ return true; } };
     }
 
 
@@ -1246,7 +1246,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {SC.Query} query the query
     @returns {Number} a storeKey.
   */
-  storeKeyFor: function(query) {
+  storeKeyFor: function storeKeyFor(query) {
     return query ? query.get('storeKey') : null;
   },
 
@@ -1259,7 +1259,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {SC.Store} store to materialize record from
     @returns {Array} array instance of store keys matching the SC.Query (sorted)
   */
-  containsRecords: function(query, records, store) {
+  containsRecords: function containsRecords(query, records, store) {
     var ret = [];
     for(var idx=0,len=records.get('length');idx<len;idx++) {
       var record = records.objectAt(idx);
@@ -1282,7 +1282,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {SC.Store} store to materialize records from
     @returns {Array} sorted store keys.  may be same instance as passed value
   */
-  orderStoreKeys: function(storeKeys, query, store) {
+  orderStoreKeys: function orderStoreKeys(storeKeys, query, store) {
     // apply the sort if there is one
     if (storeKeys) {
       var res = storeKeys.sort(function(a, b) {
@@ -1302,7 +1302,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {Number} storeKey2 a store key
     @returns {Number} -1 if record1 < record2,  +1 if record1 > record2, 0 if equal
   */
-  compareStoreKeys: function(query, store, storeKey1, storeKey2) {
+  compareStoreKeys: function compareStoreKeys(query, store, storeKey1, storeKey2) {
     var record1     = store.materializeRecord(storeKey1),
         record2     = store.materializeRecord(storeKey2);
 
@@ -1353,7 +1353,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {Hash} params optional params. or pass multiple args.
     @returns {SC.Query}
   */
-  build: function(location, recordType, conditions, params) {
+  build: function build(location, recordType, conditions, params) {
 
     var opts = null,
         ret, cache, key, tmp;
@@ -1443,7 +1443,7 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {Hash} params optional params. or pass multiple args.
     @returns {SC.Query}
   */
-  local: function(recordType, conditions, params) {
+  local: function local(recordType, conditions, params) {
     return this.build(SC.Query.LOCAL, recordType, conditions, params);
   },
 
@@ -1456,14 +1456,14 @@ SC.Query.mixin( /** @scope SC.Query */ {
     @param {Hash} params optional params. or pass multiple args.
     @returns {SC.Query}
   */
-  remote: function(recordType, conditions, params) {
+  remote: function remote(recordType, conditions, params) {
     return this.build(SC.Query.REMOTE, recordType, conditions, params);
   },
 
   /** @private
     called by `SC.Record.extend()`. invalidates `expandedRecordTypes`
   */
-  _scq_didDefineRecordType: function() {
+  _scq_didDefineRecordType: function _scq_didDefineRecordType() {
     var q = SC.Query._scq_queriesWithExpandedRecordTypes;
     if (q) {
       q.forEach(function(query) {

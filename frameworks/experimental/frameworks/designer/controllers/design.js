@@ -21,7 +21,7 @@ SC.designController = SC.ObjectController.create(
   contentBinding: 'SC.designsController.selection',
   contentBindingDefault: SC.Binding.single(),
   
-  viewSelected: function(){
+  viewSelected: function viewSelected(){
     var c = this.get('content'), pane, designer, pageController;
     if(c){
       pane = c.get('view');

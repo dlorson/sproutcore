@@ -9,7 +9,7 @@
 SC.BaseTheme.panelRenderDelegate = SC.RenderDelegate.create({
   className: 'panel',
   
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     context = context.begin('div').addClass('panel-background');
     this.includeSlices(dataSource, context, SC.NINE_SLICE);
     context = context.end();
@@ -23,7 +23,7 @@ SC.BaseTheme.panelRenderDelegate = SC.RenderDelegate.create({
     if (ariaDescribedBy) context.attr('aria-describedby', ariaDescribedBy);
   },
 
-  update: function(dataSource, jQuery) {
+  update: function update(dataSource, jQuery) {
     // the label for the panel could change...
     var ariaLabel = dataSource.get('ariaLabel'),
         ariaLabelledBy = dataSource.get('ariaLabelledBy'),

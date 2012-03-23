@@ -40,7 +40,7 @@ SC.TableRowView = SC.View.extend({
   // METHODS
   // 
   
-  init: function() {
+  init: function init() {
     sc_super();
     this._sctrv_handleChildren();
   },
@@ -51,16 +51,16 @@ SC.TableRowView = SC.View.extend({
     @property
     @type Array
   */
-  columns: function() {
+  columns: function columns() {
     return this.get('tableView').get('columns');
   }.property(),
   
-  prepareContext: function(context, firstTime) {
+  prepareContext: function prepareContext(context, firstTime) {
     sc_super();
     context.setClass('sel', this.get('isSelected'));
   },
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var classArray = [];
     
     classArray.push((this.get('contentIndex')%2 === 0) ? 'even' : 'odd');
@@ -69,7 +69,7 @@ SC.TableRowView = SC.View.extend({
     sc_super();
   },
   
-  renderChildViews: function(context, firstTime) {
+  renderChildViews: function renderChildViews(context, firstTime) {
     var cells = this.get('cells'), cell, idx;
     for (idx = 0; idx < cells.get('length'); idx++) {
       cell = cells.objectAt(idx);
@@ -80,7 +80,7 @@ SC.TableRowView = SC.View.extend({
     return context;
   },
   
-  layoutChildViews: function() {
+  layoutChildViews: function layoutChildViews() {
     var cells = this.get('cells'), columns = this.get('columns'),
         cell, column, idx;
     var left = 0, width, rowHeight = this.get('tableView').get('rowHeight');
@@ -105,7 +105,7 @@ SC.TableRowView = SC.View.extend({
   // INTERNAL SUPPORT
   // 
   
-  _sctrv_layoutForChildAtColumnIndex: function(index) {
+  _sctrv_layoutForChildAtColumnIndex: function _sctrv_layoutForChildAtColumnIndex(index) {
     var columns = this.get('columns'),
         rowHeight = this.get('tableView').get('rowHeight'),
         layout = {},
@@ -122,7 +122,7 @@ SC.TableRowView = SC.View.extend({
     };
   },  
   
-  _sctrv_createTableCell: function(column, value) {
+  _sctrv_createTableCell: function _sctrv_createTableCell(column, value) {
     var cell = SC.TableCellView.create({
       column:  column,
       content: value
@@ -131,11 +131,11 @@ SC.TableRowView = SC.View.extend({
   },
   
   // The row needs to redraw when the selection state changes.
-  _sctrv_handleSelection: function() {
+  _sctrv_handleSelection: function _sctrv_handleSelection() {
     this.displayDidChange();
   }.observes('isSelected'),
   
-  _sctrv_handleChildren: function() {
+  _sctrv_handleChildren: function _sctrv_handleChildren() {
     var content = this.get('content'), columns = this.get('columns');
     
     this.removeAllChildren();

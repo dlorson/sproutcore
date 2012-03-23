@@ -21,24 +21,24 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      newBindingPopup: function(item){
+      newBindingPopup: function newBindingPopup(item){
         Greenhouse.setPath('modalStates.createBindingPopup.newItem', item);
         this.gotoState('createBindingPopup');
       },
 
-      newCustomView: function(){
+      newCustomView: function newCustomView(){
         this.gotoState('addCustomView');
       },
 
-      editProperty: function(){
+      editProperty: function editProperty(){
         this.gotoState('editProperties');
       },
 
-      newPageElement: function(item){
+      newPageElement: function newPageElement(item){
         Greenhouse.set('newItem', item);
         this.gotoState('addToPage');
       },
-      openProjectPicker: function(){
+      openProjectPicker: function openProjectPicker(){
         this.gotoState('projectPicker');
       }
     }),
@@ -47,23 +47,23 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         var picker = Greenhouse.appPage.get('projectPicker'),
             button = Greenhouse.appPage.getPath('mainView.toolBar.project');
 
         picker.popup(button, SC.PICKER_POINTER);
         picker.becomeFirstResponder();
       },
-      exitState: function(){
+      exitState: function exitState(){
         var picker = Greenhouse.appPage.get('projectPicker');
         picker.remove();
       },
 
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('modalReady');
       },
 
-      newPageFile: function(){
+      newPageFile: function newPageFile(){
         this.gotoState('newPage');
       }
     }),
@@ -73,7 +73,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         Greenhouse.set("newBindingFromKey", null);
         Greenhouse.set("newBindingToKey", null);
         var modal = Greenhouse.dialogPage.get('modal');
@@ -81,18 +81,18 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         modal.set('layout', {centerX: 0, centerY: 0, width: 200, height: 180});
         modal.append();
       },
-      exitState: function(){
+      exitState: function exitState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.remove();
         Greenhouse.set("newBindingFromKey", null);
         Greenhouse.set("newBindingToKey", null);
         this.set('newItem', null);
       },
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('modalReady');
       },
 
-      create: function(){
+      create: function create(){
         var fromKey = Greenhouse.get("newBindingFromKey"),
             toKey = Greenhouse.get("newBindingToKey"),
             newItem = this.get('newItem'),
@@ -116,7 +116,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.set('contentView', Greenhouse.dialogPage.get('customViewModal'));
         modal.set('layout', {centerX: 0, centerY: 0, width: 350, height: 380});
@@ -126,7 +126,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         Greenhouse.set('newDesignType', null);
         modal.append();
       },
-      exitState: function(){
+      exitState: function exitState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.remove();
         Greenhouse.set('newDesignClass', null);
@@ -136,11 +136,11 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       },
 
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('modalReady');
       },
 
-      add: function(){
+      add: function add(){
         var viewConfig = Greenhouse.get('newDesignViewConfig');
         var array = viewConfig.get(Greenhouse.get('newDesignType'));
 
@@ -160,7 +160,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       parentState: 'projectPicker',
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.set('contentView', Greenhouse.dialogPage.get('pageFile'));
         modal.set('layout', {centerX: 0, centerY: 0, width: 350, height: 300});
@@ -171,7 +171,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
         modal.append();
       },
-      exitState: function(){
+      exitState: function exitState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.remove();
         Greenhouse.set('newFileName', null);
@@ -179,11 +179,11 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         Greenhouse.set('newPageName', null);
       },
 
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('projectPicker');
       },
 
-      create: function(){
+      create: function create(){
         var f = Greenhouse.fileController.get('content'), ret, child, page = Greenhouse.get('newPageName'),
             fileName = Greenhouse.get('newFileName'), filePath = Greenhouse.get('newFilePath') + "/";
 
@@ -208,7 +208,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         var picker = Greenhouse.dialogPage.get('propertyPicker');
         var cv = Greenhouse.dialogPage.get('propertyEditor');
         picker.set('contentView', cv);
@@ -222,17 +222,17 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         //TODO: copy correct here? 
         Greenhouse.propertyEditorController.set('content', SC.copy(content));
       },
-      exitState: function(){
+      exitState: function exitState(){
         var picker = Greenhouse.dialogPage.get('propertyPicker');
         picker.remove();
         Greenhouse.propertyEditorController.set('content', null);
       },
 
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('modalReady');
       },
 
-      update: function(){
+      update: function update(){
         var val = Greenhouse.propertyEditorController.get('value'), 
             view = Greenhouse.propertyEditorController.get('view'),
             key = Greenhouse.propertyEditorController.get('key'),
@@ -268,24 +268,24 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'modals',
 
-      enterState: function(){
+      enterState: function enterState(){
         Greenhouse.set('newPageItemName', '');
         var modal = Greenhouse.dialogPage.get('modal');
         modal.set('contentView', Greenhouse.dialogPage.get('newItemForPage'));
         modal.set('layout', {width: 200, height: 120, centerX: 0, centerY: 0});
         modal.append();
       },
-      exitState: function(){
+      exitState: function exitState(){
         var modal = Greenhouse.dialogPage.get('modal');
         modal.remove();
         Greenhouse.set('newItem', null);
         Greenhouse.set('newPageItemName', '');
       },
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('modalReady');
       },
 
-      add: function(){
+      add: function add(){
         var newItem = Greenhouse.get('newItem'),
             name = Greenhouse.get('newPageItemName');
 

@@ -33,7 +33,7 @@ Greenhouse.Target = SC.Record.extend(
   /**  
     URL to use to load the app.  If no an app, returns null
   */
-  appUrl: function() {
+  appUrl: function appUrl() {
     return (this.get('kind') === 'app') ? this.get('name')+"?designMode=YES" : null;
   }.property('kind', 'name').cacheable(),
   
@@ -45,7 +45,7 @@ Greenhouse.Target = SC.Record.extend(
   /**
     Display name for this target
   */
-  displayName: function() {
+  displayName: function displayName() {
     var name = (this.get('name') || '(unknown)').split('/');
     return name[name.length-1];
   }.property('name').cacheable(),
@@ -53,7 +53,7 @@ Greenhouse.Target = SC.Record.extend(
   /**
     The icon to display.  Based on the type.
   */
-  targetIcon: function() {
+  targetIcon: function targetIcon() {
     var ret = 'sc-icon-document-16';
     switch(this.get('kind')) {
       case "framework":
@@ -71,7 +71,7 @@ Greenhouse.Target = SC.Record.extend(
     This is the group key used to display.  Will be the kind unless the item
     belongs to the sproutcore target.
   */
-  sortKind: function() {
+  sortKind: function sortKind() {
     if (this.get('name') === '/sproutcore') return null;
     var parent = this.get('parent');
     if (parent && (parent.get('name') === '/sproutcore')) return 'sproutcore';

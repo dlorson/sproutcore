@@ -117,7 +117,7 @@ SC.SwipeGesture = SC.Gesture.extend(
   tolerance: 0.5,
   
   /** @private */
-  touchIsInGesture: function(touch, status) {
+  touchIsInGesture: function touchIsInGesture(touch, status) {
     // if we have not "flunked" the touch before, and it has moved 
     if (!status.flunked) {
       var d = this.get('direction'),
@@ -154,7 +154,7 @@ SC.SwipeGesture = SC.Gesture.extend(
   },
   
   /** @private */
-  touchStart: function(touch) {
+  touchStart: function touchStart(touch) {
     var d = this.get("currentDirection"), 
         delta = touch["page" + d] - touch["start" + d],
         swipeDirection;
@@ -167,7 +167,7 @@ SC.SwipeGesture = SC.Gesture.extend(
   },
   
   /** @private */
-  touchesDragged: function(evt, touches) {
+  touchesDragged: function touchesDragged(evt, touches) {
     var touch = touches.firstObject();
     var d = this.get("currentDirection"), 
         o = (d === SC.SWIPE_HORIZONTAL ? "Y" : "X"),
@@ -193,7 +193,7 @@ SC.SwipeGesture = SC.Gesture.extend(
   },
   
   /** @private */
-  touchEnd: function(touch) {
+  touchEnd: function touchEnd(touch) {
     var d = this.get("currentDirection"), 
         o = (d === SC.SWIPE_HORIZONTAL ? "Y" : "X"),
         delta = touch["page" + d] - touch["start" + d],
@@ -226,7 +226,7 @@ SC.SwipeGesture = SC.Gesture.extend(
   },
 
   /** @private */
-  cancel: function(){
+  cancel: function cancel(){
     sc_super();
     this.set('currentDirection', null);
   }

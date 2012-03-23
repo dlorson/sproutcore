@@ -8,7 +8,7 @@
 var view, content1, content2 ;
 
 module("SC.CollectionView.content", {
-  setup: function() {
+  setup: function setup() {
     
     // stub in collection view to verify that proper method are called
     view = SC.CollectionView.create({
@@ -29,7 +29,7 @@ module("SC.CollectionView.content", {
       reload: CoreTest.stub("reload", {
         
         // detect if we would reload everything.
-        shouldReloadAll: function() {
+        shouldReloadAll: function shouldReloadAll() {
           var history = this.history, 
               loc = history.length,
               args;
@@ -44,7 +44,7 @@ module("SC.CollectionView.content", {
         },
 
         // join all reload indexes passed excluding null or undefined
-        indexes: function() { 
+        indexes: function indexes() { 
           var history = this.history, 
               loc = history.length,
               ret = SC.IndexSet.create(),
@@ -60,7 +60,7 @@ module("SC.CollectionView.content", {
 
         // need to save the passed indexes set as a clone because it may be
         // reused later...
-        action: function(indexes) {
+        action: function action(indexes) {
           var history = this.reload.history;  // note "this" is view
           if (indexes) {
             history[history.length-1][1] = indexes.clone();
@@ -72,7 +72,7 @@ module("SC.CollectionView.content", {
           return this ;
         },
         
-        expect: function(indexes, callCount) {
+        expect: function expect(indexes, callCount) {
 
           if (indexes === YES) {
             equals(this.shouldReloadAll(), YES, 'reload() should reload all');
@@ -91,7 +91,7 @@ module("SC.CollectionView.content", {
                 
       }),
       
-      expectLength: function(len) {
+      expectLength: function expectLength(len) {
         equals(view.get('length'), len, 'view.length after change');
 
 
@@ -101,7 +101,7 @@ module("SC.CollectionView.content", {
       },
       
       // reset stubs
-      reset: function() {
+      reset: function reset() {
         this.reload.reset();
         this.contentPropertyDidChange.reset();
         this.computeLayout.reset();

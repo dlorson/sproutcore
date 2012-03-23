@@ -7,11 +7,11 @@
 /*globals Forms module test ok equals same stop start */
 var pane = SC.Pane.create();
 module("Forms - Form Row", {
-  setup: function() {
+  setup: function setup() {
     pane.append();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
   }
 });

@@ -8,7 +8,7 @@
 
 var Mail;
 module("Sample Model from a webmail app", { 
-  setup: function() {
+  setup: function setup() {
 
     // namespace
     Mail = SC.Object.create({
@@ -81,7 +81,7 @@ module("Sample Model from a webmail app", {
     Mail.server = SC.RestServer.create({
       
       // fetch request for mailboxes.
-      fetchMailboxes: function(params) {
+      fetchMailboxes: function fetchMailboxes(params) {
         return this.fetchRequest('/ma/mailboxes?alt=json') ;
       }
     });

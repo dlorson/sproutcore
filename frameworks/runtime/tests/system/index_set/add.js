@@ -7,7 +7,7 @@
 /*global module test equals context ok same should_throw*/
 var set ;
 module("SC.IndexSet#add", {
-  setup: function() {
+  setup: function setup() {
     set = SC.IndexSet.create();
   }
 });

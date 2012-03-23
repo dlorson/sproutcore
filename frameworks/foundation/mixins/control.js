@@ -203,7 +203,7 @@ SC.Control = SC.mixin(SC.clone(SC.ContentValueSupport),
     @observes 'fieldLabel'
     @observes 'fieldKey'
   */
-  errorLabel: function() {
+  errorLabel: function errorLabel() {
     var ret, fk, def, locFK;
     if (ret = this.get('fieldLabel')) return ret;
     
@@ -239,7 +239,7 @@ SC.Control = SC.mixin(SC.clone(SC.ContentValueSupport),
     Invoke this method in your updateDisplay() method to update any basic 
     control CSS classes.
   */
-  renderMixin: function(context, firstTime) {
+  renderMixin: function renderMixin(context, firstTime) {
     var sel = this.get('isSelected'), disabled = !this.get('isEnabled'),
     // update the CSS classes for the control.  note we reuse the same hash
     // to avoid consuming more memory

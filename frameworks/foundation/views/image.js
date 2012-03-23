@@ -54,11 +54,11 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
 
   displayProperties: ['frame', 'image', 'innerFrame', 'toolTip', 'imageValue', 'type'],
 
-  renderDelegateName: function() {
+  renderDelegateName: function renderDelegateName() {
     return (this.get('useCanvas') ? 'canvasImage' : 'image') + "RenderDelegate";
   }.property('useCanvas').cacheable(),
 
-  tagName: function() {
+  tagName: function tagName() {
     return this.get('useCanvas') ? 'canvas' : 'div';
   }.property('useCanvas').cacheable(),
 
@@ -84,7 +84,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     @property {String}
     @default null
   */
-  imageValue: function() {
+  imageValue: function imageValue() {
     var value = this.get('value');
     return value && value.isEnumerable ? value.firstObject() : value;
   }.property('value').cacheable(),
@@ -95,7 +95,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
 
     @property {Object}
   */
-  innerFrame: function() {
+  innerFrame: function innerFrame() {
     var image = this.get('image'),
         imageWidth = image.width,
         imageHeight = image.height,
@@ -133,7 +133,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     @property {String}
     @observes imageValue
   */
-  type: function() {
+  type: function type() {
     var imageValue = this.get('imageValue');
     if (SC.ImageView.valueIsUrl(imageValue)) return SC.IMAGE_TYPE_URL;
     else if (!SC.none(imageValue)) return SC.IMAGE_TYPE_CSS_CLASS;
@@ -150,7 +150,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     @default YES if supported
     @since SproutCore 1.5
   */
-  useCanvas: function() {
+  useCanvas: function useCanvas() {
     return SC.platform.supportsCanvas && !this.get('useStaticLayout') && this.get('type') !== SC.IMAGE_TYPE_CSS_CLASS;
   }.property('useStaticLayout', 'type').cacheable(),
 
@@ -191,7 +191,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
   // is that since our display depends on the frame, when the view or parent view resizes, viewDidResize
   // notifies that the frame has changed, so we update our view, which calls viewDidResize, which notifies
   // that the frame has changed, so we update our view, etc. in an infinite loop.
-  viewDidResize: function() {
+  viewDidResize: function viewDidResize() {
     // 'frame' as a property is cached and won't yet be updated, however calling notifyPropertyChange on 'frame'
     // causes the aforementioned infinite loop.  Instead, measure the frame ourselves and only notify if it has
     // changed width or height
@@ -215,7 +215,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
   // Methods
   //
 
-  init: function() {
+  init: function init() {
     sc_super();
 
     this._image_valueDidChange();
@@ -237,7 +237,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
 
     @observes layer
   */
-  layerDidChange: function() {
+  layerDidChange: function layerDidChange() {
     if (this.get('useCanvas')) this.set('layerNeedsUpdate', YES);
   }.observes('layer'),
 
@@ -250,7 +250,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     Whenever the value changes, update the image state and possibly schedule
     an image to load.
   */
-  _image_valueDidChange: function() {
+  _image_valueDidChange: function _image_valueDidChange() {
     var value = this.get('imageValue'),
         type = this.get('type');
 
@@ -278,7 +278,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
 
     @returns YES if loading using SC.imageQueue, NO otherwise
   */
-  _loadImageUsingCache: function() {
+  _loadImageUsingCache: function _loadImageUsingCache() {
     var value = this.get('imageValue'),
         type = this.get('type');
 
@@ -293,7 +293,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     return NO;
   },
 
-  _loadImageUsingCacheDidComplete: function(url, image) {
+  _loadImageUsingCacheDidComplete: function _loadImageUsingCacheDidComplete(url, image) {
     var value = this.get('imageValue');
 
     if (value === url) {
@@ -311,7 +311,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
 
     @returns YES if it will load, NO otherwise
   */
-  _loadImage: function() {
+  _loadImage: function _loadImage() {
     var value = this.get('imageValue'),
         type = this.get('type'),
         that = this,
@@ -349,7 +349,7 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     return NO;
   },
 
-  _loadImageDidComplete: function(url, image) {
+  _loadImageDidComplete: function _loadImageDidComplete(url, image) {
     var value = this.get('imageValue');
 
     if (value === url) {
@@ -361,13 +361,13 @@ SC.ImageView = SC.View.extend(SC.Control, SC.InnerFrame,
     }
   },
 
-  didLoad: function(image) {
+  didLoad: function didLoad(image) {
     this.set('status', SC.IMAGE_STATE_LOADED);
     if (!image) image = SC.BLANK_IMAGE;
     this.set('image', image);
   },
 
-  didError: function(error) {
+  didError: function didError(error) {
     this.set('status', SC.IMAGE_STATE_FAILED);
     this.set('image', SC.BLANK_IMAGE);
   }

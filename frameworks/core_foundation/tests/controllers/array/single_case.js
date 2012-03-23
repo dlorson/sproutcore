@@ -11,7 +11,7 @@ var content, controller, extra;
 
 var TestObject = SC.Object.extend({
   title: "test",
-  toString: function() { return "TestObject(%@)".fmt(this.get("title")); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get("title")); }
 });
 
 
@@ -20,14 +20,14 @@ var TestObject = SC.Object.extend({
 //
 
 module("SC.ArrayController - single_case - SINGLE", {
-  setup: function() {
+  setup: function setup() {
     content = TestObject.create({ title: "FOO" });
     controller = SC.ArrayController.create({
       content: content, allowsSingleContent: YES
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -87,14 +87,14 @@ test("arrangedObjects", function() {
 //
 
 module("SC.ArrayController - single_case - allowsSingleContent=NO", {
-  setup: function() {
+  setup: function setup() {
     content = TestObject.create({ title: "FOO" });
     controller = SC.ArrayController.create({
       content: content, allowsSingleContent: NO
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

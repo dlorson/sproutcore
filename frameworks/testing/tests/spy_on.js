@@ -1,7 +1,7 @@
 var object, methodSpy;
 module('CoreTest.spyOn', {
-  setup: function() {
-    object = {method: function() {}};
+  setup: function setup() {
+    object = {method: function method() {}};
     methodSpy = CoreTest.spyOn(object, 'method');
   }
 });

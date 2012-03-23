@@ -18,7 +18,7 @@ SC.RunLoop = SC.RunLoop.extend(
 
     @property {Number}
   */
-  startTime: function() {
+  startTime: function startTime() {
     if (!this._start) { this._start = Date.now(); }
     return this._start ;
   }.property(),
@@ -31,7 +31,7 @@ SC.RunLoop = SC.RunLoop.extend(
     situation where a timer might cause an infinite loop by constantly
     rescheduling itself every time it is fired.
   */
-  endRunLoop: function() {
+  endRunLoop: function endRunLoop() {
     this.fireExpiredTimers(); // fire them timers!
     var ret = sc_super(); // do everything else
     this.scheduleNextTimeout(); // schedule a timeout if timers remain
@@ -54,7 +54,7 @@ SC.RunLoop = SC.RunLoop.extend(
     @param {Time} runTime the time offset when you want this to run
     @returns {SC.RunLoop} receiver
   */
-  scheduleTimer: function(timer, runTime) {
+  scheduleTimer: function scheduleTimer(timer, runTime) {
     // if the timer is already in the schedule, remove it.
     this._timerQueue = timer.removeFromTimerQueue(this._timerQueue);
 
@@ -71,7 +71,7 @@ SC.RunLoop = SC.RunLoop.extend(
     @param {SC.Timer} timer the timer to schedule
     @returns {SC.RunLoop} receiver
   */
-  cancelTimer: function(timer) {
+  cancelTimer: function cancelTimer(timer) {
     this._timerQueue = timer.removeFromTimerQueue(this._timerQueue) ;
     return this ;
   },
@@ -86,7 +86,7 @@ SC.RunLoop = SC.RunLoop.extend(
 
     @returns {Boolean} YES if timers were fired, NO otherwise
   */
-  fireExpiredTimers: function() {
+  fireExpiredTimers: function fireExpiredTimers() {
     if (!this._timerQueue || this._firing) { return NO; } // nothing to do
 
     // max time we are allowed to run timers
@@ -121,7 +121,7 @@ SC.RunLoop = SC.RunLoop.extend(
 
     @returns {Boolean} YES if a timeout was scheduled
   */
-  scheduleNextTimeout: function() {
+  scheduleNextTimeout: function scheduleNextTimeout() {
     var timer = this._timerQueue ;
 
     var ret = NO ;
@@ -151,7 +151,7 @@ SC.RunLoop = SC.RunLoop.extend(
     this function will be called with 'this' set to the global context,
     hence the need to lookup the current run loop.
   */
-  _timeoutDidFire: function() {
+  _timeoutDidFire: function _timeoutDidFire() {
     var rl = SC.RunLoop.currentRunLoop;
     rl._timeout = rl._timeoutAt = null ; // cleanup
     SC.run();  // begin/end runloop to trigger timers.

@@ -140,11 +140,11 @@ pane.verifyLabels = function verifyLabels(view, items) {
 // TEST VIEWS
 // 
 module('SC.RadioView UI', {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style> .sc-static-layout { border: 1px red dotted; } </style>');
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

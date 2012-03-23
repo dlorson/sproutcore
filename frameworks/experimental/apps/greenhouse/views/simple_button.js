@@ -37,7 +37,7 @@ Greenhouse.SimpleButton = {
   /** @private 
     On mouse down, set active only if enabled.
   */    
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     //console.log('SimpleButton#mouseDown()...');
     if (!this.get('isEnabledInPane')) return YES ; // handled event, but do nothing
     //this.set('isActive', YES);
@@ -49,7 +49,7 @@ Greenhouse.SimpleButton = {
   /** @private
     Remove the active class on mouseExited if mouse is down.
   */  
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     //console.log('SimpleButton#mouseExited()...');
     if ( this.get('hasHover') ){ 
       this._hover = NO; 
@@ -62,7 +62,7 @@ Greenhouse.SimpleButton = {
   /** @private
     If mouse was down and we renter the button area, set the active state again.
   */  
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     //console.log('SimpleButton#mouseEntered()...');
     if ( this.get('hasHover') ){ 
       this._hover = YES; 
@@ -75,7 +75,7 @@ Greenhouse.SimpleButton = {
   /** @private
     ON mouse up, trigger the action only if we are enabled and the mouse was released inside of the view.
   */  
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (!this.get('isEnabledInPane')) return YES;
     //console.log('SimpleButton#mouseUp()...');
     //if (this._isMouseDown) this.set('isActive', NO); // track independently in case isEnabled has changed
@@ -98,7 +98,7 @@ Greenhouse.SimpleButton = {
     return YES;
   },
   
-  renderMixin: function(context, firstTime) {
+  renderMixin: function renderMixin(context, firstTime) {
     if (this.get('hasHover')) { 
       var hoverClass = this.get('hoverClass');
       context.setClass(hoverClass, this._hover && !this._isMouseDown); // addClass if YES, removeClass if NO
@@ -126,7 +126,7 @@ Greenhouse.SimpleButton = {
     From ButtonView 
     Support inline function definitions
    */
-  _hasLegacyActionHandler: function(){
+  _hasLegacyActionHandler: function _hasLegacyActionHandler(){
     var action = this.get('action');
     if (action && (SC.typeOf(action) === SC.T_FUNCTION)) return true;
     if (action && (SC.typeOf(action) === SC.T_STRING) && (action.indexOf('.') !== -1)) return true;
@@ -134,7 +134,7 @@ Greenhouse.SimpleButton = {
   },
 
   /** @private */
-  _triggerLegacyActionHandler: function(evt){
+  _triggerLegacyActionHandler: function _triggerLegacyActionHandler(evt){
     var target = this.get('target');
     var action = this.get('action');
 

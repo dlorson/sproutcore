@@ -111,7 +111,7 @@ SC.InlineEditor = {
     because becoming first responder doesn't happen until the end of the runLoop
     and didBegin is supposed to occur after the editor becomes first responder.
   */
-  _callDidBegin: function() {
+  _callDidBegin: function _callDidBegin() {
     // don't notify if we already ended editing
     if(!this.get('isEditing')) return NO;
 
@@ -195,7 +195,7 @@ SC.InlineEditor = {
     Performs the cleanup functionality shared between discardEditing and
     commitEditing.
   */
-  _endEditing: function() {
+  _endEditing: function _endEditing() {
     this.set('isEditing', NO);
     this._target = null;
   }

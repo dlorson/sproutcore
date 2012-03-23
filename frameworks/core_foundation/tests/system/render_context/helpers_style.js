@@ -13,7 +13,7 @@ var context = null;
 // styles
 //
 module("SC.RenderContext#styles", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext() ;
   }
 });
@@ -64,7 +64,7 @@ test("extracts styles from element on first retrieval", function() {
 // addStyle
 //
 module("SC.RenderContext#addStyle", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().styles({ foo: 'foo' }) ;
   }
 });

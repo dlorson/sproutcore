@@ -198,7 +198,7 @@ SC.SplitView = SC.View.extend(
     @type Number
     @isReadOnly
   */
-  topLeftThickness: function() {
+  topLeftThickness: function topLeftThickness() {
     var view = this.get('topLeftView');
     return view ? this.thicknessForView(view) : 0;
   }.property('topLeftView').cacheable(),
@@ -209,7 +209,7 @@ SC.SplitView = SC.View.extend(
     @type Number
     @isReadOnly
   */
-  bottomRightThickness: function() {
+  bottomRightThickness: function bottomRightThickness() {
     var view = this.get('bottomRightView');
     return view ? this.thicknessForView(view) : 0;
   }.property('bottomRightView').cacheable(),
@@ -228,7 +228,7 @@ SC.SplitView = SC.View.extend(
     @type Boolean
     @isReadOnly
   */
-  canCollapseView: function(view) {
+  canCollapseView: function canCollapseView(view) {
     return this.invokeDelegateMethod(this.delegate, 'splitViewCanCollapse', this, view);
   },
 
@@ -238,7 +238,7 @@ SC.SplitView = SC.View.extend(
     @param {SC.View} view the view to get.
     @returns the view with the width.
   */
-  thicknessForView: function(view) {
+  thicknessForView: function thicknessForView(view) {
     var direction = this.get('layoutDirection'),
         ret = view.get('frame');
     return (direction === SC.LAYOUT_HORIZONTAL) ? ret.width : ret.height;
@@ -250,7 +250,7 @@ SC.SplitView = SC.View.extend(
 
     @returns SC.View the SplitDivider view (this)
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var childViews = [],
         views = ['topLeftView', 'dividerView', 'bottomRightView'],
         l = views.length,
@@ -277,7 +277,7 @@ SC.SplitView = SC.View.extend(
     to make sure they are arranged properly.  This will set up the views so
     that they can resize appropriately.
   */
-  updateChildLayout: function() {
+  updateChildLayout: function updateChildLayout() {
     var topLeftView = this.get('topLeftView'),
         bottomRightView = this.get('bottomRightView'),
         dividerView = this.get('dividerView'),
@@ -446,7 +446,7 @@ SC.SplitView = SC.View.extend(
   },
 
   /** @private */
-  renderLayout: function(context, firstTime) {
+  renderLayout: function renderLayout(context, firstTime) {
     if (firstTime || this._recalculateDivider) {
 
       var layoutDirection = this.get('layoutDirection'),
@@ -512,7 +512,7 @@ SC.SplitView = SC.View.extend(
   },
 
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     sc_super();
 
     if (this._inLiveResize) this._setCursorStyle();
@@ -530,7 +530,7 @@ SC.SplitView = SC.View.extend(
 
     @returns {Boolean}
   */
-  mouseDownInThumbView: function(evt, thumbView) {
+  mouseDownInThumbView: function mouseDownInThumbView(evt, thumbView) {
     var responder = this.getPath('pane.rootResponder');
     if (!responder) return NO; // nothing to do
 
@@ -555,14 +555,14 @@ SC.SplitView = SC.View.extend(
   },
 
   /** @private */
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     var offset = (this._layoutDirection === SC.LAYOUT_HORIZONTAL) ? evt.pageX - this._mouseDownX : evt.pageY - this._mouseDownY ;
     this._updateTopLeftThickness(offset);
     return YES;
   },
 
   /** @private */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (this._inLiveResize === YES) {
     	this._thumbView = null; // avoid memory leaks
     	this._inLiveResize = NO;
@@ -575,17 +575,17 @@ SC.SplitView = SC.View.extend(
   },
 
   /** @private */
-  touchesDragged: function(evt){
+  touchesDragged: function touchesDragged(evt){
     return this.mouseDragged(evt);
   },
 
   /** @private */
-  touchEnd: function(evt){
+  touchEnd: function touchEnd(evt){
     return this.mouseUp(evt);
   },
 
   /** @private */
-  doubleClickInThumbView: function(evt, thumbView) {
+  doubleClickInThumbView: function doubleClickInThumbView(evt, thumbView) {
     var view = this._topLeftView,
         isCollapsed = view.get('isCollapsed') || NO;
 
@@ -624,7 +624,7 @@ SC.SplitView = SC.View.extend(
   },
 
   /** @private */
-  _updateTopLeftThickness: function(offset) {
+  _updateTopLeftThickness: function _updateTopLeftThickness(offset) {
     var topLeftView = this._topLeftView,
         bottomRightView = this._bottomRightView,
         // the current thickness, not the original thickness
@@ -709,7 +709,7 @@ SC.SplitView = SC.View.extend(
 
 
   /** @private */
-  _updateBottomRightThickness: function(offset) {
+  _updateBottomRightThickness: function _updateBottomRightThickness(offset) {
     var topLeftView = this._topLeftView ,
         bottomRightView = this._bottomRightView,
         topLeftViewThickness = this.thicknessForView(topLeftView), // the current thickness, not the original thickness
@@ -788,7 +788,7 @@ SC.SplitView = SC.View.extend(
 
     @private
   */
-  _setCursorStyle: function() {
+  _setCursorStyle: function _setCursorStyle() {
     var topLeftView = this._topLeftView,
         bottomRightView = this._bottomRightView,
         thumbViewCursor = this.get('thumbViewCursor'),
@@ -830,7 +830,7 @@ SC.SplitView = SC.View.extend(
     @param {SC.View} view the view we want to collapse.
     @returns {Boolean} YES to allow collapse.
   */
-  splitViewCanCollapse: function(splitView, view) {
+  splitViewCanCollapse: function splitViewCanCollapse(splitView, view) {
     if (splitView.get('canCollapseViews') === NO) return NO;
     if (view.get('canCollapse') === NO) return NO;
     return YES;
@@ -848,13 +848,13 @@ SC.SplitView = SC.View.extend(
     @param {Number} proposedThickness the proposed thickness.
     @returns the allowed thickness
   */
-  splitViewConstrainThickness: function(splitView, view, proposedThickness) {
+  splitViewConstrainThickness: function splitViewConstrainThickness(splitView, view, proposedThickness) {
     return proposedThickness;
   },
 
   /* Force to rendering once the pane is attached */
   /** @private */
-  _forceSplitCalculation: function(){
+  _forceSplitCalculation: function _forceSplitCalculation(){
     this.updateLayout();
   }.observes('*pane.isPaneAttached'),
 
@@ -865,7 +865,7 @@ SC.SplitView = SC.View.extend(
 
     @returns {void}
   */
-  viewDidResize: function() {
+  viewDidResize: function viewDidResize() {
     sc_super();
     this
       .notifyPropertyChange('topLeftThickness')
@@ -882,7 +882,7 @@ SC.mixin(SC.View.prototype,
     The current split view this view is embedded in (may be null).
     @type SC.SplitView
   */
-  splitView: function() {
+  splitView: function splitView() {
     var view = this ;
     while (view && !view.isSplitView) view = view.get('parentView') ;
     return view ;

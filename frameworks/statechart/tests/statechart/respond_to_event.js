@@ -10,18 +10,18 @@ var statechart, TestState, root, stateA, stateB, stateC, stateD, stateE, stateF,
 // 
 
 module("SC.Statechart: - Respond to Events Tests", {
-  setup: function() {
+  setup: function setup() {
     
     TestState = SC.State.extend({
       returnValue: null,
       handledEvent: NO,
       
-      handleEvent: function() {
+      handleEvent: function handleEvent() {
         this.set('handledEvent', YES);
         return this.get('returnValue');
       },
       
-      reset: function() {
+      reset: function reset() {
         this.set('returnValue', null);
         this.set('handledEvent', NO);
       }
@@ -32,84 +32,84 @@ module("SC.Statechart: - Respond to Events Tests", {
       someFunctionInvoked: NO,
       someFunctionReturnValue: null,
       
-      someFunction: function() {
+      someFunction: function someFunction() {
         this.set('someFunctionInvoked', YES);
         return this.get('someFunctionReturnValue');
       },
       
       rootState: TestState.design({
         
-        eventA: function(sender, context) {
+        eventA: function eventA(sender, context) {
           return this.handleEvent();
         },
         
-        eventHandler: function(event, sender, context) {
+        eventHandler: function eventHandler(event, sender, context) {
           return this.handleEvent();
         }.handleEvents('eventB'),
         
         initialSubstate: 'a',
         
         a: TestState.design({
-          foo: function(sender, context) {
+          foo: function foo(sender, context) {
             return this.handleEvent();
           }
         }),
         
         b: TestState.design({
-          bar: function(sender, context) { 
+          bar: function bar(sender, context) { 
             return this.handleEvent();
           },
           
-          eventHandler: function(event, sender, context) {
+          eventHandler: function eventHandler(event, sender, context) {
             return this.handleEvent();
           }.handleEvents('frozen', 'canuck')
         }),
         
         c: TestState.design({
-          eventHandlerA: function(event, sender, context) {
+          eventHandlerA: function eventHandlerA(event, sender, context) {
             return this.handleEvent();
           }.handleEvents('yes'),
           
-          eventHandlerB: function(event, sender, context) {
+          eventHandlerB: function eventHandlerB(event, sender, context) {
             return this.handleEvent();
           }.handleEvents(/^num/i)
         }),
         
         d: TestState.design({
-          unknownEvent: function(event, sender, context) {
+          unknownEvent: function unknownEvent(event, sender, context) {
             return this.handleEvent();
           }
         }),
         
         e: TestState.design({
-          eventHandler: function(event,sender, context) {
+          eventHandler: function eventHandler(event,sender, context) {
             return this.handleEvent();
           }.handleEvents('plus', 'minus'),
           
           initialSubstate: 'f',
           
           f: TestState.design({
-            foo: function(sender, context) {
+            foo: function foo(sender, context) {
               return this.handleEvent();
             }
           })
         }),
         
         z: TestState.design({
-          blue: function(sender, context) {
+          blue: function blue(sender, context) {
             return this.handleEvent();
           },
           
           substatesAreConcurrent: YES,
           
           x: TestState.design({
-            yellow: function(sender, context) {
+            yellow: function yellow(sender, context) {
               return this.handleEvent();
             }
           }),
           
           y: TestState.design({
-            orange: function(sender,context) {
+            orange: function orange(sender,context) {
               return this.handleEvent();
             }
           })
@@ -132,7 +132,7 @@ module("SC.Statechart: - Respond to Events Tests", {
     stateZ = statechart.getState('z');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart = TestState = root = null;
     stateA = stateB = stateC = stateD = stateE = stateF = stateX = stateY = stateZ = null;
   }

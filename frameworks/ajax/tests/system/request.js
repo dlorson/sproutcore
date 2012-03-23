@@ -13,13 +13,13 @@ var url, request, contents ;
 
 module("SC.Request", {
 
-  setup: function() {
+  setup: function setup() {
     url = sc_static("file_exists.json"); //"/static/sproutcore/en/desktop/_src/desktop.platform/english.lproj/file_exists.json" ;
     request = SC.Request.getUrl(url) ;
     contents = null ;
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     url = request = contents;
   }
 

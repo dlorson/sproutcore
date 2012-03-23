@@ -47,7 +47,7 @@ SC.DelegateSupport = {
     @param {Object...} delegate one or more delegate arguments
     @returns {Object} delegate or null
   */
-  delegateFor: function(methodName) {
+  delegateFor: function delegateFor(methodName) {
     var idx = 1,
         len = arguments.length,
         ret ;
@@ -75,7 +75,7 @@ SC.DelegateSupport = {
 
     @returns {Object} value returned by delegate
   */
-  invokeDelegateMethod: function(delegate, methodName, args) {
+  invokeDelegateMethod: function invokeDelegateMethod(delegate, methodName, args) {
     args = SC.A(arguments); args = args.slice(2, args.length) ;
     if (!delegate || !delegate[methodName]) delegate = this ;
 
@@ -92,7 +92,7 @@ SC.DelegateSupport = {
     @param {Object} delegate one or more delegate
     @returns {Object} property value or undefined
   */
-  getDelegateProperty: function(key, delegate) {
+  getDelegateProperty: function getDelegateProperty(key, delegate) {
     var idx = 1,
         len = arguments.length,
         ret ;

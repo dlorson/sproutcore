@@ -10,7 +10,7 @@
 var iconURL= "http://www.freeiconsweb.com/Icons/16x16_people_icons/People_046.gif";
 var pane, view;
 module("SC.TabView", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -36,7 +36,7 @@ module("SC.TabView", {
     view = pane.childViews[0];
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }
@@ -47,8 +47,8 @@ test("Check that all segmentedViews are visible", function() {
  });
 
 
-//_tab_nowShowingDidChange: function() {
+//_tab_nowShowingDidChange: function _tab_nowShowingDidChange() {
 
-//_tab_saveUserDefault: function() {
+//_tab_saveUserDefault: function _tab_saveUserDefault() {
 
-//_tab_itemsDidChange: function() {
+//_tab_itemsDidChange: function _tab_itemsDidChange() {

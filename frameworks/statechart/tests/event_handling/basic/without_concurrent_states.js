@@ -10,7 +10,7 @@ var statechart = null;
 // 
 
 module("SC.Statechart: No Concurrent States - Send Event Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -24,18 +24,18 @@ module("SC.Statechart: No Concurrent States - Send Event Tests", {
         
           initialSubstate: 'c',
           
-          eventB: function() {
+          eventB: function eventB() {
             this.gotoState('b');
           },
           
           c: SC.State.design({
-            eventA: function() { this.gotoState('d'); }
+            eventA: function eventA() { this.gotoState('d'); }
           }),
           
           d: SC.State.design({
             sender: null,
             context: null,
-            eventC: function(sender, context) {
+            eventC: function eventC(sender, context) {
               this.set('sender', sender);
               this.set('context', context);
               this.gotoState('f');
@@ -61,7 +61,7 @@ module("SC.Statechart: No Concurrent States - Send Event Tests", {
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
   }
 });

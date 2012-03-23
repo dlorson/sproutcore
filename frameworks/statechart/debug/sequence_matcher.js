@@ -15,14 +15,14 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
   
   MISMATCH: {},
   
-  begin: function() {
+  begin: function begin() {
     this._stack = [];
     this.beginSequence();
     this._start = this._stack[0];
     return this;
   },
   
-  end: function() {
+  end: function end() {
     this.endSequence();
     
     if (this._stack.length > 0) {
@@ -37,17 +37,17 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
     return result;
   },
   
-  entered: function() {
+  entered: function entered() {
     this._addStatesToCurrentGroup('entered', arguments);
     return this;
   },
   
-  exited: function() {
+  exited: function exited() {
     this._addStatesToCurrentGroup('exited', arguments);
     return this;
   },
   
-  beginConcurrent: function() {
+  beginConcurrent: function beginConcurrent() {
     var group = {
       type: 'concurrent',
       values: []
@@ -57,12 +57,12 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
     return this;
   },
   
-  endConcurrent: function() {
+  endConcurrent: function endConcurrent() {
     this._stack.pop();
     return this;
   },
   
-  beginSequence: function() {
+  beginSequence: function beginSequence() {
     var group = {
       type: 'sequence',
       values: []
@@ -72,24 +72,24 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
     return this;
   },
   
-  endSequence: function() {
+  endSequence: function endSequence() {
     this._stack.pop();
     return this;
   },
   
-  _peek: function() {
+  _peek: function _peek() {
     var len = this._stack.length;
     return len === 0 ? null : this._stack[len - 1];
   },
   
-  _addStatesToCurrentGroup: function(action, states) {
+  _addStatesToCurrentGroup: function _addStatesToCurrentGroup(action, states) {
     var group = this._peek(), len = states.length, i = 0;
     for (; i < len; i += 1) {
       group.values.push({ action: action, state: states[i] });
     }
   },
   
-  _matchSequence: function(sequence, marker) {
+  _matchSequence: function _matchSequence(sequence, marker) {
     var values = sequence.values, 
         len = values.length, 
         i = 0, val,
@@ -133,7 +133,7 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
   //      ^       ^
   // A B (Y O P) (X M N) C
   
-  _matchConcurrent: function(concurrent, marker) {
+  _matchConcurrent: function _matchConcurrent(concurrent, marker) {
     var values = SC.clone(concurrent.values), 
         len = values.length, 
         i = 0, val, tempMarker = marker, match = false,
@@ -168,7 +168,7 @@ SC.StatechartSequenceMatcher = SC.Object.extend({
     return marker;
   },
   
-  _matchItems: function(matcherItem, monitorItem) {
+  _matchItems: function _matchItems(matcherItem, monitorItem) {
     if (!matcherItem || !monitorItem) return false;
   
     if (matcherItem.action !== monitorItem.action) {

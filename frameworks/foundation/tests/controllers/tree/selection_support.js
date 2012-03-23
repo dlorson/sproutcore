@@ -12,7 +12,7 @@ TestObject; // Class for sample content objects
 //
 TestObject = SC.Object.extend({
   title: "test",
-  toString: function() {
+  toString: function toString() {
     return "TestObject(%@)".fmt(this.get("title"));
   }
 });
@@ -22,7 +22,7 @@ TestObject = SC.Object.extend({
   http://localhost:4020/sproutcore/foundation/en/current/tests/controllers/tree/selection_support.html
 */
 module("Test SC.SelectionSupport mixin with TreeController.", {
-  setup: function() {
+  setup: function setup() {
   var fruit = "Apples Bananas Cherries Dates Eggfruit".w().map(function(name) {
     return TestObject.create({
       displayName: name
@@ -54,7 +54,7 @@ module("Test SC.SelectionSupport mixin with TreeController.", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
   }
 });
 

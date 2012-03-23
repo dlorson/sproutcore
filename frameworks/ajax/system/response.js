@@ -44,7 +44,7 @@ SC.Response = SC.Object.extend(
     @type SC.Response
     @default `this`
   */
-  errorValue: function() {
+  errorValue: function errorValue() {
     return this;
   }.property().cacheable(),
 
@@ -77,7 +77,7 @@ SC.Response = SC.Object.extend(
     @type SC.Request
     @observes request
   */
-  originalRequest: function() {
+  originalRequest: function originalRequest() {
     var ret = this.get('request');
     while (ret.get('source')) { ret = ret.get('source'); }
     return ret ;
@@ -90,7 +90,7 @@ SC.Response = SC.Object.extend(
     @type String
     @observes request
   */
-  type: function() {
+  type: function type() {
     return this.getPath('request.type');
   }.property('request').cacheable(),
 
@@ -101,7 +101,7 @@ SC.Response = SC.Object.extend(
     @type String
     @observes request
   */
-  address: function() {
+  address: function address() {
     return this.getPath('request.address');
   }.property('request').cacheable(),
 
@@ -114,7 +114,7 @@ SC.Response = SC.Object.extend(
     @default NO
     @observes request
   */
-  isJSON: function() {
+  isJSON: function isJSON() {
     return this.getPath('request.isJSON') || NO;
   }.property('request').cacheable(),
 
@@ -127,7 +127,7 @@ SC.Response = SC.Object.extend(
     @default NO
     @observes request
   */
-  isXML: function() {
+  isXML: function isXML() {
     return this.getPath('request.isXML') || NO ;
   }.property('request').cacheable(),
 
@@ -138,7 +138,7 @@ SC.Response = SC.Object.extend(
     @type Hash
     @observes request
   */
-  listeners: function() {
+  listeners: function listeners() {
     return this.getPath('request.listeners');
   }.property('request').cacheable(),
 
@@ -166,7 +166,7 @@ SC.Response = SC.Object.extend(
     @field
     @type {Hash|String|SC.Error}
   */
-  body: function() {
+  body: function body() {
     // TODO: support XML
     var ret = this.get('encodedBody');
     if (ret && this.get('isJSON')) {
@@ -191,7 +191,7 @@ SC.Response = SC.Object.extend(
     @type Hash|String
     @see #body
   */
-  response: function() {
+  response: function response() {
     return this.get('body');
   }.property('body').cacheable(),
 
@@ -231,7 +231,7 @@ SC.Response = SC.Object.extend(
     invoke any callbacks on the source request then invoke transport() to
     begin the actual request.
   */
-  fire: function() {
+  fire: function fire() {
     var req = this.get('request'),
         source = req ? req.get('source') : null;
 
@@ -268,7 +268,7 @@ SC.Response = SC.Object.extend(
     Called by `SC.Response#fire()`. Starts the transport by invoking the
     `SC.Response#receive()` function.
   */
-  invokeTransport: function() {
+  invokeTransport: function invokeTransport() {
     this.receive(function(proceed) { this.set('status', 200); }, this);
   },
 
@@ -283,7 +283,7 @@ SC.Response = SC.Object.extend(
     @param {Object} context context to execute the callback in
     @returns {SC.Response} receiver
   */
-  receive: function(callback, context) {
+  receive: function receive(callback, context) {
     if (!this.get('timedOut')) {
       // If we had a timeout timer scheduled, invalidate it now.
       var timer = this.get('timeoutTimer');
@@ -322,7 +322,7 @@ SC.Response = SC.Object.extend(
     Default method just closes the connection. It will also mark the request
     as cancelled, which will not call any listeners.
   */
-  cancel: function() {
+  cancel: function cancel() {
     if (!this.get('isCancelled')) {
       this.set('isCancelled', YES) ;
       this.cancelTransport() ;
@@ -335,7 +335,7 @@ SC.Response = SC.Object.extend(
 
     @returns {Boolean} YES if this response has not timed out yet, NO otherwise
   */
-  timeoutReached: function() {
+  timeoutReached: function timeoutReached() {
     // If we already received a response yet the timer still fired for some
     // reason, do nothing.
     if (this.get('timedOut') === null) {
@@ -365,14 +365,14 @@ SC.Response = SC.Object.extend(
   /**
     Override with concrete implementation to actually cancel the transport.
   */
-  cancelTransport: function() {},
+  cancelTransport: function cancelTransport() {},
 
   /**
     @private
 
     Will notify each listener. Returns true if any of the listeners handle.
   */
-  _notifyListeners: function(listeners, status) {
+  _notifyListeners: function _notifyListeners(listeners, status) {
     var notifiers = listeners[status], params, target, action;
     if (!notifiers) { return NO; }
 
@@ -399,7 +399,7 @@ SC.Response = SC.Object.extend(
 
     @returns {SC.Response} receiver
   */
-  notify: function() {
+  notify: function notify() {
     var listeners = this.get('listeners'),
         status = this.get('status'),
         baseStat = Math.floor(status / 100) * 100,
@@ -419,7 +419,7 @@ SC.Response = SC.Object.extend(
 
     @returns {String}
   */
-  toString: function() {
+  toString: function toString() {
     var ret = sc_super();
     return "%@<%@ %@, status=%@".fmt(ret, this.get('type'), this.get('address'), this.get('status'));
   }
@@ -441,7 +441,7 @@ SC.XHRResponse = SC.Response.extend(
   /**
     Implement transport-specific support for fetching all headers
   */
-  headers: function() {
+  headers: function headers() {
     var xhr = this.get('rawRequest'),
         str = xhr ? xhr.getAllResponseHeaders() : null,
         ret = {};
@@ -468,7 +468,7 @@ SC.XHRResponse = SC.Response.extend(
     @param {String} key The header key
     @returns {String}
   */
-  header: function(key) {
+  header: function header(key) {
     var xhr = this.get('rawRequest');
     return xhr ? xhr.getResponseHeader(key) : null;
   },
@@ -480,7 +480,7 @@ SC.XHRResponse = SC.Response.extend(
     @type String
     @default #rawRequest
   */
-  encodedBody: function() {
+  encodedBody: function encodedBody() {
     var xhr = this.get('rawRequest');
 
     if (!xhr) { return null; }
@@ -492,7 +492,7 @@ SC.XHRResponse = SC.Response.extend(
   /**
     Cancels the request.
   */
-  cancelTransport: function() {
+  cancelTransport: function cancelTransport() {
     var rawRequest = this.get('rawRequest');
     if (rawRequest) { rawRequest.abort(); }
     this.set('rawRequest', null);
@@ -503,7 +503,7 @@ SC.XHRResponse = SC.Response.extend(
 
     @returns {XMLHttpRequest|ActiveXObject}
   */
-  invokeTransport: function() {
+  invokeTransport: function invokeTransport() {
     var rawRequest, transport, handleReadyStateChange, async, headers;
 
     rawRequest = this.createRequest();
@@ -553,7 +553,7 @@ SC.XHRResponse = SC.Response.extend(
 
     @returns {XMLHttpRequest|ActiveXObject}
   */
-  createRequest: function() {
+  createRequest: function createRequest() {
     function tryThese() {
       for (var i=0; i < arguments.length; i++) {
         try {
@@ -579,7 +579,7 @@ SC.XHRResponse = SC.Response.extend(
     @param {XMLHttpRequest} rawRequest the actual request
     @returns {Boolean} YES if completed, NO otherwise
   */
-  finishRequest: function(evt) {
+  finishRequest: function finishRequest(evt) {
     var rawRequest = this.get('rawRequest'),
         readyState = rawRequest.readyState,
         error, status, msg;

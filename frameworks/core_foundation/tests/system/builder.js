@@ -15,7 +15,7 @@ var obj; //global variables
 // Test cases for pushStack and end functions
 module("Builder",{
 	 
-	  setup: function(){
+	  setup: function setup(){
 	  	obj = [1,2,3,4];
 	    
 	}

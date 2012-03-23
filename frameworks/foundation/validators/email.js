@@ -17,11 +17,11 @@ sc_require('validators/validator') ;
 SC.Validator.Email = SC.Validator.extend(
 /** @scope SC.Validator.Email.prototype */ {
   
-  validate: function(form, field) { 
+  validate: function validate(form, field) { 
     return (field.get('fieldValue') || '').match(/.+@.+\...+/) ; 
   },
   
-  validateError: function(form, field) {
+  validateError: function validateError(form, field) {
     var label = field.get('errorLabel') || 'Field' ;
     return SC.$error(SC.String.loc("Invalid.Email(%@)", label), label) ;
   }  
@@ -38,7 +38,7 @@ SC.Validator.Email = SC.Validator.extend(
 */
 SC.Validator.EmailOrEmpty = SC.Validator.Email.extend(
 /** @scope SC.Validator.EmailOrEmpty.prototype */ {
-  validate: function(form, field) {
+  validate: function validate(form, field) {
     var value = field.get('fieldValue') ; 
     return (value && value.length > 0) ? value.match(/.+@.+\...+/) : true ;
   }

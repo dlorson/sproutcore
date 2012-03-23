@@ -17,7 +17,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
   /**
     Call this method whenever you want to reload the library from hte server
   */
-  reload: function() {
+  reload: function reload() {
     var configQuery = Greenhouse.CONFIG_QUERY, target = Greenhouse.targetController.get('content');
     configQuery.set('app', target.get('name'));
     var files = Greenhouse.store.find(configQuery), root = SC.Object.create({treeItemIsExpanded: YES});
@@ -29,7 +29,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
   // ..........................................................
   // Collection View delegate drag methods
   //    
-  collectionViewShouldBeginDrag: function(view) { 
+  collectionViewShouldBeginDrag: function collectionViewShouldBeginDrag(view) { 
     return YES; 
   },
 
@@ -53,7 +53,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
     @param view {SC.CollectionView} the collection view to begin dragging.
     @returns {Array} array of supported data types.
   */
-  collectionViewDragDataTypes: function(view) { return ['SC.Object']; },
+  collectionViewDragDataTypes: function collectionViewDragDataTypes(view) { return ['SC.Object']; },
 
   /**
     Called by a collection view when a drag concludes to give you the option
@@ -72,7 +72,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
     @param drag {SC.Drag} the drag object
     @returns {Object} the data object or null if the data could not be provided.
   */
-  collectionViewDragDataForType: function(view, drag, dataType) {
+  collectionViewDragDataForType: function collectionViewDragDataForType(view, drag, dataType) {
     var ret = (dataType === 'SC.Object') ? this.get('selection').firstObject() : null;
     return ret ;
   },
@@ -87,7 +87,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
     @param {SC.IndexSet} dragContent
     @returns {SC.View} view or null
   */
-  collectionViewDragViewFor: function(view, dragContent) {
+  collectionViewDragViewFor: function collectionViewDragViewFor(view, dragContent) {
     var selectedItemIndex = dragContent.firstObject();
     var itemView = view.itemViewForContentIndex(selectedItemIndex);
     return itemView;
@@ -112,17 +112,17 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
   iconKey: 'icon',
   nameKey: 'name',
 
-  init: function(){
+  init: function init(){
     sc_super();
     this.set('searchResults', []);
     this._runSearch();
   },
 
-  _searchDidChange: function(){
+  _searchDidChange: function _searchDidChange(){
     this._runSearch();
   }.observes('search', 'content'),
 
- _sanitizeSearchString: function(str){
+ _sanitizeSearchString: function _sanitizeSearchString(str){
    var specials = [
        '/', '.', '*', '+', '?', '|',
        '(', ')', '[', ']', '{', '}', '\\'
@@ -131,7 +131,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
    return str.replace(s, '\\$1');
  },
 
- _runSearch: function(){
+ _runSearch: function _runSearch(){
    var searchResults = [];
    var search = this.get('search');
    var c = this.get('content');
@@ -159,7 +159,7 @@ Greenhouse.libraryController = SC.TreeController.create( SC.CollectionViewDelega
    @private
    Returns a flat list of matches for the foldered tree item.
  */
- _runSearchOnItem: function(treeItem, search, searchRegex, searchKey) {
+ _runSearchOnItem: function _runSearchOnItem(treeItem, search, searchRegex, searchKey) {
    var searchMatches = [], iconKey = this.get('iconKey'),
        searchedList, key, searchLen, 
        children, nameKey = this._nameKey, that;

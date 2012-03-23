@@ -25,7 +25,7 @@ sc_require('views/button');
 SC.SelectButtonView = SC.ButtonView.extend(
 /** @scope SC.SelectButtonView.prototype */ {
 
-  init: function(){
+  init: function init(){
     // @if (debug)
     SC.Logger.warn("SC.SelectButtonView is deprecated. Please use SC.SelectView instead.");
     // @endif
@@ -296,7 +296,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /**@private
     Left Alignment based on the size of the button
   */
-  leftAlign: function() {
+  leftAlign: function leftAlign() {
     switch (this.get('controlSize')) {
       case SC.TINY_CONTROL_SIZE:
         return SC.SelectButtonView.TINY_OFFSET_X;
@@ -319,7 +319,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
     @param {SC.Array} objects the unsorted array of objects to display.
     @returns sorted array of objects
   */
-  sortObjects: function(objects) {
+  sortObjects: function sortObjects(objects) {
     if(!this.get('disableSort')){
       var nameKey = this.get('sortKey') || this.get('nameKey') ;
       objects = objects.sort(function(a,b) {
@@ -334,7 +334,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
   },
 
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     sc_super();
     var layoutWidth, objects, len, nameKey, iconKey, valueKey, checkboxEnabled,
       currentSelectedVal, shouldLocalize, separatorPosition, itemList, isChecked,
@@ -480,7 +480,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
     This function can be overridden if the value of the Select Button field 
     is an object.
   */
-  _equals: function(value1, value2) {
+  _equals: function _equals(value1, value2) {
     var ret = YES;
     if (value1 && SC.typeOf(value1) === SC.T_HASH && 
         value2 && SC.typeOf(value2) === SC.T_HASH) {
@@ -497,7 +497,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
     
     @param {DOMMouseEvent} evt mouseup event that triggered the action
   */
-  _action: function(evt) {
+  _action: function _action(evt) {
     var buttonLabel, menuWidth, scrollWidth, lastMenuWidth, offsetWidth,
       items, elementOffsetWidth, largestMenuWidth, item, element, idx,
       value, itemList, menuControlSize, menuHeightPadding, customView,
@@ -610,7 +610,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
         @returns {Boolean}  YES if handled
       */
 
-      performKeyEquivalent: function( keystring, evt ) {
+      performKeyEquivalent: function performKeyEquivalent( keystring, evt ) {
         switch (keystring) {
           case 'tab':
           case 'shift_tab':
@@ -637,7 +637,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /**
      Action method for the select button menu items
   */
-  displaySelectedItem: function(menuView) {
+  displaySelectedItem: function displaySelectedItem(menuView) {
     var currentItem = this.getPath('menu.selectedItem');
     if (!currentItem) return NO;
 
@@ -653,7 +653,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
      position menu such that the selected item in the menu will be
      place aligned to the item on the button when menu is opened.
   */
-  changeSelectButtonPreferMatrix: function() {
+  changeSelectButtonPreferMatrix: function changeSelectButtonPreferMatrix() {
     var controlSizeTuning = 0, customMenuItemHeight = 0,
         customSeparatorHeight = 0, separatorHeightTuning = 0,
         pos, len;
@@ -718,7 +718,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /** @private
     Holding down the button should display the menu pane.
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return YES ; // handled event, but do nothing
     this.set('isActive', YES);
     this._isMouseDown = YES;
@@ -756,7 +756,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
     by mouseDown. We use this value to determine the delay between mouseDown
     and mouseUp.
   */
-  _recordMouseDownTimestamp: function() {
+  _recordMouseDownTimestamp: function _recordMouseDownTimestamp() {
     this._menuRenderedTimestamp = new Date().getTime();
   },
 
@@ -776,7 +776,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var timestamp = new Date().getTime(),
         previousTimestamp = this._menuRenderedTimestamp,
         menu = this.get('menu'),
@@ -828,14 +828,14 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /** @private
     Override mouseExited to not remove the active state on mouseexit.
   */
-  mouseExited: function() {
+  mouseExited: function mouseExited() {
     return YES;
   },
 
   /** @private
     Handle Key event - Down arrow key
   */
-  keyDown: function(event) {
+  keyDown: function keyDown(event) {
     if ( this.interpretKeyEvents(event) ) {
       return YES;
     }
@@ -847,7 +847,7 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /** @private
     Pressing the Up or Down arrow key should display the menu pane
   */
-  interpretKeyEvents: function(event) {
+  interpretKeyEvents: function interpretKeyEvents(event) {
     if (event) {
       if ((event.keyCode === 38 || event.keyCode === 40)) {
         this._action() ;
@@ -862,18 +862,18 @@ SC.SelectButtonView = SC.ButtonView.extend(
   /** @private
     Function overridden - tied to the isEnabled state
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     return this.get('isEnabled');
   }.property('isEnabled'),
 
-  insertTab: function(evt) {
+  insertTab: function insertTab(evt) {
     var view = this.get('nextValidKeyView');
     if (view) view.becomeFirstResponder();
     else evt.allowDefault();
     return YES ; // handled
   },
 
-  insertBacktab: function(evt) {
+  insertBacktab: function insertBacktab(evt) {
     var view = this.get('previousValidKeyView');
     if (view) view.becomeFirstResponder();
     else evt.allowDefault();
@@ -885,12 +885,12 @@ SC.SelectButtonView = SC.ButtonView.extend(
     Override the button isSelectedDidChange function in order to not perform any action
     on selecting the select_button
   */
-  _button_isSelectedDidChange: function() {
+  _button_isSelectedDidChange: function _button_isSelectedDidChange() {
 
   }.observes('isSelected'),
   
   /** @private */
-  didAppendToDocument: function() {}
+  didAppendToDocument: function didAppendToDocument() {}
 
 }) ;
 

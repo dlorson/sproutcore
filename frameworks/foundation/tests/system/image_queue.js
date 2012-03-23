@@ -10,7 +10,7 @@
 /*globals module test ok isObj equals expects */
 
 module("Image Queue", {
-    setup: function() {
+    setup: function setup() {
 		this.guardTimeout = 10000;
 		this.firstGoodImageURL = sc_static('images/sproutcore.png');
 		this.secondGoodImageURL = sc_static('images/sproutcore-logo.png');
@@ -29,7 +29,7 @@ test("Ensure queue is in known state.", function() {
 });
 
 test("Attempt to load a non-existent image.", function() {
-	SC.imageQueue.loadImage(this.badImageURL, {action: function(imageUrl, imageOrError) {
+	SC.imageQueue.loadImage(this.badImageURL, {action: function action(imageUrl, imageOrError) {
 	    // verify request loaded OK
 	    ok(SC.typeOf(imageOrError) === "error", "Image retrieval should fail with error.");
 	    // resume executing tests
@@ -40,7 +40,7 @@ test("Attempt to load a non-existent image.", function() {
 });
 
 test("Load a valid image successfully.", function() {
-	SC.imageQueue.loadImage(this.firstGoodImageURL, {action: function(imageUrl, imageOrError) {
+	SC.imageQueue.loadImage(this.firstGoodImageURL, {action: function action(imageUrl, imageOrError) {
 	    // verify request loaded OK
 	    ok(SC.typeOf(imageOrError) !== "error", "Image should be retrieved successfully.");
 	    // resume executing tests
@@ -51,7 +51,7 @@ test("Load a valid image successfully.", function() {
 });
 
 test("Attempt to reload previous non-existent image.", function() {
-	SC.imageQueue.loadImage(this.badImageURL, {action: function(imageUrl, imageOrError) {
+	SC.imageQueue.loadImage(this.badImageURL, {action: function action(imageUrl, imageOrError) {
 	    // verify request loaded OK
 	    ok(SC.typeOf(imageOrError) === "error", "Image retrieval should fail with error.");
 	    // resume executing tests
@@ -62,7 +62,7 @@ test("Attempt to reload previous non-existent image.", function() {
 });
 
 test("Reload previous valid image (now cached) successfully.", function() {
-	SC.imageQueue.loadImage(this.firstGoodImageURL, {action: function(imageUrl, imageOrError) {
+	SC.imageQueue.loadImage(this.firstGoodImageURL, {action: function action(imageUrl, imageOrError) {
 	    // verify request loaded OK
 	    ok(SC.typeOf(imageOrError) !== "error", "Image should be retrieved successfully.");
 	    // resume executing tests
@@ -73,7 +73,7 @@ test("Reload previous valid image (now cached) successfully.", function() {
 });
 
 test("Load a second non-cached image successfully.", function() {
-	SC.imageQueue.loadImage(this.secondGoodImageURL, {action: function(imageUrl, imageOrError) {
+	SC.imageQueue.loadImage(this.secondGoodImageURL, {action: function action(imageUrl, imageOrError) {
 	    // verify request loaded OK
 	    ok(SC.typeOf(imageOrError) !== "error", "Image should be retrieved successfully.");
 	    // resume executing tests

@@ -13,7 +13,7 @@ var context = null;
 // id()
 // 
 module("SC.RenderContext#id", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().id('foo') ;
   }
 });

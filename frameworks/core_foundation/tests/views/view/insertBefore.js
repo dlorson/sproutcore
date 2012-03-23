@@ -8,7 +8,7 @@
 
 var parent, child;
 module("SC.View#insertBefore", {
-	setup: function() {
+	setup: function setup() {
 	  child = SC.View.create();
 	  parent = SC.View.create({
 	    childViews: [SC.View]
@@ -199,7 +199,7 @@ test("should not move layer immediately", function() {
 //
 
 module('SC.View#appendChild', {
-  setup: function() {
+  setup: function setup() {
     parent = SC.View.create({
       childViews: [SC.View, SC.View] 
     });

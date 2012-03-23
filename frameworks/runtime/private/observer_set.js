@@ -25,7 +25,7 @@ SC.ObserverSet = {
     Adds the named target/method observer to the set.  The method must be
     a function, not a string.
   */
-  add: function(target, method, context) {
+  add: function add(target, method, context) {
     var targetGuid = SC.guidFor(target),
         methodGuid = SC.guidFor(method),
         targets    = this._members,
@@ -81,7 +81,7 @@ SC.ObserverSet = {
 
     returns YES if the items was removed, NO if it was not found.
   */
-  remove: function(target, method) {
+  remove: function remove(target, method) {
     var targetGuid = SC.guidFor(target), methodGuid = SC.guidFor(method);
     var indexes = this._members[targetGuid], members = this.members;
 
@@ -105,7 +105,7 @@ SC.ObserverSet = {
     Invokes the target/method pairs in the receiver.  Used by SC.RunLoop
     Note: does not support context
   */
-  invokeMethods: function() {
+  invokeMethods: function invokeMethods() {
     var members = this.members, member;
 
     //@if(debug)
@@ -168,7 +168,7 @@ SC.ObserverSet = {
   /**
     Returns a new instance of the set with the contents cloned.
   */
-  clone: function() {
+  clone: function clone() {
     var newSet = SC.ObserverSet.create(), memberArray = this.members;
 
     newSet._members = SC.clone(this._members);
@@ -188,15 +188,15 @@ SC.ObserverSet = {
   /**
     Creates a new instance of the observer set.
   */
-  create: function() {
+  create: function create() {
     return new SC.ObserverSet.constructor();
   },
 
-  getMembers: function() {
+  getMembers: function getMembers() {
     return this.members.slice(0);
   },
 
-  constructor: function() {
+  constructor: function constructor() {
     this._members = {};
     this.members = [];
   }

@@ -8,12 +8,12 @@
 var store, Application, dataSource;
 
 module("SC.Store Core Methods", {
-  setup: function() {
+  setup: function setup() {
     dataSource = SC.DataSource.create({ 
       
       gotParams: NO,
       
-      updateRecord: function(store, storeKey, params) {
+      updateRecord: function updateRecord(store, storeKey, params) {
         this.gotParams = params && params['param1'] ? YES: NO;
       }
     });
@@ -23,7 +23,7 @@ module("SC.Store Core Methods", {
     
     Application.File = SC.Record.extend({ 
       
-      nameDidChange: function(object, key) {
+      nameDidChange: function nameDidChange(object, key) {
         Application._nameDidChange++;
       }.observes('name', 'url', 'isDirectory')
       

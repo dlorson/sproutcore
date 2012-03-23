@@ -7,7 +7,7 @@
 
 var store, Foo, json, foo ;
 module("SC.Record#readAttribute", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     store = SC.Store.create();
     Foo = SC.Record.extend();
@@ -22,7 +22,7 @@ module("SC.Record#readAttribute", {
     store.writeStatus(foo.storeKey, SC.Record.READY_CLEAN); 
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
 });

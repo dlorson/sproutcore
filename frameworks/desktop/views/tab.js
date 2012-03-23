@@ -150,7 +150,7 @@ SC.TabView = SC.View.extend(
 
   // forward important changes on to child views
   /** @private */
-  _tab_nowShowingDidChange: function() {
+  _tab_nowShowingDidChange: function _tab_nowShowingDidChange() {
     var v = this.get('nowShowing');
     this.get('containerView').set('nowShowing',v);
     this.get('segmentedView').set('value',v);
@@ -158,7 +158,7 @@ SC.TabView = SC.View.extend(
   }.observes('nowShowing'),
 
   /** @private */
-  _tab_saveUserDefault: function() {
+  _tab_saveUserDefault: function _tab_saveUserDefault() {
     // if user default is set, save also
     var v = this.get('nowShowing');
     var defaultKey = this.get('userDefaultKey');
@@ -168,7 +168,7 @@ SC.TabView = SC.View.extend(
   }.observes('nowShowing'),
 
   /** @private */
-  _tab_itemsDidChange: function() {
+  _tab_itemsDidChange: function _tab_itemsDidChange() {
     this.get('segmentedView').set('items', this.get('items'));
     return this ;
   }.observes('items'),
@@ -176,13 +176,13 @@ SC.TabView = SC.View.extend(
   /** @private
     Restore userDefault key if set.
   */
-  init: function() {
+  init: function init() {
     sc_super();
     this._tab_nowShowingDidChange()._tab_itemsDidChange();
   },
 
   /** @private */
-  awake: function() {
+  awake: function awake() {
     sc_super();
     var defaultKey = this.get('userDefaultKey');
     if (defaultKey) {
@@ -194,7 +194,7 @@ SC.TabView = SC.View.extend(
   },
 
   /** @private */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var childViews  = [], containerView, layout,
         tabLocation = this.get('tabLocation'),
         tabHeight   = this.get('tabHeight'),
@@ -232,13 +232,13 @@ SC.TabView = SC.View.extend(
       /** @private
         When the value changes, update the parentView's value as well.
       */
-      _sc_tab_segmented_valueDidChange: function() {
+      _sc_tab_segmented_valueDidChange: function _sc_tab_segmented_valueDidChange() {
         var pv = this.get('parentView');
         if (pv) pv.set('nowShowing', this.get('value'));
       }.observes('value'),
 
       /** @private */
-      init: function() {
+      init: function init() {
         // before we setup the rest of the view, copy key config properties
         // from the owner view...
         var pv = this.get('parentView');

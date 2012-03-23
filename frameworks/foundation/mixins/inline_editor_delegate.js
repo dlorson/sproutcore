@@ -68,7 +68,7 @@ SC.InlineEditorDelegate = {
     @params {Object} value the current value of the view
     @returns {Boolean} YES if the view is allowed to edit
   */
-  inlineEditorShouldBeginEditing: function(editable, value) {},
+  inlineEditorShouldBeginEditing: function inlineEditorShouldBeginEditing(editable, value) {},
 
   /**
     Notifies the delegate that the view was allowed to begin editing and the
@@ -174,7 +174,7 @@ SC.InlineEditorDelegate = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the final value of the edit
   */
-  inlineEditorWillEndEditing: function(editor, value, editable) {},
+  inlineEditorWillEndEditing: function inlineEditorWillEndEditing(editor, value, editable) {},
 
   /**
     @private
@@ -190,6 +190,6 @@ SC.InlineEditorDelegate = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the final value of the edit
   */
-  inlineEditorDidEndEditing: function(editor, value, editable) {}
+  inlineEditorDidEndEditing: function inlineEditorDidEndEditing(editor, value, editable) {}
 };
 

@@ -5,7 +5,7 @@
 
 var state1, state2;
 module("SC.StatePathMatcher: match Tests", {
-  setup: function() {
+  setup: function setup() {
     state1 = SC.Object.create({
       substates: [
         SC.Object.create({ name: 'a' })
@@ -19,7 +19,7 @@ module("SC.StatePathMatcher: match Tests", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     state1 = state2 = null;
   }
 

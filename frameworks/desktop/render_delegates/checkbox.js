@@ -29,7 +29,7 @@
 SC.BaseTheme.checkboxRenderDelegate = SC.RenderDelegate.create({
   className: 'checkbox',
   
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     var theme = dataSource.get('theme'),
@@ -64,7 +64,7 @@ SC.BaseTheme.checkboxRenderDelegate = SC.RenderDelegate.create({
     context = context.end();
   },
   
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
 
     var theme = dataSource.get('theme');

@@ -85,7 +85,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   //
 
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     context.setClass('alternating', this.get('showAlternatingRows'));
 
     return sc_super();
@@ -102,7 +102,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @observes 'delegate'
     @observes 'content'
   */
-  rowDelegate: function() {
+  rowDelegate: function rowDelegate() {
     var del = this.delegate,
         content = this.get('content');
 
@@ -112,7 +112,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   /** @private
     Whenever the rowDelegate changes, begin observing important properties
   */
-  _sclv_rowDelegateDidChange: function() {
+  _sclv_rowDelegateDidChange: function _sclv_rowDelegateDidChange() {
     var last = this._sclv_rowDelegate,
         del  = this.get('rowDelegate'),
         func = this._sclv_rowHeightDidChange,
@@ -141,7 +141,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     called whenever the rowHeight changes.  If the property actually changed
     then invalidate all row heights.
   */
-  _sclv_rowHeightDidChange: function() {
+  _sclv_rowHeightDidChange: function _sclv_rowHeightDidChange() {
     var del = this.get('rowDelegate'),
         height = del.get('rowHeight'),
         indexes;
@@ -158,7 +158,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     called whenever the customRowHeightIndexes changes.  If the property
     actually changed then invalidate affected row heights.
   */
-  _sclv_customRowHeightIndexesDidChange: function() {
+  _sclv_customRowHeightIndexesDidChange: function _sclv_customRowHeightIndexesDidChange() {
     var del     = this.get('rowDelegate'),
         indexes = del.get('customRowHeightIndexes'),
         last    = this._sclv_customRowHeightIndexes,
@@ -184,7 +184,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   /** @private
     Called whenever the customRowHeightIndexes set is modified.
   */
-  _sclv_customRowHeightIndexesContentDidChange: function() {
+  _sclv_customRowHeightIndexesContentDidChange: function _sclv_customRowHeightIndexesContentDidChange() {
     var del     = this.get('rowDelegate'),
         indexes = del.get('customRowHeightIndexes'),
         last    = this._sclv_customRowHeightIndexes,
@@ -213,7 +213,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @param {Number} idx the content index
     @returns {Number} the row offset
   */
-  rowOffsetForContentIndex: function(idx) {
+  rowOffsetForContentIndex: function rowOffsetForContentIndex(idx) {
     if (idx === 0) return 0 ; // fastpath
 
     var del       = this.get('rowDelegate'),
@@ -269,7 +269,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @param {Number} idx content index
     @returns {Number} the row height
   */
-  rowHeightForContentIndex: function(idx) {
+  rowHeightForContentIndex: function rowHeightForContentIndex(idx) {
     var del = this.get('rowDelegate'),
         ret, cache, content, indexes;
 
@@ -303,7 +303,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @param {SC.IndexSet|Number} indexes
     @returns {SC.ListView} receiver
   */
-  rowHeightDidChangeForIndexes: function(indexes) {
+  rowHeightDidChangeForIndexes: function rowHeightDidChangeForIndexes(indexes) {
     var len = this.get('length');
 
     // clear any cached offsets
@@ -322,7 +322,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     makes sense, as it is agnostic to any layout logic (for all it knows, the
     items in the collection are not in a completely random order relative to layout)
   */
-  _sclv_lengthDidChange: function() {
+  _sclv_lengthDidChange: function _sclv_lengthDidChange() {
     this.adjust(this.computeLayout());
   }.observes('length'),
 
@@ -334,7 +334,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     The layout for a ListView is computed from the total number of rows
     along with any custom row heights.
   */
-  computeLayout: function() {
+  computeLayout: function computeLayout() {
     // default layout
     var ret = this._sclv_layout;
     if (!ret) ret = this._sclv_layout = {};
@@ -350,7 +350,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @param {Number} contentIndex
     @returns {Hash} layout hash for the index provided
   */
-  layoutForContentIndex: function(contentIndex) {
+  layoutForContentIndex: function layoutForContentIndex(contentIndex) {
     var del = this.get('rowDelegate');
 
     return {
@@ -374,7 +374,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     @param {Rect} rect the visible rect or a point
     @returns {SC.IndexSet} now showing indexes
   */
-  contentIndexesInRect: function(rect) {
+  contentIndexesInRect: function contentIndexesInRect(rect) {
     var rowHeight = this.get('rowDelegate').get('rowHeight'),
         top       = SC.minY(rect),
         bottom    = SC.maxY(rect),
@@ -449,7 +449,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     classNames: 'sc-list-insertion-point',
 
     /** @private */
-    render: function(context, firstTime) {
+    render: function render(context, firstTime) {
       if (firstTime) context.push('<div class="anchor"></div>');
     }
   }),
@@ -458,7 +458,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
     Default implementation will show an insertion point
     @see SC.CollectionView#showInsertionPoint
   */
-  showInsertionPoint: function(itemView, dropOperation) {
+  showInsertionPoint: function showInsertionPoint(itemView, dropOperation) {
     var view = this._insertionPointView;
     if (!view) {
       view = this._insertionPointView
@@ -511,7 +511,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   /**
     @see SC.CollectionView#hideInsertionPoint
   */
-  hideInsertionPoint: function() {
+  hideInsertionPoint: function hideInsertionPoint() {
     if (this._lastDropOnView) {
       this._lastDropOnView.set('isSelected', NO);
       this._lastDropOnView = null;
@@ -537,7 +537,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
 
     @see SC.CollectionView.insertionIndexForLocation
   */
-  insertionIndexForLocation: function(loc, dropOperation) {
+  insertionIndexForLocation: function insertionIndexForLocation(loc, dropOperation) {
     var locRect = {x:loc.x, y:loc.y, width:1, height:1},
         indexes = this.contentIndexesInRect(locRect),
         index   = indexes.get('min'),
@@ -632,7 +632,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   },
 
   /** @private */
-  mouseWheel: function(evt) {
+  mouseWheel: function mouseWheel(evt) {
     // The following commits changes in a list item that is being edited,
     // if the list is scrolled.
     var inlineEditor = SC.InlineTextFieldView.editor;
@@ -649,7 +649,7 @@ SC.ListView = SC.CollectionView.extend(SC.CollectionRowDelegate,
   //
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this._sclv_rowDelegateDidChange();
   }

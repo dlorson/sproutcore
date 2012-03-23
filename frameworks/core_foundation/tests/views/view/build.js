@@ -7,37 +7,37 @@
 
 var buildableView, parent;
 module('SC.Buildable', {
-  setup: function() {
+  setup: function setup() {
     parent = SC.View.create();
     buildableView = SC.View.create({
-      buildIn: function() {
+      buildIn: function buildIn() {
         this.called_any = YES;
         this.called_buildIn = YES;
       },
       
-      resetBuild: function() {
+      resetBuild: function resetBuild() {
         this.called_any = YES;
         this.called_resetBuild = YES;
       },
       
-      buildOut: function() {
+      buildOut: function buildOut() {
         this.called_any = YES;
         this.called_buildOut = YES;
       },
       
-      buildOutDidCancel: function() {
+      buildOutDidCancel: function buildOutDidCancel() {
         this.called_any = YES;
         this.called_buildOutDidCancel = YES;
       },
       
-      buildInDidCancel: function() {
+      buildInDidCancel: function buildInDidCancel() {
         this.called_any = YES;
         this.called_buildInDidCancel = YES;
       }
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
   }
 });
 

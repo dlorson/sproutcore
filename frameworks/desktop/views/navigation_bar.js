@@ -20,7 +20,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
 /** @scope SC.NavigationBarView.prototype */{
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     
     if (!SC.Animatable) {
@@ -32,7 +32,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
 
   /** @private */
-  mixinAnimatable: function() {
+  mixinAnimatable: function mixinAnimatable() {
     this.mixin(SC.Animatable);
     this.transitions = this.navigationTransitions;
   },
@@ -65,7 +65,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   swipeGesture: SC.SwipeGesture,
 
   /** @private */
-  swipe: function(gesture, touch, direction) {
+  swipe: function swipe(gesture, touch, direction) {
     var lookingFor = (direction === SC.SWIPE_LEFT) ? "isSwipeLeft" : "isSwipeRight",
         cv = this.get("childViews"), 
         child, idx, len = cv.get("length");
@@ -91,12 +91,12 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   // 
   
   /** @private */
-  resetBuild: function() {
+  resetBuild: function resetBuild() {
     if (!this.isAnimatable) this.mixinAnimatable();
   },
   
   /** @private */
-  didFinishTransition: function() {
+  didFinishTransition: function didFinishTransition() {
     if (this.isBuildingIn) {
       // and please continue
       this.buildInDidFinish();
@@ -104,7 +104,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
   
   /** @private */
-  preBuildIn: function() {
+  preBuildIn: function preBuildIn() {
     // first, fade this view out
     this.disableAnimation();
     this.adjust("opacity", 0).updateLayout();
@@ -129,7 +129,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
   
   /** @private */
-  buildIn: function() {
+  buildIn: function buildIn() {
     // first, we do the precursor
     this.preBuildIn();
     
@@ -138,7 +138,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
   
   /** @private */
-  startBuildIn: function() {
+  startBuildIn: function startBuildIn() {
     this.adjust("opacity", 1);
 
     // get our frame, because we use it when computing child frames.
@@ -151,7 +151,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
 
   /** @private */
-  buildOut: function() {
+  buildOut: function buildOut() {
     this.adjust("opacity", 0);
     
     var cv = this.get("childViews"), child, idx, len = cv.get("length");
@@ -164,7 +164,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
   },
   
   /** @private */
-  mixinNavigationChild: function(child) {
+  mixinNavigationChild: function mixinNavigationChild(child) {
     if (child.isAnimatable) return;
     
     // mix in animatable
@@ -176,7 +176,7 @@ SC.NavigationBarView = SC.ToolbarView.extend(SC.Gesturable,
         transform: {timing: SC.Animatable.TRANSITION_EASE_IN_OUT, duration: 0.25}
       },
       naturalLayout: child.get("layout"),
-      transform: function(pos) {
+      transform: function transform(pos) {
         if (SC.platform.supportsCSS3DTransforms) {
           this.adjust("transform", "translate3d(" + pos + "px,0px,0px)");
         } else {

@@ -30,7 +30,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
   isRangeObserver: YES,
 
   /** @private */
-  toString: function() {
+  toString: function toString() {
     var base = this.indexes ? this.indexes.toString() : "SC.IndexSet<..>";
     return base.replace('IndexSet', 'RangeObserver(%@)'.fmt(SC.guidFor(this)));
   },
@@ -51,7 +51,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {Boolean} isDeep if YES, observe property changes as well
     @returns {SC.RangeObserver} instance
   */
-  create: function(source, indexSet, target, method, context, isDeep) {
+  create: function create(source, indexSet, target, method, context, isDeep) {
     var ret = SC.beget(this);
     ret.source = source;
     ret.indexes = indexSet ? indexSet.frozenCopy() : null;
@@ -71,7 +71,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {Hash} attrs one or more attribute hashes
     @returns {SC.RangeObserver} extended range observer class
   */
-  extend: function(attrs) {
+  extend: function extend(attrs) {
     var ret = SC.beget(this), args = arguments;
     for(var i=0, l=args.length; i<l; i++) { SC.mixin(ret, args[i]); }
     return ret ;
@@ -83,7 +83,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {SC.Array} source the source array
     @returns {SC.RangeObserver} receiver
   */
-  destroy: function(source) {
+  destroy: function destroy(source) {
     this.endObserving();
     return this;
   },
@@ -97,7 +97,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {SC.IndexSet} indexSet The index set representing the change
     @returns {SC.RangeObserver} receiver
   */
-  update: function(source, indexSet) {
+  update: function update(source, indexSet) {
     if (this.indexes && this.indexes.isEqual(indexSet)) { return this ; }
 
     this.indexes = indexSet ? indexSet.frozenCopy() : null ;
@@ -112,7 +112,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
 
     @returns {SC.RangeObserver} receiver
   */
-  beginObserving: function() {
+  beginObserving: function beginObserving() {
     if ( !this.isDeep ) { return this; } // nothing to do
 
     var observing = this.observing = this.observing || SC.CoreSet.create();
@@ -146,7 +146,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     it does, go ahead and setup observers on all objects and remove ourself
     from the queue.
   */
-  setupPending: function(object) {
+  setupPending: function setupPending(object) {
     var observing = this.observing ;
 
     if ( this.isObserving || !observing || (observing.get('length')===0) ) {
@@ -200,7 +200,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
 
     @returns {SC.RangeObserver} receiver
   */
-  endObserving: function() {
+  endObserving: function endObserving() {
     if ( !this.isDeep ) return this; // nothing to do
 
     var observing = this.observing;
@@ -237,7 +237,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {SC.IndexSet} changes optional set of changed indexes
     @returns {SC.RangeObserver} receiver
   */
-  rangeDidChange: function(changes) {
+  rangeDidChange: function rangeDidChange(changes) {
     var indexes = this.indexes;
     if ( !changes || !indexes || indexes.intersects(changes) ) {
       this.endObserving(); // remove old observers
@@ -256,7 +256,7 @@ SC.RangeObserver = /** @scope SC.RangeObserver.prototype */{
     @param {Number} rev The revision of the change
     @returns {SC.RangeObserver} receiver
   */
-  objectPropertyDidChange: function(object, key, value, rev) {
+  objectPropertyDidChange: function objectPropertyDidChange(object, key, value, rev) {
     var context = this.context,
         method  = this.method,
         guid    = SC.guidFor(object),

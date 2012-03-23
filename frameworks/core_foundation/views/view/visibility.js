@@ -20,7 +20,7 @@ SC.View.reopen(
    By default we don't disable the context menu. Overriding this property
    can enable/disable the context menu per view.
   */
-  isContextMenuEnabled: function() {
+  isContextMenuEnabled: function isContextMenuEnabled() {
     return SC.CONTEXT_MENU_ENABLED;
   }.property(),
 
@@ -39,7 +39,7 @@ SC.View.reopen(
     @property {Boolean} parentViewIsVisible
     @returns {SC.View} receiver
   */
-  recomputeIsVisibleInWindow: function(parentViewIsVisible) {
+  recomputeIsVisibleInWindow: function recomputeIsVisibleInWindow(parentViewIsVisible) {
     var previous = this.get('isVisibleInWindow'),
         current  = this.get('isVisible'),
         parentView;
@@ -104,7 +104,7 @@ SC.View.reopen(
     if it is marked as visibile and its parent view is as well), in addition
     to updating the layer accordingly.
   */
-  _sc_isVisibleDidChange: function() {
+  _sc_isVisibleDidChange: function _sc_isVisibleDidChange() {
     // 'isVisible' is effectively a displayProperty, but we'll call
     // displayDidChange() manually here instead of declaring it as a
     // displayProperty because that avoids having two observers on

@@ -39,7 +39,7 @@ SC.SelectFieldView = SC.FieldView.extend(
     @type Boolean
     @default YES
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     return this.get('isEnabled');
   }.property('isEnabled'),
 
@@ -138,7 +138,7 @@ SC.SelectFieldView = SC.FieldView.extend(
     @param itemName the name of the menu item to validate
     @returns YES if the item should be enabled, NO otherwise
   */  
-  validateMenuItem: function(itemValue, itemName) {
+  validateMenuItem: function validateMenuItem(itemValue, itemName) {
     return YES;
   },
 
@@ -149,7 +149,7 @@ SC.SelectFieldView = SC.FieldView.extend(
     @param objects the unsorted array of objects to display.
     @returns sorted array of objects
   */
-  sortObjects: function(objects) {
+  sortObjects: function sortObjects(objects) {
     if(!this.get('disableSort')){
       var nameKey = this.get('sortKey') || this.get('nameKey') ;
       if(nameKey) objects = objects.sortProperty(nameKey);
@@ -167,7 +167,7 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
 
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     // Only re-render if it's the firstTime or if a change is required
     if (firstTime || this.get('cpDidChange')) {
       this.set('cpDidChange', NO);
@@ -269,28 +269,28 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
 
   /** @private */
-  _objectsObserver: function() {
+  _objectsObserver: function _objectsObserver() {
     this.set('cpDidChange', YES);
   }.observes('objects'),
 
   /** @private */
-  _objectArrayObserver: function() {
+  _objectArrayObserver: function _objectArrayObserver() {
     this.set('cpDidChange', YES);
     this.propertyDidChange('objects');
   }.observes('*objects.[]'),
     
   /** @private */
-  _nameKeyObserver: function() {
+  _nameKeyObserver: function _nameKeyObserver() {
     this.set('cpDidChange', YES);
   }.observes('nameKey'),
    
   /** @private */
-  _valueKeyObserver: function() {
+  _valueKeyObserver: function _valueKeyObserver() {
     this.set('cpDidChange', YES);
   }.observes('valueKey'),
 
   /** @private */
-  _isEnabledObserver: function() {
+  _isEnabledObserver: function _isEnabledObserver() {
     this.set('cpDidChange', YES);
   }.observes('isEnabled'),
 
@@ -299,10 +299,10 @@ SC.SelectFieldView = SC.FieldView.extend(
   //
    
   /** @private */
-  $input: function() { return this.$(); },
+  $input: function input() { return this.$(); },
    
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) {
       evt.stop();
       return YES;
@@ -310,18 +310,18 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
    
   /** @private */
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     return this.mouseDown(evt);
   },
   
   /** @private */
-  touchEnd: function(evt) {
+  touchEnd: function touchEnd(evt) {
     return this.mouseUp(evt);
   },
 
   // when fetching the raw value, convert back to an object if needed...
   /** @private */
-  getFieldValue: function() {
+  getFieldValue: function getFieldValue() {
     var value = sc_super(); // get raw value... 
     var valueKey = this.get('valueKey') ;
     var objects = this.get('objects') ;
@@ -357,7 +357,7 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
   
   /** @private */
-  setFieldValue: function(newValue) {
+  setFieldValue: function setFieldValue(newValue) {
     if (SC.none(newValue)) { 
       newValue = '***' ; 
     } else {
@@ -368,24 +368,24 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
   
   /** @private */
-  fieldDidFocus: function() {
+  fieldDidFocus: function fieldDidFocus() {
     var isFocused = this.get('isFocused');
     if (!isFocused) this.set('isFocused', true);
   },
 
   /** @private */
-  fieldDidBlur: function() {
+  fieldDidBlur: function fieldDidBlur() {
     var isFocused = this.get('isFocused');
     if (isFocused) this.set('isFocused', false);
   },
   
   /** @private */
-  _isFocusedObserver: function() {
+  _isFocusedObserver: function _isFocusedObserver() {
     this.$().setClass('focus', this.get('isFocused'));
   }.observes('isFocused'),
 
   /** @private */
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     var input = this.$input();
     if (this.get('isEnabled') === false) this.$()[0].disabled = true;
     SC.Event.add(input, 'blur', this, this.fieldDidBlur);
@@ -394,7 +394,7 @@ SC.SelectFieldView = SC.FieldView.extend(
   },
   
   /** @private */
-  willDestroyLayer: function() {
+  willDestroyLayer: function willDestroyLayer() {
     var input = this.$input();
     SC.Event.remove(input, 'focus', this, this.fieldDidFocus);
     SC.Event.remove(input, 'blur', this, this.fieldDidBlur);

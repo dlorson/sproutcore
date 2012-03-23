@@ -29,7 +29,7 @@
 SC.BaseTheme.radioGroupRenderDelegate = SC.RenderDelegate.create({
   className: 'radio-group',
   
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     var theme = dataSource.get('theme'),
@@ -61,7 +61,7 @@ SC.BaseTheme.radioGroupRenderDelegate = SC.RenderDelegate.create({
     dataSource.get('renderState').radioCount = idx;
   },
   
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
 
     var theme = dataSource.get('theme'),
@@ -94,7 +94,7 @@ SC.BaseTheme.radioGroupRenderDelegate = SC.RenderDelegate.create({
     @param {jQuery} jquery A jQuery instance with the DOM for this radio group.
     @param {Number} index The index of the radio to update.
   */
-  updateRadioAtIndex: function(dataSource, jquery, index) {
+  updateRadioAtIndex: function updateRadioAtIndex(dataSource, jquery, index) {
     var item = dataSource.get('items')[index];
     dataSource.get('theme').radioRenderDelegate.update(item, jquery.find('.radio-' + index));
   },
@@ -108,7 +108,7 @@ SC.BaseTheme.radioGroupRenderDelegate = SC.RenderDelegate.create({
     @param {SC.Event SC.Touch} event The event or SC.Touch object.
   */
   
-  indexForEvent: function(dataSource, jquery, evt) {
+  indexForEvent: function indexForEvent(dataSource, jquery, evt) {
     var index = $(evt.target).closest('.sc-radio-button').attr('index');
     if (isNaN(index)) return undefined;
     return parseInt(index, 0);

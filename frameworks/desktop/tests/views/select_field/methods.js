@@ -9,7 +9,7 @@
 
 var pane, view , view1, view2, view3;
 module("SC.SelectFieldView",{
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       objs : ["Apple","Sproutcore 1.0","Development","Charles"],
@@ -45,7 +45,7 @@ module("SC.SelectFieldView",{
     view3 = pane.childViews[3] ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }

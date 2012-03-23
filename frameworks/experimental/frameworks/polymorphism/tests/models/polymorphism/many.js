@@ -11,7 +11,7 @@
       strobe, colin, charles, matt, yehuda, erin, digits;
   
   module("Polymorphic SC.Record - toMany tests", {
-    setup: function() {
+    setup: function setup() {
       SC.RunLoop.begin();
       store = SC.Store.create();
 
@@ -54,7 +54,7 @@
       digits = store.createRecord(Accountant, {guid: '6', name: 'P. Diggy'});
 
     },
-    teardown: function() {
+    teardown: function teardown() {
       store = Employee = Company = Engineer = Executive = Accountant = Other = null;
       strobe = colin = charles = matt = yehuda = erin = digits = null;
       SC.RunLoop.end();

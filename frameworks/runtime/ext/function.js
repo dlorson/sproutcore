@@ -27,12 +27,12 @@ SC.mixin(Function.prototype,
             lastName: "Jolley",
 
             // This is a computed property!
-            fullName: function() {
+            fullName: function fullName() {
               return this.getEach('firstName','lastName').compact().join(' ') ;
             }.property('firstName', 'lastName'),
 
             // this is not
-            getFullName: function() {
+            getFullName: function getFullName() {
               return this.getEach('firstName','lastName').compact().join(' ') ;
             }
           });
@@ -76,7 +76,7 @@ SC.mixin(Function.prototype,
     Sometimes you may need to depend on keys that are several objects deep. In
     that case, you can provide a path to property():
 
-        capitalizedName: function() {
+        capitalizedName: function capitalizedName() {
           return this.getPath('person.fullName').toUpper();
         }.property('person.fullName')
 
@@ -100,7 +100,7 @@ SC.mixin(Function.prototype,
 
           contact = SC.Object.create({
 
-            fullName: function(key, value) {
+            fullName: function fullName(key, value) {
               if (value !== undefined) {
                 var parts = value.split(' ') ;
                 this.beginPropertyChanges()
@@ -126,7 +126,7 @@ SC.mixin(Function.prototype,
     @param {String...} dependentKeys optional set of dependent keys
     @returns {Function} the declared function instance
   */
-  property: function() {
+  property: function property() {
     return SC.Function.property(this, arguments);
   },
 
@@ -144,7 +144,7 @@ SC.mixin(Function.prototype,
     @param {Boolean} aFlag optionally indicate cacheable or no, default YES
     @returns {Function} receiver, useful for chaining calls.
   */
-  cacheable: function(aFlag) {
+  cacheable: function cacheable(aFlag) {
     return SC.Function.cacheable(this, aFlag);
   },
 
@@ -165,11 +165,11 @@ SC.mixin(Function.prototype,
     @param {Boolean} aFlag optionally indicate state, default to YES
     @returns {Function} receiver, useful for chaining calls.
   */
-  idempotent: function(aFlag) {
+  idempotent: function idempotent(aFlag) {
     return SC.Function.idempotent(this, aFlag);
   },
 
-  enhance: function() {
+  enhance: function enhance() {
     return SC.Function.enhance(this);
   },
 
@@ -182,7 +182,7 @@ SC.mixin(Function.prototype,
 
     @returns {Function} receiver, useful for chaining calls.
   */
-  observes: function(propertyPaths) {
+  observes: function observes(propertyPaths) {
     return SC.Function.observes(this, arguments);
   }
 

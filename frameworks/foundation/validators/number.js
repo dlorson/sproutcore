@@ -27,7 +27,7 @@ SC.Validator.Number = SC.Validator.extend(
   */
   places: 0,
   
-  fieldValueForObject: function(object, form, field) {
+  fieldValueForObject: function fieldValueForObject(object, form, field) {
     switch(SC.typeOf(object)) {
       case SC.T_NUMBER:
         object = object.toFixed(this.get('places')) ;
@@ -40,7 +40,7 @@ SC.Validator.Number = SC.Validator.extend(
     return object ;
   },
 
-  objectForFieldValue: function(value, form, field) {
+  objectForFieldValue: function objectForFieldValue(value, form, field) {
     // strip out commas
     var result;
     value = value.replace(/,/g,'');
@@ -70,12 +70,12 @@ SC.Validator.Number = SC.Validator.extend(
     return value ;
   },
   
-  validate: function(form, field) { 
+  validate: function validate(form, field) { 
     var value = field.get('fieldValue') ;
     return (value === '') || !(isNaN(value) || isNaN(parseFloat(value))) ; 
   },
   
-  validateError: function(form, field) {
+  validateError: function validateError(form, field) {
     var label = field.get('errorLabel') || 'Field' ;
     return SC.$error(SC.String.loc("Invalid.Number(%@)", label), label) ;
   },
@@ -83,7 +83,7 @@ SC.Validator.Number = SC.Validator.extend(
   /** 
     Allow only numbers, dashes, period, and commas
   */
-  validateKeyDown: function(form, field, charStr) {
+  validateKeyDown: function validateKeyDown(form, field, charStr) {
     if(!charStr) charStr = "";
     var text = field.$input().val();
     if (!text) text='';

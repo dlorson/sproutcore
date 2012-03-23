@@ -11,7 +11,7 @@ var pane, textfield_view1, textfield_view2, textfield_view3, view1, view2, view3
 var OLD;
     
 module("SC.View#nextValidKeyView", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     
     pane = SC.Pane.design()
@@ -58,7 +58,7 @@ module("SC.View#nextValidKeyView", {
   },
   
 
-  teardown: function() { 
+  teardown: function teardown() { 
     
     // restore old settings
     SC.FOCUS_ALL_CONTROLS = OLD.FOCUS_ALL_CONTROLS;

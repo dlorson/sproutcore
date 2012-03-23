@@ -14,13 +14,13 @@ var content, newContent, controller, destroyCount;
 SC.TestObject = SC.Object.extend();
 
 SC.TestObject.reopen({
-  destroy: function() {
+  destroy: function destroy() {
     destroyCount = 1;
   }
 });
 
 module("SC.ObjectController - content destroyed", {
-  setup: function() {
+  setup: function setup() {
     content = SC.TestObject.create({
       foo: "foo1", bar: "bar1"
     });
@@ -35,7 +35,7 @@ module("SC.ObjectController - content destroyed", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

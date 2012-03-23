@@ -55,7 +55,7 @@ SC.StackedView = SC.CollectionView.extend(
     @param {Rect} rect
     @returns {SC.IndexSet} full range of indexes
   */
-  computeNowShowing: function(rect) {
+  computeNowShowing: function computeNowShowing(rect) {
     return this.get('allContentIndexes');
   },  
 
@@ -75,7 +75,7 @@ SC.StackedView = SC.CollectionView.extend(
     @param {Boolean} immediately YES to update immediately
     @returns {SC.StackedView} receiver
   */
-  updateHeight: function(immediately) {
+  updateHeight: function updateHeight(immediately) {
     if (immediately) this._updateHeight();
     else this.invokeLast(this._updateHeight);
     // ^ use invokeLast() here because we need to wait until all rendering has 
@@ -85,7 +85,7 @@ SC.StackedView = SC.CollectionView.extend(
   },
   
   /** @private */
-  _updateHeight: function() {
+  _updateHeight: function _updateHeight() {
     
     var childViews = this.get('childViews'),
         len        = childViews.get('length'),
@@ -110,12 +110,12 @@ SC.StackedView = SC.CollectionView.extend(
     Whenever the collection view reloads some views, reset the cache on the
     frame as well so that it will recalculate.
   */
-  didReload: function(set) { return this.updateHeight(); },
+  didReload: function didReload(set) { return this.updateHeight(); },
 
   /** @private
     When layer is first created, make sure we update the height using the 
     newly calculated value.
   */
-  didCreateLayer: function() { return this.updateHeight(); }
+  didCreateLayer: function didCreateLayer() { return this.updateHeight(); }
   
 });

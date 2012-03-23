@@ -10,7 +10,7 @@
 /*globals module test ok isObj equals expects */
 var taskQueue;
 module("Task Queue",{
-  setup: function(){
+  setup: function setup(){
     taskQueue = SC.TaskQueue.create();
   }
 });
@@ -18,7 +18,7 @@ module("Task Queue",{
 
 
 test("Adding a task should not cause it to run.",function(){
-  var task = SC.Task.create({ run: function(){ this.ran = YES; } });
+  var task = SC.Task.create({ run: function run(){ this.ran = YES; } });
   taskQueue.push(task);
   
   ok(!task.ran, "Task should not have run");
@@ -26,7 +26,7 @@ test("Adding a task should not cause it to run.",function(){
 
 
 test("Adding a task and calling run() should cause the task to be run.",function(){
-  var task = SC.Task.create({ run: function(){ this.ran = YES; } });
+  var task = SC.Task.create({ run: function run(){ this.ran = YES; } });
   taskQueue.push(task);
   taskQueue.run();
   
@@ -35,7 +35,7 @@ test("Adding a task and calling run() should cause the task to be run.",function
 
 test("Adding multiple tasks and calling run should run the tasks in order.",function(){
   var ri = 0;
-  var task = SC.Task.extend({ run: function(){ this.ran = ri++; } }), t1, t2, t3, t4;
+  var task = SC.Task.extend({ run: function run(){ this.ran = ri++; } }), t1, t2, t3, t4;
   taskQueue.push(t1 = task.create());
   taskQueue.push(t2 = task.create());
   taskQueue.push(t3 = task.create());

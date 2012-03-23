@@ -10,13 +10,13 @@ var storeKey7, json, json1, json2, json3, json4, json5, json6, json7;
 var ds ;
 
 module("SC.Store#commitRecord", {
-  setup: function() {
+  setup: function setup() {
 
     ds = SC.DataSource.create({
 
       callCount: 0,
 
-      commitRecords: function(store, toCreate, toUpdate, toDestroy, params) {
+      commitRecords: function commitRecords(store, toCreate, toUpdate, toDestroy, params) {
         this.toCreate = toCreate;
         this.toUpdate = toUpdate;
         this.toDestroy = toDestroy;
@@ -24,12 +24,12 @@ module("SC.Store#commitRecord", {
         this.callCount++;
       },
 
-      reset: function() {
+      reset: function reset() {
         this.toCreate = this.toUpdate = this.toDestroy = this.params = null;
         this.callCount = 0 ;
       },
 
-      expect: function(callCount, toCreate, toUpdate, toDestroy, params) {
+      expect: function expect(callCount, toCreate, toUpdate, toDestroy, params) {
         if (callCount !== undefined) {
           equals(this.callCount, callCount, 'expect datasource.commitRecords to be called X times');
         }

@@ -7,7 +7,7 @@
 
 var store, Application;
 module("SC.Record Error Methods", {
-  setup: function() {
+  setup: function setup() {
 
     Application = {};
     Application.Thing = SC.Record.extend({
@@ -28,7 +28,7 @@ module("SC.Record Error Methods", {
     SC.RunLoop.end();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     store = null;
     Application = null;
   }

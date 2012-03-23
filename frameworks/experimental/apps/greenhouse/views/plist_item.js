@@ -18,7 +18,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
  
   _valueStyle: {position: 'absolute', right: 5, top: '50%', height: 18, marginTop: -9, left: 'auto'},
  
-  render: function(context, firstTime){
+  render: function render(context, firstTime){
     var content = this.get('content'),
        key, propertyKey, value, displayValue;
     
@@ -60,7 +60,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
     }
   },
   
-  mouseDown: function(evt){
+  mouseDown: function mouseDown(evt){
     if (this._isInsideElementWithClassName('sc-checkbox-view',evt)) {
       this._addCheckboxActiveState() ;
       this._isMouseDownOnCheckbox = YES ;
@@ -70,7 +70,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
     return false;
   },
   
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var ret= false,  content, state, idx, set;
 
     // if mouse was down in checkbox -- then handle mouse up, otherwise 
@@ -99,7 +99,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
   // ..........................................................
   // adapted from list item view
   // 
-  renderCheckbox: function(context, state) {
+  renderCheckbox: function renderCheckbox(context, state) {
     var renderer = this.get('theme').checkboxRenderDelegate;
 
     // note: checkbox-view is really not the best thing to do here; we should do
@@ -132,7 +132,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
     Determines if the event occurred inside an element with the specified
     classname or not.
   */
-  _isInsideElementWithClassName: function(className, evt) {
+  _isInsideElementWithClassName: function _isInsideElementWithClassName(className, evt) {
     var layer = this.get('layer');
     if (!layer) return NO ; // no layer yet -- nothing to do
     
@@ -148,7 +148,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
   // ..........................................................
   // checkbox helpers...
   // 
-  _addCheckboxActiveState: function() {
+  _addCheckboxActiveState: function _addCheckboxActiveState() {
     if (this.get('isEnabled')) {
       if (this._checkboxRenderDelegate) {
         var source = this._checkboxRenderSource;
@@ -163,7 +163,7 @@ Greenhouse.PlistItemView = SC.View.extend(SC.Control,
     }
   },
   
-  _removeCheckboxActiveState: function() {
+  _removeCheckboxActiveState: function _removeCheckboxActiveState() {
     if (this._checkboxRenderSource) {
       var source = this._checkboxRenderSource;
 

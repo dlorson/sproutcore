@@ -46,7 +46,7 @@
 
   Render delegates use their `render` and `update` methods to do this:
 
-      render: function(dataSource, context) {
+      render: function render(dataSource, context) {
         // rendering tasks here
         // example:
         context.begin('div').addClass('title')
@@ -54,7 +54,7 @@
         .end();
       },
 
-      update: function(dataSource, jquery) {
+      update: function update(dataSource, jquery) {
         // updating tasks here
         // example:
         jquery.find('.title').text(dataSource.get('title'));
@@ -96,7 +96,7 @@
   the autoSizePadding to equal half the data source's height:
 
       SC.RenderDelegate.create({
-        autoSizePaddingFor: function(dataSource) {
+        autoSizePaddingFor: function autoSizePaddingFor(dataSource) {
           if (dataSource.get('frame')) {
             return dataSource.get('frame').height / 2;
           }
@@ -127,7 +127,7 @@
 
       MyTheme.buttonRenderDelegate = SC.RenderDelegate.create({
         className: 'button',
-        render: function(dataSource, context) {
+        render: function render(dataSource, context) {
           this.includeSlices(dataSource, context, SC.THREE_SLICE);
         }
       });
@@ -150,7 +150,7 @@
   Use the `addSizeClassName` and `updateSizeClassName` methods:
 
       SC.RenderDelegate.create({
-        render: function(dataSource, context) {
+        render: function render(dataSource, context) {
           // if you want to include a class name for the control size
           // so you can style it via CSS, include this line:
           this.addSizeClassName(dataSource, context);
@@ -158,7 +158,7 @@
           ...
         },
 
-        update: function(dataSource, jquery) {
+        update: function update(dataSource, jquery) {
           // and don't forget to use its companion in update as well:
           this.updateSizeClassName(dataSource, jquery);
 
@@ -192,7 +192,7 @@
   SC.RenderDelegate.mixin; they will be available to all render delegates:
 
       SC.RenderDelegate.mixin({
-        myHelperMethod: function(dataSource) { ... }
+        myHelperMethod: function myHelperMethod(dataSource) { ... }
       });
 
 
@@ -200,7 +200,7 @@
 
       MyTheme.someRenderDelegate = SC.RenderDelegate.create({
         className: 'some-thingy',
-        render: function(dataSource, context) {
+        render: function render(dataSource, context) {
           this.myHelperMethod(dataSource);
         }
       });
@@ -218,13 +218,13 @@
       // If you use it in a couple of render delegates, perhaps a mixin
       // would be best:
       MyTheme.MyRenderHelper = {
-        helper: function(dataSource) {
+        helper: function helper(dataSource) {
           ...
         }
       };
 
       MyTheme.myRenderDelegate = SC.RenderDelegate.create(MyTheme.MyRenderHelper, {
-        render: function(dataSource, context) { ... }
+        render: function render(dataSource, context) { ... }
       });
 
 
@@ -232,13 +232,13 @@
       // would be better to create an entire subclass of
       // SC.RenderDelegate:
       MyTheme.RenderDelegate = SC.RenderDelegate.extend({
-        helper: function(dataSource) {
+        helper: function helper(dataSource) {
           ...
         }
       });
 
       MyTheme.myRenderDelegate = MyTheme.RenderDelegate.create({
-        render: function(dataSource, context) { ... }
+        render: function render(dataSource, context) { ... }
       });
 
   Data Sources
@@ -271,12 +271,12 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
    
         MyTheme.myRenderDelegate = SC.RenderDelegate.create({
           className: 'my-render-delegate',
-          render: function(dataSource, context) {
+          render: function render(dataSource, context) {
             // your code here...
           }
         })
   */
-  create: function() {
+  create: function create() {
     var ret = SC.beget(this);
 
     var idx, len = arguments.length;
@@ -293,11 +293,11 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
     You can use this to add helpers to all render delegates:
    
         SC.RenderDelegate.reopen({
-          myHelperMethod: function(dataSource) { ... }
+          myHelperMethod: function myHelperMethod(dataSource) { ... }
         });
    
   */
-  reopen: function(mixin) {
+  reopen: function reopen(mixin) {
     var i, v;
     for (i in mixin) {
       v = mixin[i];
@@ -321,7 +321,7 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
     Returns the specified property from this render delegate.
     Implemented to match SC.Object's API.
   */
-  get: function(propertyName) { return this[propertyName]; },
+  get: function get(propertyName) { return this[propertyName]; },
 
   /**
     Gets or generates the named property for the specified
@@ -334,7 +334,7 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
     is overridden in the sizing code (helpers/sizing.js) to be
     size-sensitive.
   */
-  getPropertyFor: function(dataSource, propertyName) {
+  getPropertyFor: function getPropertyFor(dataSource, propertyName) {
     if (this[propertyName + 'For']) {
       return this[propertyName + 'For'](dataSource, propertyName);
     }
@@ -359,7 +359,7 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
     data. See documentation on data sources above.
     @param {SC.RenderContext} context A context to render DOM into.
   */
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
 
   },
 
@@ -373,7 +373,7 @@ SC.RenderDelegate = /** @scope SC.RenderDelegate.prototype */{
     @param {jQuery} jquery A jQuery instance containing the DOM
     element to update. This will be the DOM generated by `render()`.
   */
-  update: function(dataSource, jQuery) {
+  update: function update(dataSource, jQuery) {
 
   }
 };

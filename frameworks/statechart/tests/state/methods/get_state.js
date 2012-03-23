@@ -7,7 +7,7 @@ var sc, root;
 
 module("SC.State: getState method Tests", {
   
-  setup: function() {
+  setup: function setup() {
     
     sc = SC.Statechart.create({
       
@@ -53,7 +53,7 @@ module("SC.State: getState method Tests", {
     root = sc.get('rootState');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
 
   }
   

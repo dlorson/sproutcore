@@ -7,13 +7,13 @@
 
 var view ;
 module("SC.CollectionView#displayProperties", {
-  setup: function() {
+  setup: function setup() {
     view = SC.CollectionView.create({
         isVisibleInWindow: YES
     }).createLayer();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     view.destroy();
   }
 });

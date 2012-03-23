@@ -8,7 +8,7 @@
 var store, storeKey, json, hash, hash2;
 
 module("SC.Store#createRecord", {
-  setup: function() {
+  setup: function setup() {
     
     MyRecordType = SC.Record.extend({
       string: SC.Record.attr(String, { defaultValue: "Untitled" }),

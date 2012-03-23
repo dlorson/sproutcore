@@ -69,7 +69,7 @@ SC.StaticContentView = SC.View.extend(SC.StaticLayout,
     Note that if you change the content property, this will be recalculated
     automatically.
   */
-  contentLayoutDidChange: function() {
+  contentLayoutDidChange: function contentLayoutDidChange() {
     this._viewFrameDidChange();
   },
 
@@ -91,7 +91,7 @@ SC.StaticContentView = SC.View.extend(SC.StaticLayout,
 
     @property
   */
-  frame: function() {
+  frame: function frame() {
     var layer = this.get('layer'), rect;
 
     if (!layer) return { x: 0, y: 0, width: 0, height: 0 };
@@ -108,14 +108,14 @@ SC.StaticContentView = SC.View.extend(SC.StaticLayout,
   /** @private
     Recalculate content frame if our parent view resizes.
   */
-  parentViewDidResize: function() {
+  parentViewDidResize: function parentViewDidResize() {
     this.contentLayoutDidChange();
   },
 
   /** @private
     If the layer changes, make sure we recalculate the frame.
   */
-  didUpdateLayer: function() {
+  didUpdateLayer: function didUpdateLayer() {
     this.contentLayoutDidChange();
   },
 
@@ -125,20 +125,20 @@ SC.StaticContentView = SC.View.extend(SC.StaticLayout,
     @param {SC.RenderContext} context
     @param {Boolean} firstTime
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var content = this.get('content');
 
     context.push(content || '');
   },
 
   /** @private */
-  touchStart: function(evt){
+  touchStart: function touchStart(evt){
     evt.allowDefault();
     return YES;
   },
 
   /** @private */
-  touchEnd: function(evt){
+  touchEnd: function touchEnd(evt){
     evt.allowDefault();
     return YES;
   }

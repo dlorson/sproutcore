@@ -12,7 +12,7 @@ var src, src2, content, controller;
 // 
 
 module("SC.ObjectController - multiple_case - ALLOWSMULTIPLE = NO", {
-  setup: function() {
+  setup: function setup() {
     src        = SC.Object.create({ foo: "foo1", bar: "bar1" });
     src2       = SC.Object.create({ foo: "foo2", bar: "bar1" });
     content    = [src, src2];
@@ -22,7 +22,7 @@ module("SC.ObjectController - multiple_case - ALLOWSMULTIPLE = NO", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -48,7 +48,7 @@ test("setting any unknown value should have no effect", function() {
 // 
 
 module("SC.ObjectController - multiple_case - ALLOWSMULTIPLE = YES", {
-  setup: function() {
+  setup: function setup() {
     src        = SC.Object.create({ foo: "foo1", bar: "bar1" });
     src2       = SC.Object.create({ foo: "foo2", bar: "bar1" });
     content    = [src, src2];
@@ -58,7 +58,7 @@ module("SC.ObjectController - multiple_case - ALLOWSMULTIPLE = YES", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

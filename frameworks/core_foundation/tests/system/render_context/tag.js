@@ -10,7 +10,7 @@
 var context = null;
 
 module("SC.RenderContext#tag", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext() ;
   }
 });

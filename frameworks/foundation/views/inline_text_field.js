@@ -113,7 +113,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   * @params {element} the dom element to scan
   * @returns {String} a style string that was copied from the element
   */
-  _updateViewStyle: function(el) {
+  _updateViewStyle: function _updateViewStyle(el) {
     var styles = '',
         s=SC.getStyle(el,'font-size');
 
@@ -158,7 +158,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   * @params {element} the dom element to scan
   * @returns {String} a style string copied from the element
   */
-  _updateViewPaddingStyle: function(el) {
+  _updateViewPaddingStyle: function _updateViewPaddingStyle(el) {
     var styles = '',
     s=SC.getStyle(el,'padding-top');
 
@@ -186,7 +186,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   *
   * @params {element} the dom element to copy
   */
-	updateStyle: function(exampleElement) {
+	updateStyle: function updateStyle(exampleElement) {
     if(exampleElement.length) exampleElement = exampleElement[0];
 
     // the styles are placed into a style element so that they can be overridden
@@ -234,7 +234,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   * @param {Hash} optional custom frame
   * @param {Boolean} if the view is a member of a collection
   */
-	positionOverTargetView: function(target, isCollection, pane, frame, elem) {
+	positionOverTargetView: function positionOverTargetView(target, isCollection, pane, frame, elem) {
     var isIE7;
 
     if(!pane) pane = target.get('pane');
@@ -292,7 +292,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   *
   * @type {Boolean}
   */
-  isTextArea: function() {
+  isTextArea: function isTextArea() {
     return this.get('multiline');
   }.property('multiline').cacheable(),
 
@@ -304,7 +304,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   *
   * @returns {Boolean} YES on success
   */
-  beginEditing: function(original, label) {
+  beginEditing: function beginEditing(original, label) {
 		if(!original(label)) return NO;
 
     var pane = label.get('pane'), elem = this.get('exampleElement');
@@ -340,7 +340,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
     @returns {Boolean}
   */
   // TODO: this seems to do almost the same thing as fieldDidBlur
-  blurEditor: function(evt) {
+  blurEditor: function blurEditor(evt) {
     if (!this.get('isEditing')) return YES ;
     return this.commitOnBlur ? this.commitEditing() : this.discardEditing();
   },
@@ -352,7 +352,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
     Called by commitEditing and discardEditing to actually end editing.
 
   */
-  _endEditing: function(original) {
+  _endEditing: function _endEditing(original) {
     var ret = original();
 
     // resign first responder if not done already.  This may call us in a
@@ -371,17 +371,17 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   // TODO: make textArea automatically resize to fit content
 
   /** @private */
-  mouseDown: function(e) {
+  mouseDown: function mouseDown(e) {
     arguments.callee.base.call(this, e) ;
     return this.get('isEditing');
   },
 
-  touchStart: function(e){
+  touchStart: function touchStart(e){
     this.mouseDown(e);
   },
 
   /** @private */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     var ret = this.interpretKeyEvents(evt) ;
     this.fieldValueDidChange(true);
     return !ret ? NO : ret ;
@@ -390,9 +390,9 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   /** @private */
   insertText: null,
 
-  //keyUp: function() { return true; },
+  //keyUp: function keyUp() { return true; },
 
-  _scitf_blurInput: function() {
+  _scitf_blurInput: function _scitf_blurInput() {
     var el = this.$input()[0];
     if (el) el.blur();
     el = null;
@@ -401,13 +401,13 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   // [Safari] if you don't take key focus away from an element before you
   // remove it from the DOM key events are no longer sent to the browser.
   /** @private */
-  willRemoveFromParent: function() {
+  willRemoveFromParent: function willRemoveFromParent() {
     return this._scitf_blurInput();
   },
 
   // ask owner to end editing.
   /** @private */
-  willLoseFirstResponder: function(responder, evt) {
+  willLoseFirstResponder: function willLoseFirstResponder(responder, evt) {
     if (responder !== this) return;
 
     // if we're about to lose first responder for any reason other than
@@ -430,7 +430,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
 
     @returns {Boolean}
   */
-  cancel: function() {
+  cancel: function cancel() {
     this.discardEditing();
     return YES;
   },
@@ -438,7 +438,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   // do it here instead of waiting on the binding to make sure the UI
   // updates immediately.
   /** @private */
-  fieldValueDidChange: function(partialChange) {
+  fieldValueDidChange: function fieldValueDidChange(partialChange) {
     arguments.callee.base.call(this, partialChange) ;
     //this.resizeToFit(this.getFieldValue()) ;
   },
@@ -447,7 +447,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   // then allow the newine to proceed.  Otherwise, try to commit the
   // edit.
   /** @private */
-  insertNewline: function(evt) {
+  insertNewline: function insertNewline(evt) {
     if (this.get('isTextArea')) {
       evt.allowDefault();
       return arguments.callee.base.call(this, evt) ;
@@ -468,7 +468,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   // Tries to find the next key view when tabbing.  If the next view is
   // editable, begins editing.
   /** @private */
-  insertTab: function(evt) {
+  insertTab: function insertTab(evt) {
     var target = this.target; // removed by commitEditing()
     this.resignFirstResponder();
     this.commitEditing() ;
@@ -480,7 +480,7 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   },
 
   /** @private */
-  insertBacktab: function(evt) {
+  insertBacktab: function insertBacktab(evt) {
     var target = this.target; // removed by commitEditing()
     this.resignFirstResponder();
     this.commitEditing() ;
@@ -492,13 +492,13 @@ SC.InlineTextFieldView = SC.TextFieldView.extend(SC.InlineEditor,
   },
 
   /** @private */
-  deleteForward: function(evt) {
+  deleteForward: function deleteForward(evt) {
     evt.allowDefault();
     return YES;
   },
 
   /** @private */
-  deleteBackward: function(evt) {
+  deleteBackward: function deleteBackward(evt) {
     evt.allowDefault();
     return YES ;
   }
@@ -545,7 +545,7 @@ SC.mixin(SC.InlineTextFieldView, {
     @params {Object} a hash of options or the view to edit
     @returns {Boolean} whether editing began successfully
   */
-  beginEditing: function(label) {
+  beginEditing: function beginEditing(label) {
     var del, editor, options, value, labelProxy;
 
     // for backwards compatibility, we allow you to pass an options hash with options that will be set on the editor
@@ -570,32 +570,32 @@ SC.mixin(SC.InlineTextFieldView, {
     // these functions may have side effects, so they need to have their
     // this reference assigned to the original object before proxying
     labelProxy.mixin({
-      inlineEditorWillBeginEditing: function() {
+      inlineEditorWillBeginEditing: function inlineEditorWillBeginEditing() {
         if(label.inlineEditorWillBeginEditing) label.inlineEditorWillBeginEditing.apply(label, arguments);
       },
 
-      inlineEditorDidBeginEditing: function() {
+      inlineEditorDidBeginEditing: function inlineEditorDidBeginEditing() {
         if(label.inlineEditorDidBeginEditing) label.inlineEditorDidBeginEditing.apply(label, arguments);
       },
 
-      inlineEditorWillCommitEditing: function(editor, value, editable) {
+      inlineEditorWillCommitEditing: function inlineEditorWillCommitEditing(editor, value, editable) {
         if(label.inlineEditorWillCommitEditing) label.inlineEditorWillCommitEditing(editor, value, editable);
         if(label.inlineEditorWillEndEditing) label.inlineEditorWillEndEditing(editor, value);
       },
 
-      inlineEditorDidCommitEditing: function(editor, value, editable) {
+      inlineEditorDidCommitEditing: function inlineEditorDidCommitEditing(editor, value, editable) {
         if(label.inlineEditorDidCommitEditing) label.inlineEditorDidCommitEditing(editor, value, editable);
         if(label.inlineEditorDidEndEditing) label.inlineEditorDidEndEditing(editor, value);
 
         SC.InlineTextFieldView._endEditing();
       },
 
-      inlineEditorWillDiscardEditing: function(editor, editable) {
+      inlineEditorWillDiscardEditing: function inlineEditorWillDiscardEditing(editor, editable) {
         if(label.inlineEditorWillDiscardEditing) label.inlineEditorWillDiscardEditing(editor, editable);
         if(label.inlineEditorWillEndEditing) label.inlineEditorWillEndEditing(editor, this.get('value'));
       },
 
-      inlineEditorDidDiscardEditing: function(editor, editable) {
+      inlineEditorDidDiscardEditing: function inlineEditorDidDiscardEditing(editor, editable) {
         if(label.inlineEditorDidDiscardEditing) label.inlineEditorDidDiscardEditing(editor, editable);
         if(label.inlineEditorDidEndEditing) label.inlineEditorDidEndEditing(editor, this.get('value'));
 
@@ -631,7 +631,7 @@ SC.mixin(SC.InlineTextFieldView, {
   *
   * @returns {Boolean} whether the editor was allowed to commit successfully
   */
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     return this.inlineEditorDelegate.editor ? this.inlineEditorDelegate.editor.commitEditing() : NO;
   },
 
@@ -642,7 +642,7 @@ SC.mixin(SC.InlineTextFieldView, {
   *
   * @returns {Boolean} whether the editor was allowed to discard successfully
   */
-  discardEditing: function() {
+  discardEditing: function discardEditing() {
     return this.inlineEditorDelegate.editor ? this.inlineEditorDelegate.editor.discardEditing() : NO;
   },
 
@@ -652,7 +652,7 @@ SC.mixin(SC.InlineTextFieldView, {
   *
   * Cleans up the current editor and editing context.
   */
-  _endEditing: function() {
+  _endEditing: function _endEditing() {
     this.inlineEditorDelegate.releaseEditor(this.editor);
 
     this.editor = null;

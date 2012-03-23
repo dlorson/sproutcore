@@ -109,7 +109,7 @@ SC.InlineEditable = {
 
     @returns {Boolean} whether the view successfully entered edit mode
   */
-  beginEditing: function() {
+  beginEditing: function beginEditing() {
     var del;
 
     del = this.delegateFor('inlineEditorShouldBeginEditing', this.inlineEditorDelegate);
@@ -131,7 +131,7 @@ SC.InlineEditable = {
 
     @returns {Boolean} whether the delegate allowed the value to be committed
   */
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     return this._editor ? this._editor.commitEditing() : NO;
   },
 
@@ -147,7 +147,7 @@ SC.InlineEditable = {
 
     @returns {Boolean} whether the delegate allowed the view to discard its value
   */
-  discardEditing: function() {
+  discardEditing: function discardEditing() {
     return this._editor ? this._editor.discardEditing() : NO;
   },
 
@@ -157,7 +157,7 @@ SC.InlineEditable = {
 
     @returns {Boolean} if the view is allowed to begin editing
   */
-  inlineEditorShouldBeginEditing: function() {
+  inlineEditorShouldBeginEditing: function inlineEditorShouldBeginEditing() {
     return !this.get('isEditing') && this.get('isEditable');
   },
 
@@ -169,7 +169,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} value the editor for the view
     @params {Object} editable the initial value of the editor
   */
-  inlineEditorWillBeginEditing: function(editor, value, editable) {
+  inlineEditorWillBeginEditing: function inlineEditorWillBeginEditing(editor, value, editable) {
     editor.set('value', this.get('value'));
   },
 
@@ -180,7 +180,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the initial value of the editor
   */
-  inlineEditorDidBeginEditing: function(editor, value, editable) {
+  inlineEditorDidBeginEditing: function inlineEditorDidBeginEditing(editor, value, editable) {
     this.set('isEditing', YES);
   },
 
@@ -191,7 +191,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the initial value of the editor
   */
-  inlineEditorWillCommmitEditing: function(editor, value, editable) {
+  inlineEditorWillCommmitEditing: function inlineEditorWillCommmitEditing(editor, value, editable) {
     if(this.inlineEditorWillEndEditing) this.inlineEditorWillEndEditing(editor, value);
   },
 
@@ -203,7 +203,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the initial value of the editor
   */
-  inlineEditorDidCommitEditing: function(editor, value, editable) {
+  inlineEditorDidCommitEditing: function inlineEditorDidCommitEditing(editor, value, editable) {
     editable.setIfChanged('value', value);
 
     if(this.inlineEditorDidEndEditing) this.inlineEditorDidEndEditing(editor, value);
@@ -218,7 +218,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the initial value of the editor
   */
-  inlineEditorWillDiscardEditing: function(editor, editable) {
+  inlineEditorWillDiscardEditing: function inlineEditorWillDiscardEditing(editor, editable) {
     if(this.inlineEditorWillEndEditing) this.inlineEditorWillEndEditing(editor, this.get('value'));
   },
 
@@ -230,7 +230,7 @@ SC.InlineEditable = {
     @params {SC.InlineEditor} the editor for the view
     @params {Object} the initial value of the editor
   */
-  inlineEditorDidDiscardEditing: function(editor, editable) {
+  inlineEditorDidDiscardEditing: function inlineEditorDidDiscardEditing(editor, editable) {
     if(this.inlineEditorDidEndEditing) this.inlineEditorDidEndEditing(editor, this.get('value'));
 
     this._endEditing();
@@ -240,7 +240,7 @@ SC.InlineEditable = {
     @private
     Shared code used to cleanup editing after both discarding and commiting.
   */
-  _endEditing: function() {
+  _endEditing: function _endEditing() {
     // _editor may be null if we were called using the
     // SC.InlineTextFieldView class methods
     if(this._editor) {

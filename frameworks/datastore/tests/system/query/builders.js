@@ -57,12 +57,12 @@ function queryEquals(q, location, recordType, conditions, extra, desc) {
 function performBasicTests(methodName, loc) {
 
   module("SC.Query.%@()".fmt(methodName), {
-    setup: function() {
+    setup: function setup() {
       window.TestRecord = TestRecord;
       window.TestRecord2 = TestRecord2;
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       window.TestRecord = window.TestRecord2 = null; // cleanup
     }
   });

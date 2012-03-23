@@ -10,7 +10,7 @@ var statechart4 = null;
 var TestState = null;
 
 module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
-  setup: function() {
+  setup: function setup() {
     
     TestState = SC.State.extend({
       event: null,
@@ -18,14 +18,14 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
       context: null,
       handler: null,
       
-      _handledEvent: function(handler, event, sender, context) {
+      _handledEvent: function _handledEvent(handler, event, sender, context) {
         this.set('handler', handler);
         this.set('event', event);
         this.set('sender', sender);
         this.set('context', context);
       },
       
-      reset: function() {
+      reset: function reset() {
         this.set('handler', null);
         this.set('event', null);
         this.set('sender', null);
@@ -37,19 +37,19 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
       
       rootState: TestState.design({
       
-        foo: function(sender, context) {
+        foo: function foo(sender, context) {
           this._handledEvent('foo', null, sender, context);
         },
         
-        eventHandlerA: function(event, sender, context) {
+        eventHandlerA: function eventHandlerA(event, sender, context) {
           this._handledEvent('eventHandlerA', event, sender, context);
         }.handleEvents('plus', 'minus', 'mulitply', 'divide'),
         
-        eventHandlerB: function(event, sender, context) {
+        eventHandlerB: function eventHandlerB(event, sender, context) {
           this._handledEvent('eventHandlerB', event, sender, context);
         }.handleEvents(/num\d/),
         
-        unknownEvent: function(event, sender, context) {
+        unknownEvent: function unknownEvent(event, sender, context) {
           this._handledEvent('unknownEvent', event, sender, context);
         }
         
@@ -61,7 +61,7 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
       
       rootState: TestState.design({
         
-        foo: function(sender, context) {
+        foo: function foo(sender, context) {
           this._handledEvent('foo', null, sender, context);
         }
         
@@ -73,11 +73,11 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
       
       rootState: TestState.design({
         
-        eventHandlerA: function(event, sender, context) {
+        eventHandlerA: function eventHandlerA(event, sender, context) {
           this._handledEvent('eventHandlerA', event, sender, context);
         }.handleEvents(/num\d/, 'decimal'),
         
-        eventHandlerB: function(event, sender, context) {
+        eventHandlerB: function eventHandlerB(event, sender, context) {
           this._handledEvent('eventHandlerB', event, sender, context);
         }.handleEvents(/foo/, /bar/)
         
@@ -91,15 +91,15 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
         
         initialSubstate: 'a',
         
-        foo: function(sender, context) {
+        foo: function foo(sender, context) {
           this._handledEvent('foo', null, sender, context);
         },
         
-        eventHandlerRoot: function(event, sender, context) {
+        eventHandlerRoot: function eventHandlerRoot(event, sender, context) {
           this._handledEvent('eventHandlerRoot', event, sender, context);
         }.handleEvents('yes', 'no'),
         
-        unknownEvent: function(event, sender, context) {
+        unknownEvent: function unknownEvent(event, sender, context) {
           this._handledEvent('unknownEvent', event, sender, context);
         },
         
@@ -107,21 +107,21 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
           
           initialSubstate: 'b',
           
-          bar: function(sender, context) {
+          bar: function bar(sender, context) {
             this._handledEvent('bar', null, sender, context);
           },
           
-          eventHandlerA: function(event, sender, context) {
+          eventHandlerA: function eventHandlerA(event, sender, context) {
             this._handledEvent('eventHandlerA', event, sender, context);
           }.handleEvents('frozen', 'canuck'),
           
           b: TestState.design({
             
-            cat: function(sender, context) {
+            cat: function cat(sender, context) {
               this._handledEvent('cat', null, sender, context);
             },
             
-            eventHandlerB: function(event, sender, context) {
+            eventHandlerB: function eventHandlerB(event, sender, context) {
               this._handledEvent('eventHandlerB', event, sender, context);
             }.handleEvents(/apple/, /orange/)
             
@@ -139,7 +139,7 @@ module("Ki.Statechart: No Concurrent States - Advanced Event Handling Tests", {
     statechart4.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart1.destroy();
     statechart2.destroy();
     statechart3.destroy();

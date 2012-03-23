@@ -6,7 +6,7 @@
 var statechart, del, monitor, stateA, stateB, stateC;
 
 module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Tests", {
-  setup: function() {
+  setup: function setup() {
 
     del = SC.Object.create(SC.StatechartDelegate, {
       
@@ -14,15 +14,15 @@ module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Te
       
       handlers: {},
       
-      statechartUpdateLocationForState: function(statechart, location, state) {
+      statechartUpdateLocationForState: function statechartUpdateLocationForState(statechart, location, state) {
         this.set('location', location);
       },
 
-      statechartAcquireLocationForState: function(statechart, state) {
+      statechartAcquireLocationForState: function statechartAcquireLocationForState(statechart, state) {
         return this.get('location');
       },
 
-      statechartBindStateToRoute: function(statechart, state, route, handler) {
+      statechartBindStateToRoute: function statechartBindStateToRoute(statechart, state, route, handler) {
         this.handlers[route] = {
           statechart: statechart,
           state: state,
@@ -46,7 +46,7 @@ module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Te
         
         info: {},
         
-        enterState: function(context) {
+        enterState: function enterState(context) {
           this.info.enterState = {
             context: context
           };
@@ -60,7 +60,7 @@ module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Te
         
         info: {},
         
-        enterState: function(context) {
+        enterState: function enterState(context) {
           this.info.enterState = {
             context: context
           };
@@ -74,13 +74,13 @@ module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Te
         
         info: {},
         
-        enterStateByRoute: function(context) {
+        enterStateByRoute: function enterStateByRoute(context) {
           this.info.enterStateByRoute = {
             context: context
           };
         },
         
-        enterState: function(context) {
+        enterState: function enterState(context) {
           this.info.enterState = {
             context: context
           };
@@ -98,7 +98,7 @@ module("SC.Statechart: No Concurrent States - Trigger Routing on States Basic Te
     stateC = statechart.getState('c');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart = del = monitor = stateA = stateB = stateC = null;
   }
   

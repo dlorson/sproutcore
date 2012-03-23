@@ -45,7 +45,7 @@ SC.InlineTextFieldDelegate = /** @scope SC.InlineTextFieldDelegate */{
     @param {SC.InlineEditable} label the label that is requesting an editor
     @returns {SC.InlineEditor} the editor the label should use to edit
   */
-  acquireEditor: function(label) {
+  acquireEditor: function acquireEditor(label) {
     var editor = this.editor;
 
     if(editor) {
@@ -79,7 +79,7 @@ SC.InlineTextFieldDelegate = /** @scope SC.InlineTextFieldDelegate */{
     @params {SC.InlineEditor} editor the editor that should be cleaned up
     @returns {Boolean} whether the cleanup succeeded
   */
-  releaseEditor: function(editor) {
+  releaseEditor: function releaseEditor(editor) {
     editor.removeFromParent();
 
     this.editor = null;

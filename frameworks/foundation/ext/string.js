@@ -12,49 +12,49 @@ SC.supplement(String.prototype, {
   /**
     @see SC.String.capitalizeEach
   */
-  capitalizeEach: function() {
+  capitalizeEach: function capitalizeEach() {
     return SC.String.capitalizeEach(this, arguments);
   },
 
   /**
     @see SC.String.titleize
   */
-  titleize: function(str) {
+  titleize: function titleize(str) {
     return SC.String.titleize(this, arguments);
   },
 
   /**
     @see SC.String.classify
   */
-  classify: function(str) {
+  classify: function classify(str) {
     return SC.String.classify(this, arguments);
   },
 
   /**
     @see SC.String.humanize
   */
-  humanize: function(str) {
+  humanize: function humanize(str) {
     return SC.String.humanize(this, arguments);
   },
 
   /**
     @see SC.String.escapeForRegExp
   */
-  escapeForRegExp: function(str) {
+  escapeForRegExp: function escapeForRegExp(str) {
     return SC.String.escapeForRegExp(this, arguments);
   },
 
   /**
     @see SC.String.removeDiacritics
   */
-  removeDiacritics: function(str) {
+  removeDiacritics: function removeDiacritics(str) {
     return SC.String.removeDiacritics(this, arguments);
   },
 
   /**
     @see SC.String.trim
   */
-  trim: function(str) {
+  trim: function trim(str) {
     return SC.String.trim(this, arguments);
   },
 
@@ -75,14 +75,14 @@ SC.supplement(String.prototype, {
   /**
     @see SC.String.pluralize
   */
-  pluralize: function(str) {
+  pluralize: function pluralize(str) {
     return SC.String.pluralize(this, arguments);
   },
 
   /**
     @see SC.String.singularize
   */
-  singularize: function(str) {
+  singularize: function singularize(str) {
     return SC.String.singularize(this, arguments);
   }
 

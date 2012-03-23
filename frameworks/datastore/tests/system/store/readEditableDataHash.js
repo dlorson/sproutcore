@@ -10,7 +10,7 @@
 
 var store, storeKey, json;
 module("SC.Store#readEditableDataHash", {
-  setup: function() {
+  setup: function setup() {
     store = SC.Store.create();
     
     json = {

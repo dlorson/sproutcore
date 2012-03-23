@@ -9,7 +9,7 @@
 var storeKeys, rec, rec2, bar, bar2 ;
 
 module("SC.RecordAttribute core methods", {
-  setup: function() {
+  setup: function setup() {
 
     MyApp = SC.Object.create({
       store: SC.Store.create()
@@ -309,7 +309,7 @@ test("adding toMany pointing to non existing class should throw error", function
 });
 
 module("modifying a keyed toOne relationship via the inverse", {
-  setup: function() {
+  setup: function setup() {
     MyApp = SC.Object.create({ store: SC.Store.create() });
 
     MyApp.Foo = SC.Record.extend({

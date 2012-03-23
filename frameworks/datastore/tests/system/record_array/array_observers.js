@@ -4,10 +4,10 @@
   var recordArray;
 
   module("SC.RecordArray - implements array content observers", {
-    setup: function() {
+    setup: function setup() {
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       root.MyRecord = undefined;
     }
   });
@@ -25,12 +25,12 @@
       recordArray = store.find(query);
 
       recordArray.addArrayObservers({
-        didChange: function(start, removedCount, addedCount) {
+        didChange: function didChange(start, removedCount, addedCount) {
           lastRemovedCount = removedCount;
           lastAddedCount = addedCount;
         },
 
-        willChange: function() {}
+        willChange: function willChange() {}
       });
 
       store.createRecord(MyRecord, {});
@@ -55,12 +55,12 @@
       recordArray = store.find(query);
 
       recordArray.addArrayObservers({
-        didChange: function(start, removedCount, addedCount) {
+        didChange: function didChange(start, removedCount, addedCount) {
           lastRemovedCount = removedCount;
           lastAddedCount = addedCount;
         },
 
-        willChange: function() {}
+        willChange: function willChange() {}
       });
 
       record = store.createRecord(MyRecord, {

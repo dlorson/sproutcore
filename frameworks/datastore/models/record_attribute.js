@@ -175,7 +175,7 @@ SC.RecordAttribute = SC.Object.extend(
     @type Object
     @default String
   */
-  typeClass: function() {
+  typeClass: function typeClass() {
     var ret = this.get('type');
     if (SC.typeOf(ret) === SC.T_STRING) ret = SC.requiredObjectForPropertyPath(ret);
     return ret ;
@@ -189,7 +189,7 @@ SC.RecordAttribute = SC.Object.extend(
     @property
     @type Transform
   */
-  transform: function() {
+  transform: function transform() {
     var klass      = this.get('typeClass') || String,
         transforms = SC.RecordAttribute.transforms,
         ret ;
@@ -220,7 +220,7 @@ SC.RecordAttribute = SC.Object.extend(
     @param {Object} value The property value before being transformed
     @returns {Object} The transformed value
   */
-  toType: function(record, key, value) {
+  toType: function toType(record, key, value) {
     var transform = this.get('transform'),
         type      = this.get('typeClass'),
         children;
@@ -262,7 +262,7 @@ SC.RecordAttribute = SC.Object.extend(
     @param {Object} prev Previous value (not used)
     @param {Object} context Hash of extra context information
   */
-  _SCRA_childObserver: function(obj, key, prev, context) {
+  _SCRA_childObserver: function _SCRA_childObserver(obj, key, prev, context) {
     // write the new value back to the record
     this.call(context.record, context.key, obj);
 
@@ -281,7 +281,7 @@ SC.RecordAttribute = SC.Object.extend(
     @param {Object} value The transformed value
     @returns {Object} The value converted back to attribute format
   */
-  fromType: function(record, key, value) {
+  fromType: function fromType(record, key, value) {
     var transform = this.get('transform'),
         type      = this.get('typeClass');
 
@@ -302,7 +302,7 @@ SC.RecordAttribute = SC.Object.extend(
     @param {Object} value The property value if called as a setter
     @returns {Object} property value
   */
-  call: function(record, key, value) {
+  call: function call(record, key, value) {
     var attrKey = this.get('key') || key, nvalue;
 
     if ((value !== undefined) && this.get('isEditable')) {
@@ -329,7 +329,7 @@ SC.RecordAttribute = SC.Object.extend(
 
     @see SC.RecordAttribute#call
   */
-  apply: function(target, args) {
+  apply: function apply(target, args) {
     return this.call.apply(target, args);
   },
 
@@ -347,7 +347,7 @@ SC.RecordAttribute = SC.Object.extend(
   dependentKeys: [],
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     // setup some internal properties needed for KVO - faking 'cacheable'
     this.cacheKey = "__cache__recattr__" + SC.guidFor(this) ;
@@ -372,7 +372,7 @@ SC.RecordAttribute.mixin(
     @param {Hash} opts optional additional config options
     @returns {SC.RecordAttribute} new instance
   */
-  attr: function(attributeType, opts) {
+  attr: function attr(attributeType, opts) {
     if (!opts) opts = {} ;
     if (!opts.type) opts.type = attributeType || String ;
     return this.create(opts);
@@ -399,12 +399,12 @@ SC.RecordAttribute.mixin(
     changed object back to the record. For example:
 
         {
-          to: function(value, attr, type, record, key) {
+          to: function to(value, attr, type, record, key) {
             if(value) return value.toSet();
             else return SC.Set.create();
           },
 
-          from: function(value, attr, type, record, key) {
+          from: function from(value, attr, type, record, key) {
             return value.toArray();
           },
 
@@ -416,7 +416,7 @@ SC.RecordAttribute.mixin(
     @param {Object} transform the transform object
     @returns {SC.RecordAttribute} receiver
   */
-  registerTransform: function(klass, transform) {
+  registerTransform: function registerTransform(klass, transform) {
     SC.RecordAttribute.transforms[SC.guidFor(klass)] = transform;
   }
 });
@@ -430,7 +430,7 @@ SC.RecordAttribute.mixin(
 /** @private - generic converter for Boolean records */
 SC.RecordAttribute.registerTransform(Boolean, {
   /** @private - convert an arbitrary object value to a boolean */
-  to: function(obj) {
+  to: function to(obj) {
     return SC.none(obj) ? null : !!obj;
   }
 });
@@ -438,7 +438,7 @@ SC.RecordAttribute.registerTransform(Boolean, {
 /** @private - generic converter for Numbers */
 SC.RecordAttribute.registerTransform(Number, {
   /** @private - convert an arbitrary object value to a Number */
-  to: function(obj) {
+  to: function to(obj) {
     return SC.none(obj) ? null : Number(obj) ;
   }
 });
@@ -449,7 +449,7 @@ SC.RecordAttribute.registerTransform(String, {
     convert an arbitrary object value to a String
     allow null through as that will be checked separately
   */
-  to: function(obj) {
+  to: function to(obj) {
     if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
       obj = obj.toString();
     }
@@ -461,7 +461,7 @@ SC.RecordAttribute.registerTransform(String, {
 SC.RecordAttribute.registerTransform(Array, {
   /** @private - check if obj is an array
   */
-  to: function(obj) {
+  to: function to(obj) {
     if (!SC.isArray(obj) && !SC.none(obj)) {
       obj = [];
     }
@@ -474,7 +474,7 @@ SC.RecordAttribute.registerTransform(Array, {
 /** @private - generic converter for Object */
 SC.RecordAttribute.registerTransform(Object, {
   /** @private - check if obj is an object */
-  to: function(obj) {
+  to: function to(obj) {
     if (!(typeof obj === 'object') && !SC.none(obj)) {
       obj = {};
     }
@@ -486,35 +486,35 @@ SC.RecordAttribute.registerTransform(Object, {
 SC.RecordAttribute.registerTransform(SC.Record, {
 
   /** @private - convert a record id to a record instance */
-  to: function(id, attr, recordType, parentRecord) {
+  to: function to(id, attr, recordType, parentRecord) {
     var store = parentRecord.get('store');
     if (SC.none(id) || (id==="")) return null;
     else return store.find(recordType, id);
   },
 
   /** @private - convert a record instance to a record id */
-  from: function(record) { return record ? record.get('id') : null; }
+  from: function from(record) { return record ? record.get('id') : null; }
 });
 
 /** @private - generic converter for transforming computed record attributes */
 SC.RecordAttribute.registerTransform(SC.T_FUNCTION, {
 
   /** @private - convert a record id to a record instance */
-  to: function(id, attr, recordType, parentRecord) {
+  to: function to(id, attr, recordType, parentRecord) {
     recordType = recordType.apply(parentRecord);
     var store = parentRecord.get('store');
     return store.find(recordType, id);
   },
 
   /** @private - convert a record instance to a record id */
-  from: function(record) { return record.get('id'); }
+  from: function from(record) { return record.get('id'); }
 });
 
 /** @private - generic converter for Date records */
 SC.RecordAttribute.registerTransform(Date, {
 
   /** @private - convert a string to a Date */
-  to: function(str, attr) {
+  to: function to(str, attr) {
 
     // If a null or undefined value is passed, don't
     // do any normalization.
@@ -555,12 +555,12 @@ SC.RecordAttribute.registerTransform(Date, {
   _dates: {},
 
   /** @private - pad with leading zeroes */
-  _zeropad: function(num) {
+  _zeropad: function _zeropad(num) {
     return ((num<0) ? '-' : '') + ((num<10) ? '0' : '') + Math.abs(num);
   },
 
   /** @private - convert a date to a string */
-  from: function(date) {
+  from: function from(date) {
 
     if (SC.none(date)) { return null; }
 
@@ -605,7 +605,7 @@ if (SC.DateTime && !SC.RecordAttribute.transforms[SC.guidFor(SC.DateTime)]) {
     /** @private
       Convert a String to a DateTime
     */
-    to: function(str, attr) {
+    to: function to(str, attr) {
       if (SC.none(str) || SC.instanceOf(str, SC.DateTime)) return str;
       if (SC.none(str) || SC.instanceOf(str, Date)) return SC.DateTime.create(str.getTime());
       var format = attr.get('format');
@@ -615,7 +615,7 @@ if (SC.DateTime && !SC.RecordAttribute.transforms[SC.guidFor(SC.DateTime)]) {
     /** @private
       Convert a DateTime to a String
     */
-    from: function(dt, attr) {
+    from: function from(dt, attr) {
       if (SC.none(dt)) return dt;
       var format = attr.get('format');
       return dt.toFormattedString(format ? format : SC.DateTime.recordFormat);
@@ -628,11 +628,11 @@ if (SC.DateTime && !SC.RecordAttribute.transforms[SC.guidFor(SC.DateTime)]) {
   Parses a coreset represented as an array.
  */
 SC.RecordAttribute.registerTransform(SC.Set, {
-  to: function(value, attr, type, record, key) {
+  to: function to(value, attr, type, record, key) {
     return SC.Set.create(value);
   },
 
-  from: function(value, attr, type, record, key) {
+  from: function from(value, attr, type, record, key) {
     return value.toArray();
   },
 

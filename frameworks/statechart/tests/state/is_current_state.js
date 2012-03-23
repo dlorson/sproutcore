@@ -6,7 +6,7 @@
 var statechart = null;
 
 module("SC.Statechart: State - isCurrentState Property Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -27,7 +27,7 @@ module("SC.Statechart: State - isCurrentState Property Tests", {
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = null;
   }

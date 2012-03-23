@@ -19,8 +19,8 @@ module("object.observesForKey()", {
 
 test("should get observers", function() {
   var o1 = SC.Object.create({ foo: 100 }),
-      o2 = SC.Object.create({ func: function() {} }),
-      o3 = SC.Object.create({ func: function() {} }),
+      o2 = SC.Object.create({ func: function func() {} }),
+      o3 = SC.Object.create({ func: function func() {} }),
       observers = null;
       
   equals(o1.observersForKey('foo').get('length'), 0, "o1.observersForKey should return empty array");

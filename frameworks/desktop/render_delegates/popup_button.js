@@ -10,12 +10,12 @@
  * Renders and updates the HTML representation of a popup button.
  */
 SC.BaseTheme.popupButtonRenderDelegate = SC.BaseTheme.buttonRenderDelegate.create({
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     context.attr('aria-haspopup', 'true');
     sc_super();
   },
 
-  update: function(dataSource, jQuery) {
+  update: function update(dataSource, jQuery) {
     sc_super();
   }
 });

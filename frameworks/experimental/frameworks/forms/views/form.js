@@ -84,14 +84,14 @@ SC.FormView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.FormsEd
   /**
      @private
   */
-  init: function() {
+  init: function init() {
     if (this.get("editsByDefault")) this.set("isEditing", YES);
     sc_super();
   },
 
   /**
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var childViews = this.get('childViews'),
         len        = childViews.length,
         idx, key, views, view,
@@ -183,7 +183,7 @@ SC.FormView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.FormsEd
   /**
     Tells the child rows whether they should measure their labels or not.
   */
-  labelWidthDidChange: function() {
+  labelWidthDidChange: function labelWidthDidChange() {
     var childViews = this.get('childViews'), i, len = childViews.length,
     shouldMeasure = SC.none(this.get('labelWidth'));
     
@@ -197,7 +197,7 @@ SC.FormView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.FormsEd
   /**
     Propagates the label width to the child rows, finding the measured size if necessary.
   */
-  recalculateLabelWidth: function() {
+  recalculateLabelWidth: function recalculateLabelWidth() {
     if (!this._hasCreatedRows) {
       return;
     }
@@ -238,7 +238,7 @@ SC.FormView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.FormsEd
   /**
     Rows call this when their label width changes.
   */
-  rowLabelMeasuredSizeDidChange: function(row, labelSize) {
+  rowLabelMeasuredSizeDidChange: function rowLabelMeasuredSizeDidChange(row, labelSize) {
     this.invokeOnce("recalculateLabelWidth");
   }
 
@@ -256,7 +256,7 @@ SC.mixin(SC.FormView, {
   
   You can also supply some properties to extend the row itself with.
   */
-  row: function(optionalClass, properties, rowExt)
+  row: function row(optionalClass, properties, rowExt)
   {
     return SC.FormRowView.row(optionalClass, properties, rowExt);
   }

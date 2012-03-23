@@ -36,7 +36,7 @@ SC.MediaSlider = SC.SliderView.extend(
     handleWidth:16
   },           
 
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     //sc_super(); we are overriding the ENTIRE previous render method,
     //so instead of calling sc_super, we want to skip the function
     //immediately above this one and go two levels up.
@@ -110,7 +110,7 @@ SC.MediaSlider = SC.SliderView.extend(
     this.renderLoadedTimeRanges();
   },
 
-  renderLoadedTimeRanges: function() {
+  renderLoadedTimeRanges: function renderLoadedTimeRanges() {
       //first, get our quick variables we know we'll need...
       var max = this.get('maximum'),
           min = this.get('minimum'),
@@ -174,7 +174,7 @@ SC.MediaSlider = SC.SliderView.extend(
       //console.log('rendered loaded time ranges for '+ranges);
   }.observes('*mediaView.loadedTimeRanges'),
 
-  _triggerHandle: function(evt, firstEvent) {
+  _triggerHandle: function _triggerHandle(evt, firstEvent) {
     var width = this.get('frame').width,
         min = this.get('minimum'), max=this.get('maximum'),  
         step = this.get('step'), v=this.get('value'), loc, maxLoc, minLoc,
@@ -213,19 +213,19 @@ SC.MediaSlider = SC.SliderView.extend(
     return YES ;
   },
 
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var media=this.get('mediaView');
     if(media) media.startSeek();
     return sc_super();
   },
 
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var media=this.get('mediaView');
     if(media) media.endSeek();
     return sc_super();
   }, 
   
-  mouseWheel: function(){
+  mouseWheel: function mouseWheel(){
     var media, ret;
     SC.RunLoop.begin();
     media=this.get('mediaView');

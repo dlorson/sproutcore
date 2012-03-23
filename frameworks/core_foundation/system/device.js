@@ -68,7 +68,7 @@ SC.device = SC.Object.create({
 
     @property {Point}
   */
-  mouseLocation: function() {
+  mouseLocation: function mouseLocation() {
     var responder = SC.RootResponder.responder,
         lastX = responder._lastMoveX,
         lastY = responder._lastMoveY;
@@ -83,7 +83,7 @@ SC.device = SC.Object.create({
   /**
     Initialize the object with some properties up front
   */
-  init: function() {
+  init: function init() {
     sc_super();
     
     if (navigator && navigator.onLine === false) {
@@ -95,7 +95,7 @@ SC.device = SC.Object.create({
     As soon as the DOM is up and running, make sure we attach necessary
     event handlers
   */
-  setup: function() {
+  setup: function setup() {
     var responder = SC.RootResponder.responder;
     responder.listenFor(['online', 'offline'], window, this);
     
@@ -111,7 +111,7 @@ SC.device = SC.Object.create({
     Either detects orientation changes via the current size
     of the window, or by the window.onorientationchange event.
   */
-  orientationHandlingShouldChange: function() {
+  orientationHandlingShouldChange: function orientationHandlingShouldChange() {
     if (SC.platform.windowSizeDeterminesOrientation) {
       SC.Event.remove(window, 'orientationchange', this, this.orientationchange);
       this.windowSizeDidChange(SC.RootResponder.responder.get('currentWindowSize'));
@@ -125,7 +125,7 @@ SC.device = SC.Object.create({
     @param {Hash} newSize The new size of the window
     @returns YES if the method altered the orientation, NO otherwise
   */
-  windowSizeDidChange: function(newSize) {
+  windowSizeDidChange: function windowSizeDidChange(newSize) {
     if (SC.platform.windowSizeDeterminesOrientation) {
       if (!SC.browser.iOS) {
         // in any browser other than iOS, use height vs. width test
@@ -159,7 +159,7 @@ SC.device = SC.Object.create({
   /**
     Called when the window.onorientationchange event is fired.
   */
-  orientationchange: function(evt) {
+  orientationchange: function orientationchange(evt) {
     SC.run(function() {
       if (window.orientation === 0 || window.orientation === 180) {
         SC.device.set('orientation', SC.PORTRAIT_ORIENTATION);
@@ -169,7 +169,7 @@ SC.device = SC.Object.create({
     });
   },
   
-  orientationObserver: function(){
+  orientationObserver: function orientationObserver(){
     var body = SC.$(document.body),
         orientation = this.get('orientation');
     
@@ -191,11 +191,11 @@ SC.device = SC.Object.create({
   // CONNECTION HANDLING
   // 
   
-  online: function(evt) {
+  online: function online(evt) {
     this.set('isOffline', NO);
   },
   
-  offline: function(evt) {
+  offline: function offline(evt) {
     this.set('isOffline', YES);
   }
 

@@ -33,7 +33,7 @@
   method MUST return this, unlike regular SC objects.  i.e.
   
       SC.$ = SC.Builder.create({
-        init: function(args) { 
+        init: function init(args) { 
           this.args = SC.A(args);
           return this;
         }
@@ -131,7 +131,7 @@ SC.Builder.fn = {
     
     @returns {SC.Builder} receiver
   */
-  init: function(content) {
+  init: function init(content) {
     if (content !== undefined) {
       if (SC.typeOf(content) === SC.T_ARRAY) {
         var loc=content.length;
@@ -147,7 +147,7 @@ SC.Builder.fn = {
   },
   
   /** Return the number of elements in the matched set. */
-  size: function() { return this.length; },
+  size: function size() { return this.length; },
   
   /** 
     Take an array of elements and push it onto the stack (making it the
@@ -156,7 +156,7 @@ SC.Builder.fn = {
     @param {Object|Array} content
     @returns {SC.Builder} new instance
   */
-  pushStack: function() {
+  pushStack: function pushStack() {
     // Build a new CoreQuery matched element set
     var ret = this.constructor.apply(this,arguments);
 
@@ -172,12 +172,12 @@ SC.Builder.fn = {
     transform.  If there is no previous item on the stack, an empty set will
     be returned.
   */
-  end: function() { 
+  end: function end() { 
     return this.prevObject || this.constructor(); 
   },
   
   // toString describes the builder
-  toString: function() { 
+  toString: function toString() { 
     return "%@$(%@)".fmt(this.defaultClass.toString(), 
       SC.A(this).invoke('toString').join(',')); 
   },

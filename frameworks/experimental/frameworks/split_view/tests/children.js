@@ -20,7 +20,7 @@
 */
 var splitView;
 module("SplitView - Child Management", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     splitView = SC.SplitView.create({
       childViews: [ 'left', 'middle', 'right' ],

@@ -45,7 +45,7 @@ SC.SnapLines = {
     @param {Array} ignoreViews array of views to not include
     sets up the data structure used for the line drawing
   */
-  setupData: function(ignoreViews){
+  setupData: function setupData(ignoreViews){
     if(!ignoreViews) ignoreViews = [];
     this.removeLines(); //can't have any existing lines
     this._xPositions = {};
@@ -126,7 +126,7 @@ SC.SnapLines = {
     snapped coords in local and global coordinates
     
   */
-  drawLines: function(view, eventX, eventY, mouseDownX, mouseDownY){
+  drawLines: function drawLines(view, eventX, eventY, mouseDownX, mouseDownY){
     if(!this._drawingView){
       this._drawingView = this.createChildView(SC.DrawingView.design({
         shapes: []
@@ -203,7 +203,7 @@ SC.SnapLines = {
     This method should be called in `mouseUp` if doing a move and in
     `dragEnded` if using a `SC.Drag`.
   */
-  removeLines: function() {
+  removeLines: function removeLines() {
     this._xPositions = null;
     this._yPositions = null;
     this._globalFrame = null;
@@ -216,7 +216,7 @@ SC.SnapLines = {
   /*
     takes the event x, y and mouseDown x, y and computes a direction
   */
-  _dragDirection: function(eventX, eventY, mouseDownX, mouseDownY){
+  _dragDirection: function _dragDirection(eventX, eventY, mouseDownX, mouseDownY){
     var deltaX = eventX - mouseDownX, deltaY = eventY - mouseDownY, ret = {};
     ret.UP = deltaX > 0 ? NO : YES;
     ret.DOWN = deltaX > 0 ? YES : NO;

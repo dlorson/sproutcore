@@ -69,7 +69,7 @@ SC.SceneView = SC.ContainerView.extend(
     Whenever called to change the content, save the nowShowing state and 
     then animate in by adjusting the layout.
   */
-  replaceContent: function(content) {
+  replaceContent: function replaceContent(content) {
     if (content && this._state===this.READY) this.animateScene(content);
     else this.replaceScene(content);
     return this ;
@@ -79,7 +79,7 @@ SC.SceneView = SC.ContainerView.extend(
     Invoked whenever we just need to swap the scenes without playing an
     animation.
   */
-  replaceScene: function(newContent) {
+  replaceScene: function replaceScene(newContent) {
     var oldContent = this._targetView,
         layout     = this.STANDARD_LAYOUT,
         scenes     = this.get('scenes'),
@@ -106,7 +106,7 @@ SC.SceneView = SC.ContainerView.extend(
   /** @private
     Invoked whenever we need to animate in the new scene.
   */
-  animateScene: function(newContent) {
+  animateScene: function animateScene(newContent) {
     var oldContent = this._targetView,
         outIdx     = this._targetIndex,
         scenes     = this.get('scenes'),
@@ -149,7 +149,7 @@ SC.SceneView = SC.ContainerView.extend(
     the left and right views based on the portion completed.  When we finish
     call replaceScene().
   */
-  tick: function() {  
+  tick: function tick() {  
     this._timer = null ; // clear out
     
     var now    = Date.now(),

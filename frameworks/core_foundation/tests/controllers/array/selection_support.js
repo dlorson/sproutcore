@@ -12,7 +12,7 @@ TestObject; // Class for sample content objects
 //
 TestObject = SC.Object.extend({
   title: "test",
-  toString: function() {
+  toString: function toString() {
     return "TestObject(%@)".fmt(this.get("title"));
   }
 });
@@ -22,7 +22,7 @@ TestObject = SC.Object.extend({
   http://localhost:4020/sproutcore/foundation/en/current/tests/controllers/array/selection_support.html
 */
 module("Test SC.SelectionSupport mixin with ArrayController.", {
-  setup: function() {
+  setup: function setup() {
     content = "Apples Bananas Cherries Dates Eggfruit".w().map(function(name) {
       return TestObject.create({
         title: name
@@ -34,7 +34,7 @@ module("Test SC.SelectionSupport mixin with ArrayController.", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
   }
 });
 
@@ -326,7 +326,7 @@ test("replacing content in an ArrayController propagates changes to bound arrang
     obj = SC.Object.create({
       testController: controller,
       listBinding: ".testController.arrangedObjects",
-      listDidChange: function() {
+      listDidChange: function listDidChange() {
         listChanged++;
       }.observes('list')
     });

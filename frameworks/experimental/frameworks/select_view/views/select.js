@@ -143,7 +143,7 @@ SC.SelectView = SC.PopupButtonView.extend({
   /**
     * @private
   */
-  init: function() {
+  init: function init() {
     sc_super();
 
     // call valueDidChange to get the initial item, if any
@@ -163,7 +163,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     This method therefore accepts both the menu items as created for the menupane's displayItems
     AND the raw items provided by the developer in `items`.
   */
-  _scsv_getValueForMenuItem: function(item) {
+  _scsv_getValueForMenuItem: function _scsv_getValueForMenuItem(item) {
     var valueKey = this.get('itemValueKey') || 'value';
 
     if (SC.typeOf(item) === SC.T_STRING) {
@@ -179,7 +179,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     * When the selected item changes, we need to update our value.
     * @private
   */
-  _scsv_selectedItemDidChange: function() {
+  _scsv_selectedItemDidChange: function _scsv_selectedItemDidChange() {
     var sel = this.get('selectedItem'),
         last = this._scsv_lastSelection,
         titleKey = this.get('itemTitleKey') || 'title',
@@ -206,7 +206,7 @@ SC.SelectView = SC.PopupButtonView.extend({
   }.observes('selectedItem'),
 
   // called when either title or value changes on the selected item
-  _scsv_selectedItemPropertyDidChange: function(item) {
+  _scsv_selectedItemPropertyDidChange: function _scsv_selectedItemPropertyDidChange(item) {
     this.notifyPropertyChange('title');
     this.set('value', item.get(this.get('itemValueKey') || 'value'));
   },
@@ -223,7 +223,7 @@ SC.SelectView = SC.PopupButtonView.extend({
   /**
     The title of the button, derived from the selected item.
   */
-  title: function() {
+  title: function title() {
     var sel = this.get('selectedItem');
 
     if (!sel) {
@@ -241,7 +241,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     * When the value changes, we need to update selectedItem.
     * @private
   */
-  _scsv_valueDidChange: function() {
+  _scsv_valueDidChange: function _scsv_valueDidChange() {
     var value = this.get('value');
 
     if (!this.get('items')) {
@@ -268,7 +268,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     In addition, the initial selected item and the initial minimum menu width are set.
     @private
   */
-  createMenu: function(klass) {
+  createMenu: function createMenu(klass) {
     var attrs = {
       selectView: this,
       selectedItem: this.get('selectedItem'),
@@ -329,7 +329,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     @type Array
     @private
   */
-  menuPreferMatrix: function() {
+  menuPreferMatrix: function menuPreferMatrix() {
     var menu = this.get('menu'),
         leftPosition = this.get('menuLeftOffset'),
         topPosition = this.get('menuTopOffset');
@@ -353,7 +353,7 @@ SC.SelectView = SC.PopupButtonView.extend({
 
     @private
   */
-  _selectedItemIndex: function() {
+  _selectedItemIndex: function _selectedItemIndex() {
     var menu = this.get('menu');
     if (!menu) {
       return -1;
@@ -392,7 +392,7 @@ SC.SelectView = SC.PopupButtonView.extend({
     @type Number
     @property
   */
-  minimumMenuWidth: function() {
+  minimumMenuWidth: function minimumMenuWidth() {
     return this.get('frame').width + this.get('menuMinimumWidthOffset');
   }.property('frame', 'menuMinimumWidthOffset').cacheable(),
 
@@ -404,7 +404,7 @@ SC.SelectView = SC.PopupButtonView.extend({
 
     Handle Key event - Down arrow key
   */
-  keyDown: function(event) {
+  keyDown: function keyDown(event) {
     if ( this.interpretKeyEvents(event) ) {
       return YES;
     }
@@ -418,7 +418,7 @@ SC.SelectView = SC.PopupButtonView.extend({
 
     Pressing the Up or Down arrow key should display the menu pane
   */
-  interpretKeyEvents: function(event) {
+  interpretKeyEvents: function interpretKeyEvents(event) {
     if (event) {
       if ((event.keyCode === 38 || event.keyCode === 40)) {
         this.showMenu();
@@ -435,7 +435,7 @@ SC.SelectView = SC.PopupButtonView.extend({
   /** @private
    Function overridden - tied to the isEnabled state 
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     return this.get('isEnabled');
   }.property('isEnabled').cacheable()
 

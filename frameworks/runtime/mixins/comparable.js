@@ -41,7 +41,7 @@ SC.Comparable = {
     @param b {Object} the second object to compare
     @returns {Integer} the result of the comparison
   */
-  compare: function(a, b) {
+  compare: function compare(a, b) {
     throw "%@.compare() is not implemented".fmt(this.toString());
   }
 

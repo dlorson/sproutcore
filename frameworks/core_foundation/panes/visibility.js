@@ -9,7 +9,7 @@ sc_require("panes/pane");
 SC.Pane.reopen(
   /** @scope SC.Pane.prototype */ {
 
-  recomputeDependentProperties: function(original) {
+  recomputeDependentProperties: function recomputeDependentProperties(original) {
     this.recomputeIsVisibleInWindow();
     original();
   }.enhance()

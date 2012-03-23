@@ -11,7 +11,7 @@
 Greenhouse.WebView = SC.WebView.extend(
 /** @scope Greenhouse.WebView.prototype */ {
   
-  iframeDidLoad: function() {
+  iframeDidLoad: function iframeDidLoad() {
     //fit the iframe to size of the contents.
     if (this.get('shouldAutoResize') === YES){
       var contentWindow;

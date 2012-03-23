@@ -245,7 +245,7 @@ SC.Timer = SC.Object.extend(
 
     @property {Time}
   */
-  fireTime: function() {
+  fireTime: function fireTime() {
     if (!this.get('isValid')) { return -1 ; }  // not valid - can't fire
 
     // can't fire w/o startTime (set when schedule() is called).
@@ -288,7 +288,7 @@ SC.Timer = SC.Object.extend(
 
     @returns {SC.Timer} The receiver
   */
-  schedule: function() {
+  schedule: function schedule() {
     if (!this.get('isValid')) return this; // nothing to do
 
     this.beginPropertyChanges();
@@ -316,7 +316,7 @@ SC.Timer = SC.Object.extend(
 
     @returns {SC.Timer} The receiver
   */
-  invalidate: function() {
+  invalidate: function invalidate() {
     this.beginPropertyChanges();
     this.set('isValid', NO);
     
@@ -339,7 +339,7 @@ SC.Timer = SC.Object.extend(
 
     @returns {void}
   */
-  fire: function() {
+  fire: function fire() {
 
     // this will cause the fireTime to recompute
     var last = Date.now();
@@ -362,7 +362,7 @@ SC.Timer = SC.Object.extend(
     Actually fires the action. You can override this method if you need
     to change how the timer fires its action.
   */
-  performAction: function() {
+  performAction: function performAction() {
     var typeOfAction = SC.typeOf(this.action);
 
     // if the action is a function, just try to call it.
@@ -392,7 +392,7 @@ SC.Timer = SC.Object.extend(
     }
   },
 
-  init: function() {
+  init: function init() {
     sc_super();
 
     // convert startTime and until to times if they are dates.
@@ -422,7 +422,7 @@ SC.Timer = SC.Object.extend(
     @params {Hash} props properties to copy over
     @returns {SC.Timer} receiver
   */
-  reset: function(props) {
+  reset: function reset(props) {
     if (!props) props = SC.EMPTY_HASH;
 
     // note: we copy these properties manually just to make them fast.  we
@@ -446,7 +446,7 @@ SC.Timer = SC.Object.extend(
   /** @private - removes the timer from its current timerQueue if needed.
     return value is the new "root" timer.
   */
-  removeFromTimerQueue: function(timerQueueRoot) {
+  removeFromTimerQueue: function removeFromTimerQueue(timerQueueRoot) {
     var prev = this._timerQueuePrevious, next = this._timerQueueNext ;
 
     if (!prev && !next && timerQueueRoot !== this) return timerQueueRoot ; // not in a queue...
@@ -459,7 +459,7 @@ SC.Timer = SC.Object.extend(
   },
 
   /** @private - schedules the timer in the queue based on the runtime. */
-  scheduleInTimerQueue: function(timerQueueRoot, runTime) {
+  scheduleInTimerQueue: function scheduleInTimerQueue(timerQueueRoot, runTime) {
     this._timerQueueRunTime = runTime ;
 
     // find the place to begin
@@ -490,7 +490,7 @@ SC.Timer = SC.Object.extend(
     first timer that is not expired.  This is faster than iterating through
     the timers because it does some faster cleanup of the nodes.
   */
-  collectExpiredTimers: function(timers, now) {
+  collectExpiredTimers: function collectExpiredTimers(timers, now) {
     if (this._timerQueueRunTime > now) return this ; // not expired!
     timers.push(this);  // add to queue.. fixup next. assume we are root.
     var next = this._timerQueueNext ;

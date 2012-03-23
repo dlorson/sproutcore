@@ -127,7 +127,7 @@ SC.Benchmark = {
     @param {Timestamp} time
       Optional. The timestamp to record for the event.
   */
-  addEvent: function(name, time) {
+  addEvent: function addEvent(name, time) {
     if (!time) time = new Date().getTime();
     this.events[name] = time;
   },
@@ -153,7 +153,7 @@ SC.Benchmark = {
       start time is now.
     @returns {String} the passed key
   */
-  start: function(key, parentKey, time, topLevelOnly) {
+  start: function start(key, parentKey, time, topLevelOnly) {
     if (!this.enabled) return ;
 
     var start = (time || Date.now()), stat;
@@ -180,7 +180,7 @@ SC.Benchmark = {
       Only pass if you want to explicitly set the end time.  Otherwise start
       time is now.
   */
-  end: function(key, parentKey, time) {
+  end: function end(key, parentKey, time) {
     var stat;
     if (!this.enabled) return ;
     if(parentKey)
@@ -215,7 +215,7 @@ SC.Benchmark = {
   /*
     Set the inital global start time.
   */
-  setGlobalStartTime: function(time)
+  setGlobalStartTime: function setGlobalStartTime(time)
   {
     this.globalStartTime = time;
   },
@@ -225,7 +225,7 @@ SC.Benchmark = {
     run with the name you provide the number of times you indicate.  Only the
     function is a required param.
   */
-  bench: function(func, key, reps) {
+  bench: function bench(func, key, reps) {
     if (!key) key = "bench%@".fmt(this._benchCount++) ;
     if (!reps) reps = 1 ;
     var ret ;
@@ -243,7 +243,7 @@ SC.Benchmark = {
     This bit of metaprogramming magic install a wrapper around a method and
     benchmark it whenever it is run.
   */
-  install: function(object,method, topLevelOnly) {
+  install: function install(object,method, topLevelOnly) {
     // vae the original method.
     object['b__' + method] = object[method] ;
     var __func = object['b__' + method];
@@ -264,7 +264,7 @@ SC.Benchmark = {
     @param {Object} object the object to change
     @param {String} method the method name as a string.
   */
-  restore: function(object,method) {
+  restore: function restore(object,method) {
     object[method] = object['b__' + method] ;
   },
 
@@ -273,7 +273,7 @@ SC.Benchmark = {
     collected so far.  If you pass a key, only the stats for that key will
     be returned.  Otherwise, all keys will be used.
   */
-  report: function(key) {
+  report: function report(key) {
     if (key) return this._genReport(key) ;
     var ret = [] ;
     for(var k in this.stats) {
@@ -288,7 +288,7 @@ SC.Benchmark = {
 
     @param {String} application name.
   */
-  timelineReport: function(appName) {
+  timelineReport: function timelineReport(appName) {
     appName = (appName) ? 'SproutCore Application' : appName;
     var ret = [appName, 'User-Agent: %@'.fmt(navigator.userAgent), 'Report Generated: %@ (%@)'.fmt(new Date().toString(), Date.now()), ''] ;
 
@@ -319,7 +319,7 @@ SC.Benchmark = {
 
     @returns {Hash}
   */
-  getTimelineChartContent: function() {
+  getTimelineChartContent: function getTimelineChartContent() {
     // Compile the data.
     var chart = this._compileChartData(false);
     var chartLen = chart.length;
@@ -405,13 +405,13 @@ SC.Benchmark = {
 
     @returns {SC.View}
   */
-  getTimelineChartView: function() {
+  getTimelineChartView: function getTimelineChartView() {
     var view = SC.ScrollView.create({
       contentView: SC.StaticContentView.extend({
 
       }),
 
-      reload: function() {
+      reload: function reload() {
         var content = SC.Benchmark.getTimelineChartContent();
         this.contentView.set('content', content.html);
         this.contentView.adjust({
@@ -435,7 +435,7 @@ SC.Benchmark = {
   /**
     Generate a human readable benchmark chart. Pass in appName if you desire.
   */
-  timelineChart: function(appName) {
+  timelineChart: function timelineChart(appName) {
     SC.RunLoop.begin();
 
     var i=0;
@@ -478,7 +478,7 @@ SC.Benchmark = {
   /*
     Hide chart.
   */
-  hideChart: function() {
+  hideChart: function hideChart() {
     if (this._benchmarkChart) {
       this._benchmarkChart.remove();
       this._benchmarkChart = null;
@@ -490,7 +490,7 @@ SC.Benchmark = {
   /** @private
     Because we show a pane to display the chart...
   */
-  tryToPerform: function(action, sender) {
+  tryToPerform: function tryToPerform(action, sender) {
     if (this[action]) return this[action](sender);
     return NO;
   },
@@ -499,7 +499,7 @@ SC.Benchmark = {
     This method is just like report() except that it will log the results to
     the console.
   */
-  log: function(key) {
+  log: function log(key) {
     // log each line to make this easier to read on an iPad
     var lines = this.report(key).split('\n'),
         len   = lines.length, idx;
@@ -510,12 +510,12 @@ SC.Benchmark = {
     This will activate profiling if you have Firebug installed.  Otherwise
     does nothing.
   */
-  startProfile: function(key) {
+  startProfile: function startProfile(key) {
     if (!this.enabled) return ;
     SC.Logger.profile(key) ;
   },
 
-  endProfile: function(key) {
+  endProfile: function endProfile(key) {
     if (!this.enabled) return ;
     SC.Logger.profileEnd(key) ;
   },
@@ -528,7 +528,7 @@ SC.Benchmark = {
   /** @private
     Loads data from both the browser's own event hash and SC's pre-load event hash.
   */
-  loadPreloadEvents: function() {
+  loadPreloadEvents: function loadPreloadEvents() {
     var preloadEvents = SC.benchmarkPreloadEvents, events = [], idx, len, evt;
 
     // the browsers may have their own event hash. Ours uses the same format, so
@@ -570,7 +570,7 @@ SC.Benchmark = {
     This method iterates over the event hash and removes those items that represent
     starts and ends, calling .start/.end for them.
   */
-  _loadBenchmarksFromEvents: function() {
+  _loadBenchmarksFromEvents: function _loadBenchmarksFromEvents() {
     if (!this._hasLoadedPreloadEvents) this.loadPreloadEvents();
 
     var events = this.events;
@@ -591,7 +591,7 @@ SC.Benchmark = {
   /** @private
     Generates, sorts, and returns the array of all the data that has been captured.
   */
-  _compileChartData: function(showSub) {
+  _compileChartData: function _compileChartData(showSub) {
     this._loadBenchmarksFromEvents();
 
     var chart = [], dispKey;
@@ -642,7 +642,7 @@ SC.Benchmark = {
 
   // Generate the traditional report show multiple runs averaged.
   /** @private */
-  _genReport: function(key) {
+  _genReport: function _genReport(key) {
     var stat = this._statFor(key) ;
     var avg = (stat.runs > 0) ? (Math.floor(stat.amt * 1000 / stat.runs) / 1000) : 0 ;
     var last = stat._times[stat._times.length - 1];
@@ -652,7 +652,7 @@ SC.Benchmark = {
 
   // Generate the report in the form of at time line. This returns the parent.
   /** @private */
-  _timelineGenReport: function(val)
+  _timelineGenReport: function _timelineGenReport(val)
   {
     if(this.globalStartTime)
     {
@@ -666,7 +666,7 @@ SC.Benchmark = {
 
   // Generate the report in the form of at time line. This returns the children.
   /** @private */
-  _timelineGenSubReport: function(val)
+  _timelineGenSubReport: function _timelineGenSubReport(val)
   {
     if(this.globalStartTime)
     {
@@ -681,7 +681,7 @@ SC.Benchmark = {
   // returns a stats hash for the named key and parent key.  If the hash does not exist yet,
   // creates it.
   /** @private */
-  _subStatFor: function(key, parentKey) {
+  _subStatFor: function _subStatFor(key, parentKey) {
     var parentTimeLen = this.stats[parentKey]._times.length;
     if(parentTimeLen === 0) return;
     var parentSubStats = this.stats[parentKey]._times[this.stats[parentKey]._times.length-1]._subStats;
@@ -698,7 +698,7 @@ SC.Benchmark = {
   // returns a stats hash for the named key.  If the hash does not exist yet,
   // creates it.
   /** @private */
-  _statFor: function(key) {
+  _statFor: function _statFor(key) {
     var ret = this.stats[key] ;
     if (!ret) {
       ret = this.stats[key] = {
@@ -710,12 +710,12 @@ SC.Benchmark = {
   },
 
   /** @private */
-  reset: function() { this.stats = {} ; },
+  reset: function reset() { this.stats = {} ; },
 
   // This is private, but it is used in some places, so we are keeping this for
   // compatibility.
   /** @private */
-  _bench: function(func, name) {
+  _bench: function _bench(func, name) {
     SC.Benchmark.bench(func, name, 1) ;
   },
 

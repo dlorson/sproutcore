@@ -38,7 +38,7 @@ var initModels = function(){
 // 
 module("Complex SC.Record: Parent > Array of Children > Array of Children", {
 
-  setup: function() {
+  setup: function setup() {
     NestedRecord = SC.Object.create({
       store: SC.Store.create()
     });
@@ -114,7 +114,7 @@ module("Complex SC.Record: Parent > Array of Children > Array of Children", {
     ];
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     delete NestedRecord.Group;
     delete NestedRecord.Person;
     delete NestedRecord.Address;

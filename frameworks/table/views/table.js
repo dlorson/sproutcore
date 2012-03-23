@@ -44,7 +44,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     }),
     
     // FIXME: Hack.
-    _sv_offsetDidChange: function() {
+    _sv_offsetDidChange: function _sv_offsetDidChange() {
       this.get('parentView')._sctv_scrollOffsetDidChange();
     }.observes('verticalScrollOffset', 'horizontalScrollOffset')
   }),
@@ -56,7 +56,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   
   // FIXME: Charles originally had this as an outlet, but that doesn't work.
   // Figure out why.
-  containerView: function() {
+  containerView: function containerView() {
     var scrollView = this.get('scrollView');
     return (scrollView && scrollView.get) ? scrollView.get('contentView') : null;
     //return this.get('scrollView').get('contentView');
@@ -64,7 +64,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   
   layout: { left: 0, right: 0, top: 0, bottom: 0 },
   
-  init: function() {
+  init: function init() {
     sc_super();
 
     window.table = this; // DEBUG
@@ -80,7 +80,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   // EVENT RESPONDERS
   // 
   
-  mouseDownInTableHeaderView: function(evt, header) {
+  mouseDownInTableHeaderView: function mouseDownInTableHeaderView(evt, header) {
     var column = header.get('column');
     
     if (!column.get('isReorderable') && !column.get('isSortable')) {
@@ -99,7 +99,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     return YES;
   },
   
-  mouseUpInTableHeaderView: function(evt, header) {
+  mouseUpInTableHeaderView: function mouseUpInTableHeaderView(evt, header) {
     var isInDragMode = this.get('isInDragMode');
     // Only sort if we're not in drag mode (i.e., short clicks).
     if (!isInDragMode) {
@@ -123,7 +123,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     
   },
   
-  mouseDraggedInTableHeaderView: function(evt, header) {
+  mouseDraggedInTableHeaderView: function mouseDraggedInTableHeaderView(evt, header) {
     SC.RunLoop.begin();
     var isInDragMode = this.get('isInDragMode');
     if (!isInDragMode) return NO;
@@ -260,7 +260,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     @returns {Number} the row offset in pixels
   */
   
-  rowOffsetForContentIndex: function(contentIndex) {
+  rowOffsetForContentIndex: function rowOffsetForContentIndex(contentIndex) {
     var top = 0, idx;
     
     if (this.get('hasUniformRowHeights')) {
@@ -280,7 +280,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     @param {Number} idx content index
     @returns {Number} the row height in pixels
   */
-  rowHeightForContentIndex: function(contentIndex) {
+  rowHeightForContentIndex: function rowHeightForContentIndex(contentIndex) {
     if (this.get('hasUniformRowHeights')) {
       return this.get('rowHeight');
     } else {
@@ -295,7 +295,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     
     @param {Number} index content index
   */
-  layoutForContentIndex: function(index) {
+  layoutForContentIndex: function layoutForContentIndex(index) {
     return {
       top:    this.rowOffsetForContentIndex(index),
       height: this.rowHeightForContentIndex(index),
@@ -304,14 +304,14 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     };
   },
   
-  createItemView: function(exampleClass, idx, attrs) {
+  createItemView: function createItemView(exampleClass, idx, attrs) {
     // Add a `tableView` attribute to each created row so it has a way to
     // refer back to this view.
     attrs.tableView = this;
     return exampleClass.create(attrs);
   },
   
-  clippingFrame: function() {
+  clippingFrame: function clippingFrame() {
     var cv = this.get('containerView'),
         sv = this.get('scrollView'),
         f  = this.get('frame');
@@ -329,7 +329,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
     
   }.property('frame', 'content').cacheable(),
    
-  _sctv_scrollOffsetDidChange: function() {
+  _sctv_scrollOffsetDidChange: function _sctv_scrollOffsetDidChange() {
     this.notifyPropertyChange('clippingFrame');
   },
 
@@ -339,7 +339,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   //
   
   
-  computeLayout: function() {
+  computeLayout: function computeLayout() {
     var layout = sc_super(),
         containerView = this.get('containerView'),
         frame = this.get('frame');
@@ -375,7 +375,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   
   // When the columns change, go through all the columns and set their tableContent to be this table's content
   // TODO: should these guys not just have a binding of this instead?
-  _sctv_columnsDidChange: function() {
+  _sctv_columnsDidChange: function _sctv_columnsDidChange() {
 
     var columns = this.get('columns'), 
         content = this.get('content'),
@@ -390,7 +390,7 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   }.observes('columns'),
   
   // Do stuff when our frame size changes.
-  _sctv_adjustColumnWidthsOnResize: function() {
+  _sctv_adjustColumnWidthsOnResize: function _sctv_adjustColumnWidthsOnResize() {
 
     var width   = this.get('frame').width;
     var content = this.get('content'),
@@ -417,13 +417,13 @@ SC.TableView = SC.ListView.extend(SC.TableDelegate, {
   // =============================================================
   // = This is all terrible, but will have to do in the interim. =
   // =============================================================
-  _sctv_sortContent: function() {
+  _sctv_sortContent: function _sctv_sortContent() {
     var sortedColumn = this.get('sortedColumn');
     var sortKey = sortedColumn.get('key');
     this.set('orderBy', sortKey);
   },
   
-  _sctv_sortedColumnDidChange: function() {
+  _sctv_sortedColumnDidChange: function _sctv_sortedColumnDidChange() {
     var columns = this.get('columns'),
         sortedColumn = this.get('sortedColumn'),
         column, idx;

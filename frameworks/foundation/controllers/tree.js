@@ -69,7 +69,7 @@ SC.TreeController = SC.ObjectController.extend(SC.SelectionSupport,
 
     @property {SC.Array}
   */
-  arrangedObjects: function() {
+  arrangedObjects: function arrangedObjects() {
     var ret, content = this.get('content');
     if (content) {
       ret = SC.TreeItemObserver.create({ item: content, delegate: this });
@@ -91,7 +91,7 @@ SC.TreeController = SC.ObjectController.extend(SC.SelectionSupport,
     immediately instead of waiting on some other component to get
     arrangedObjects again.
   */
-  _sctc_invalidateArrangedObjects: function() {
+  _sctc_invalidateArrangedObjects: function _sctc_invalidateArrangedObjects() {
     this.propertyWillChange('arrangedObjects');
 
     var ret = this._sctc_arrangedObjects;
@@ -101,7 +101,7 @@ SC.TreeController = SC.ObjectController.extend(SC.SelectionSupport,
     this.propertyDidChange('arrangedObjects');
   }.observes('content', 'treeItemIsExpandedKey', 'treeItemChildrenKey', 'treeItemIsGrouped'),
 
-  _sctc_arrangedObjectsContentDidChange: function() {
+  _sctc_arrangedObjectsContentDidChange: function _sctc_arrangedObjectsContentDidChange() {
     this.updateSelectionAfterContentChange();
   }.observes('*arrangedObjects.[]'),
 
@@ -114,7 +114,7 @@ SC.TreeController = SC.ObjectController.extend(SC.SelectionSupport,
     a brute force approach right now; we assume you probably don't have a lot
     of groups up front.
   */
-  firstSelectableObject: function() {
+  firstSelectableObject: function firstSelectableObject() {
     var objects = this.get('arrangedObjects'),
         indexes, len, idx     = 0;
 

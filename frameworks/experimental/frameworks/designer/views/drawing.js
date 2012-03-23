@@ -81,12 +81,12 @@ SC.DrawingView = SC.View.extend({
 
   _drawingManager: {},
 
-  shapesDidChange: function(){
+  shapesDidChange: function shapesDidChange(){
     this.set('layerNeedsUpdate', YES);
     this.updateLayerIfNeeded();
   }.observes('*shapes.[]'),
 
-  init: function(){
+  init: function init(){
     sc_super();
 
     // Register Basic Shapes
@@ -160,7 +160,7 @@ SC.DrawingView = SC.View.extend({
     });
   },
 
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     //console.log('%@.render()'.fmt(this));
     var frame = this.get('frame');
     if (firstTime) {
@@ -195,7 +195,7 @@ SC.DrawingView = SC.View.extend({
     return sc_super();
   },
 
-  registerShapeDrawing: function(name, drawingFunction){
+  registerShapeDrawing: function registerShapeDrawing(name, drawingFunction){
     if (!name) {
       SC.Logger.error('Can\'t register this drawing paradigm because name is null');
       return NO;
@@ -213,7 +213,7 @@ SC.DrawingView = SC.View.extend({
 
     Function for actually drawing the shapes that we have listed
   */
-  _drawShapes: function(cntx){
+  _drawShapes: function _drawShapes(cntx){
     var curr;
     var shapes = this.get('shapes');
     var drawingFunc;

@@ -14,7 +14,7 @@
 var pane, view, view1, view2;
 
 module("SC.TextFieldView",{
-  setup: function() {
+  setup: function setup() {
       SC.RunLoop.begin();
       pane = SC.MainPane.create({
         childViews: [
@@ -41,7 +41,7 @@ module("SC.TextFieldView",{
     view2 = pane.childViews[2];
   },
   
-  teardown: function() {
+  teardown: function teardown() {
       pane.remove();
       pane = view = null ;
     }    

@@ -8,13 +8,13 @@
 
 var view ;
 module("SC.ButtonView#displayProperties", {
-  setup: function() {
+  setup: function setup() {
     view = SC.ButtonView.create({ 
       isVisibleInWindow: YES 
     }).createLayer();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     view.destroy();
   }
 });

@@ -11,7 +11,7 @@ var pane, button, fooInvokedCount;
 // 
 
 module("SC.Statechart: No Concurrent States - Pane Default Responder Tests", {
-  setup: function() {
+  setup: function setup() {
     fooInvokedCount = 0;
     
     window.statechart = SC.Statechart.create({
@@ -21,14 +21,14 @@ module("SC.Statechart: No Concurrent States - Pane Default Responder Tests", {
         initialSubstate: 'a',
         
         a: SC.State.design({
-          foo: function() { 
+          foo: function foo() { 
             fooInvokedCount++;
             this.gotoState('b'); 
           }
         }),
         
         b: SC.State.design({
-          foo: function() {
+          foo: function foo() {
             fooInvokedCount++;
             this.gotoState('a'); 
           }
@@ -55,7 +55,7 @@ module("SC.Statechart: No Concurrent States - Pane Default Responder Tests", {
     button = pane.childViews[0];
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = button = fooInvokedCount = null;
     window.statechart = null;

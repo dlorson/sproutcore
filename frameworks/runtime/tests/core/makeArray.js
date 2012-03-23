@@ -12,7 +12,7 @@
 var objectA,objectB,objectC; //global variables
 
 module("Make Array ", {
-  setup: function() {
+  setup: function setup() {
     var objectA = [1,2,3,4,5] ;  
 	var objectC = SC.hashFor(objectA);
 	var objectD = null;

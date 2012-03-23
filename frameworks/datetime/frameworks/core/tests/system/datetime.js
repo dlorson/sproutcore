@@ -10,13 +10,13 @@ module('Time');
 var dt, options, ms, timezone, startTime, timezones;
 
 module("SC.DateTime", {
-  setup: function() {
+  setup: function setup() {
     ms = 487054822032; // June 8, 1985, 05:00:22:32 UTC
     options = { year: 1985, month: 6, day: 8, hour: 4, minute: 0, second: 22, millisecond: 32, timezone: 60 }; // an arbitrary time zone
     dt = SC.DateTime.create(options);
     timezones = [480, 420, 0, -60, -120, -330]; // PST, PDT, UTC, CET, CEST, Mumbai
   },
-  teardown: function() {
+  teardown: function teardown() {
     dt = options = ms = timezone = startTime = null;
   }
 });

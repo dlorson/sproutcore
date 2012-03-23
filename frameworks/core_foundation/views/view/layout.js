@@ -66,7 +66,7 @@ SC.View.reopen(
   // LAYOUT
   //
 
-  init: function(original) {
+  init: function init(original) {
     original();
 
     // TODO: This makes it impossible to override
@@ -86,7 +86,7 @@ SC.View.reopen(
     be invalid, we need to force layoutDidChange() to always immediately run
     whenever 'layout' is set.
   */
-  propertyDidChange: function(key, value, _keepCache) {
+  propertyDidChange: function propertyDidChange(key, value, _keepCache) {
     // If the key is 'layout', we need to call layoutDidChange() immediately
     // so that if the frame has changed any cached values (for both this view
     // and any child views) can be appropriately invalidated.
@@ -120,7 +120,7 @@ SC.View.reopen(
     @param {Object} value
     @returns {SC.View} receiver
   */
-  adjust: function(key, value) {
+  adjust: function adjust(key, value) {
     var layout = this.get('layout'), didChange = NO, cur, hash;
 
     if (key === undefined) { return this ; } // nothing to do.
@@ -222,7 +222,7 @@ SC.View.reopen(
     @returns {Boolean} YES if fixed, NO otherwise
     @test in layoutStyle
   */
-  isFixedLayout: function() {
+  isFixedLayout: function isFixedLayout() {
     var layout = this.get('layout'),
         ret;
 
@@ -264,7 +264,7 @@ SC.View.reopen(
     @returns {Rect} converted frame
     @test in convertFrames
   */
-  convertFrameToView: function(frame, targetView) {
+  convertFrameToView: function convertFrameToView(frame, targetView) {
     var myX=0, myY=0, targetX=0, targetY=0, view = this, f ;
 
     // walk up this side
@@ -304,7 +304,7 @@ SC.View.reopen(
     @returns {Rect} converted frame
     @test in converFrames
   */
-  convertFrameFromView: function(frame, targetView) {
+  convertFrameFromView: function convertFrameFromView(frame, targetView) {
     var myX=0, myY=0, targetX=0, targetY=0, view = this, f ;
 
     // walk up this side
@@ -338,7 +338,7 @@ SC.View.reopen(
 
     @returns {Boolean}
   */
-  scrollToVisible: function() {
+  scrollToVisible: function scrollToVisible() {
     var pv = this.get('parentView');
     while(pv && !pv.get('isScrollable')) { pv = pv.get('parentView'); }
 
@@ -351,7 +351,7 @@ SC.View.reopen(
     }
   },
 
-  _adjustForBorder: function(frame, layout){
+  _adjustForBorder: function _adjustForBorder(frame, layout){
     var borderTop = ((layout.borderTop !== undefined) ? layout.borderTop : layout.border) || 0,
         borderLeft = ((layout.borderLeft !== undefined) ? layout.borderLeft : layout.border) || 0,
         borderBottom = ((layout.borderBottom !== undefined) ? layout.borderBottom : layout.border) || 0,
@@ -380,7 +380,7 @@ SC.View.reopen(
     @param {Rect} pdim the projected parent dimensions
     @returns {Rect} the computed frame
   */
-  computeFrameWithParentFrame: function(original, pdim) {
+  computeFrameWithParentFrame: function computeFrameWithParentFrame(original, pdim) {
     var f, layout = this.get('layout');
 
     // We can't predict the frame for static layout, so just return the view's
@@ -565,7 +565,7 @@ SC.View.reopen(
     return f;
   }.enhance(),
 
-  computeParentDimensions: function(frame) {
+  computeParentDimensions: function computeParentDimensions(frame) {
     var ret, pv = this.get('parentView'), pf = (pv) ? pv.get('frame') : null ;
 
     if (pf) {
@@ -583,7 +583,7 @@ SC.View.reopen(
   /**
     The frame of the view including the borders
   */
-  borderFrame: function(){
+  borderFrame: function borderFrame(){
     var layout = this.get('layout'),
         frame = this.get('frame'),
         defaultBorder = layout.border,
@@ -610,7 +610,7 @@ SC.View.reopen(
     @returns {void}
     @test in viewDidResize
   */
-  parentViewDidResize: function() {
+  parentViewDidResize: function parentViewDidResize() {
     var frameMayHaveChanged;
 
     // If this view uses static layout, our "do we think the frame changed?"
@@ -641,7 +641,7 @@ SC.View.reopen(
 
     @returns {void}
   */
-  viewDidResize: function() {
+  viewDidResize: function viewDidResize() {
     this._viewFrameDidChange();
 
     // Also notify our children.
@@ -658,7 +658,7 @@ SC.View.reopen(
     This notifies the view that its frame property has changed,
     then propagates those changes to its child views.
   */
-  _viewFrameDidChange: function() {
+  _viewFrameDidChange: function _viewFrameDidChange() {
     this.notifyPropertyChange('frame');
     this._sc_view_clippingFrameDidChange();
   },
@@ -690,7 +690,7 @@ SC.View.reopen(
     @returns {SC.View} receiver
     @test in viewDidResize
   */
-  beginLiveResize: function() {
+  beginLiveResize: function beginLiveResize() {
     // call before children have been notified...
     if (this.willBeginLiveResize) this.willBeginLiveResize() ;
 
@@ -711,7 +711,7 @@ SC.View.reopen(
     @returns {SC.View} receiver
     @test in viewDidResize
   */
-  endLiveResize: function() {
+  endLiveResize: function endLiveResize() {
     // notify children in *reverse* order
     var ary = this.get('childViews'), len = ary.length, idx, view ;
     for (idx=len-1; idx>=0; --idx) { // loop backwards
@@ -728,7 +728,7 @@ SC.View.reopen(
     The view responsible for laying out this view.  The default version
     returns the current parent view.
   */
-  layoutView: function() {
+  layoutView: function layoutView() {
     return this.get('parentView') ;
   }.property('parentView').cacheable(),
 
@@ -745,7 +745,7 @@ SC.View.reopen(
 
     @returns {SC.View} receiver
   */
-  layoutDidChange: function() {
+  layoutDidChange: function layoutDidChange() {
     // Did our layout change in a way that could cause us to be resized?  If
     // not, then there's no need to invalidate the frames of our child views.
     var previousLayout = this._previousLayout,
@@ -856,7 +856,7 @@ SC.View.reopen(
     @param {SC.View} childView the view whose layout has changed.
     @returns {void}
   */
-  layoutDidChangeFor: function(childView) {
+  layoutDidChangeFor: function layoutDidChangeFor(childView) {
     var set = this._needLayoutViews ;
     if (!set) set = this._needLayoutViews = SC.CoreSet.create();
     set.add(childView);
@@ -870,7 +870,7 @@ SC.View.reopen(
     @returns {SC.View} receiver
     @test in layoutChildViews
   */
-  layoutChildViewsIfNeeded: function(isVisible) {
+  layoutChildViewsIfNeeded: function layoutChildViewsIfNeeded(isVisible) {
     if (!isVisible) isVisible = this.get('isVisibleInWindow');
     if (isVisible && this.get('childViewsNeedLayout')) {
       this.set('childViewsNeedLayout', NO);
@@ -890,7 +890,7 @@ SC.View.reopen(
 
     @returns {void}
   */
-  layoutChildViews: function() {
+  layoutChildViews: function layoutChildViews() {
     var set = this._needLayoutViews,
         len = set ? set.length : 0,
         i;
@@ -912,7 +912,7 @@ SC.View.reopen(
     @returns {SC.View} receiver
     @test in layoutChildViews
   */
-  updateLayout: function() {
+  updateLayout: function updateLayout() {
     var layer = this.get('layer'), context;
     if (layer) {
       context = this.renderContext(layer);
@@ -937,18 +937,18 @@ SC.View.reopen(
     @returns {void}
     @test in layoutChildViews
   */
-  renderLayout: function(context, firstTime) {
+  renderLayout: function renderLayout(context, firstTime) {
     this.get('layoutStyleCalculator').willRenderAnimations();
     context.addStyle(this.get('layoutStyle'));
     this.get('layoutStyleCalculator').didRenderAnimations();
   },
 
-  _renderLayerSettings: function(original, context, firstTime) {
+  _renderLayerSettings: function _renderLayerSettings(original, context, firstTime) {
     original(context, firstTime);
     this.renderLayout(context, firstTime);
   }.enhance(),
 
-  applyAttributesToContext: function(original, context) {
+  applyAttributesToContext: function applyAttributesToContext(original, context) {
     original(context);
 
     if (this.get('useStaticLayout')) { context.addClass('sc-static-layout'); }
@@ -964,7 +964,7 @@ SC.View.mixin(
   /**
     Convert any layout to a Top, Left, Width, Height layout
   */
-  convertLayoutToAnchoredLayout: function(layout, parentFrame){
+  convertLayoutToAnchoredLayout: function convertLayoutToAnchoredLayout(layout, parentFrame){
     var ret = {top: 0, left: 0, width: parentFrame.width, height: parentFrame.height},
         pFW = parentFrame.width, pFH = parentFrame.height, //shortHand for parentDimensions
         lR = layout.right,
@@ -1111,7 +1111,7 @@ SC.View.mixin(
   /**
     For now can only convert Top/Left/Width/Height to a Custom Layout
   */
-  convertLayoutToCustomLayout: function(layout, layoutParams, parentFrame){
+  convertLayoutToCustomLayout: function convertLayoutToCustomLayout(layout, layoutParams, parentFrame){
     // TODO: [EG] Create Top/Left/Width/Height to a Custom Layout conversion
   }
 });

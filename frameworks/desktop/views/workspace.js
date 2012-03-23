@@ -91,7 +91,7 @@ SC.WorkspaceView = SC.View.extend(
     @field
     @type Number
   */
-  toolbarSize: function() {
+  toolbarSize: function toolbarSize() {
     if (!this.get("autoResizeToolbars")) return this.get("defaultToolbarSize");
     if (this.get("orientation") === SC.HORIZONTAL_ORIENTATION) return this.get("smallToolbarSize");
     return this.get("largeToolbarSize");
@@ -107,7 +107,7 @@ SC.WorkspaceView = SC.View.extend(
     @type String
     @default SC.HORIZONTAL_ORIENTATION
   */
-  orientation: function() {
+  orientation: function orientation() {
     var f = this.get("frame");
     if (f.width > f.height) return SC.HORIZONTAL_ORIENTATION;
     else return SC.VERTICAL_ORIENTATION;
@@ -120,7 +120,7 @@ SC.WorkspaceView = SC.View.extend(
   masterIsHidden: NO,
   
   /** @private */
-  masterIsHiddenDidChange: function() {
+  masterIsHiddenDidChange: function masterIsHiddenDidChange() {
     var t, mih = this.get("masterIsHidden");
     if (t = this.get("topToolbar")) t.set("masterIsHidden", mih);
     if (t = this.get("bottomToolbar")) t.set("masterIsHidden", mih);
@@ -134,14 +134,14 @@ SC.WorkspaceView = SC.View.extend(
     we allow dynamic changing of toolbars in future, this could include toolbars themselves),
     we need to update the tiling.
   */
-  _scmd_tilePropertyDidChange: function() {
+  _scmd_tilePropertyDidChange: function _scmd_tilePropertyDidChange() {
     this.invokeOnce("_scws_tile");
   }.observes("toolbarSize"),
   
   /** @private
     Creates the child views. Specifically, instantiates master and detail views.
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     sc_super();
     
     var topToolbar = this.get("topToolbar");
@@ -167,7 +167,7 @@ SC.WorkspaceView = SC.View.extend(
     @private
     Tiles the views as necessary.
   */
-  _scws_tile: function() {
+  _scws_tile: function _scws_tile() {
     var contentTop = 0, contentBottom = 0, 
         topToolbar = this.get("topToolbar"),
         bottomToolbar = this.get("bottomToolbar"),
@@ -199,7 +199,7 @@ SC.WorkspaceView = SC.View.extend(
   /** @private
     Returns YES if a top toolbar is present.
   */
-  hasTopToolbar: function() {
+  hasTopToolbar: function hasTopToolbar() {
     if (this.get("topToolbar")) return YES;
     return NO;    
   }.property("topToolbar").cacheable(),
@@ -207,7 +207,7 @@ SC.WorkspaceView = SC.View.extend(
   /** @private
     Returns YES if a bottom toolbar is present.
   */
-  hasBottomToolbar: function() {
+  hasBottomToolbar: function hasBottomToolbar() {
     if (this.get("bottomToolbar")) return YES;
     return NO;
   }.property("bottomToolbar").cacheable(),
@@ -215,7 +215,7 @@ SC.WorkspaceView = SC.View.extend(
   /** @private
     Called by the individual toolbar/contentView observers at runloop end when the toolbars change.
   */
-  childDidChange: function() {
+  childDidChange: function childDidChange() {
     this._scws_tile();
   },
   
@@ -239,7 +239,7 @@ SC.WorkspaceView = SC.View.extend(
     
     You may want to override this if, for instance, you want to add transitions of some sort (should be trivial).
   */
-  topToolbarDidChange: function() {
+  topToolbarDidChange: function topToolbarDidChange() {
     var active = this.activeTopToolbar, replacement = this.get("topToolbar");
     if (active) {
       this.removeChild(active);
@@ -255,7 +255,7 @@ SC.WorkspaceView = SC.View.extend(
   /**
     @private
   */
-  bottomToolbarDidChange: function() {
+  bottomToolbarDidChange: function bottomToolbarDidChange() {
     var active = this.activeBottomToolbar, replacement = this.get("bottomToolbar");
     if (active) {
       this.removeChild(active);
@@ -269,7 +269,7 @@ SC.WorkspaceView = SC.View.extend(
   }.observes("bottomToolbar"),
   
   /** @private */
-  contentViewDidChange: function() {
+  contentViewDidChange: function contentViewDidChange() {
     var active = this.activeContentView, replacement = this.get("contentView");
     if (active) {
       this.removeChild(active);

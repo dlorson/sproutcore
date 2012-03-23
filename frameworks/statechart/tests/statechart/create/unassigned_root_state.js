@@ -10,7 +10,7 @@ var obj4;
 var owner;
 
 module("SC.Statechart: Create Statechart with Unassigned Root State Tests", {
-  setup: function() {
+  setup: function setup() {
     owner = SC.Object.create();
     
     obj1 = SC.Object.extend(SC.StatechartManager, {
@@ -18,13 +18,13 @@ module("SC.Statechart: Create Statechart with Unassigned Root State Tests", {
       initialState: 'stateA',
       
       stateA: SC.State.design({
-        foo: function() {
+        foo: function foo() {
           this.gotoState('stateB');
         }
       }),
       
       stateB: SC.State.design({
-        bar: function() {
+        bar: function bar() {
           this.gotoState('stateA');
         }
       })
@@ -41,13 +41,13 @@ module("SC.Statechart: Create Statechart with Unassigned Root State Tests", {
       statesAreConcurrent: YES,
       
       stateC: SC.State.design({
-        foo: function() {
+        foo: function foo() {
           this.gotoState('stateD');
         }
       }),
       
       stateD: SC.State.design({
-        bar: function() {
+        bar: function bar() {
           this.gotoState('stateC');
         }
       })
@@ -82,7 +82,7 @@ module("SC.Statechart: Create Statechart with Unassigned Root State Tests", {
     obj4 = obj4.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj1 = rootState1 = stateA = stateB = null;
     obj2 = rootState2 = stateC = stateD = null;
     obj3 = rootState3 = stateE = rootStateExample = null;

@@ -7,7 +7,7 @@
 
 var MyFoo = null, callInfo ;
 module("SC.Record#destroy", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     MyApp = SC.Object.create({
       store: SC.Store.create()

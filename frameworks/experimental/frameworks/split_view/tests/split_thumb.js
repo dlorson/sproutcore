@@ -22,7 +22,7 @@
 var splitView, left, divider1, middle, divider2, right, thumb,
     adjustedChild, adjustedPosition;
 module("SplitView Thumb", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     splitView = SC.SplitView.create({
       childViews: [ 'left', 'middle', 'right' ],
@@ -43,7 +43,7 @@ module("SplitView Thumb", {
 
       splitDividerView: SC.SplitDividerView.design({ size: 10, autoResizeStyle: SC.FIXED_SIZE }),
 
-      adjustPositionForChild: function(child, position) {
+      adjustPositionForChild: function adjustPositionForChild(child, position) {
         adjustedChild = child;
         adjustedPosition = position;
       }

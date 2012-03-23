@@ -29,7 +29,7 @@ SC.mixin(SC.browser,
     @param other {String} The version to compare against.
     @return {Number} The difference between the versions at the first difference.
   */
-  compare: function(version, other) {
+  compare: function compare(version, other) {
     var coerce,
         parts,
         tests;

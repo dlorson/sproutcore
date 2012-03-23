@@ -7,7 +7,7 @@
  
 var store, storeKey, rec1, rec2, rec3, rec4, rec5, MyApp, q;
 module("SC.Query registered query extensions", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     // setup dummy app and store

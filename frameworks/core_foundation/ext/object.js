@@ -15,7 +15,7 @@ SC.mixin(SC.Object.prototype, /** @scope SC.Object.prototype */ {
     invoke a method after a period of time.  The method should have the
     signature:
 
-        methodName: function(timer)
+        methodName: function methodName(timer)
 
     If you would prefer to pass your own parameters instead, you can instead
     call invokeLater() directly on the function object itself.
@@ -24,7 +24,7 @@ SC.mixin(SC.Object.prototype, /** @scope SC.Object.prototype */ {
     @param interval {Number} period from current time to schedule.
     @returns {SC.Timer} scheduled timer.
   */
-  invokeLater: function(methodName, interval) {
+  invokeLater: function invokeLater(methodName, interval) {
     if (interval === undefined) { interval = 1 ; }
     var f = methodName, args, func;
 
@@ -49,7 +49,7 @@ SC.mixin(SC.Object.prototype, /** @scope SC.Object.prototype */ {
     @param {Function|String} method reference or method name
     @param {Number} interval
   */
-  invokeOnceLater: function(method, interval) {
+  invokeOnceLater: function invokeOnceLater(method, interval) {
     if (interval === undefined) { interval = 1 ; }
 
     var timers = this._sc_invokeOnceLaterTimers,
@@ -104,7 +104,7 @@ SC.mixin(SC.Object.prototype, /** @scope SC.Object.prototype */ {
     @param {Function|String} method
     @returns {SC.Object} receiver
   */
-  invokeWith: function(pathName, target, method) {
+  invokeWith: function invokeWith(pathName, target, method) {
     // normalize target/method
     if (method === undefined) {
       method = target; target = this;

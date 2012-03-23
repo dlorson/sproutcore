@@ -10,7 +10,7 @@ var storeKeys, rec, rec2, rec3, rec4;
 var foo1, foo2, foo3, bar1, bar2, bar3;
 
 module("SC.ManyAttribute core methods", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     MyApp = SC.Object.create({
       store: SC.Store.create()
@@ -114,7 +114,7 @@ module("SC.ManyAttribute core methods", {
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     MyApp = rec = rec2 = rec3 = 
     foo1 = foo2 = foo3 = bar1 = bar2 = null;
   }

@@ -8,7 +8,7 @@
 // test parsing of query string
 var store, storeKey, foo1, foo2, bar1, bar2, baz, barChild, MyApp, q;
 module("SC.Query comparison of records", {
-  setup: function() {
+  setup: function setup() {
     
     SC.RunLoop.begin();
     
@@ -53,7 +53,7 @@ module("SC.Query comparison of records", {
     
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     MyApp = foo1 = foo2 = bar1 = bar2 = baz = barChild = q = null;
   }
 });

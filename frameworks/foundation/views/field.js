@@ -36,7 +36,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     
     @property {String}
   */  
-  fieldValue: function() {
+  fieldValue: function fieldValue() {
     var value = this.get('value');
     if (SC.typeOf(value) === SC.T_ERROR) value = value.get('errorValue');
     return this.fieldValueForObject(value);
@@ -52,7 +52,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     automatically edit the attrbutes of the input element to reflect the 
     current isEnabled state among other things.
   */
-  $input: function() { 
+  $input: function input() { 
     var elementTagName = this._inputElementTagName(); // usually "input"
     return this.$(elementTagName).andSelf().filter(elementTagName);
   },
@@ -61,7 +61,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     Override to specify the HTML element type to use as the field. For
     example, "input" or "textarea".
   */
-  _inputElementTagName: function() {
+  _inputElementTagName: function _inputElementTagName() {
     return 'input';
   },
   
@@ -75,7 +75,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     @param {Object} newValue the value to display.
     @returns {SC.FieldView} receiver
   */
-  setFieldValue: function(newValue) {
+  setFieldValue: function setFieldValue(newValue) {
     if (SC.none(newValue)) newValue = '' ;
     var input = this.$input();
     
@@ -95,11 +95,11 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     
     @returns {String} value
   */
-  getFieldValue: function() {
+  getFieldValue: function getFieldValue() {
     return this.$input().val();
   },
   
-  _field_fieldValueDidChange: function(evt) {
+  _field_fieldValueDidChange: function _field_fieldValueDidChange(evt) {
     SC.run(function() {
       this.fieldValueDidChange(NO);      
     }, this);
@@ -119,7 +119,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     @param partialChange (optional) YES if this is a partial change.
     @returns {Boolean|SC.Error} result of validation.
   */
-  fieldValueDidChange: function(partialChange) {
+  fieldValueDidChange: function fieldValueDidChange(partialChange) {
     // collect the field value and convert it back to a value
     var fieldValue = this.getFieldValue();
     var value = this.objectForFieldValue(fieldValue, partialChange);
@@ -164,19 +164,19 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
   /** @private
     invoked when the value property changes.  Sets the field value...
   */
-  _field_valueDidChange: function() {
+  _field_valueDidChange: function _field_valueDidChange() {
     this.setFieldValue(this.get('fieldValue'));
   }.observes('fieldValue'),
 
   /** @private
     after the layer is created, set the field value and observe events
   */
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     this.setFieldValue(this.get('fieldValue'));
     this._addChangeEvent();
   },
 
-  willDestroyLayer: function() {
+  willDestroyLayer: function willDestroyLayer() {
     SC.Event.remove(this.$input(), 'change', this, this._field_fieldValueDidChange); 
   },
   
@@ -188,7 +188,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     is submitted.  If you have a validator attached, this will get the
     validators.
   */  
-  // validateSubmit: function() {
+  // validateSubmit: function validateSubmit() {
   //   var ret = this.performValidateSubmit ? this.performValidateSubmit() : YES;
   //   // save the value if needed
   //   var value = SC.$ok(ret) ? this._field_getFieldValue() : ret ;
@@ -203,7 +203,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     Allow the browser to do its normal event handling for the mouse down
     event.  But first, set isActive to YES.
   */
-  mouseDown: function(evt) {  
+  mouseDown: function mouseDown(evt) {  
     this._field_isMouseDown = YES;
     evt.allowDefault(); 
     return YES; 
@@ -212,7 +212,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
   /** @private
     Remove the active class on mouseExited if mouse is down.
   */  
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     if (this._field_isMouseDown) this.set('isActive', NO);
     evt.allowDefault();
     return YES;
@@ -221,7 +221,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
   /** @private
     If mouse was down and we renter the button area, set the active state again.
   */  
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     this.set('isActive', this._field_isMouseDown);
     evt.allowDefault();
     return YES;
@@ -231,7 +231,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     on mouse up, remove the isActive class and then allow the browser to do
     its normal thing.
   */  
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     // track independently in case isEnabled has changed
     if (this._field_isMouseDown) this.set('isActive', NO); 
     this._field_isMouseDown = NO;
@@ -243,7 +243,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     Simply allow keyDown & keyUp to pass through to the default web browser
     implementation.
   */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
 
     // handle tab key
     if (evt.which === 9 || evt.keyCode===9) {
@@ -265,18 +265,18 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
   },
   
   /** tied to the isEnabled state */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     if (SC.FOCUS_ALL_CONTROLS) { return this.get('isEnabled'); }
     return NO;
   }.property('isEnabled'),
   
-  _addChangeEvent: function() {
+  _addChangeEvent: function _addChangeEvent() {
     SC.Event.add(this.$input(), 'change', this, this._field_fieldValueDidChange);
   },
     
   // these methods use the validator to convert the raw field value returned
   // by your subclass into an object and visa versa.
-  _field_setFieldValue: function(newValue) {
+  _field_setFieldValue: function _field_setFieldValue(newValue) {
     this.propertyWillChange('fieldValue');
     if (this.fieldValueForObject) {
       newValue = this.fieldValueForObject(newValue) ;
@@ -286,7 +286,7 @@ SC.FieldView = SC.View.extend(SC.Control, SC.Validatable,
     return ret ;
   },
   
-  _field_getFieldValue: function() {
+  _field_getFieldValue: function _field_getFieldValue() {
     var ret = this.getFieldValue() ;
     if (this.objectForFieldValue) ret = this.objectForFieldValue(ret);
     return ret ;

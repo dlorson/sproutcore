@@ -8,7 +8,7 @@
 
 var parent, child;
 module("SC.View#replaceChild", {
-	setup: function() {
+	setup: function setup() {
 	  child = SC.View.create();
 	  parent = SC.View.create({
 	    childViews: [SC.View, SC.View, SC.View]

@@ -137,14 +137,14 @@ SC.SplitView = SC.View.extend({
     Only occurs during drag, which only happens after render, so we
     update directly.
   */
-  _scsv_splitChildCursorDidChange: function() {
+  _scsv_splitChildCursorDidChange: function _scsv_splitChildCursorDidChange() {
     this.get('cursor').set('cursorStyle', this.get('splitChildCursorStyle'));
   }.observes('splitChildCursorStyle'),
   
   
   // set up the SC.Cursor instance that this view and all the subviews
   // will share.
-  init: function() {
+  init: function init() {
     this.cursor = SC.Cursor.create();
     sc_super();
   },
@@ -170,7 +170,7 @@ SC.SplitView = SC.View.extend({
    * @property
    * @type {Number}
   */
-  _frameSize: function(){
+  _frameSize: function _frameSize(){
     if (this.get('layoutDirection') === SC.LAYOUT_HORIZONTAL) {
       return this.get('frame').width;
     } else {
@@ -178,12 +178,12 @@ SC.SplitView = SC.View.extend({
     }
   }.property('frame', 'layoutDirection').cacheable(),
 
-  viewDidResize: function(orig) {
+  viewDidResize: function viewDidResize(orig) {
     this.scheduleTiling();
     orig();
   }.enhance(),
   
-  layoutDirectionDidChange: function() {
+  layoutDirectionDidChange: function layoutDirectionDidChange() {
     this.scheduleTiling();
   }.observes('layoutDirection'),
   
@@ -205,7 +205,7 @@ SC.SplitView = SC.View.extend({
    * @param {Number} position The position to move the child to.
    * @returns {Number} The position to which the child was actually moved.
   */
-  adjustPositionForChild: function(child, position){
+  adjustPositionForChild: function adjustPositionForChild(child, position){
     return this.invokeDelegateMethod(this.get('delegate'), 'splitViewAdjustPositionForChild', this, child, position);
   },
   
@@ -221,7 +221,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child whose position to find.
    * @returns {Number} The position.
   */
-  getPositionForChild: function(child){
+  getPositionForChild: function getPositionForChild(child){
     return this.invokeDelegateMethod(this.get('delegate'), 'splitViewGetPositionForChild', this, child);
   },
   
@@ -232,7 +232,7 @@ SC.SplitView = SC.View.extend({
   // When children are added and removed, we must re-run the setup process that
   // sets the SplitView child properties such as nextView, previousView, etc.,
   // and which adds dividers.
-  didAddChild: function() {
+  didAddChild: function didAddChild() {
     // we have to add a guard because _scsv_setupChildViews may add or remove
     // dividers, causing this method to be called again uselessly.
     // this is purely for performance. The guard goes here, rather than in
@@ -245,7 +245,7 @@ SC.SplitView = SC.View.extend({
     this._scsv_settingUpChildViews = NO;
   },
   
-  didRemoveChild: function() {
+  didRemoveChild: function didRemoveChild() {
     // we have to add a guard because _scsv_setupChildViews may add or remove
     // dividers, causing this method to be called again uselessly.
     // this is purely for performance. The guard goes here, rather than in
@@ -258,7 +258,7 @@ SC.SplitView = SC.View.extend({
     this._scsv_settingUpChildViews = NO;
   },
   
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     sc_super();
 
     if (this._scsv_settingUpChildViews) return;
@@ -279,7 +279,7 @@ SC.SplitView = SC.View.extend({
    * 
    * The helper properties are: previousView, nextView, viewIndex.
   */
-  _scsv_setupChildViews: function() {
+  _scsv_setupChildViews: function _scsv_setupChildViews() {
     var del = this.get('delegate'),
     
         children = this.get('childViews').copy(), len = children.length, idx,
@@ -370,12 +370,12 @@ SC.SplitView = SC.View.extend({
   /**
     Schedules a retile of the SplitView.
   */
-  scheduleTiling: function() {
+  scheduleTiling: function scheduleTiling() {
     this.set('needsTiling', YES);
     this.invokeOnce('_scsv_tile');
   },
   
-  tileIfNeeded: function() {
+  tileIfNeeded: function tileIfNeeded() {
     if (!this.get('needsTiling')) return;
     this._scsv_tile();
   },
@@ -390,7 +390,7 @@ SC.SplitView = SC.View.extend({
    * when the SplitView is resized.
    *
   */
-  _scsv_tile: function() {
+  _scsv_tile: function _scsv_tile() {
     var del = this.get('delegate');
     
     // LOGIC:
@@ -435,7 +435,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.SplitView} splitView The SplitView whose children need layout.
    * @returns {Number} The total size of all the SplitView's children.
   */
-  splitViewLayoutChildren: function(splitView) {
+  splitViewLayoutChildren: function splitViewLayoutChildren(splitView) {
     var del = this.get('delegate');
     
     var children = this.get('childViews'), len = children.length, idx, 
@@ -461,7 +461,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.SplitView} splitView The SC.SplitView whose children should be resized.
    * @param {Number} contentSize The current not-yet-resized size of the SplitView's content.
   */
-  splitViewResizeChildrenToFit: function(splitView, contentSize) {
+  splitViewResizeChildrenToFit: function splitViewResizeChildrenToFit(splitView, contentSize) {
     var del = this.get('delegate');
     
     // LOGIC:
@@ -510,7 +510,7 @@ SC.SplitView = SC.View.extend({
    *
    * @returns {Number} The new runningSize.
   */
-  _resizeChildrenForSize: function(runningSize, targetSize, useResizable, outOfSize) {
+  _resizeChildrenForSize: function _resizeChildrenForSize(runningSize, targetSize, useResizable, outOfSize) {
     var del = this.get('delegate');
 
     var children = this.get('childViews'), idx, len = children.length, child;
@@ -558,7 +558,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child view.
    * @returns {Boolean}
   */
-  splitViewShouldResizeChildToFit: function(splitView, child) {
+  splitViewShouldResizeChildToFit: function splitViewShouldResizeChildToFit(splitView, child) {
     return (
       this.get('shouldResizeChildrenToFit')  &&
       child.get('autoResizeStyle') === SC.RESIZE_AUTOMATIC
@@ -576,7 +576,7 @@ SC.SplitView = SC.View.extend({
    * @param {Number} position The position to attempt to move the child to.
    * @returns {Number} The final position of the child.
   */
-  splitViewAdjustPositionForChild: function(splitView, child, position) {
+  splitViewAdjustPositionForChild: function splitViewAdjustPositionForChild(splitView, child, position) {
     var del = this.get('delegate');
     // Unlike tiling, the process of moving a child view is much more sophisticated.
     //
@@ -633,7 +633,7 @@ SC.SplitView = SC.View.extend({
    *
    * @returns {Plan}
   */
-  _scsv_createPlan: function() {
+  _scsv_createPlan: function _scsv_createPlan() {
     var del = this.get('delegate'),
         plan = [], children = this.get('childViews'), idx, len = children.length, 
         child, childPosition, childSize;
@@ -663,7 +663,7 @@ SC.SplitView = SC.View.extend({
     * @param {Number} first The first item in the range.
     * @param {Number} last The last item in the range.
    */
-   _scsv_resetPlanRange: function(plan, first, last) {
+   _scsv_resetPlanRange: function _scsv_resetPlanRange(plan, first, last) {
      for (var idx = first; idx <= last; idx++) {
        plan[idx].position = plan[idx].originalPosition;
        plan[idx].size = plan[idx].originalSize;
@@ -676,7 +676,7 @@ SC.SplitView = SC.View.extend({
    *
    * @param {Plan} plan The plan with the changes.
   */
-  _scsv_commitPlan: function(plan) {
+  _scsv_commitPlan: function _scsv_commitPlan(plan) {
     var del = this.get('delegate'), len = plan.length, idx, item, end = 0;
     
     for (idx = 0; idx < len; idx++) {
@@ -724,7 +724,7 @@ SC.SplitView = SC.View.extend({
    *
    * @returns {Number} The final position of the child.
   */
-  _scsv_adjustPositionForChildInPlan: function(plan, child, position, source) {
+  _scsv_adjustPositionForChildInPlan: function _scsv_adjustPositionForChildInPlan(plan, child, position, source) {
     var del = this.get('delegate');
     
     if (
@@ -820,7 +820,7 @@ SC.SplitView = SC.View.extend({
     return position;
   },
   
-  _scsv_adjustSizeForChildInPlan: function(plan, child, size, source) {
+  _scsv_adjustSizeForChildInPlan: function _scsv_adjustSizeForChildInPlan(plan, child, size, source) {
     var del = this.get('delegate');
     
     if (
@@ -866,7 +866,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} view2 The second view. 
    * @returns {SC.View} The view instance to use as a divider.
   */
-  splitViewDividerBetween: function(splitView, view1, view2){
+  splitViewDividerBetween: function splitViewDividerBetween(splitView, view1, view2){
     if (!this.get('splitDividerView')) return null;
     
     return this.get('splitDividerView').create();
@@ -881,7 +881,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child.
    * @returns Number
   */
-  splitViewGetPositionForChild: function(splitView, child) {
+  splitViewGetPositionForChild: function splitViewGetPositionForChild(splitView, child) {
     return child.get('position');
   },
   
@@ -894,7 +894,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child.
    * @param {Number} position The position to move the child to.
   */
-  splitViewSetPositionForChild: function(splitView, child, position) {
+  splitViewSetPositionForChild: function splitViewSetPositionForChild(splitView, child, position) {
     child.set('position', position);
   },
   
@@ -907,7 +907,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child.
    * @returns Number
   */
-  splitViewGetSizeForChild: function(splitView, child) {
+  splitViewGetSizeForChild: function splitViewGetSizeForChild(splitView, child) {
     var size = child.get('size');
     if (SC.none(size)) return 100;
     
@@ -923,7 +923,7 @@ SC.SplitView = SC.View.extend({
    * @param {SC.View} child The child.
    * @param {Number} position The size to give the child.
   */
-  splitViewSetSizeForChild: function(splitView, child, size) {
+  splitViewSetSizeForChild: function splitViewSetSizeForChild(splitView, child, size) {
     child.set('size', size);
   },
   
@@ -940,7 +940,7 @@ SC.SplitView = SC.View.extend({
    * @param {Number} position The proposed size for the child.
    * @returns Number
   */
-  splitViewConstrainSizeForChild: function(splitView, child, size) {
+  splitViewConstrainSizeForChild: function splitViewConstrainSizeForChild(splitView, child, size) {
     if (child.get('autoResizeStyle') === SC.FIXED_SIZE) {
       return this.invokeDelegateMethod(this.get('delegate'), 'splitViewGetSizeForChild', this, child);
     }

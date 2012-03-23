@@ -88,7 +88,7 @@ SC.SliderView = SC.View.extend(SC.Control,
    @property
    The raw, unchanged value to be provided to screen readers and the like.
   */
-  ariaValue: function() {
+  ariaValue: function ariaValue() {
     return this.get('value');
   }.property('value').cacheable(),
 
@@ -96,7 +96,7 @@ SC.SliderView = SC.View.extend(SC.Control,
   // the DOM associated with instances of this view
   renderDelegateName: 'sliderRenderDelegate',
   
-  displayValue: function() {
+  displayValue: function displayValue() {
     var min = this.get('minimum'),
         max = this.get('maximum'),
         value = this.get('value'),
@@ -118,7 +118,7 @@ SC.SliderView = SC.View.extend(SC.Control,
   
   _isMouseDown: NO,
   
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return YES; // nothing to do...
     this.set('isActive', YES);
     this._isMouseDown = YES ;
@@ -126,19 +126,19 @@ SC.SliderView = SC.View.extend(SC.Control,
   },
   
   // mouseDragged uses same technique as mouseDown.
-  mouseDragged: function(evt) { 
+  mouseDragged: function mouseDragged(evt) { 
     return this._isMouseDown ? this._triggerHandle(evt) : YES; 
   },
   
   // remove active class
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (this._isMouseDown) this.set('isActive', NO);
     var ret = this._isMouseDown ? this._triggerHandle(evt) : YES ;
     this._isMouseDown = NO;
     return ret ;
   },
   
-  mouseWheel: function(evt) {
+  mouseWheel: function mouseWheel(evt) {
     if (!this.get('isEnabled')) return YES;
     var min = this.get('minimum'),
         max = this.get('maximum'),
@@ -151,15 +151,15 @@ SC.SliderView = SC.View.extend(SC.Control,
     return YES ;  
   },
   
-  touchStart: function(evt){
+  touchStart: function touchStart(evt){
     return this.mouseDown(evt);
   },
   
-  touchEnd: function(evt){
+  touchEnd: function touchEnd(evt){
     return this.mouseUp(evt);
   },
   
-  touchesDragged: function(evt){
+  touchesDragged: function touchesDragged(evt){
     return this.mouseDragged(evt);
   },
   
@@ -167,7 +167,7 @@ SC.SliderView = SC.View.extend(SC.Control,
     Updates the handle based on the mouse location of the handle in the
     event.
   */
-  _triggerHandle: function(evt, firstEvent) {
+  _triggerHandle: function _triggerHandle(evt, firstEvent) {
     var width = this.get('frame').width,
         min = this.get('minimum'), max=this.get('maximum'),
         step = this.get('step'), v=this.get('value'), loc;
@@ -210,12 +210,12 @@ SC.SliderView = SC.View.extend(SC.Control,
   },
   
   /** tied to the isEnabled state */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     if (SC.FOCUS_ALL_CONTROLS) { return this.get('isEnabled'); }
     return NO;
   }.property('isEnabled'),
   
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
      // handle tab key
      if (evt.which === 9 || evt.keyCode === 9) {
        var view = evt.shiftKey ? this.get('previousValidKeyView') : this.get('nextValidKeyView');

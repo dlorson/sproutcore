@@ -15,7 +15,7 @@ SC.json = {
     @param {Object} root object graph
     @returns {String} encode JSON
   */
-  encode: function(root) {
+  encode: function encode(root) {
     return JSON.stringify(root) ;
   },
   
@@ -25,7 +25,7 @@ SC.json = {
     @param {String} encoded JSON
     @returns {Object} object graph or Error if there was a problem.
   */
-  decode: function(root) {
+  decode: function decode(root) {
     return JSON.parse(root) ;
   }
 

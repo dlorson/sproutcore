@@ -48,7 +48,7 @@ SC.Controller = SC.Object.extend(
    */
   destroyContentOnReplace: NO,
 
-  contentObjectDidChanged: function() {
+  contentObjectDidChanged: function contentObjectDidChanged() {
     var oldContent, newContent;
 
     if (!this.get('destroyContentOnReplace')) return;

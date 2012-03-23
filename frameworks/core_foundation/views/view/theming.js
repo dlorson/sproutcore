@@ -3,7 +3,7 @@ sc_require("views/view");
 SC.View.reopen(
   /** @scope SC.View.prototype */ {
 
-  init: function(original) {
+  init: function init(original) {
     original();
     this._lastTheme = this.get('theme');
   }.enhance(),
@@ -50,7 +50,7 @@ SC.View.reopen(
 
     @property {SC.Theme}
   */
-  theme: function() {
+  theme: function theme() {
     var base = this.get('baseTheme'), themeName = this.get('themeName');
 
     // find theme, if possible
@@ -80,7 +80,7 @@ SC.View.reopen(
 
     Also, because
   */
-  _sc_view_themeDidChange: function() {
+  _sc_view_themeDidChange: function _sc_view_themeDidChange() {
     if (this._lastTheme === this.get('theme')) { return; }
     this._lastTheme = this.get('theme');
 
@@ -104,7 +104,7 @@ SC.View.reopen(
     @private
     @property {SC.Theme}
   */
-  baseTheme: function() {
+  baseTheme: function baseTheme() {
     var parent;
     var baseThemeName = this.get('baseThemeName');
     if (baseThemeName) {
@@ -140,7 +140,7 @@ SC.View.reopen(
 
     @property {Object}
   */
-  renderDelegate: function(key, value) {
+  renderDelegate: function renderDelegate(key, value) {
     if (value) { this._setRenderDelegate = value; }
     if (this._setRenderDelegate) { return this._setRenderDelegate; }
 
@@ -189,7 +189,7 @@ SC.View.reopen(
     The proxy that forwards RenderDelegate requests for properties to the view,
     handling display*, keeps track of the delegate's state, etc.
   */
-  renderDelegateProxy: function() {
+  renderDelegateProxy: function renderDelegateProxy() {
     return SC.View._RenderDelegateProxy.createForView(this);
   }.property('renderDelegate').cacheable(),
 
@@ -213,7 +213,7 @@ SC.View.reopen(
     @param {SC.RenderContext} context the render context
     @returns {void}
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var renderDelegate = this.get('renderDelegate');
 
     if (renderDelegate) {
@@ -225,7 +225,7 @@ SC.View.reopen(
     }
   },
 
-  applyAttributesToContext: function(original, context) {
+  applyAttributesToContext: function applyAttributesToContext(original, context) {
     var theme = this.get('theme');
     var themeClassNames = theme.classNames, idx, len = themeClassNames.length;
 
@@ -256,7 +256,7 @@ SC.View.reopen(
     @param {String} method The name of the method to call.
     @param arg One or more arguments.
   */
-  invokeRenderDelegateMethod: function(method, args) {
+  invokeRenderDelegateMethod: function invokeRenderDelegateMethod(method, args) {
     var renderDelegate = this.get('renderDelegate');
     if (!renderDelegate) return undefined;
     
@@ -300,7 +300,7 @@ SC.View._RenderDelegateProxy = {
     @param {SC.View} view The view this proxy should proxy to.
     @returns SC.View._RenderDelegateProxy
   */
-  createForView: function(view) {
+  createForView: function createForView(view) {
     var ret = SC.beget(this);
 
     // set up displayProperty lookup for performance
@@ -335,7 +335,7 @@ SC.View._RenderDelegateProxy = {
    @param {String} property The name of the property the render delegate needs.
    @returns The value.
   */
-  get: function(property) {
+  get: function get(property) {
     if (this[property] !== undefined) { return this[property]; }
 
     var displayProperty = 'display' + property.capitalize();
@@ -356,7 +356,7 @@ SC.View._RenderDelegateProxy = {
    'display' prefix. Then, it calls view.didChangeFor with context and that
    property name.
   */
-  didChangeFor: function(context) {
+  didChangeFor: function didChangeFor(context) {
     var len = arguments.length, idx;
     for (idx = 1; idx < len; idx++) {
       var property = arguments[idx],

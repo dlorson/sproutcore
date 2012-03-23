@@ -17,14 +17,14 @@ SC.mixin(String.prototype,
   /**
     @see SC.String.fmt
   */
-  fmt: function() {
+  fmt: function fmt() {
     return SC.String.fmt(this, arguments);
   },
 
   /**
     @see SC.String.w
   */
-  w: function() {
+  w: function w() {
     return SC.String.w(this);
   }
 

@@ -9,11 +9,11 @@ var content, delegate ;
 var Delegate = SC.Object.extend(SC.CollectionRowDelegate, {
   rowHeight: 40,
   customRowHeightIndexes: SC.IndexSet.create(3).add(5,2),
-  contentIndexRowHeight: function(view, content, index) {
+  contentIndexRowHeight: function contentIndexRowHeight(view, content, index) {
     return this.get('customRowHeightIndexes').contains(index) ? view.get('customRowHeight') : this.get('rowHeight');
   },
   
-  expected: function(view) {
+  expected: function expected(view) {
     var ret = [],
         content = view.get('content'),
         loc = view.get('length');
@@ -27,7 +27,7 @@ var Delegate = SC.Object.extend(SC.CollectionRowDelegate, {
 });
 
 module("SC.ListView.rowOffsetForContentIndex", {
-  setup: function() {
+  setup: function setup() {
     content = "1 2 3 4 5 6 7 8 9 0".w().map(function(x) {
       return SC.Object.create({ value: x });
     }, this);
@@ -111,7 +111,7 @@ test("computed custom row height indexes", function() {
     indexes: Delegate.prototype.customRowHeightIndexes,
     useIndexes: NO,
     
-    customRowHeightIndexes: function() {
+    customRowHeightIndexes: function customRowHeightIndexes() {
       return this.get('useIndexes') ? this.get('indexes') : null;
     }.property('useIndexes').cacheable()
   });

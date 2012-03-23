@@ -71,7 +71,7 @@ SC.Responder = SC.Object.extend( /** @scope SC.Responder.prototype */ {
     
     @returns {SC.Responder} receiver
   */
-  becomeFirstResponder: function() {  
+  becomeFirstResponder: function becomeFirstResponder() {  
     var pane = this.get('pane') || this.get('responderContext') ||
               this.pane();
     if (pane && this.get('acceptsFirstResponder')) {
@@ -88,7 +88,7 @@ SC.Responder = SC.Object.extend( /** @scope SC.Responder.prototype */ {
     @param {Event} the original event that caused this method to be called
     @returns {SC.Responder} receiver
   */
-  resignFirstResponder: function(evt) {
+  resignFirstResponder: function resignFirstResponder(evt) {
     var pane = this.get('pane') || this.get('responderContext');
     if (pane && (pane.get('firstResponder') === this)) {
       pane.makeFirstResponder(null, evt);
@@ -107,7 +107,7 @@ SC.Responder = SC.Object.extend( /** @scope SC.Responder.prototype */ {
     @param {SC.Responder} responder the responder that is about to change
     @returns {void}
   */
-  willLoseFirstResponder: function(responder) {},
+  willLoseFirstResponder: function willLoseFirstResponder(responder) {},
   
   /**
     Called just after the responder or any of its subresponder's becomes a 
@@ -119,6 +119,6 @@ SC.Responder = SC.Object.extend( /** @scope SC.Responder.prototype */ {
     @param {SC.Responder} responder the responder that changed
     @returns {void}
   */
-  didBecomeFirstResponder: function(responder) {}
+  didBecomeFirstResponder: function didBecomeFirstResponder(responder) {}
 
 });

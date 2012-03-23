@@ -72,7 +72,7 @@ SC.FetchedAttribute = SC.RecordAttribute.extend(
   // 
   
   /**  @private - adapted for fetching. do findAll */
-  toType: function(record, key, value) {
+  toType: function toType(record, key, value) {
     var store = record.get('store');
     if (!store) return null ; // nothing to do
     
@@ -92,7 +92,7 @@ SC.FetchedAttribute = SC.RecordAttribute.extend(
   },
 
   /** @private - fetched attributes are read only. */
-  fromType: function(record, key, value) {
+  fromType: function fromType(record, key, value) {
     return value;
   }
   

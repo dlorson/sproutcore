@@ -57,7 +57,7 @@ SC.CollectionRowDelegate = {
     
     @type Number
   */
-  rowHeight: function(key, value) {
+  rowHeight: function rowHeight(key, value) {
     var rowPadding = this.get('rowPadding');
     var itemHeight = this.get('itemHeight');
 
@@ -90,7 +90,7 @@ SC.CollectionRowDelegate = {
     @param {Number} contentIndex the index 
     @returns {Number} row height
   */
-  contentIndexRowHeight: function(view, content, contentIndex) {
+  contentIndexRowHeight: function contentIndexRowHeight(view, content, contentIndex) {
     return this.get('rowHeight');
   }
 

@@ -7,7 +7,7 @@ var sc, del, foo;
 
 module("SC.State: routeTriggered method Tests", {
   
-  setup: function() {
+  setup: function setup() {
     
     del = SC.Object.create(SC.StatechartDelegate, {
       
@@ -15,7 +15,7 @@ module("SC.State: routeTriggered method Tests", {
       
       returnValue: YES,
       
-      statechartShouldStateHandleTriggeredRoute: function(statechart, state, context) {
+      statechartShouldStateHandleTriggeredRoute: function statechartShouldStateHandleTriggeredRoute(statechart, state, context) {
         this.info.statechartShouldStateHandleTriggeredRoute = {
           statechart: statechart, 
           state: state, 
@@ -25,7 +25,7 @@ module("SC.State: routeTriggered method Tests", {
         return this.get('returnValue');
       },
       
-      statechartStateCancelledHandlingTriggeredRoute: function(statechart, state, context) {
+      statechartStateCancelledHandlingTriggeredRoute: function statechartStateCancelledHandlingTriggeredRoute(statechart, state, context) {
         this.info.statechartStateCancelledHandlingTriggeredRoute = {
           statechart: statechart, 
           state: state, 
@@ -47,14 +47,14 @@ module("SC.State: routeTriggered method Tests", {
         
         location: 'foo/bar',
         
-        createStateRouteHandlerContext: function(attr) {
+        createStateRouteHandlerContext: function createStateRouteHandlerContext(attr) {
           this.info.createStateRouteHandlerContext = {
             attr: attr
           };
           return sc_super();
         },
         
-        handleTriggeredRoute: function(context) {
+        handleTriggeredRoute: function handleTriggeredRoute(context) {
           this.info.handleTriggeredRoute = {
             context: context
           };
@@ -68,7 +68,7 @@ module("SC.State: routeTriggered method Tests", {
     foo = sc.getState('foo');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     sc = del = foo = null;
   }
   

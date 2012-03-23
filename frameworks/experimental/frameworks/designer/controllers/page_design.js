@@ -36,7 +36,7 @@ SC.PageDesignController = SC.Object.extend({
     
     The passed selection must be a Designer object.
   */
-  select: function(sel, extend) {
+  select: function select(sel, extend) {
     var base = this.get('selection');
     if (!base || !extend || !base.contains(sel)) {
       base = (!extend || !base) ? SC.CoreSet.create() : base.copy();
@@ -53,7 +53,7 @@ SC.PageDesignController = SC.Object.extend({
     
     The passed selection must be a Designer object.
   */
-  deselect: function(sel) {
+  deselect: function deselect(sel) {
     
     var base = this.get('selection');
     if (base && base.contains(sel)) {
@@ -67,7 +67,7 @@ SC.PageDesignController = SC.Object.extend({
     Invoked whenever the selection changes.  Updates the selection states 
     on the old and new views.
   */
-  selectionDidChange: function() {
+  selectionDidChange: function selectionDidChange() {
     var sel = this.get('selection'),
         oldSel = this._selection ;
 
@@ -91,7 +91,7 @@ SC.PageDesignController = SC.Object.extend({
     Called by a view to reposition the current selection during a mouse 
     drag.
   */
-  repositionSelection: function(evt, info) {
+  repositionSelection: function repositionSelection(evt, info) {
     var sel = this.get('selection');
     if (sel) sel.invoke('mouseReposition', evt, info);  
   },
@@ -99,14 +99,14 @@ SC.PageDesignController = SC.Object.extend({
   /**
     Called by a view to prepare all views in selection for repositioning
   */
-  prepareReposition: function(info) {
+  prepareReposition: function prepareReposition(info) {
     var sel = this.get('selection');
     if (sel) sel.invoke('prepareReposition', info);
   },
   /**
     removes all views in the selection from their parent view
   */
-  deleteSelection: function(){
+  deleteSelection: function deleteSelection(){
     var sel = this.get('selection'), first, parentView;
     
     if(sel && sel.get('length') > 0){
@@ -138,7 +138,7 @@ SC.PageDesignController = SC.Object.extend({
     controller.  You can use this to know which designers are currently in 
     the document to delete them as needed.
   */
-  registerDesigner: function(designer) {
+  registerDesigner: function registerDesigner(designer) {
     this.get('designers').add(designer);
   },
   
@@ -147,7 +147,7 @@ SC.PageDesignController = SC.Object.extend({
   // 
   rootDesigner: null,
   
-  makeRootDesigner: function(designer){
+  makeRootDesigner: function makeRootDesigner(designer){
     var currRoot = this.get('rootDesigner');
     
     if(currRoot) currRoot.set('isRootDesigner', NO);
@@ -163,7 +163,7 @@ SC.PageDesignController = SC.Object.extend({
   // ..........................................................
   // INTERNAL SUPPORT
   // 
-  init: function() {
+  init: function init() {
     this.designers = SC.Set.create();
     this.sel = [];
     sc_super();

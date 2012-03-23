@@ -59,7 +59,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
-  contentIndexIsSelected: function(view, content, idx) {
+  contentIndexIsSelected: function contentIndexIsSelected(view, content, idx) {
     var sel = view.get('selection');
     return sel ? sel.contains(content, idx) : NO ;
   },
@@ -74,7 +74,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
-  contentIndexIsEnabled: function(view, content, idx) {
+  contentIndexIsEnabled: function contentIndexIsEnabled(view, content, idx) {
     return view.get('isEnabled');
   },
   
@@ -93,7 +93,7 @@ SC.CollectionContent = {
     @param {SC.Array} content the content object
     @return {SC.IndexSet} 
   */
-  contentGroupIndexes: function(view, content) {
+  contentGroupIndexes: function contentGroupIndexes(view, content) {
     return null;
   },
   
@@ -110,7 +110,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
-  contentIndexIsGroup: function(view, content, idx) {
+  contentIndexIsGroup: function contentIndexIsGroup(view, content, idx) {
     return NO ;
   },
   
@@ -129,7 +129,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
-  contentIndexOutlineLevel: function(view, content, idx) {
+  contentIndexOutlineLevel: function contentIndexOutlineLevel(view, content, idx) {
     return -1;
   },
   
@@ -147,7 +147,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
   */
-  contentIndexDisclosureState: function(view, content, idx) {
+  contentIndexDisclosureState: function contentIndexDisclosureState(view, content, idx) {
     return SC.LEAF_NODE;    
   },
   
@@ -160,7 +160,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {void}
   */
-  contentIndexExpand: function(view, content, idx) {
+  contentIndexExpand: function contentIndexExpand(view, content, idx) {
     SC.Logger.log('contentIndexExpand(%@, %@, %@)'.fmt(view,content,idx));
   },
   
@@ -173,7 +173,7 @@ SC.CollectionContent = {
     @param {Number} idx the content index
     @returns {void}
   */
-  contentIndexCollapse: function(view, content, idx) {
+  contentIndexCollapse: function contentIndexCollapse(view, content, idx) {
     SC.Logger.log('contentIndexCollapse(%@, %@, %@)'.fmt(view,content,idx));
   }
     

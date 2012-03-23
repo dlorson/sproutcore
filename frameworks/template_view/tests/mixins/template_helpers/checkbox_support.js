@@ -8,7 +8,7 @@
   var checkboxView, pane;
 
   module("Checkbox Support", {
-    setup: function() {
+    setup: function setup() {
       checkboxView = SC.TemplateView.create(SC.CheckboxSupport, {
         template: SC.Handlebars.compile('<input type="checkbox">')
       });
@@ -19,7 +19,7 @@
       pane.append();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
     }
   });
@@ -36,7 +36,7 @@
   });
 
   module("SC.Checkbox", {
-    setup: function() {
+    setup: function setup() {
       checkboxView = SC.Checkbox.create({});
 
       pane = SC.MainPane.create({
@@ -45,7 +45,7 @@
       pane.append();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
     }
   });

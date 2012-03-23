@@ -8,7 +8,7 @@
 /*global module test htmlbody ok equals same stop start */
 var pane, view, view1, view2 ;
 module("SC.ScrollerView",{
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 	pane = SC.MainPane.create({
 	  childViews: [
@@ -36,7 +36,7 @@ module("SC.ScrollerView",{
   view2= pane.childViews[2];
   },
 
-  teardown: function() {
+  teardown: function teardown() {
    	pane.remove();
    	pane = view = null ;
   }

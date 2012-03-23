@@ -83,19 +83,19 @@ SC.SourceListGroupView = SC.View.extend(SC.Control, SC.CollectionGroup,
   groupVisibleKey: null,
   
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     context.push('<div role="button" class="sc-source-list-label sc-disclosure-view sc-button-view button disclosure no-disclosure">',
               '<img src="'+SC.BLANK_IMAGE_URL+'" class="button" />',
               '<span class="label"></span></div>') ;
   },
   
   /** @private */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     
   },
   
   /** @private */
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
     var content = this.get('content') ;
     var labelView = this.outlet('labelView') ;
     
@@ -140,7 +140,7 @@ SC.SourceListGroupView = SC.View.extend(SC.Control, SC.CollectionGroup,
   /** @private
     Called when the user clicks on the disclosure triangle
   */
-  disclosureValueDidChange: function(newValue) {
+  disclosureValueDidChange: function disclosureValueDidChange(newValue) {
     if (newValue == this.get('isGroupVisible')) return; // nothing to do
     
     // update group if necessary
@@ -167,7 +167,7 @@ SC.SourceListGroupView = SC.View.extend(SC.Control, SC.CollectionGroup,
       normally you would do this with a binding, but since this is a semi-
       private class anyway, there is no reason to go to all that trouble.
     */
-    _valueObserver: function() {
+    _valueObserver: function _valueObserver() {
       if (this.owner) this.owner.disclosureValueDidChange(this.get('value')) ;
     }.observes('value')
     

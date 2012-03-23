@@ -50,7 +50,7 @@ SC.mixin(SC.platform,
     @property {Number}
     @default -10
   */
-  accelerationMinimum: function() {
+  accelerationMinimum: function accelerationMinimum() {
     // we may want finer grained control of this by platform later
     return -10;
   }(),
@@ -59,7 +59,7 @@ SC.mixin(SC.platform,
     @property {Number}
     @default 10
   */
-  accelerationMaximum: function() {
+  accelerationMaximum: function accelerationMaximum() {
     // we may want finer grained control of this by platform later
     return 10;
   }()

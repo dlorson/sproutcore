@@ -1320,7 +1320,7 @@ test("Complex Instances Nesting (with function value in literals and/or in neste
         this.b1 = new B(function () {});
         this.b2 = new B({
             x: {
-                b1: new B({a: function() {}}),
+                b1: new B({a: function a() {}}),
                 b2: new B(function() {})
             }
         });

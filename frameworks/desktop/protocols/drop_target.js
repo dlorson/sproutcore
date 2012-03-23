@@ -63,7 +63,7 @@ SC.DropTarget = {
     @param {SC.Drag} drag The current drag object.
     @param {SC.Event} evt The most recent mouse move event.  Use to get location 
   */
-  dragStarted: function(drag, evt) {},
+  dragStarted: function dragStarted(drag, evt) {},
   
   /**
     Called when the drag first enters the droppable area, if it returns a
@@ -74,7 +74,7 @@ SC.DropTarget = {
     @param drag {SC.Drag} The current drag object.
     @param evt {SC.Event} The most recent mouse move event.  Use to get location
   */
-  dragEntered: function(drag, evt) {},
+  dragEntered: function dragEntered(drag, evt) {},
   
   /**
     Called periodically when a drag is over your droppable area.
@@ -93,7 +93,7 @@ SC.DropTarget = {
     @param {SC.Drag} drag The current drag object.
     @param {SC.Event} evt The most recent mouse move event. Use to get location
   */
-  dragUpdated: function(drag, evt) {},
+  dragUpdated: function dragUpdated(drag, evt) {},
   
   /**
     Called when the user exits your droppable area or the drag ends
@@ -107,7 +107,7 @@ SC.DropTarget = {
     @param {SC.Drag} drag The current drag object
     @param {SC.Event}   evt  The most recent mouse move event. Use to get location.
   */
-  dragExited: function(drag, evt) {},
+  dragExited: function dragExited(drag, evt) {},
   
   /**
     Called on all drop targets when the drag ends.  
@@ -121,7 +121,7 @@ SC.DropTarget = {
     @param {SC.Drag} drag The current drag object
     @param {SC.Event}   evt  The most recent mouse move event. Use to get location.
   */
-  dragEnded: function(drag, evt) {},
+  dragEnded: function dragEnded(drag, evt) {},
   
   /**
     Called when the drag needs to determine which drag operations are
@@ -141,7 +141,7 @@ SC.DropTarget = {
     @returns {DragOps} A mask of all the drag operations allowed or 
       SC.DRAG_NONE
   */
-  computeDragOperations: function(drag, evt) {
+  computeDragOperations: function computeDragOperations(drag, evt) {
     return SC.DRAG_NONE;
   },
   
@@ -160,7 +160,7 @@ SC.DropTarget = {
     
     @return {Boolean} YES if operation is OK, NO to cancel.
   */  
-  acceptDragOperation: function(drag, op) {
+  acceptDragOperation: function acceptDragOperation(drag, op) {
     return YES;
   },
   
@@ -180,7 +180,7 @@ SC.DropTarget = {
     
     @return {DragOp} Drag Operation actually performed
   */
-  performDragOperation: function(drag, op) {
+  performDragOperation: function performDragOperation(drag, op) {
     return SC.DRAG_NONE;
   }
   

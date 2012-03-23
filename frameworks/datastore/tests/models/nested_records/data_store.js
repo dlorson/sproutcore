@@ -28,7 +28,7 @@ var initModels = function(){
 // 
 module("Data Store Tests for Nested Records", {
 
-  setup: function() {
+  setup: function setup() {
     NestedRecord = SC.Object.create({
       store: SC.Store.create()
     });
@@ -69,7 +69,7 @@ module("Data Store Tests for Nested Records", {
     SC.RunLoop.end();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     delete NestedRecord.Directory;
     delete NestedRecord.File;
     NestedRecord = null;

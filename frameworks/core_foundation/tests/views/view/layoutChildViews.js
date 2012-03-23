@@ -15,7 +15,7 @@ test("calls renderLayout() on child views on views that need layout if they have
 
 	var callCount = 0 ;
 	var ChildView = SC.View.extend({
-		updateLayout: function(context) { callCount++; }
+		updateLayout: function updateLayout(context) { callCount++; }
 	});
 
 	var view = SC.View.create({
@@ -46,7 +46,7 @@ test("if view has layout, calls renderLayout with context to update element", fu
 	// are actually doing layout.
 	var callCount = 0, isTesting = NO ;
 	var view = SC.View.create({
-		renderLayout: function(context) {
+		renderLayout: function renderLayout(context) {
 			if (!isTesting) return ;
 			equals(context._elem, this.get('layer'), 'should pass context that will edit layer');
 			callCount++;
@@ -69,7 +69,7 @@ test("if view has NO layout, should not call renderLayout", function() {
 	// are actually doing layout.
 	var callCount = 0, isTesting = NO ;
 	var view = SC.View.create({
-		renderLayout: function(context) {
+		renderLayout: function renderLayout(context) {
 			if (!isTesting) return ;
 			callCount++;
 		}
@@ -115,13 +115,13 @@ test("adds layoutStyle property to passed context", function() {
 //
 var view, callCount ;
 module('SC.View#layoutChildViewsIfNeeded', {
-	setup: function() {
+	setup: function setup() {
 		callCount = 0;
 		view = SC.View.create({
-			layoutChildViews: function() { callCount++; }
+			layoutChildViews: function layoutChildViews() { callCount++; }
 		});
 	},
-	teardown: function() { view = null; }
+	teardown: function teardown() { view = null; }
 });
 
 test("calls layoutChildViews() if childViewsNeedLayout and isVisibleInWindow & sets childViewsNeedLayout to NO", function() {

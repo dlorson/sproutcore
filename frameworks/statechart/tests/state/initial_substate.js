@@ -6,7 +6,7 @@
 var statechart, root, monitor, stateA, stateB, stateC, stateD, stateE, stateF;
 
 module("SC.Statechart: State Initial Substate Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -43,7 +43,7 @@ module("SC.Statechart: State Initial Substate Tests", {
     stateF = statechart.getState('f');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart = root = stateA = stateB = stateC = stateD = stateE = stateF = null;
   }
 });

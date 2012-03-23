@@ -38,7 +38,7 @@ SC.UndoManager = SC.Object.extend(
     @type String
     @default null
   */
-  undoActionName: function() { 
+  undoActionName: function undoActionName() { 
     return this.undoStack ? this.undoStack.name : null ;
   }.property('undoStack'),
   
@@ -49,7 +49,7 @@ SC.UndoManager = SC.Object.extend(
     @type String
     @default null
   */
-  redoActionName: function() { 
+  redoActionName: function redoActionName() { 
     return this.redoStack ? this.redoStack.name : null ;
   }.property('redoStack'),
 
@@ -62,7 +62,7 @@ SC.UndoManager = SC.Object.extend(
     @type Boolean
     @default NO
   */
-  canUndo: function() { 
+  canUndo: function canUndo() { 
     // instead of this.undoStack !== null && this.undoStack !== undefined
     return this.undoStack != null;
   }.property('undoStack'),
@@ -74,7 +74,7 @@ SC.UndoManager = SC.Object.extend(
     @type Boolean
     @default NO
   */
-  canRedo: function() { 
+  canRedo: function canRedo() { 
     // instead of this.redoStack !== null && this.redoStack !== undefined
     return this.redoStack != null; 
   }.property('redoStack'),
@@ -84,7 +84,7 @@ SC.UndoManager = SC.Object.extend(
     
     @returns {Boolean} YES if succeeded, NO otherwise.
   */
-  undo: function() {
+  undo: function undo() {
     this._undoOrRedo('undoStack','isUndoing');
   },
   
@@ -93,7 +93,7 @@ SC.UndoManager = SC.Object.extend(
     
     @returns {Boolean} YES if succeeded, NO otherwise.
   */
-  redo: function() {
+  redo: function redo() {
     this._undoOrRedo('redoStack','isRedoing');
   },
   
@@ -124,7 +124,7 @@ SC.UndoManager = SC.Object.extend(
     @param {String} [name] An optional name for the undo.  If you are using 
       groups, this is not necessary.
   */
-  registerUndo: function(func, name) {
+  registerUndo: function registerUndo(func, name) {
     this.beginUndoGroup(name) ;
     this._activeGroup.actions.push(func) ;
     this.endUndoGroup(name) ;
@@ -143,7 +143,7 @@ SC.UndoManager = SC.Object.extend(
     
     @param {String} name
   */
-  beginUndoGroup: function(name) {
+  beginUndoGroup: function beginUndoGroup(name) {
     // is a group already active? Just increment the counter.
     if (this._activeGroup) {
       this.groupingLevel++ ;
@@ -163,7 +163,7 @@ SC.UndoManager = SC.Object.extend(
     @param {String} name
     @see beginUndoGroup()
   */
-  endUndoGroup: function(name) {
+  endUndoGroup: function endUndoGroup(name) {
     // if more than one groups are active, just decrement the counter.
     if (!this._activeGroup) raise("endUndoGroup() called outside group.") ;
     if (this.groupingLevel > 1) {
@@ -185,7 +185,7 @@ SC.UndoManager = SC.Object.extend(
     
     @throws {Error} If there is no active group
   */
-  setActionName: function(name) {
+  setActionName: function setActionName(name) {
     if (!this._activeGroup) raise("setActionName() called outside group.") ;
     this._activeGroup.name = name ;
   },
@@ -204,7 +204,7 @@ SC.UndoManager = SC.Object.extend(
   redoStack: null, 
   
   /** @private */
-  _undoOrRedo: function(stack, state) {
+  _undoOrRedo: function _undoOrRedo(stack, state) {
     if (this._activeGroup) return false ;
     if (this.get(stack) == null) return true; // noting to do.
 

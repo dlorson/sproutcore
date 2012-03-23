@@ -43,7 +43,7 @@ SC.mixin({
     @param method {Function} method name or function to execute
     @returns {SC}
   */
-  ready: function(target, method) {
+  ready: function ready(target, method) {
     var queue = SC._readyQueue;
     
     // normalize
@@ -65,7 +65,7 @@ SC.mixin({
   },
 
   onReady: {
-    done: function() {
+    done: function done() {
       if(SC.isReady) return;
       
       SC.isReady = true;

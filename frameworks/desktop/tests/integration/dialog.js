@@ -11,7 +11,7 @@
 var pane ;
 
 module("A dialog with some basic controls and buttons", {
-  teardown: function(){
+  teardown: function teardown(){
     if (pane) pane.remove();
   }
 });
@@ -21,7 +21,7 @@ test("adding dialog to screen", function() {
   
   var delegate = SC.Object.create({
     
-    couldNotSend: function() {
+    couldNotSend: function couldNotSend() {
       pane = SC.AlertPane.warn({
         message: "Email could not be sent",
         description: 'There might be a problem with the server or with your internet connection.  Try again in a few minutes.',
@@ -34,7 +34,7 @@ test("adding dialog to screen", function() {
       });
     },
     
-    showMoreInfo: function() {
+    showMoreInfo: function showMoreInfo() {
       pane = SC.AlertPane.info({
         message: "Sending Email",
         description: "Sometimes email doesn't make it.  It's a fact of life.  We all love email, but hey that's how it goes.\n" +
@@ -44,7 +44,7 @@ test("adding dialog to screen", function() {
       });
     },
     
-    alertPaneDidDismiss: function(alert, status) {
+    alertPaneDidDismiss: function alertPaneDidDismiss(alert, status) {
       //console.log("%@.alertDidDismiss - %@".fmt(alert, status));
       switch(status) {
         case SC.OK_STATUS:

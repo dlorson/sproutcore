@@ -63,19 +63,19 @@ SC.CheckboxView = SC.ButtonView.extend(SC.StaticLayout,
     @default NO
     @observes isEnabled
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     if (SC.FOCUS_ALL_CONTROLS) { return this.get('isEnabled'); }
     return NO;
   }.property('isEnabled'),
   
   /** @private */
-  _toggleValue: function(){
+  _toggleValue: function _toggleValue(){
     var isOn = this.get('value') === this.get('toggleOnValue');
     this.set('value', isOn ? this.get('toggleOffValue') : this.get('toggleOnValue'));
   },
   
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if(!this.get('isEnabled')) return YES;
     this.set('isActive', YES);
     this._isMouseDown = YES;
@@ -84,7 +84,7 @@ SC.CheckboxView = SC.ButtonView.extend(SC.StaticLayout,
   },
   
   /** @private */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if(!this.get('isEnabled')) return YES;
 
     this.set('isActive', NO);
@@ -103,7 +103,7 @@ SC.CheckboxView = SC.ButtonView.extend(SC.StaticLayout,
   },
   
   /** @private */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     // handle tab key
     if(!this.get('isEnabled')) return YES;
 
@@ -134,12 +134,12 @@ SC.CheckboxView = SC.ButtonView.extend(SC.StaticLayout,
   
   
   /** @private */
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     return this.mouseDown(evt);
   },
   
   /** @private */
-  touchEnd: function(evt) {
+  touchEnd: function touchEnd(evt) {
     return this.mouseUp(evt);
   }
     

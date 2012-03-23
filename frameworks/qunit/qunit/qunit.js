@@ -33,7 +33,7 @@ var Test = function(name, testName, expected, testEnvironmentArg, async, callbac
 	this.assertions = [];
 };
 Test.prototype = {
-	init: function() {
+	init: function init() {
 		var tests = id("qunit-tests");
 		if (tests) {
 			var b = document.createElement("strong");
@@ -45,7 +45,7 @@ Test.prototype = {
 			tests.appendChild( li );
 		}
 	},
-	setup: function() {
+	setup: function setup() {
 		if (this.module != config.previousModule) {
 			if ( config.previousModule ) {
 				QUnit.moduleDone( {
@@ -64,8 +64,8 @@ Test.prototype = {
 
 		config.current = this;
 		this.testEnvironment = extend({
-			setup: function() {},
-			teardown: function() {}
+			setup: function setup() {},
+			teardown: function teardown() {}
 		}, this.moduleTestEnvironment);
 		if (this.testEnvironmentArg) {
 			extend(this.testEnvironment, this.testEnvironmentArg);
@@ -89,7 +89,7 @@ Test.prototype = {
 			QUnit.ok( false, "Setup failed on " + this.testName + ": " + e.message );
 		}
 	},
-	run: function() {
+	run: function run() {
 		if ( this.async ) {
 			QUnit.stop();
 		}
@@ -112,7 +112,7 @@ Test.prototype = {
 			}
 		}
 	},
-	teardown: function() {
+	teardown: function teardown() {
 		try {
 			checkPollution();
 			this.testEnvironment.teardown.call(this.testEnvironment);
@@ -120,7 +120,7 @@ Test.prototype = {
 			QUnit.ok( false, "Teardown failed on " + this.testName + ": " + e.message );
 		}
 	},
-	finish: function() {
+	finish: function finish() {
 		if ( this.expected && this.expected != this.assertions.length ) {
 			QUnit.ok( false, "Expected " + this.expected + " assertions, but " + this.assertions.length + " were run" );
 		}
@@ -218,7 +218,7 @@ Test.prototype = {
 		} );
 	},
 	
-	queue: function() {
+	queue: function queue() {
 		var test = this;
 		synchronize(function() {
 			test.init();
@@ -252,12 +252,12 @@ Test.prototype = {
 var QUnit = {
 
 	// call on start of module test to prepend name to all tests
-	module: function(name, testEnvironment) {
+	module: function module(name, testEnvironment) {
 		config.currentModule = name;
 		config.currentModuleTestEnviroment = testEnvironment;
 	},
 
-	asyncTest: function(testName, expected, callback) {
+	asyncTest: function asyncTest(testName, expected, callback) {
 		if ( arguments.length === 2 ) {
 			callback = expected;
 			expected = 0;
@@ -266,7 +266,7 @@ var QUnit = {
 		QUnit.test(testName, expected, callback, true);
 	},
 	
-	test: function(testName, expected, callback, async) {
+	test: function test(testName, expected, callback, async) {
 		var name = '<span class="test-name">' + testName + '</span>', testEnvironmentArg;
 
 		if ( arguments.length === 2 ) {
@@ -296,7 +296,7 @@ var QUnit = {
 	/**
 	 * Specify the number of expected assertions to guarantee that failed test (no assertions are run at all) don't slip through.
 	 */
-	expect: function(asserts) {
+	expect: function expect(asserts) {
 		config.current.expected = asserts;
 	},
 
@@ -304,7 +304,7 @@ var QUnit = {
 	 * Asserts true.
 	 * @example ok( "asdfasdf".length > 5, "There must be at least 5 chars" );
 	 */
-	ok: function(a, msg) {
+	ok: function ok(a, msg) {
 		a = !!a;
 		var details = {
 			result: a,
@@ -330,31 +330,31 @@ var QUnit = {
 	 * @param Object expected
 	 * @param String message (optional)
 	 */
-	equal: function(actual, expected, message) {
+	equal: function equal(actual, expected, message) {
 		QUnit.push(expected == actual, actual, expected, message);
 	},
 
-	notEqual: function(actual, expected, message) {
+	notEqual: function notEqual(actual, expected, message) {
 		QUnit.push(expected != actual, actual, expected, message);
 	},
 	
-	deepEqual: function(actual, expected, message) {
+	deepEqual: function deepEqual(actual, expected, message) {
 		QUnit.push(QUnit.equiv(actual, expected), actual, expected, message);
 	},
 
-	notDeepEqual: function(actual, expected, message) {
+	notDeepEqual: function notDeepEqual(actual, expected, message) {
 		QUnit.push(!QUnit.equiv(actual, expected), actual, expected, message);
 	},
 
-	strictEqual: function(actual, expected, message) {
+	strictEqual: function strictEqual(actual, expected, message) {
 		QUnit.push(expected === actual, actual, expected, message);
 	},
 
-	notStrictEqual: function(actual, expected, message) {
+	notStrictEqual: function notStrictEqual(actual, expected, message) {
 		QUnit.push(expected !== actual, actual, expected, message);
 	},
 
-	raises: function(block, expected, message) {
+	raises: function raises(block, expected, message) {
 		var actual, ok = false;
 	
 		if (typeof expected === 'string') {
@@ -387,7 +387,7 @@ var QUnit = {
 		QUnit.ok(ok, message);
 	},
 
-	start: function() {
+	start: function start() {
 		config.semaphore--;
 		if (config.semaphore > 0) {
 			// don't start until equal number of stop-calls
@@ -413,7 +413,7 @@ var QUnit = {
 		}
 	},
 	
-	stop: function(timeout) {
+	stop: function stop(timeout) {
 		config.semaphore++;
 		config.blocking = true;
 
@@ -490,7 +490,7 @@ extend(QUnit, {
 	config: config,
 
 	// Initialize the configuration options
-	init: function() {
+	init: function init() {
 		extend(config, {
 			stats: { all: 0, bad: 0 },
 			moduleStats: { all: 0, bad: 0 },
@@ -534,7 +534,7 @@ extend(QUnit, {
 	 * 
 	 * If jQuery is available, uses jQuery's html(), otherwise just innerHTML.
 	 */
-	reset: function() {
+	reset: function reset() {
 		if ( window.jQuery ) {
 			jQuery( "#main, #qunit-fixture" ).html( config.fixture );
 		} else {
@@ -553,7 +553,7 @@ extend(QUnit, {
 	 * @param DOMElement elem
 	 * @param String type
 	 */
-	triggerEvent: function( elem, type, event ) {
+	triggerEvent: function triggerEvent( elem, type, event ) {
 		if ( document.createEvent ) {
 			event = document.createEvent("MouseEvents");
 			event.initMouseEvent(type, true, true, elem.ownerDocument.defaultView,
@@ -566,11 +566,11 @@ extend(QUnit, {
 	},
 	
 	// Safe object type checking
-	is: function( type, obj ) {
+	is: function is( type, obj ) {
 		return QUnit.objectType( obj ) == type;
 	},
 	
-	objectType: function( obj ) {
+	objectType: function objectType( obj ) {
 		if (typeof obj === "undefined") {
 				return "undefined";
 
@@ -604,7 +604,7 @@ extend(QUnit, {
 		return undefined;
 	},
 	
-	push: function(result, actual, expected, message) {
+	push: function push(result, actual, expected, message) {
 		var details = {
 			result: result,
 			message: message,
@@ -638,7 +638,7 @@ extend(QUnit, {
 		});
 	},
 	
-	url: function( params ) {
+	url: function url( params ) {
 		params = extend( extend( {}, QUnit.urlParams ), params );
 		var querystring = "?",
 			key;
@@ -651,19 +651,19 @@ extend(QUnit, {
 	
 	// Logging callbacks; all receive a single argument with the listed properties
 	// run test/logs.html for any related changes
-	begin: function() {},
+	begin: function begin() {},
 	// done: { failed, passed, total, runtime }
-	done: function() {},
+	done: function done() {},
 	// log: { result, actual, expected, message }
-	log: function() {},
+	log: function log() {},
 	// testStart: { name }
-	testStart: function() {},
+	testStart: function testStart() {},
 	// testDone: { name, failed, passed, total }
-	testDone: function() {},
+	testDone: function testDone() {},
 	// moduleStart: { name }
-	moduleStart: function() {},
+	moduleStart: function moduleStart() {},
 	// moduleDone: { name, failed, passed, total }
-	moduleDone: function() {}
+	moduleDone: function moduleDone() {}
 });
 
 if ( typeof document === "undefined" || document.readyState === "complete" ) {

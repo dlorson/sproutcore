@@ -35,7 +35,7 @@ SC.DragDataSource = {
     
     @returns The data object for the specified type
   */
-  dragDataForType: function(drag, dataType) {
+  dragDataForType: function dragDataForType(drag, dataType) {
     return null;
   }
 

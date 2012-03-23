@@ -11,7 +11,7 @@ var content, controller, extra;
 
 var TestObject = SC.Object.extend({
   title: "test",
-  toString: function() { return "TestObject(%@)".fmt(this.get("title")); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get("title")); }
 });
 
 
@@ -20,13 +20,13 @@ var TestObject = SC.Object.extend({
 //
 
 module("SC.ArrayController - array_case - EMPTY", {
-  setup: function() {
+  setup: function setup() {
     content = [];
     controller = SC.ArrayController.create({ content: content });
     extra = TestObject.create({ title: "FOO" });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -86,7 +86,7 @@ test("arrangedObjects", function() {
 //
 
 module("SC.ArrayController - array_case - NON-EMPTY", {
-  setup: function() {
+  setup: function setup() {
     content = "1 2 3 4 5".w().map(function(x) {
       return TestObject.create({ title: x });
     });
@@ -95,7 +95,7 @@ module("SC.ArrayController - array_case - NON-EMPTY", {
     extra = TestObject.create({ title: "FOO" });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -213,7 +213,7 @@ test("verify rangeObserver fires when content is deleted", function() {
   controller = SC.ArrayController.create({ content: content });
 
   var cnt = 0,
-      observer = SC.Object.create({ method: function() { cnt++; } });
+      observer = SC.Object.create({ method: function method() { cnt++; } });
 
   controller.addRangeObserver(SC.IndexSet.create(0,2), observer, observer.method);
 
@@ -236,7 +236,7 @@ test("should invalidate computed property once per changed key", function() {
               SC.Object.create({name:'Señor'}),
               SC.Object.create({name:'Daaaaaale'})],
 
-    fullNames: function(key, value) {
+    fullNames: function fullNames(key, value) {
       if (value !== undefined) {
         setCalls++;
         this.setEach('name', value);
@@ -280,7 +280,7 @@ test("should invalidate property when property on any enumerable changes", funct
   var restaurant = SC.ArrayController.create({
     content: inventory,
 
-    totalCost: function() {
+    totalCost: function totalCost() {
       recomputed++;
       return inventory.reduce(function(prev, item) {
         return prev+item.get('price');
@@ -320,7 +320,7 @@ test("should invalidate property when property of array item changes after conte
   var restaurant = SC.ArrayController.create({
     content: [],
 
-    totalCost: function() {
+    totalCost: function totalCost() {
       recomputed++;
       return inventory.reduce(function(prev, item) {
         return prev+item.get('price');
@@ -355,7 +355,7 @@ test("should invalidate property when property of array item changes after conte
 //
 
 SC.ArraySuite.generate("SC.ArrayController", {
-  newObject: function(amt) {
+  newObject: function newObject(amt) {
     if (amt === undefined || typeof amt === SC.T_NUMBER) {
       amt = this.expected(amt);
     }

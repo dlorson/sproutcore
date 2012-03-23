@@ -8,13 +8,13 @@
 var callCount, obj;
 
 module("SC.Observers.isObservingSuspended", {
-  setup: function() {
+  setup: function setup() {
     callCount = 0;
 
     obj = SC.Object.create({
       foo: "bar",
 
-      fooDidChange: function() {
+      fooDidChange: function fooDidChange() {
         callCount++;
       }.observes('foo')
     });
@@ -70,7 +70,7 @@ test("Object not yet instantiated", function() {
 
   observer = SC.Object.create({
     callCount: 0,
-    makeDidChange: function() {
+    makeDidChange: function makeDidChange() {
       this.callCount += 1;
     }
   });

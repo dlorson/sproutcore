@@ -68,7 +68,7 @@ SC.OBSERVES_HANDLER_REMOVE = 1;
   example:
 
         SC.Object.create({
-          valueObserver: function() {
+          valueObserver: function valueObserver() {
             // Executes whenever the "Value" property changes
           }.observes('value')
         }) ;
@@ -114,11 +114,11 @@ SC.OBSERVES_HANDLER_REMOVE = 1;
   changes:
 
 
-        automaticallyNotifiesObserversFor: function(key) {
+        automaticallyNotifiesObserversFor: function automaticallyNotifiesObserversFor(key) {
           return (key === 'balance') ? NO : sc_super() ;
         },
 
-        balance: function(key, value) {
+        balance: function balance(key, value) {
           var balance = this._balance ;
           if ((value !== undefined) && (balance !== value)) {
             this.propertyWillChange(key) ;
@@ -160,7 +160,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {String} key the key that is changing
     @returns {Boolean} YES if automatic notification should occur.
   */
-  automaticallyNotifiesObserversFor: function(key) {
+  automaticallyNotifiesObserversFor: function automaticallyNotifiesObserversFor(key) {
     return YES;
   },
 
@@ -184,7 +184,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     Computed properties are methods defined with the property() modifier
     declared at the end, such as:
 
-          fullName: function() {
+          fullName: function fullName() {
             return this.getEach('firstName', 'lastName').compact().join(' ');
           }.property('firstName', 'lastName')
 
@@ -205,7 +205,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @returns {Object} the property value or undefined.
 
   */
-  get: function(key) {
+  get: function get(key) {
     var ret = this[key], cache ;
     if (ret === undefined) {
       return this.unknownProperty(key) ;
@@ -267,7 +267,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {Object} value the value to set or null.
     @returns {SC.Observable}
   */
-  set: function(key, value) {
+  set: function set(key, value) {
     var func   = this[key],
         notify = this.automaticallyNotifiesObserversFor(key),
         ret    = value,
@@ -347,7 +347,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {Object} value The value if called as a setter, undefined if called as a getter.
     @returns {Object} The new value for key.
   */
-  unknownProperty: function(key,value) {
+  unknownProperty: function unknownProperty(key,value) {
     if (!(value === undefined)) { this[key] = value; }
     return value ;
   },
@@ -364,7 +364,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
     @returns {SC.Observable}
   */
-  beginPropertyChanges: function() {
+  beginPropertyChanges: function beginPropertyChanges() {
     this._kvo_changeLevel = (this._kvo_changeLevel || 0) + 1;
     return this;
   },
@@ -381,7 +381,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
     @returns {SC.Observable}
   */
-  endPropertyChanges: function() {
+  endPropertyChanges: function endPropertyChanges() {
     this._kvo_changeLevel = (this._kvo_changeLevel || 1) - 1 ;
     var level = this._kvo_changeLevel, changes = this._kvo_changes;
     if ((level<=0) && changes && (changes.length>0) && !SC.Observers.isObservingSuspended) {
@@ -406,7 +406,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {String} key The property key that is about to change.
     @returns {SC.Observable}
   */
-  propertyWillChange: function(key) {
+  propertyWillChange: function propertyWillChange(key) {
     return this ;
   },
 
@@ -428,7 +428,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {Boolean} _keepCache Private property
     @returns {SC.Observable}
   */
-  propertyDidChange: function(key,value, _keepCache) {
+  propertyDidChange: function propertyDidChange(key,value, _keepCache) {
     this._kvo_revision = (this._kvo_revision || 0) + 1;
     var level = this._kvo_changeLevel || 0,
         cachedep, idx, dfunc, func,
@@ -519,7 +519,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {Array|String} dependentKeys one or more dependent keys
     @returns {Object} this
   */
-  registerDependentKey: function(key, dependentKeys) {
+  registerDependentKey: function registerDependentKey(key, dependentKeys) {
     var dependents      = this._kvo_dependents,
         chainDependents = this._kvo_chain_dependents,
         func            = this[key],
@@ -561,7 +561,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} property the property on this object that invalidates the chain
       @param {SC._PropertyChain} chain the chain to notify
     */
-    registerDependentKeyWithChain: function(property, chain) {
+    registerDependentKeyWithChain: function registerDependentKeyWithChain(property, chain) {
       var chains = this._chainsFor(property), next;
       chains.add(chain);
     },
@@ -572,7 +572,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} property the property on this object that invalidates the chain
       @param {SC._PropertyChain} chain the chain to notify
     */
-    removeDependentKeyWithChain: function(property, chain) {
+    removeDependentKeyWithChain: function removeDependentKeyWithChain(property, chain) {
       var chains = this._chainsFor(property), next;
       chains.remove(chain);
 
@@ -587,7 +587,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} property the property associated with the SC._PropertyChain
       @returns {SC.CoreSet}
     */
-    _chainsFor: function(property) {
+    _chainsFor: function _chainsFor(property) {
       this._kvo_property_chains = this._kvo_property_chains || {};
       var chains = this._kvo_property_chains[property] || SC.CoreSet.create();
       this._kvo_property_chains[property] = chains;
@@ -608,7 +608,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {SC.Set} seen already seen keys
       @returns {void}
     */
-    _kvo_addCachedDependents: function(queue, keys, dependents, seen) {
+    _kvo_addCachedDependents: function _kvo_addCachedDependents(queue, keys, dependents, seen) {
       var idx = keys.length,
           func, key, deps ;
 
@@ -640,7 +640,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} key the key to compute
       @returns {Array}
     */
-    _kvo_computeCachedDependentsFor: function(key) {
+    _kvo_computeCachedDependentsFor: function _kvo_computeCachedDependentsFor(key) {
       var cached     = this._kvo_cachedep,
           dependents = this._kvo_dependents,
           keys       = dependents ? dependents[key] : null,
@@ -667,7 +667,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     // OBSERVERS
     //
 
-    _kvo_for: function(kvoKey, type) {
+    _kvo_for: function _kvo_for(kvoKey, type) {
       var ret = this[kvoKey] ;
 
       if (!this._kvo_cloned) this._kvo_cloned = {} ;
@@ -710,7 +710,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       Observer methods you pass should generally have the following signature if
       you do not pass a "context" parameter:
 
-            fooDidChange: function(sender, key, value, rev);
+            fooDidChange: function fooDidChange(sender, key, value, rev);
 
       The sender is the object that changed.  The key is the property that
       changes.  The value property is currently reserved and unused.  The rev
@@ -720,7 +720,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       If you pass a "context" parameter, the context will be passed before the
       revision like so:
 
-            fooDidChange: function(sender, key, value, context, rev);
+            fooDidChange: function fooDidChange(sender, key, value, context, rev);
 
       Usually you will not need the value, context or revision parameters at
       the end.  In this case, it is common to write observer methods that take
@@ -733,7 +733,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} context optional context
       @returns {SC.Object} self
     */
-    addObserver: function(key, target, method, context) {
+    addObserver: function addObserver(key, target, method, context) {
       var kvoKey, chain, chains, observers;
 
       // normalize.  if a function is passed to target, make it the method.
@@ -788,7 +788,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String|Function} method the method to invoke.
       @returns {SC.Observable} receiver
     */
-    removeObserver: function(key, target, method) {
+    removeObserver: function removeObserver(key, target, method) {
 
       var kvoKey, chains, chain, observers, idx ;
 
@@ -849,7 +849,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} key key to check
       @returns {Boolean}
     */
-    hasObserverFor: function(key) {
+    hasObserverFor: function hasObserverFor(key) {
       SC.Observers.flush(this) ; // hookup as many observers as possible.
 
       var observers = this[SC.keyFor('_kvo_observers', key)],
@@ -883,7 +883,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
       @returns {Object} this
     */
-    initObservable: function() {
+    initObservable: function initObservable() {
       if (this._observableInited) return ;
       this._observableInited = YES ;
 
@@ -946,7 +946,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} path a property path string
       @return {Object} returns this
     */
-    addObservesHandler: function(observer, path) {
+    addObservesHandler: function addObservesHandler(observer, path) {
       this._configureObservesHandler(SC.OBSERVES_HANDLER_ADD, observer, path);
       return this;
     },
@@ -963,7 +963,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} path a property path string
       @return {Object} returns this
     */
-    removeObservesHandler: function(observer, path) {
+    removeObservesHandler: function removeObservesHandler(observer, path) {
       this._configureObservesHandler(SC.OBSERVES_HANDLER_REMOVE, observer, path);
       return this;
     },
@@ -985,7 +985,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String} path a property path string
       @param {String} path a dot-notation property path string
     */
-    _configureObservesHandler: function(action, observer, path) {
+    _configureObservesHandler: function _configureObservesHandler(action, observer, path) {
       var dotIndex, root;
       
       switch (action) {
@@ -1034,7 +1034,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param {String} key the key to evaluate
     @returns {Array} array of Observer objects, describing the observer.
   */
-  observersForKey: function(key) {
+  observersForKey: function observersForKey(key) {
     SC.Observers.flush(this) ; // hookup as many observers as possible.
 
     var observers = this[SC.keyFor('_kvo_observers', key)];
@@ -1043,7 +1043,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
     // this private method actually notifies the observers for any keys in the
     // observer queue.  If you pass a key it will be added to the queue.
-    _notifyPropertyObservers: function(key) {
+    _notifyPropertyObservers: function _notifyPropertyObservers(key) {
       if (!this._observableInited) this.initObservable() ;
 
       SC.Observers.flush(this) ; // hookup as many observers as possible.
@@ -1227,7 +1227,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String|Function} method method for target to bind from
       @returns {SC.Binding} new binding instance
     */
-    bind: function(toKey, target, method) {
+    bind: function bind(toKey, target, method) {
 
       var binding , pathType;
 
@@ -1280,7 +1280,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {String|Object} context a unique identifier
       @param {String…} propertyNames one or more property names
     */
-    didChangeFor: function(context) {
+    didChangeFor: function didChangeFor(context) {
       var valueCache, revisionCache, seenValues, seenRevisions, ret,
           currentRevision, idx, key, value;
       context = SC.hashFor(context) ; // get a hash key we can use in caches.
@@ -1332,7 +1332,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} value the value to change
       @returns {SC.Observable}
     */
-    setIfChanged: function(key, value) {
+    setIfChanged: function setIfChanged(key, value) {
       if(value === undefined && SC.typeOf(key) === SC.T_HASH) {
         var hash = key;
 
@@ -1353,7 +1353,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       If any object in the path is undefined, returns undefined.
       @param {String} path The property path you want to retrieve
     */
-    getPath: function(path) {
+    getPath: function getPath(path) {
       var tuple = SC.tupleForPropertyPath(path, this) ;
       if (tuple === null || tuple[0] === null) return undefined ;
       return SC.get(tuple[0], tuple[1]) ;
@@ -1366,7 +1366,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} value the value to set
       @returns {SC.Observable}
     */
-    setPath: function(path, value) {
+    setPath: function setPath(path, value) {
       if (path.indexOf('.') >= 0) {
         var tuple = SC.tupleForPropertyPath(path, this) ;
         if (!tuple || !tuple[0]) return null ;
@@ -1384,7 +1384,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} value the value to set
       @returns {Object} this
     */
-    setPathIfChanged: function(path, value) {
+    setPathIfChanged: function setPathIfChanged(path, value) {
       if (path.indexOf('.') >= 0) {
         var tuple = SC.tupleForPropertyPath(path, this) ;
         if (!tuple || !tuple[0]) return null ;
@@ -1403,7 +1403,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
       @returns {Array} Values of property keys.
     */
-    getEach: function() {
+    getEach: function getEach() {
       var keys = SC.A(arguments),
           ret = [], idx, idxLen;
       for(idx=0, idxLen = keys.length; idx < idxLen;idx++) {
@@ -1420,7 +1420,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Number} increment the amount to increment (optional)
       @returns {Number} new value of property
     */
-    incrementProperty: function(key,increment) {
+    incrementProperty: function incrementProperty(key,increment) {
       if (!increment) increment = 1;
       this.set(key,(this.get(key) || 0)+increment);
       return this.get(key) ;
@@ -1433,7 +1433,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Number} increment the amount to decrement (optional)
       @returns {Number} new value of property
     */
-    decrementProperty: function(key,increment) {
+    decrementProperty: function decrementProperty(key,increment) {
       if (!increment) increment = 1;
       this.set(key,(this.get(key) || 0) - increment) ;
       return this.get(key) ;
@@ -1447,7 +1447,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} alt optional parameter for "false" value
       @returns {Object} new value
     */
-    toggleProperty: function(key,value,alt) {
+    toggleProperty: function toggleProperty(key,value,alt) {
       if (value === undefined) value = true ;
       if (alt === undefined) alt = false ;
       value = (this.get(key) == value) ? alt : value ;
@@ -1467,7 +1467,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param {Object} value The new value of the key.  May be null.
       @returns {SC.Observable}
     */
-    notifyPropertyChange: function(key, value) {
+    notifyPropertyChange: function notifyPropertyChange(key, value) {
       this.propertyWillChange(key) ;
       this.propertyDidChange(key, value) ;
       return this;
@@ -1485,7 +1485,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
       @returns {SC.Observable}
     */
-    allPropertiesDidChange: function() {
+    allPropertiesDidChange: function allPropertiesDidChange() {
       this._kvo_cache = null; //clear cached props
       this._notifyPropertyObservers('*') ;
       return this ;
@@ -1498,21 +1498,21 @@ SC.Observable = /** @scope SC.Observable.prototype */{
 
       @param {String} key The name of the property you want probed for changes
     */
-    addProbe: function(key) { this.addObserver(key,SC.logChange); },
+    addProbe: function addProbe(key) { this.addObserver(key,SC.logChange); },
 
     /**
       Stops a running probe from observing changes to the observer.
 
       @param {String} key The name of the property you want probed for changes
     */
-    removeProbe: function(key) { this.removeObserver(key,SC.logChange); },
+    removeProbe: function removeProbe(key) { this.removeObserver(key,SC.logChange); },
 
     /**
       Logs the named properties to the SC.Logger.
 
       @param {String...} propertyNames one or more property names
     */
-    logProperty: function() {
+    logProperty: function logProperty() {
       var props = SC.$A(arguments),
           prop, propsLen, idx;
       for(idx=0, propsLen = props.length; idx<propsLen; idx++) {
@@ -1538,7 +1538,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
     @param  {String}  key the property to retrieve
   */
   SC.mixin(SC, {
-    get: function(object, key) {
+    get: function get(object, key) {
       if (!object) return undefined;
       if (key === undefined) return this[object];
       if (object.get) return object.get(key);
@@ -1552,7 +1552,7 @@ SC.Observable = /** @scope SC.Observable.prototype */{
       @param  {Object}  object  the object to query
       @param  {String}  path the path to the property to retrieve
     */
-    getPath: function(object, path) {
+    getPath: function getPath(object, path) {
       if (path === undefined) {
         path = object;
         object = window;

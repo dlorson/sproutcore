@@ -22,7 +22,7 @@ sc_require('system/many_array');
       contacts: SC.Record.toMany('MyApp.Contact', { 
         inverse: 'group', // set the key used to represent the inverse 
         isMaster: YES|NO, // indicate whether changing this should dirty
-        transform: function(), // transforms value <=> storeKey,
+        transform: function transform(), // transforms value <=> storeKey,
         isEditable: YES|NO, make editable or not,
         through: 'taggings' // set a relationship this goes through
       });
@@ -68,7 +68,7 @@ SC.ManyAttribute = SC.RecordAttribute.extend(
   //
   
   /**  @private - adapted for to many relationship */
-  toType: function(record, key, value) {
+  toType: function toType(record, key, value) {
     var type      = this.get('typeClass'),
         attrKey   = this.get('key') || key,
         arrayKey  = SC.keyFor('__manyArray__', SC.guidFor(this)),
@@ -96,7 +96,7 @@ SC.ManyAttribute = SC.RecordAttribute.extend(
   },
   
   /** @private - adapted for to many relationship */
-  fromType: function(record, key, value) {
+  fromType: function fromType(record, key, value) {
     var ret = [];
     
     if(!SC.isArray(value)) throw "Expects toMany attribute to be an array";
@@ -122,7 +122,7 @@ SC.ManyAttribute = SC.RecordAttribute.extend(
     @param {String} key key on inverse that was modified
     @returns {void}
   */
-  inverseDidRemoveRecord: function(record, key, inverseRecord, inverseKey) {
+  inverseDidRemoveRecord: function inverseDidRemoveRecord(record, key, inverseRecord, inverseKey) {
     var manyArray = record.get(key);
     if (manyArray) {
       manyArray.removeInverseRecord(inverseRecord);
@@ -142,7 +142,7 @@ SC.ManyAttribute = SC.RecordAttribute.extend(
     @param {String} key key on inverse that was modified
     @returns {void}
   */
-  inverseDidAddRecord: function(record, key, inverseRecord, inverseKey) {
+  inverseDidAddRecord: function inverseDidAddRecord(record, key, inverseRecord, inverseKey) {
     var manyArray = record.get(key);
     if (manyArray) {
       manyArray.addInverseRecord(inverseRecord);

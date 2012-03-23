@@ -74,7 +74,7 @@ SC.GridView = SC.ListView.extend(
   insertionOrientation: SC.HORIZONTAL_ORIENTATION,
   
   /** @private */
-  itemsPerRow: function() {
+  itemsPerRow: function itemsPerRow() {
     var f = this.get('frame'),
         columnWidth = this.get('columnWidth') || 0 ;
 
@@ -86,7 +86,7 @@ SC.GridView = SC.ListView.extend(
     ignore the width of the rect passed since we need to have a single
     contiguous range.
   */
-  contentIndexesInRect: function(rect) {
+  contentIndexesInRect: function contentIndexesInRect(rect) {
     var rowHeight = this.get('rowHeight') || 48 ,
         itemsPerRow = this.get('itemsPerRow'),
         min = Math.floor(SC.minY(rect) / rowHeight) * itemsPerRow,
@@ -95,7 +95,7 @@ SC.GridView = SC.ListView.extend(
   },
   
   /** @private */
-  layoutForContentIndex: function(contentIndex) {
+  layoutForContentIndex: function layoutForContentIndex(contentIndex) {
     var rowHeight = this.get('rowHeight') || 48,
         frameWidth = this.get('clippingFrame').width,
         itemsPerRow = this.get('itemsPerRow'),
@@ -114,7 +114,7 @@ SC.GridView = SC.ListView.extend(
     Overrides default CollectionView method to compute the minimum height
     of the list view.
   */
-  computeLayout: function() {
+  computeLayout: function computeLayout() {
     var content = this.get('content'),
         count = (content) ? content.get('length') : 0,
         rowHeight = this.get('rowHeight') || 48,
@@ -137,13 +137,13 @@ SC.GridView = SC.ListView.extend(
   insertionPointClass: SC.View.extend({
     classNames: ['grid-insertion-point'],
     
-    render: function(context, firstTime) {
+    render: function render(context, firstTime) {
       if (firstTime) context.push('<span class="anchor"></span>') ;
     }
   }),
   
   /** @private */
-  showInsertionPoint: function(itemView, dropOperation) {
+  showInsertionPoint: function showInsertionPoint(itemView, dropOperation) {
     if (!itemView) return ;
     
     // if drop on, then just add a class...
@@ -185,7 +185,7 @@ SC.GridView = SC.ListView.extend(
   },
     
   /** @private */
-  hideInsertionPoint: function() {
+  hideInsertionPoint: function hideInsertionPoint() {
     var insertionPoint = this._insertionPointView ;
     if (insertionPoint) insertionPoint.removeFromParent() ;
 
@@ -196,7 +196,7 @@ SC.GridView = SC.ListView.extend(
   },
   
   /** @private */
-  insertionIndexForLocation: function(loc, dropOperation) {  
+  insertionIndexForLocation: function insertionIndexForLocation(loc, dropOperation) {  
     var f = this.get('frame'),
         sf = this.get('clippingFrame'),
         itemsPerRow = this.get('itemsPerRow'),
@@ -229,7 +229,7 @@ SC.GridView = SC.ListView.extend(
     on screen are potentially in the wrong position.  Update all of their
     layouts if different.
   */
-  _gv_clippingFrameDidChange: function() {
+  _gv_clippingFrameDidChange: function _gv_clippingFrameDidChange() {
     var nowShowing = this.get('nowShowing'), itemView, idx, len;
     this.notifyPropertyChange('itemsPerRow');
 

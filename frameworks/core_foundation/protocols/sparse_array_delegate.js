@@ -36,7 +36,7 @@ SC.SparseArrayDelegate = {
     @param {SC.SparseArray} sparseArray the array that needs a length.
     @returns {void}
   */
-  sparseArrayDidRequestLength: function(sparseArray) {
+  sparseArrayDidRequestLength: function sparseArrayDidRequestLength(sparseArray) {
     // Default does nothing.
   },
 
@@ -61,7 +61,7 @@ SC.SparseArrayDelegate = {
     @param {Number} index the requested index
     @returns {void}
   */
-  sparseArrayDidRequestIndex: function(sparseArray, index) {
+  sparseArrayDidRequestIndex: function sparseArrayDidRequestIndex(sparseArray, index) {
 
   },
 
@@ -85,7 +85,7 @@ SC.SparseArrayDelegate = {
     @param {Range} range read only range.
     @returns {void}
   */
-  sparseArrayDidRequestRange: function(sparseArray, range) {
+  sparseArrayDidRequestRange: function sparseArrayDidRequestRange(sparseArray, range) {
 
   },
 
@@ -99,7 +99,7 @@ SC.SparseArrayDelegate = {
     @return {Number} the index or -1
     @returns {void}
   */
-  sparseArrayDidRequestIndexOf: function(sparseArray, object) {
+  sparseArrayDidRequestIndexOf: function sparseArrayDidRequestIndexOf(sparseArray, object) {
 
   },
 
@@ -114,7 +114,7 @@ SC.SparseArrayDelegate = {
     @param {Array} objects the array of objects to insert
     @returns {Boolean} YES to allow replace, NO to deny
   */
-  sparseArrayShouldReplace: function(sparseArray, idx, amt, objects) {
+  sparseArrayShouldReplace: function sparseArrayShouldReplace(sparseArray, idx, amt, objects) {
     return NO ;
   },
 
@@ -126,6 +126,6 @@ SC.SparseArrayDelegate = {
     @param {SC.SparseArray} sparseArray the sparse array
     @returns {void}
   */
-  sparseArrayDidReset: function(sparseArray) {
+  sparseArrayDidReset: function sparseArrayDidReset(sparseArray) {
   }
 };

@@ -36,7 +36,7 @@ sc_require('render_delegates/render_delegate');
 SC.BaseTheme.imageRenderDelegate = SC.RenderDelegate.create({
   className: 'image',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     var image = dataSource.get('image'),
         imageValue = dataSource.get('imageValue'),
         type = dataSource.get('type') || SC.IMAGE_TYPE_URL,
@@ -62,7 +62,7 @@ SC.BaseTheme.imageRenderDelegate = SC.RenderDelegate.create({
     context = context.end();
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     var image = dataSource.get('image'),
         imageValue = dataSource.get('imageValue'),
         toolTip = dataSource.get('toolTip');
@@ -85,7 +85,7 @@ SC.BaseTheme.imageRenderDelegate = SC.RenderDelegate.create({
     jquery.css(this.imageStyles(dataSource));
   },
 
-  imageStyles: function(dataSource) {
+  imageStyles: function imageStyles(dataSource) {
     var innerFrame = dataSource.get('innerFrame');
     return {
       'position': 'absolute',

@@ -41,7 +41,7 @@ SC.WebView = SC.View.extend(SC.Control, {/** @scope SC.WebView.prototype */
     @param {SC.RenderContext} context
     @param {Boolean} firstTime
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var src = this.get('value'), iframe;
 
     if (firstTime) {
@@ -61,7 +61,7 @@ SC.WebView = SC.View.extend(SC.Control, {/** @scope SC.WebView.prototype */
   /**
     Called when the layer gets created.
   */
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     var f = this.$('iframe');
     // Attach an onload event to the iframe.
     SC.Event.add(f, 'load', this, this.iframeDidLoad);
@@ -70,7 +70,7 @@ SC.WebView = SC.View.extend(SC.Control, {/** @scope SC.WebView.prototype */
   /**
     Called before the layer gets destroyed.
   */
-  willDestroyLayer: function() {
+  willDestroyLayer: function willDestroyLayer() {
     var f = this.$('iframe');
     // Remove the onload event so that the iframe can be released
     SC.Event.remove(f, 'load', this, this.iframeDidLoad);
@@ -84,7 +84,7 @@ SC.WebView = SC.View.extend(SC.Control, {/** @scope SC.WebView.prototype */
     The iframe contents can be accessed only when the src is from the same
     domain as the parent document
   */
-  iframeDidLoad: function() {
+  iframeDidLoad: function iframeDidLoad() {
 
     //fit the iframe to size of the contents.
     if (this.get('shouldAutoResize') === YES) {

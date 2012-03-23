@@ -1,7 +1,7 @@
 module('CoreQuery.stubMethod');
 
 test('returns a set value when the stubbed method is called', function() {
-  var object = {method: function() {}};
+  var object = {method: function method() {}};
   var value = 'something';
   CoreTest.stubMethod(object, 'method').andReturn(value);
 

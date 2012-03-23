@@ -33,7 +33,7 @@ SC.CalculatesEmptiness = {
   isEditingAffectsIsEmpty: YES,
 
 
-  _scce_isEditingDidChange: function() {
+  _scce_isEditingDidChange: function _scce_isEditingDidChange() {
     if(this.get('isEditingAffectsIsEmpty')) {
       this.notifyPropertyChange('isEmpty');
     }
@@ -42,7 +42,7 @@ SC.CalculatesEmptiness = {
   /**
     YES if the field itself is empty. Even if the value is non-empty, the field can be empty due to isVisible.
   */
-  isEmpty: function() {
+  isEmpty: function isEmpty() {
     // When not visible, it is empty. Period.
     if (!this.get('isVisible')) {
       return YES;
@@ -60,7 +60,7 @@ SC.CalculatesEmptiness = {
   /**
     When emptiness changes tell the parent to re-check its own emptiness.
   */
-  _scce_isEmptyDidChange: function() {
+  _scce_isEmptyDidChange: function _scce_isEmptyDidChange() {
     var parentView = this.get('parentView');
 
     if (parentView && parentView._scce_emptinessDidChangeFor) {
@@ -68,7 +68,7 @@ SC.CalculatesEmptiness = {
     }
   }.observes('isEmpty'),
 
-  initMixin: function() {
+  initMixin: function initMixin() {
     this._scce_emptinessDidChangeFor();
   },
 
@@ -77,14 +77,14 @@ SC.CalculatesEmptiness = {
 
   Always triggers (at end of run loop) a relayout of fields.
   */
-  _scce_emptinessDidChangeFor: function(child) {
+  _scce_emptinessDidChangeFor: function _scce_emptinessDidChangeFor(child) {
     this.invokeOnce('_scce_recalculateChildrensEmptiness');
   },
 
   /**
   By default, a view will check all of its fields to determine if it is empty. It is only empty if all of its value fields are.
   */
-  _scce_recalculateChildrensEmptiness: function()
+  _scce_recalculateChildrensEmptiness: function _scce_recalculateChildrensEmptiness()
   {
     // in short, we get the value fields, if we come across one that is not empty
     // we cannot be empty.

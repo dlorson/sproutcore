@@ -16,7 +16,7 @@ SC.mixin( /** @scope SC */ {
     server must return a header indicating that the file  is intended for
     download also.
   */
-  download: function(path) {
+  download: function download(path) {
     var tempDLIFrame=document.createElement('iframe'),
         frameId = 'DownloadFrame_' + this._downloadFrames;
     SC.$(tempDLIFrame).attr('id',frameId);
@@ -47,7 +47,7 @@ SC.mixin( /** @scope SC */ {
   },
 
   // Get the computed style from specific element. Useful for cloning styles
-  getStyle: function(oElm, strCssRule){
+  getStyle: function getStyle(oElm, strCssRule){
     var strValue = "";
     if(document.defaultView && document.defaultView.getComputedStyle){
       strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
@@ -100,7 +100,7 @@ SC.mixin( /** @scope SC */ {
   // than writing your own offset determination code.
   // Second, the offset must be adjusted to account for the element's left and top border
   // if not including the border or to account for the left and top margins when including the margins.
-  pointInElement: function(point, elem, includeFlag, relativeToFlag) {
+  pointInElement: function pointInElement(point, elem, includeFlag, relativeToFlag) {
     var offset,
         width,
         height,
@@ -146,7 +146,7 @@ SC.mixin( /** @scope SC */ {
     Switch the scale of your app. Useful when visualizing apps not designed
     for iphone.
   */
-  switchScale: function() {
+  switchScale: function switchScale() {
     $('head meta[name=viewport]').remove();
     if(window.innerWidth === window.screen.width){
       $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=0" />');

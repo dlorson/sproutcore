@@ -5,11 +5,11 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 module("SC.TemplateView", {
-  setup: function() {
+  setup: function setup() {
     // var view = SC.TemplateView.create();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
 
   }
 });
@@ -21,7 +21,7 @@ test("template view should call the function of the associated template", functi
     templateName: 'test_template',
 
     templates: SC.Object.create({
-      test_template: function(dataSource) {
+      test_template: function test_template(dataSource) {
         return "<h1 id='twas-called'>template was called</h1>";
       }
     })
@@ -41,7 +41,7 @@ test("template view should call the function of the associated template with its
     personName: "Tom DAAAALE",
 
     templates: SC.Object.create({
-      test_template: function(dataSource) {
+      test_template: function test_template(dataSource) {
         return "<h1 id='twas-called'>template was called for " + dataSource.get('personName') + "</h1>";
       }
     })
@@ -66,7 +66,7 @@ test("template views return YES to mouseDown if there is a mouseUp method", func
   ok(!view.tryToPerform('mouseDown'), "view returns NO if there is no mouseUp method");
 
   view = SC.TemplateView.create({
-    mouseUp: function() { }
+    mouseUp: function mouseUp() { }
   });
 
   ok(view.tryToPerform('mouseDown'), "view returns YES if we add a mouseUp method");
@@ -110,7 +110,7 @@ test("should add a 'sc-hidden' class to template views if isVisible is false bef
 
 test("should return an empty rect as its frame if no layer exists", function() {
   var view = SC.TemplateView.create({
-    template: function() { return "foo"; }
+    template: function template() { return "foo"; }
   });
 
   var f = view.get('frame');
@@ -123,7 +123,7 @@ test("should invalidate frame cache when layer is created", function() {
   var pane = SC.MainPane.create().append();
 
   var view = SC.TemplateView.create({
-    template: function() { return "foo"; }
+    template: function template() { return "foo"; }
   });
 
   var f = view.get('frame');
@@ -142,7 +142,7 @@ test("should invalidate frame cache when appended to document", function() {
   var pane = SC.MainPane.create();
 
   var view = SC.TemplateView.create({
-    template: function() { return "foo"; }
+    template: function template() { return "foo"; }
   });
 
   pane.appendChild(view);

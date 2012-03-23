@@ -10,22 +10,22 @@ var statechart = null;
 // 
 
 module("SC.Statechart: With Concurrent States - Goto State Asynchronous Tests", {
-  setup: function() {
+  setup: function setup() {
     
     var StateMixin = {
       
       counter: 0,
       
-      foo: function() {
+      foo: function foo() {
         this.set('counter', this.get('counter') + 1);
         this.resumeGotoState();
       },
       
-      enterState: function() {
+      enterState: function enterState() {
         return this.performAsync('foo');
       },
       
-      exitState: function() {
+      exitState: function exitState() {
         return this.performAsync(function() { this.foo(); });
       }
     };
@@ -57,7 +57,7 @@ module("SC.Statechart: With Concurrent States - Goto State Asynchronous Tests", 
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = null;
   }

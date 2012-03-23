@@ -6,23 +6,23 @@
 // ==========================================================================
 var ObjectA;
 module("object.propertyChanges()", {	
-	setup: function() {
+	setup: function setup() {
 		ObjectA = SC.Object.create({
 			normal: 'value',
 			normal1: 'zeroValue',
 						
-			action: function() {
+			action: function action() {
 				this.normal1= 'newValue';
 			}.observes('normal'),
 			
 			normal2: 'dependentValue',
 			normal3: 'notifiedValue',
 			
-			notifyAction: function() {
+			notifyAction: function notifyAction() {
 				this.normal3= 'newDependentValue';
 			}.observes('normal2'),
 			
-			notifyAllAction: function() {
+			notifyAllAction: function notifyAllAction() {
 				this.normal2= 'newZeroValue';
 			}.observes('normal1')			
 		});

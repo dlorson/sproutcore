@@ -22,11 +22,11 @@
   var pane, view ; // test globals
 
   module('SC.MainPane', {
-    setup: function() {
+    setup: function setup() {
       pane = SC.MainPane.create();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
     }
   });

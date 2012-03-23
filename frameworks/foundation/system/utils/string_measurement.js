@@ -33,7 +33,7 @@ SC.mixin( /** @scope SC */ {
     @param layout {Hash} The layout hash to stringify.
     @returns {String} A string representation of the layout hash.
   */
-  stringFromLayout: function(layout) {
+  stringFromLayout: function stringFromLayout(layout) {
     // Put them in the reverse order that we want to display them, because
     // iterating in reverse is faster for CPUs that can compare against zero
     // quickly.
@@ -64,7 +64,7 @@ SC.mixin( /** @scope SC */ {
     @param ignoreEscape {Boolean} To NOT html escape the string.
     @returns {Number} The height of the text given the passed parameters
   */
-  heightForString: function(str, width, style, classNames, ignoreEscape) {
+  heightForString: function heightForString(str, width, style, classNames, ignoreEscape) {
     var elem = this._heightCalcElement, classes, height;
 
     if(!ignoreEscape) str = SC.RenderContext.escapeHTML(str);
@@ -107,7 +107,7 @@ SC.mixin( /** @scope SC */ {
                           string to use.
     @param classNames {String} (Optional) Class names to add to the test element.
   */
-  prepareStringMeasurement: function(exampleElement, classNames) {
+  prepareStringMeasurement: function prepareStringMeasurement(exampleElement, classNames) {
     var element = this._metricsCalculationElement, classes, styles, style,
         cqElem;
 
@@ -190,7 +190,7 @@ SC.mixin( /** @scope SC */ {
     So, generally, we tear the measurement environment down so that it doesn't cause issue.
     However, we keep the DOM element for efficiency.
   */
-  teardownStringMeasurement: function() {
+  teardownStringMeasurement: function teardownStringMeasurement() {
     var element = this._metricsCalculationElement;
 
     // clear element
@@ -208,7 +208,7 @@ SC.mixin( /** @scope SC */ {
     @param string {String} The string to measure.
     @param ignoreEscape {Boolean} To NOT html escape the string.
   */
-  measureString: function(string, ignoreEscape) {
+  measureString: function measureString(string, ignoreEscape) {
     var element = this._metricsCalculationElement,
     padding = 0;
 
@@ -252,7 +252,7 @@ SC.mixin( /** @scope SC */ {
     @param classNames {String} (Optional) Class names to add to the test element.
     @param ignoreEscape {Boolean} To NOT html escape the string.
   */
-  metricsForString: function(string, exampleElement, classNames, ignoreEscape) {
+  metricsForString: function metricsForString(string, exampleElement, classNames, ignoreEscape) {
     SC.prepareStringMeasurement(exampleElement, classNames);
     var result = SC.measureString(string, ignoreEscape);
     SC.teardownStringMeasurement();

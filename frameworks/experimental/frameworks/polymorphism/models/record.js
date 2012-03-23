@@ -47,7 +47,7 @@
 
       @see SC.Record.storeKeyFor
     */
-    storeKeyFor: function(id) {
+    storeKeyFor: function storeKeyFor(id) {
       var storeKeys = this.storeKeysById(),
           ret = storeKeys[id],
           superclass = this.superclass;
@@ -79,7 +79,7 @@
     // Internal Support
     //
 
-    extend: function() {
+    extend: function extend() {
       var ret = oldExtend.apply(this, arguments);
 
       if (ret.prototype.hasOwnProperty('isPolymorphic')) {

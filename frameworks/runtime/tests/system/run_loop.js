@@ -5,7 +5,7 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 module("System:run_loop() - chained binding", {
-  setup: function() {
+  setup: function setup() {
     first = SC.Object.create({ 
 		output: 'first' 
 	}) ;
@@ -14,7 +14,7 @@ module("System:run_loop() - chained binding", {
       input: 'second',
       output: 'second',
       
-      inputDidChange: function() {
+      inputDidChange: function inputDidChange() {
         this.set("output", this.get("input")) ;
       }.observes("input") 
 

@@ -53,7 +53,7 @@ SC.IndexSet = SC.mixin({},
     Walks a content array and copies its contents to a new array.  For large
     content arrays this is faster than using slice()
   */
-  _sc_sliceContent: function(c) {
+  _sc_sliceContent: function _sc_sliceContent(c) {
     if (c.length < 1000) return c.slice(); // use native when faster
     var cur = 0, ret = [], next = c[0];
     while(next !== 0) {
@@ -73,7 +73,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} [length] The length of the range (by default set to 1 if start is a Number)
     @returns {SC.IndexSet}
   */
-  create: function(start, length) {
+  create: function create(start, length) {
     var ret = SC.beget(this);
     ret.initObservable();
     ret.registerDependentKey('min', '[]');
@@ -138,7 +138,7 @@ SC.IndexSet = SC.mixin({},
 
     @type Number
   */
-  min: function() {
+  min: function min() {
     var content = this._content,
         cur = content[0];
     return (cur === 0) ? -1 : (cur>0) ? 0 : Math.abs(cur);
@@ -150,7 +150,7 @@ SC.IndexSet = SC.mixin({},
 
     @type Number
   */
-  firstObject: function() {
+  firstObject: function firstObject() {
     return (this.get('length')>0) ? this.get('min') : undefined;
   }.property(),
 
@@ -161,7 +161,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} index
     @returns {Number} starting index
   */
-  rangeStartForIndex: function(index) {
+  rangeStartForIndex: function rangeStartForIndex(index) {
     var content = this._content,
         max     = this.get('max'),
         ret, next, accel;
@@ -199,7 +199,7 @@ SC.IndexSet = SC.mixin({},
     @param {Object} obj another object.
     @returns {Boolean}
   */
-  isEqual: function(obj) {
+  isEqual: function isEqual(obj) {
 
     // optimize for some special cases
     if (obj === this) return YES ;
@@ -226,7 +226,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} index index to check
     @returns {Number} index or -1
   */
-  indexBefore: function(index) {
+  indexBefore: function indexBefore(index) {
 
     if (index===0) return -1; // fast path
     index--; // start with previous index
@@ -253,7 +253,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} index index to check
     @returns {Number} index or -1
   */
-  indexAfter: function(index) {
+  indexAfter: function indexAfter(index) {
     var content = this._content,
         max     = this.get('max'),
         start, next ;
@@ -280,7 +280,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional range length
     @returns {Boolean}
   */
-  contains: function(start, length) {
+  contains: function contains(start, length) {
     var content, cur, next, rstart, rnext;
 
     // normalize input
@@ -324,7 +324,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional range length
     @returns {Boolean}
   */
-  intersects: function(start, length) {
+  intersects: function intersects(start, length) {
     var content, cur, next, lim;
 
     // normalize input
@@ -373,7 +373,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional range length
     @returns {SC.IndexSet} new index set
   */
-  without: function(start, length) {
+  without: function without(start, length) {
     if (start === this) return SC.IndexSet.create(); // just need empty set
     return this.clone().remove(start, length);
   },
@@ -386,7 +386,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional length of range.
     @returns {SC.IndexSet} receiver
   */
-  replace: function(start, length) {
+  replace: function replace(start, length) {
 
     if (length === undefined) {
       if (typeof start === SC.T_NUMBER) {
@@ -422,7 +422,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional length of range.
     @returns {SC.IndexSet} receiver
   */
-  add: function(start, length) {
+  add: function add(start, length) {
 
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
@@ -596,7 +596,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional length of range.
     @returns {SC.IndexSet} receiver
   */
-  remove: function(start, length) {
+  remove: function remove(start, length) {
 
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
@@ -723,7 +723,7 @@ SC.IndexSet = SC.mixin({},
     pointing to the nearest range start.  The passed range must start on a
     range boundary.  It can end anywhere.
   */
-  _hint: function(start, length, content) {
+  _hint: function _hint(start, length, content) {
     if (content === undefined) content = this._content;
 
     var skip    = SC.IndexSet.HINT_SIZE,
@@ -754,7 +754,7 @@ SC.IndexSet = SC.mixin({},
   /**
     Clears the set
   */
-  clear: function() {
+  clear: function clear() {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
     var oldlen = this.length;
@@ -769,7 +769,7 @@ SC.IndexSet = SC.mixin({},
 
     @param {Enumerable} objects The list of ranges you want to add
   */
-  addEach: function(objects) {
+  addEach: function addEach(objects) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
     this.beginPropertyChanges();
@@ -789,7 +789,7 @@ SC.IndexSet = SC.mixin({},
 
     @param {Object...} objects The list of objects you want to remove
   */
-  removeEach: function(objects) {
+  removeEach: function removeEach(objects) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
     this.beginPropertyChanges();
@@ -809,7 +809,7 @@ SC.IndexSet = SC.mixin({},
   /**
    Clones the set into a new set.
   */
-  clone: function() {
+  clone: function clone() {
     return SC.IndexSet.create(this);
   },
 
@@ -819,7 +819,7 @@ SC.IndexSet = SC.mixin({},
 
     @returns {String}
   */
-  inspect: function() {
+  inspect: function inspect() {
     var content = this._content,
         len     = content.length,
         idx     = 0,
@@ -847,7 +847,7 @@ SC.IndexSet = SC.mixin({},
     @param {Object} target the object to call the callback on
     @returns {SC.IndexSet} receiver
   */
-  forEachRange: function(callback, target) {
+  forEachRange: function forEachRange(callback, target) {
     var content = this._content,
         cur     = 0,
         next    = content[cur],
@@ -873,7 +873,7 @@ SC.IndexSet = SC.mixin({},
     @param {Object} target
     @returns {SC.IndexSet} receiver
   */
-  forEachIn: function(start, length, callback, target) {
+  forEachIn: function forEachIn(start, length, callback, target) {
     var content = this._content,
         cur     = 0,
         idx     = 0,
@@ -905,7 +905,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} length optional range length
     @returns {Number} count of indexes
   */
-  lengthIn: function(start, length) {
+  lengthIn: function lengthIn(start, length) {
 
     var ret = 0 ;
 
@@ -968,7 +968,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} startAt optional starting point
     @returns {Number} found index or -1 if not in set
   */
-  indexOf: function(object, startAt) {
+  indexOf: function indexOf(object, startAt) {
     var source  = this.source;
     if (!source) throw "%@.indexOf() requires source".fmt(this);
 
@@ -997,7 +997,7 @@ SC.IndexSet = SC.mixin({},
     @param {Number} startAt optional starting point
     @returns {Number} found index or -1 if not in set
   */
-  lastIndexOf: function(object, startAt) {
+  lastIndexOf: function lastIndexOf(object, startAt) {
     var source  = this.source;
     if (!source) throw "%@.lastIndexOf() requires source".fmt(this);
 
@@ -1030,7 +1030,7 @@ SC.IndexSet = SC.mixin({},
     @param {Object} target optional content. otherwise uses window
     @returns {SC.IndexSet} receiver
   */
-  forEachObject: function(callback, target) {
+  forEachObject: function forEachObject(callback, target) {
     var source  = this.source;
     if (!source) throw "%@.forEachObject() requires source".fmt(this);
 
@@ -1066,7 +1066,7 @@ SC.IndexSet = SC.mixin({},
        match is the only one
     @returns {SC.IndexSet} receiver
   */
-  addObject: function(object, firstOnly) {
+  addObject: function addObject(object, firstOnly) {
     var source  = this.source;
     if (!source) throw "%@.addObject() requires source".fmt(this);
 
@@ -1093,7 +1093,7 @@ SC.IndexSet = SC.mixin({},
        match is the only one
     @returns {SC.IndexSet} receiver
   */
-  addObjects: function(objects, firstOnly) {
+  addObjects: function addObjects(objects, firstOnly) {
     objects.forEach(function(object) {
       this.addObject(object, firstOnly);
     }, this);
@@ -1113,7 +1113,7 @@ SC.IndexSet = SC.mixin({},
        match is the only one
     @returns {SC.IndexSet} receiver
   */
-  removeObject: function(object, firstOnly) {
+  removeObject: function removeObject(object, firstOnly) {
     var source  = this.source;
     if (!source) throw "%@.removeObject() requires source".fmt(this);
 
@@ -1140,7 +1140,7 @@ SC.IndexSet = SC.mixin({},
        match is the only one
     @returns {SC.IndexSet} receiver
   */
-  removeObjects: function(objects, firstOnly) {
+  removeObjects: function removeObjects(objects, firstOnly) {
     objects.forEach(function(object) {
       this.removeObject(object, firstOnly);
     }, this);
@@ -1161,7 +1161,7 @@ SC.IndexSet = SC.mixin({},
   LOG_OBSERVING: NO,
 
   /** @private - optimized call to forEach() */
-  forEach: function(callback, target) {
+  forEach: function forEach(callback, target) {
     var content = this._content,
         cur     = 0,
         idx     = 0,
@@ -1180,7 +1180,7 @@ SC.IndexSet = SC.mixin({},
   },
 
   /** @private - support iterators */
-  nextObject: function(ignore, idx, context) {
+  nextObject: function nextObject(ignore, idx, context) {
     var content = this._content,
         next    = context.next,
         max     = this.get('max'); // next boundary
@@ -1207,7 +1207,7 @@ SC.IndexSet = SC.mixin({},
     return idx;
   },
 
-  toString: function() {
+  toString: function toString() {
     var str = [];
     this.forEachRange(function(start, length) {
       str.push(length === 1 ? start : "%@..%@".fmt(start, start + length - 1));

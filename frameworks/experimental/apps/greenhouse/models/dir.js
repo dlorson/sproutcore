@@ -30,12 +30,12 @@ Greenhouse.Dir = SC.Record.extend(
   
   isFile: NO,
 
-  path: function(){
+  path: function path(){
     return this.get('dir') + this.get('name');
   }.property('name', 'dir').cacheable(),
 
   
-  evalBody: function(){
+  evalBody: function evalBody(){
     var bodyText = this.get('body'), body, designs = [];
     
    try{
@@ -72,7 +72,7 @@ Greenhouse.Dir = SC.Record.extend(
     file's name and type matches
     @returns boolean
   */
-  includesFile: function(file){
+  includesFile: function includesFile(file){
     if(!this.get('isFile')){
       var contents = this.get('contents'), ret;
       ret = contents.find(function(item){

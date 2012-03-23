@@ -79,7 +79,7 @@ SC.mixin(SC.device,
   // SETUP
   // 
   
-  setupMotion: function() {
+  setupMotion: function setupMotion() {
     SC.RootResponder.responder.listenFor(['devicemotion', 'deviceorientation'], window, this);
   },
   
@@ -88,7 +88,7 @@ SC.mixin(SC.device,
   // DEVICE MOTION HANDLING
   // 
   
-  _scd_listenForDeviceMotionDidChange: function() {
+  _scd_listenForDeviceMotionDidChange: function _scd_listenForDeviceMotionDidChange() {
     if (!SC.RootResponder.responder) return;
     
     // we only care about the gyro now, we don't need acceleration
@@ -109,7 +109,7 @@ SC.mixin(SC.device,
   /**
     Fired once every 50ms, informing us of the gyroscope measurements
   */
-  deviceorientation: function(evt) {
+  deviceorientation: function deviceorientation(evt) {
     evt = evt.originalEvent;
     
     if (!SC.platform.hasGyroscope) SC.platform.hasGyroscope = YES;
@@ -125,7 +125,7 @@ SC.mixin(SC.device,
     Gets called after the first deviceorientation event, used to actually set
     the rotation values
   */
-  _scd_deviceorientationPoll: function(evt) {
+  _scd_deviceorientationPoll: function _scd_deviceorientationPoll(evt) {
     var orientation = this.get('orientation');
     
     evt = evt.originalEvent;
@@ -149,7 +149,7 @@ SC.mixin(SC.device,
   /**
     Fired every 50ms, informing us of the accelerometer measurements
   */
-  devicemotion: function(evt) {
+  devicemotion: function devicemotion(evt) {
     if (!SC.platform.hasAccelerometer) SC.platform.hasAccelerometer = YES;
     
     if (this._devicemotionCalled) {
@@ -174,7 +174,7 @@ SC.mixin(SC.device,
   /** @private
     Gets called after the first devicemotion event, if the device has no gyropscope.
   */
-  _scd_devicemotionPoll: function(evt) {
+  _scd_devicemotionPoll: function _scd_devicemotionPoll(evt) {
     var min = SC.platform.accelerationMinimum,
         max = SC.platform.accelerationMaximum,
         spread = max - min,

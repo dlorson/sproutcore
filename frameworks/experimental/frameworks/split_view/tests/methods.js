@@ -29,7 +29,7 @@ module(
   (layoutDirection === SC.HORIZONTAL_LAYOUT ? "Horizontal" : "Vertical") + 
   " - Methods", 
   {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     // we test with no split divider because we want to easily calculate layout.
     splitView = SC.SplitView.create({
@@ -51,7 +51,7 @@ module(
     right = splitView.childViews[1];
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     
   }
 });
@@ -117,7 +117,7 @@ module(
   (layoutDirection === SC.HORIZONTAL_LAYOUT ? "Horizontal" : "Vertical") + 
   " - Methods",
   {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     // we test with no split divider because we want to easily calculate layout.
     splitView = SC.SplitView.create({

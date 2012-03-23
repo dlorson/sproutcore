@@ -41,7 +41,7 @@ SC.ModalPane = SC.Pane.extend(
     @param {SC.Pane} pane the pane
     @returns {SC.ModalPane} receiver
   */
-  paneWillAppend: function(pane) {
+  paneWillAppend: function paneWillAppend(pane) {
     var _tmpPane;
     this._openPaneCount++;
     if (!this.get('isVisibleInWindow')) this.append();
@@ -64,7 +64,7 @@ SC.ModalPane = SC.Pane.extend(
     @param {SC.Pane} pane the pane
     @returns {SC.ModalPane} receiver
   */
-  paneDidRemove: function(pane) { 
+  paneDidRemove: function paneDidRemove(pane) { 
     var _tmpPane;
     this._openPaneCount--;
     var panes = SC.RootResponder.responder.panes;
@@ -82,7 +82,7 @@ SC.ModalPane = SC.Pane.extend(
   },
   
   /** @private */
-  _hideShowTextfields: function(pane, focusable){
+  _hideShowTextfields: function _hideShowTextfields(pane, focusable){
     var view;
     for(view in SC.View.views){
       view = SC.View.views[view];
@@ -93,13 +93,13 @@ SC.ModalPane = SC.Pane.extend(
   },
   
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var owner = this.get('owner');
     if (owner && owner.modalPaneDidClick) owner.modalPaneDidClick(evt);
   },
   
   /** @private */
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     this.mouseDown(evt);
   }
 });

@@ -64,7 +64,7 @@ SC.Validator = SC.Object.extend(
   @param {SC.View} view The view the value is required for.
   @returns {Object} a value (usually a string) suitable for display
 */
-  fieldValueForObject: function(object, form, view) { return object; },
+  fieldValueForObject: function fieldValueForObject(object, form, view) { return object; },
   
   /**
     Returns the object value for the passed string.
@@ -79,7 +79,7 @@ SC.Validator = SC.Object.extend(
     @param {SC.View} view The view this value was pulled from.
     @returns {Object} an object suitable for consumption by the app.
   */
-  objectForFieldValue: function(value, form, view) { return value; },
+  objectForFieldValue: function objectForFieldValue(value, form, view) { return value; },
   
   // ..........................................
   // VALIDATION PRIMITIVES
@@ -97,7 +97,7 @@ SC.Validator = SC.Object.extend(
     @param {SC.View} field the field to validate.  Responds to fieldValue.
     @returns {Boolean} YES if field is valid.
   */
-  validate: function(form, field) { return true; },
+  validate: function validate(form, field) { return true; },
 
   /**
     Returns an error object if the field is invalid.
@@ -114,7 +114,7 @@ SC.Validator = SC.Object.extend(
     @param {SC.View} field the field to validate.  Responds to fieldValue.
     @returns {SC.Error} an error object
   */
-  validateError: function(form, field) { 
+  validateError: function validateError(form, field) { 
     return SC.$error(
       SC.String.loc("Invalid.General(%@)", field.get('fieldValue')),
       field.get('fieldKey')) ; 
@@ -141,7 +141,7 @@ SC.Validator = SC.Object.extend(
     @returns SC.VALIDATE_OK or an error object.
   
   */
-  validateChange: function(form, field, oldValue) { 
+  validateChange: function validateChange(form, field, oldValue) { 
     return this.validate(form,field) ? SC.VALIDATE_OK : this.validateError(form, field);
   },
 
@@ -158,7 +158,7 @@ SC.Validator = SC.Object.extend(
     @returns SC.VALIDATE_OK or an error object.
   
   */  
-  validateSubmit: function(form, field) { 
+  validateSubmit: function validateSubmit(form, field) { 
     return this.validate(form,field) ? SC.VALIDATE_OK : this.validateError(form, field);
   },
 
@@ -178,7 +178,7 @@ SC.Validator = SC.Object.extend(
 
     @returns SC.VALIDATE_OK, SC.VALIDATE_NO_CHANGE or an error object.
   */  
-  validatePartial: function(form, field) { 
+  validatePartial: function validatePartial(form, field) { 
     if (!field.get('isValid')) {
       return this.validate(form,field) ? SC.VALIDATE_OK : this.validateError(form, field);
     } else return SC.VALIDATE_NO_CHANGE ;
@@ -197,7 +197,7 @@ SC.Validator = SC.Object.extend(
     
     @returns {Boolean} YES if allowed, NO otherwise
   */
-  validateKeyDown: function(form, field,charStr) { return true; },
+  validateKeyDown: function validateKeyDown(form, field,charStr) { return true; },
 
   // .....................................
   // OTHER METHODS
@@ -210,7 +210,7 @@ SC.Validator = SC.Object.extend(
     @param {SC.FormView} form the form for the field
     @param {SC.View} field the field to validate
   */
-  attachTo: function(form,field) { },
+  attachTo: function attachTo(form,field) { },
 
   /**
     Called on a validator just before it is removed from a field.  You can 
@@ -219,7 +219,7 @@ SC.Validator = SC.Object.extend(
     @param {SC.FormView} form the form for the field
     @param {SC.View} field the field to validate
   */
-  detachFrom: function(form, field) {}
+  detachFrom: function detachFrom(form, field) {}
 
 }) ;
 
@@ -258,7 +258,7 @@ SC.Validator.mixin(/** @scope SC.Validator */ {
     
     @returns {SC.Validator} validator instance or null
   */  
-  findFor: function(form,field, validatorKey) {
+  findFor: function findFor(form,field, validatorKey) {
     
     // Convert the validator into a validator instance.
     var validator ;
@@ -305,7 +305,7 @@ SC.Validator.mixin(/** @scope SC.Validator */ {
     Convenience class method to call the fieldValueForObject() instance
     method you define in your subclass.
   */
-  fieldValueForObject: function(object, form, field) {
+  fieldValueForObject: function fieldValueForObject(object, form, field) {
     if (this.prototype && this.prototype.fieldValueForObject) {
       return this.prototype.fieldValueForObject(object,form,field) ;
     }
@@ -316,7 +316,7 @@ SC.Validator.mixin(/** @scope SC.Validator */ {
     Convenience class method to call the objectForFieldValue() instance
     method you define in your subclass.
   */
-  objectForFieldValue: function(value, form, field) {
+  objectForFieldValue: function objectForFieldValue(value, form, field) {
     if (this.prototype && this.prototype.objectForFieldValue) {
       return this.prototype.objectForFieldValue(value,form,field) ;
     }

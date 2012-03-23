@@ -1,6 +1,6 @@
 var date;
 module("Date Formatting", {
-  setup: function() {
+  setup: function setup() {
     date = new Date(2011, 7, 12, 10, 15, 25);
   }
 });

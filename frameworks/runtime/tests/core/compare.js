@@ -8,7 +8,7 @@
 // test parsing of query string
 var v = [];
 module("SC.compare()", {
-  setup: function() {
+  setup: function setup() {
     // setup dummy data
     v[0]  = null;
     v[1]  = false;

@@ -10,7 +10,7 @@
 var context = null;
 
 module("SC.RenderContext#begin", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext();
   }
 });

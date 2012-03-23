@@ -163,7 +163,7 @@ SC.SplitChild =
   //
   // Positioning logic
   //
-  _scsvc_positionOrSizeDidChange: function() {
+  _scsvc_positionOrSizeDidChange: function _scsvc_positionOrSizeDidChange() {
     this.invokeOnce('splitChildLayoutDidChange');
   }.observes('position', 'size'),
   
@@ -178,7 +178,7 @@ SC.SplitChild =
    * make it only set left/width or top/height.
    *
   */
-  splitChildLayoutDidChange: function() {
+  splitChildLayoutDidChange: function splitChildLayoutDidChange() {
     var split = this.get('splitView');
     if (!split) return;
     
@@ -213,7 +213,7 @@ SC.SplitChild =
    *
    * @property SC.SplitView
   */
-  splitView: function() {
+  splitView: function splitView() {
     var view = this ;
     while (view && !view.isSplitView) view = view.get('parentView') ;
     return view ;
@@ -231,7 +231,7 @@ SC.SplitChild =
   splitViewLayoutDirection: null,
   splitViewLayoutDirectionBinding: SC.Binding.oneWay('*splitView.layoutDirection'),
   
-  splitViewLayoutDirectionDidChange: function() {
+  splitViewLayoutDirectionDidChange: function splitViewLayoutDirectionDidChange() {
     this.invokeOnce('splitChildLayoutDidChange');
   }.observes('splitViewLayoutDirection')
 };

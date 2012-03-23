@@ -16,7 +16,7 @@ SC.RootDesignerHighLightView = SC.View.extend(
   
   classNames: 'high-light',
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var targetFrame = this.get('targetFrame');
     // render shadows
     context
@@ -31,24 +31,24 @@ SC.RootDesignerHighLightView = SC.View.extend(
   // EVENT HANDLING
   // 
   
-  // mouseDown: function(evt){
+  // mouseDown: function mouseDown(evt){
   //   return this._handle_click_event(evt);
   // },
   // 
-  // mouseUp: function(evt) {
+  // mouseUp: function mouseUp(evt) {
   //   return this._handle_click_event(evt);
   // },
   // 
-  // mouseMoved: function(evt) {
+  // mouseMoved: function mouseMoved(evt) {
   //   return this._handle_click_event(evt);
   // },
   // 
-  // mouseDragged: function(evt) {
+  // mouseDragged: function mouseDragged(evt) {
   //   return this._handle_click_event(evt);
   // },
   // 
   // 
-  // _handle_click_event: function(evt) {
+  // _handle_click_event: function _handle_click_event(evt) {
   //   var d = this.designer,
   //       targetFrame = this.get('targetFrame');    
   //   if(this.clickInside(targetFrame, evt) && d){

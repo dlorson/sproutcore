@@ -39,7 +39,7 @@ test("should call blurMainTo() on current pane, passing new pane", function() {
   var callCount = 0;
   var p2 = SC.Pane.create();
   var p1 = SC.Pane.create({ 
-    blurMainTo: function(pane) { 
+    blurMainTo: function blurMainTo(pane) { 
       callCount++ ;
       equals(pane, p2, 'should pass new pane');
     }
@@ -55,7 +55,7 @@ test("should call focusMainFrom() on new pane, passing old pane", function() {
   var callCount = 0;
   var p1 = SC.Pane.create();
   var p2 = SC.Pane.create({ 
-    focusMainFrom: function(pane) { 
+    focusMainFrom: function focusMainFrom(pane) { 
       callCount++ ;
       equals(pane, p1, 'should pass old pane');
     }

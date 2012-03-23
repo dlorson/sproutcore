@@ -8,7 +8,7 @@
 var set ;
 
 module("SC.IndexSet.indexAfter", {
-  setup: function() {
+  setup: function setup() {
     set = SC.IndexSet.create(5).add(10,5).add(100);
   }
 });

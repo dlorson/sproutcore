@@ -102,7 +102,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
 
   /*
   FUTURE: DatePickerSupport.
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     sc_super();
     if (SC.browser.isWebkit) {
       // ON MOZILLA DON'T WORK
@@ -124,7 +124,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
     @observes showTime
     @observes showDate
   */
-  format: function() {
+  format: function format() {
     var st = this.get('showTime');
     var sd = this.get('showDate');
     if (st === YES && sd === YES) return this.get('formatDateTime');
@@ -139,7 +139,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
     @type SC.Validator.DateTime
     @observes format
   */
-  validator: function() {
+  validator: function validator() {
     return SC.Validator.DateTime.extend({ format: this.get('format') });
   }.property('format').cacheable(),
 
@@ -149,7 +149,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
     @field
     @type SC.Array
   */
-  tabsSelections: function() {
+  tabsSelections: function tabsSelections() {
     var arr = [];
     var ft = this.get('format');
     var _dt = this.get('_dtConstants');
@@ -187,7 +187,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   /** @private
     If the activeSelection changes or the value changes, update the "TextSelection" to show accordingly.
   */
-  updateTextSelectionObserver: function() {
+  updateTextSelectionObserver: function updateTextSelectionObserver() {
     var as = this.get('activeSelection');
     var ts = this.get('tabsSelections');
     if (this.get('isEditing')) {
@@ -198,7 +198,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   /** @private
     Updates the value according the key.
   */
-  updateValue: function(key, upOrDown) {
+  updateValue: function updateValue(key, upOrDown) {
     // 0 is DOWN - 1 is UP
     var newValue = (upOrDown === 0) ? -1 : 1;
     var value = this.get('value'), hour;
@@ -219,7 +219,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
     }
   },
 
-  _selectRootElement: function() {
+  _selectRootElement: function _selectRootElement() {
     // TODO: This is a solution while I don't found how we
     // receive the last key from the last input.
     // (to see if is entering with Tab or backTab)
@@ -233,7 +233,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   //
 
   /** @private */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     if (this.interpretKeyEvents(evt)) {
       evt.stop();
       return YES;
@@ -242,12 +242,12 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  ctrl_a: function() {
+  ctrl_a: function ctrl_a() {
     return YES;
   },
 
   /** @private */
-  moveUp: function(evt) {
+  moveUp: function moveUp(evt) {
     var as = this.get('activeSelection');
     var ts = this.get('tabsSelections');
     this.updateValue(ts[as].get('key'), 1);
@@ -255,7 +255,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  moveDown: function(evt) {
+  moveDown: function moveDown(evt) {
     var as = this.get('activeSelection');
     var ts = this.get('tabsSelections');
     this.updateValue(ts[as].get('key'), 0);
@@ -263,12 +263,12 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  insertText: function(evt) {
+  insertText: function insertText(evt) {
     return YES;
   },
 
   /** @private */
-  moveRight: function(evt) {
+  moveRight: function moveRight(evt) {
     var ts = this.get('tabsSelections');
     var ns = this.get('activeSelection') + 1;
     if (ns === ts.length) {
@@ -279,7 +279,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  moveLeft: function(evt) {
+  moveLeft: function moveLeft(evt) {
     var ts = this.get('tabsSelections');
     var ns = this.get('activeSelection') - 1;
     if (ns === -1) {
@@ -290,7 +290,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  insertTab: function(evt) {
+  insertTab: function insertTab(evt) {
     var ts = this.get('tabsSelections');
     var ns = this.get('activeSelection') + 1;
     if (ns < ts.length) {
@@ -301,7 +301,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  insertBacktab: function(evt) {
+  insertBacktab: function insertBacktab(evt) {
     var ns = this.get('activeSelection') - 1;
     if (ns !== -1) {
       this.set('activeSelection', ns);
@@ -311,7 +311,7 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var ret = sc_super();
     var cs = this.get('selection');
     if (SC.none(cs)) {
@@ -331,12 +331,12 @@ SC.DateFieldView = SC.TextFieldView.extend(
   },
 
   /** @private */
-  deleteBackward: function(evt) {
+  deleteBackward: function deleteBackward(evt) {
     return YES;
   },
 
   /** @private */
-  deleteForward: function(evt) {
+  deleteForward: function deleteForward(evt) {
     return YES;
   }
 

@@ -81,7 +81,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
   /** @private
     If necessary, adds the loading of the menu to the background task queue.
   */
-  init: function() {
+  init: function init() {
     sc_super();
     this._setupMenu();
     if (this.get('shouldLoadInBackground')) {
@@ -92,7 +92,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
   /** @private
     Sets up binding on the menu, removing any old ones if necessary.
   */
-  _setupMenu: function() {
+  _setupMenu: function _setupMenu() {
     var menu = this.get('instantiatedMenu');
     
     // clear existing bindings
@@ -108,7 +108,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
   /** @private
     Setup the bindings for menu...
   */
-  _popup_menuDidChange: function() {
+  _popup_menuDidChange: function _popup_menuDidChange() {
     this._setupMenu();
   }.observes('menu'),
 
@@ -120,7 +120,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
   /** @private
     Instantiates the menu if it is not already instantiated.
   */
-  _instantiateMenu: function() {
+  _instantiateMenu: function _instantiateMenu() {
     // get menu
     var menu = this.get('menu');
     
@@ -137,7 +137,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
   /** @private
     The guaranteed-instantiated menu.
   */
-  instantiatedMenu: function() {
+  instantiatedMenu: function instantiatedMenu() {
     // get the menu
     var menu = this.get('menu');
     
@@ -159,7 +159,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
 
     @param {SC.Event} evt
   */
-  action: function(evt) {
+  action: function action(evt) {
     var menu = this.get('instantiatedMenu') ;
 
     if (!menu) {
@@ -180,7 +180,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     // If disabled, handle mouse down but ignore it.
     if (!this.get('isEnabled')) return YES ;
 
@@ -232,7 +232,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var timestamp = new Date().getTime(),
         previousTimestamp = this._menuRenderedTimestamp,
         menu = this.get('instantiatedMenu'),
@@ -277,7 +277,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     return YES;
   },
 
@@ -289,7 +289,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
     alt_shift_z)
     @param {SC.Event} evt
   */
-  performKeyEquivalent: function(charCode, evt) {
+  performKeyEquivalent: function performKeyEquivalent(charCode, evt) {
     if (!this.get('isEnabled')) return NO ;
     var menu = this.get('instantiatedMenu') ;
 
@@ -304,7 +304,7 @@ SC.PopupButtonView = SC.ButtonView.extend(
 */
 SC.PopupButtonMenuLoader = SC.Task.extend({
   popupButton: null,
-  run: function() {
+  run: function run() {
     if (this.popupButton) this.popupButton._instantiateMenu();
   }
 });

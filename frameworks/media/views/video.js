@@ -131,7 +131,7 @@ SC.VideoView = SC.View.extend(
     Formatted currentTime. (00:00)
     @property {String}
   */
-  time: function(){
+  time: function time(){
     var currentTime=this.get('currentTime'),
         totaltimeInSecs = this.get('duration');
     var formattedTime = this._addZeros(Math.floor(currentTime/60))+':'+this._addZeros(Math.floor(currentTime%60))+"/"+this._addZeros(Math.floor(totaltimeInSecs/60))+':'+this._addZeros(Math.floor(totaltimeInSecs%60));
@@ -145,7 +145,7 @@ SC.VideoView = SC.View.extend(
     @param {Boolean} firstTime YES if this is creating a layer
     @returns {void}
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var i, j, listLen, pluginsLen, id = SC.guidFor(this);
     if(firstTime){
       for(i=0, listLen = this.degradeList.length; i<listLen; i++){
@@ -275,7 +275,7 @@ SC.VideoView = SC.View.extend(
 
     @returns {void}
   */
-  frameDidChange: function() {
+  frameDidChange: function frameDidChange() {
     if(this.loaded==="html5"){
       var fr= this.get('frame'),
           elem = this.$('video');
@@ -310,7 +310,7 @@ SC.VideoView = SC.View.extend(
 
     @returns {void}
   */
-  addVideoDOMEvents: function() {
+  addVideoDOMEvents: function addVideoDOMEvents() {
     var videoElem, view=this;
     videoElem = this.$('video')[0];
     this.set('videoObject', videoElem);
@@ -453,7 +453,7 @@ SC.VideoView = SC.View.extend(
 
   },
 
-  updateVideoElementLoadedTimeRanges: function(videoElem) {
+  updateVideoElementLoadedTimeRanges: function updateVideoElementLoadedTimeRanges(videoElem) {
     if(!videoElem) videoElem = this.$('video')[0];
     if(!this.loadedTimeRanges) this.loadedTimeRanges=[];
     else this.loadedTimeRanges.length=0;
@@ -470,7 +470,7 @@ SC.VideoView = SC.View.extend(
 
      @returns {void}
    */
-  addQTDOMEvents: function() {
+  addQTDOMEvents: function addQTDOMEvents() {
     var vid=this._getVideoObject(),
         videoElem = this.$()[0],
         view=this,
@@ -566,7 +566,7 @@ SC.VideoView = SC.View.extend(
     // });
   },
 
-  updateQTVideoObjectLoadedTimeRanges: function(vid) {
+  updateQTVideoObjectLoadedTimeRanges: function updateQTVideoObjectLoadedTimeRanges(vid) {
     vid = vid || this._getVideoObject();
     if(!this.loadedTimeRanges) this.loadedTimeRanges=[];
     else this.loadedTimeRanges.length = 0;
@@ -575,13 +575,13 @@ SC.VideoView = SC.View.extend(
     this.notifyPropertyChange('loadedTimeRanges');
   },
 
-  _setDurationFromQTVideoObject: function(vid) {
+  _setDurationFromQTVideoObject: function _setDurationFromQTVideoObject(vid) {
     if(!vid) vid = this._getVideoObject();
     try{ this.set('duration', vid.GetDuration()/vid.GetTimeScale()); }
     catch(e) { this.invokeLater('_setDurationFromQTVideoObject',100); }
   },
 
-  _setDimensionsFromQTVideoObject: function(vid) {
+  _setDimensionsFromQTVideoObject: function _setDimensionsFromQTVideoObject(vid) {
     if(!vid) vid = this._getVideoObject();
     try{
       var dimensions=vid.GetRectangle().split(',');
@@ -629,7 +629,7 @@ SC.VideoView = SC.View.extend(
 
     @returns {void}
   */
-  startSeek: function(){
+  startSeek: function startSeek(){
     if(!this.get('paused')) {
       SC.Logger.log('startseetk');
       this.stop();
@@ -643,7 +643,7 @@ SC.VideoView = SC.View.extend(
 
     @returns {void}
   */
-  endSeek: function(){
+  endSeek: function endSeek(){
     if(this._wasPlaying) {
       SC.Logger.log('startseetk');
       this.play();
@@ -668,7 +668,7 @@ SC.VideoView = SC.View.extend(
     Calls the right play method depending on the technology.
     @returns {void}
   */
-  play: function(){
+  play: function play(){
     try{
       var vid=this._getVideoObject();
       if(this.loaded==="html5") vid.play();
@@ -684,7 +684,7 @@ SC.VideoView = SC.View.extend(
     Calls the right stop method depending on the technology.
     @returns {void}
   */
-  stop: function(){
+  stop: function stop(){
     var vid=this._getVideoObject();
     if(this.loaded==="html5")  vid.pause();
     if(this.loaded==="quicktime")  vid.Stop();
@@ -696,7 +696,7 @@ SC.VideoView = SC.View.extend(
     Plays or stops the video.
     @returns {void}
   */
-  playPause: function(){
+  playPause: function playPause(){
     if(this.get('paused')){
       this.play();
     }else{
@@ -708,7 +708,7 @@ SC.VideoView = SC.View.extend(
     Goes into fullscreen mode if available
     @returns {void}
   */
-  fullScreen: function(){
+  fullScreen: function fullScreen(){
     var vid=this._getVideoObject();
     if(this.loaded==="html5") this.$('video')[0].webkitEnterFullScreen();
     if(this.loaded==="flash") vid.fullScreen();

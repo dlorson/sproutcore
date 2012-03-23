@@ -31,7 +31,7 @@ SC.PreloadBundleTask = SC.Task.extend({
   */
   action: "preloaded",
   
-  run: function(queue) {
+  run: function run(queue) {
     var bundle;
     if (bundle = this.get("bundle")) {
       var st = Date.now();

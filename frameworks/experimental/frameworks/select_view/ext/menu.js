@@ -56,7 +56,7 @@ SC.AutoResizingMenuPane = SC.MenuPane.extend(
     @private
     In addition to the normal init, we need to schedule an automatic resize.
   */
-  init: function() {
+  init: function init() {
     sc_super();
     
     this.set('exampleView', SC.AutoResizingMenuItemView);
@@ -76,7 +76,7 @@ SC.AutoResizingMenuPane = SC.MenuPane.extend(
     @readOnly
     @private
   */
-  createMenuItemViews: function() {
+  createMenuItemViews: function createMenuItemViews() {
     // EXTENDED to set shouldMeasureSize to its initial value and to
     // observe the measured size.
     var views = sc_super();
@@ -95,19 +95,19 @@ SC.AutoResizingMenuPane = SC.MenuPane.extend(
     return views;
   },
 
-  _menuItemViewsDidChange: function() {
+  _menuItemViewsDidChange: function _menuItemViewsDidChange() {
     if (this.get('shouldAutoResize')) this.invokeOnce('_updateMenuWidth');
   }.observes('menuItemViews'),
 
-  _menuItemMeasuredSizeDidChange: function(menuItem) {
+  _menuItemMeasuredSizeDidChange: function _menuItemMeasuredSizeDidChange(menuItem) {
     this.invokeOnce('_updateMenuWidth');
   },
 
-  _menuMinimumMenuWidthDidChange: function() {
+  _menuMinimumMenuWidthDidChange: function _menuMinimumMenuWidthDidChange() {
     this.invokeOnce('_updateMenuWidth');
   }.observes('minimumMenuWidth'),
 
-  _updateMenuWidth: function() {
+  _updateMenuWidth: function _updateMenuWidth() {
     var menuItemViews = this.get('menuItemViews');
     if (!menuItemViews) return;
 

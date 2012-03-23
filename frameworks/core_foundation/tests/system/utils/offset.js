@@ -16,7 +16,7 @@ var pane, view1, view2, view3, view4;
 
 module("SC.offset", {
 
-  setup: function() {
+  setup: function setup() {
 
     htmlbody('<style> .sc-main { height: 2500px; width: 2500px; } </style>');
 
@@ -55,15 +55,15 @@ module("SC.offset", {
 
       // Useful for debugging in iOS
       // /** Allow default touch events */
-      //  touchStart: function(touch) {
+      //  touchStart: function touchStart(touch) {
       //    if (SC.browser.mobileSafari) touch.allowDefault();
       //  },
       //
-      //  touchesDragged: function(evt, touches) {
+      //  touchesDragged: function touchesDragged(evt, touches) {
       //    if (SC.browser.mobileSafari) evt.allowDefault();
       //  },
       //
-      //  touchEnd: function(touch) {
+      //  touchEnd: function touchEnd(touch) {
       //    if (SC.browser.mobileSafari) touch.allowDefault();
       //  }
     });
@@ -76,7 +76,7 @@ module("SC.offset", {
     view4 = view2.childViews[0];
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     // Useful for debugging in iOS
     // if (!SC.browser.mobileSafari) {
       pane.remove();
@@ -237,7 +237,7 @@ test("A regular view with window scroll offset top:10", function() {
 
   window.scrollTo(0, 10);
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() { return testPosition1(element1, element2, element3, element4); }, interval: 200 });
+  SC.Timer.schedule({ target: this, action: function action() { return testPosition1(element1, element2, element3, element4); }, interval: 200 });
   SC.RunLoop.end();
 });
 
@@ -251,7 +251,7 @@ test("A regular view with window scroll offset top:10, left: 10", function() {
 
   window.scrollTo(10, 10);
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() { return testPosition2(element1, element2, element3, element4); }, interval: 200 });
+  SC.Timer.schedule({ target: this, action: function action() { return testPosition2(element1, element2, element3, element4); }, interval: 200 });
   SC.RunLoop.end();
 });
 
@@ -265,7 +265,7 @@ test("A regular view with window scroll offset top:100, left: 10", function() {
 
   window.scrollTo(10, 100);
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() { return testPosition3(element1, element2, element3, element4); }, interval: 200 });
+  SC.Timer.schedule({ target: this, action: function action() { return testPosition3(element1, element2, element3, element4); }, interval: 200 });
   SC.RunLoop.end();
 });
 
@@ -279,6 +279,6 @@ test("A regular view with window scroll offset top:100, left: 100", function() {
 
   window.scrollTo(100, 100);
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() { return testPosition4(element1, element2, element3, element4); }, interval: 200 });
+  SC.Timer.schedule({ target: this, action: function action() { return testPosition4(element1, element2, element3, element4); }, interval: 200 });
   SC.RunLoop.end();
 });

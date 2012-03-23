@@ -26,13 +26,13 @@ var items = [
 var menu, anchor;
 
 module('SC.MenuPane Methods', {
-  setup: function() {
+  setup: function setup() {
     menu = SC.MenuPane.create({
       layout: { width: 206 },
       items: items,
 
       displayItemsCount: 0,
-      displayItemsDidChange: function() {
+      displayItemsDidChange: function displayItemsDidChange() {
         this.displayItemsCount++;
       }.observes('displayItems')
     });
@@ -42,7 +42,7 @@ module('SC.MenuPane Methods', {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     menu.remove();
     anchor.remove();
     menu.destroy();

@@ -74,7 +74,7 @@ SC.Animatable = {
   _animationOrder: ["top", "left", "bottom", "right", "width", "height", "centerX", "centerY", "opacity", "display", "transform"],
 
 
-  initMixin: function()
+  initMixin: function initMixin()
   {
     this._animatable_original_didCreateLayer = this.didCreateLayer || function(){};
     this.didCreateLayer = this._animatable_didCreateLayer;
@@ -137,14 +137,14 @@ SC.Animatable = {
     }
   },
 
-  _animatable_didCreateLayer: function(){
+  _animatable_didCreateLayer: function _animatable_didCreateLayer(){
     this.resetAnimation();
     SC.Event.add(this.get('layer'), SC.platform.cssPrefix+"TransitionEnd", this, this.transitionEnd);
     SC.Event.add(this.get('layer'), "transitionend", this, this.transitionEnd);
     return this._animatable_original_didCreateLayer();
   },
 
-  _animatable_willDestroyLayer: function(){
+  _animatable_willDestroyLayer: function _animatable_willDestroyLayer(){
     SC.Event.remove(this.get('layer'), SC.platform.cssPrefix+"TransitionEnd", this, this.transitionEnd);
     SC.Event.remove(this.get('layer'), "transitionend", this, this.transitionEnd);
     return this._animatable_original_willDestroyLayer();
@@ -153,7 +153,7 @@ SC.Animatable = {
   /**
   Stops all animations on the layer when this occurs by calling resetAnimation.
   */
-  _animatable_will_remove_from_parent: function() {
+  _animatable_will_remove_from_parent: function _animatable_will_remove_from_parent() {
     this.resetAnimation();
   },
 
@@ -164,7 +164,7 @@ SC.Animatable = {
   If you call disable twice, you need two enables to start it. Three times, you need
   three enables.
   */
-  disableAnimation: function() {
+  disableAnimation: function disableAnimation() {
     if (this._disableAnimation < 1) {
       this.updateStyle();
       this._disableAnimation = 1;
@@ -177,7 +177,7 @@ SC.Animatable = {
   /**
   Enables animation if it was disabled (or moves towards that direction, at least).
   */
-  enableAnimation: function() {
+  enableAnimation: function enableAnimation() {
     if (this._disableAnimation <= 1) {
       this.updateStyle();
       this._disableAnimation = 0;
@@ -197,7 +197,7 @@ SC.Animatable = {
 
   This is a complete rewrite of adjust. Its performance can probably be boosted. Do it!
   */
-  adjust: function(dictionary, value)
+  adjust: function adjust(dictionary, value)
   {
     if (!SC.none(value)) {
       var key = dictionary;
@@ -246,14 +246,14 @@ SC.Animatable = {
   /**
     Don't interfere with the built-in animate method.
   */
-  _animatable_animate: function(){
+  _animatable_animate: function _animatable_animate(){
     this.disableAnimation();
     var ret = this._animatable_original_animate.apply(this, arguments);
     this.enableAnimation();
     return ret;
   },
 
-  transitionEnd: function(evt){
+  transitionEnd: function transitionEnd(evt){
     SC.run(function() {
       var propertyName = evt.originalEvent.propertyName,
           callback = this._transitionCallbacks[propertyName];
@@ -276,14 +276,14 @@ SC.Animatable = {
 
   It will return null if there is no such style.
   */
-  getCurrentJavaScriptStyles: function() {
+  getCurrentJavaScriptStyles: function getCurrentJavaScriptStyles() {
     return this._animatableCurrentStyle;
   },
 
   /**
   Resets animation, stopping all existing animations.
   */
-  resetAnimation: function() {
+  resetAnimation: function resetAnimation() {
     this._animatableCurrentStyle = null;
     this._stopJavaScriptAnimations();
     this.disableAnimation();
@@ -296,7 +296,7 @@ SC.Animatable = {
     Stops all JavaScript animations on the object. In their tracks. Hah hah.
     @private
   */
-  _stopJavaScriptAnimations: function() {
+  _stopJavaScriptAnimations: function _stopJavaScriptAnimations() {
     for (var i in this._animators) {
       if (this._animators[i] && this._animators[i].isQueued) {
          SC.Animatable.removeTimer(this._animators[i]);
@@ -304,7 +304,7 @@ SC.Animatable = {
     }
   },
 
-  _getStartStyleHash: function(start, target)
+  _getStartStyleHash: function _getStartStyleHash(start, target)
   {
     // temporarily set layout to "start", in the fastest way possible;
     // note that start is an entire style structure—get("frame") doesn't care! HAH!
@@ -350,7 +350,7 @@ SC.Animatable = {
   @private
   Returns a string with CSS for the timing portion of a transition.
   */
-  cssTimingStringFor: function(transition) {
+  cssTimingStringFor: function cssTimingStringFor(transition) {
     var timing_function = "linear";
     if (transition.timing || SC.Animatable.defaultTimingFunction) {
       var timing = transition.timing || SC.Animatable.defaultTimingFunction;
@@ -367,7 +367,7 @@ SC.Animatable = {
   @private
     Triggers updateStyle at end of run loop.
   */
-  styleDidChange: function() {
+  styleDidChange: function styleDidChange() {
     this.invokeLast("updateStyle");
   }, // observer set up manually in initMixin to allow live mixins
 
@@ -377,7 +377,7 @@ SC.Animatable = {
     top and left transitions have the same duration.
     Not cacheable since transitions may be updated without using a setter.
   */
-  _animatable_hasAcceleratedLayer: function(){
+  _animatable_hasAcceleratedLayer: function _animatable_hasAcceleratedLayer(){
     var leftDuration = this.transitions['left'] && this.transitions['left'].duration,
         topDuration = this.transitions['top'] && this.transitions['top'].duration;
 
@@ -397,7 +397,7 @@ SC.Animatable = {
   immediately (for instance, if you have temporarily disabled animation to set a
   start state), you may want to call manually too.
   */
-  updateStyle: function()
+  updateStyle: function updateStyle()
   {
     // get the layer. We need it for a great many things.
     var layer = this.get("layer");
@@ -643,7 +643,7 @@ SC.Animatable = {
   styles: the styles to set
   delayed: styles to set after a brief delay (if any)
   */
-  _animatableApplyStyles: function(layer, styles, delayed)
+  _animatableApplyStyles: function _animatableApplyStyles(layer, styles, delayed)
   {
     if (!layer) return;
 
@@ -685,13 +685,13 @@ SC.Animatable = {
     }
   },
 
-  _animatableApplyNonDisplayStylesFromTimer: function() {
+  _animatableApplyNonDisplayStylesFromTimer: function _animatableApplyNonDisplayStylesFromTimer() {
     SC.run(function() {
       this.inLoopAction();
     }, this);
   },
 
-  _animatableApplyNonDisplayStyles: function(){
+  _animatableApplyNonDisplayStyles: function _animatableApplyNonDisplayStyles(){
     var layer = this.layer, styles = this.holder._animatableCurrentStyle; // this == timer
     var styleHelpers = {
       // more to be added here...
@@ -761,7 +761,7 @@ SC.Animatable = {
 
   Works by copying the styles to the object's "style" property.
   */
-  updateLayout: function(context, firstTime)
+  updateLayout: function updateLayout(context, firstTime)
   {
     var style = SC.clone(this.get("style"));
     var newLayout = this.get("layout");
@@ -793,7 +793,7 @@ SC.Animatable = {
   from WebKit's source code:
   http://trac.webkit.org/browser/trunk/WebCore/platform/graphics/UnitBezier.h?rev=31808
   */
-  _solveBezierForT: function(ax, ay, bx, by, cx, cy, x, duration) {
+  _solveBezierForT: function _solveBezierForT(ax, ay, bx, by, cx, cy, x, duration) {
     // determines accuracy. Which means animation is slower for longer duration animations.
     // that seems ironic, for some reason, but I don't know why.
 
@@ -829,7 +829,7 @@ SC.Animatable = {
     return t2; // on failure
   },
 
-  _solveBezier: function(p1x, p1y, p2x, p2y, x, duration) {
+  _solveBezier: function _solveBezier(p1x, p1y, p2x, p2y, x, duration) {
     // calculate coefficients
     var cx = 3.0 * p1x;
     var bx = 3.0 * (p2x - p1x) - cx;
@@ -850,7 +850,7 @@ SC.Animatable = {
   Manages a single step in a single animation.
   NOTE: this=>an animator hash
   */
-  _animateTickPixel: function(t)
+  _animateTickPixel: function _animateTickPixel(t)
   {
     // prepare timing stuff
     // first, setup this.start if needed (it is lazy, after all)
@@ -893,7 +893,7 @@ SC.Animatable = {
     }
   },
 
-  _animateTickDisplay: function(t)
+  _animateTickDisplay: function _animateTickDisplay(t)
   {
     // prepare timing stuff
     // first, setup this.start if needed (it is lazy, after all)
@@ -925,7 +925,7 @@ SC.Animatable = {
   Manages a single step in a single animation.
   NOTE: this=>an animator hash
   */
-  _animateTickNumber: function(t)
+  _animateTickNumber: function _animateTickNumber(t)
   {
     // prepare timing stuff
     // first, setup this.start if needed (it is lazy, after all)
@@ -974,7 +974,7 @@ SC.Animatable = {
 
   // NOTE: I tested this with two separate functions (one for each X and Y)
   // 		 no definite performance difference on Safari, at least.
-  _animateTickCenter: function(t)
+  _animateTickCenter: function _animateTickCenter(t)
   {
     // prepare timing stuff
     // first, setup this.start if needed (it is lazy, after all)
@@ -1100,7 +1100,7 @@ SC.mixin(SC.Animatable, {
     Adds a timer.
     @private
   */
-  addTimer: function(animator) {
+  addTimer: function addTimer(animator) {
     if (animator.isQueued) return;
     animator.prev = SC.Animatable.baseTimer;
     animator.next = SC.Animatable.baseTimer.next;
@@ -1114,14 +1114,14 @@ SC.mixin(SC.Animatable, {
     Removes a timer.
     @private
   */
-  removeTimer: function(animator) {
+  removeTimer: function removeTimer(animator) {
     if (!animator.isQueued) return;
     if (animator.next) animator.next.prev = animator.prev; // splice ;)
     animator.prev.next = animator.next; // it should always have a prev.
     animator.isQueued = false;
   },
 
-  start: function()
+  start: function start()
   {
     SC.Animatable._ticks = 0;
     SC.Animatable._timer_start_time = new Date().getTime();
@@ -1131,7 +1131,7 @@ SC.mixin(SC.Animatable, {
     setTimeout(function(){ SC.Animatable.timeout(); }, SC.Animatable.interval);
   },
 
-  timeout: function()
+  timeout: function timeout()
   {
     SC.Animatable.currentTime = new Date().getTime();
     var start = SC.Animatable.currentTime;
@@ -1175,7 +1175,7 @@ SC.mixin(SC.Animatable, {
     }
   },
 
-  runCallback: function(callback){
+  runCallback: function runCallback(callback){
     var typeOfAction = SC.typeOf(callback.action);
 
     // if the action is a function, just try to call it.

@@ -67,7 +67,7 @@ SC.RadioView = SC.View.extend(SC.Control,
     @default YES
     @observes isEnabled
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     if (SC.FOCUS_ALL_CONTROLS) { return this.get('isEnabled'); }
     return NO;
   }.property('isEnabled'),
@@ -218,7 +218,7 @@ SC.RadioView = SC.View.extend(SC.Control,
   /**  @private
     If the items array itself changes, add/remove observer on item... 
   */
-  itemsDidChange: function() {
+  itemsDidChange: function itemsDidChange() {
     if (this._items) {
       this._items.removeObserver('[]', this, this.itemContentDidChange);
     }
@@ -233,7 +233,7 @@ SC.RadioView = SC.View.extend(SC.Control,
     Invoked whenever the item array or an item in the array is changed.
     This method will regenerate the list of items.
   */
-  itemContentDidChange: function() {
+  itemContentDidChange: function itemContentDidChange() {
     // Force regeneration of buttons
     this._renderAsFirstTime = YES;
   
@@ -247,7 +247,7 @@ SC.RadioView = SC.View.extend(SC.Control,
   /** @private
     Data Sources for radioRenderDelegates, as required by radioGroupRenderDelegate.
   */
-  displayItems: function() {
+  displayItems: function displayItems() {
     var items = this.get('items'),
         viewValue = this.get('value'),
         isArray = SC.isArray(viewValue),
@@ -346,7 +346,7 @@ SC.RadioView = SC.View.extend(SC.Control,
     Save the element that was clicked on so we can remove the active state on
     mouseUp.
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return YES;
     
     var delegate = this.get('renderDelegate'), proxy = this.get('renderDelegateProxy'),
@@ -374,7 +374,7 @@ SC.RadioView = SC.View.extend(SC.Control,
     remove the active state. Then update the value if the item clicked is 
     enabled.
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (!this.get('isEnabled')) return YES;
 
     var delegate = this.get('renderDelegate'), proxy = this.get('renderDelegateProxy'),
@@ -402,7 +402,7 @@ SC.RadioView = SC.View.extend(SC.Control,
     return YES;
   },
   
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     if(!this.get('isEnabled')) return YES;
     // handle tab key
     if (evt.which === 9 || evt.keyCode === 9) {
@@ -440,12 +440,12 @@ SC.RadioView = SC.View.extend(SC.Control,
   
 
   /** @private */
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     return this.mouseDown(evt);
   },
 
   /** @private */
-  touchEnd: function(evt) {
+  touchEnd: function touchEnd(evt) {
     return this.mouseUp(evt);
   }
 

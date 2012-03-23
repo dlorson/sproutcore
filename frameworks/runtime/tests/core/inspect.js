@@ -13,7 +13,7 @@ var obj1,obj2,obj3; //global variables
 
 module("Inspect module",{
   
-      setup: function(){	
+      setup: function setup(){	
         obj1 = [1,3,4,9];
         obj2 = 24;     
         obj3 = {};

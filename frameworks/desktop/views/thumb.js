@@ -43,14 +43,14 @@ SC.ThumbView = SC.View.extend(
   isEnabledBindingDefault: SC.Binding.bool(),
   
   /** @private */
-  prepareContext: function(context, firstTime) {
+  prepareContext: function prepareContext(context, firstTime) {
     var splitView = this.get('splitView') ;
     if (splitView) this.set('cursor', splitView.get('thumbViewCursor')) ;
     return sc_super() ;
   },
   
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return NO ;
     
     var splitView = this.get('splitView');
@@ -58,7 +58,7 @@ SC.ThumbView = SC.View.extend(
   },
   
   /** @private */
-  touchStart: function(evt) {
+  touchStart: function touchStart(evt) {
     return this.mouseDown(evt);
   }
 

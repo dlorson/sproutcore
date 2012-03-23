@@ -16,14 +16,14 @@ Greenhouse.viewConfigsController = SC.ArrayController.create(
   /**
     Call this method whenever you want to reload the view configs from the server.
   */
-  reload: function() {
+  reload: function reload() {
     var configQuery = Greenhouse.CONFIG_QUERY, target = Greenhouse.targetController.get('content');
     configQuery.set('app', target.get('name'));
     var files = Greenhouse.store.find(configQuery);
     this.set('content', files);
   },
   
-  _content_status_changed: function(){
+  _content_status_changed: function _content_status_changed(){
     var c = this.get('content'), that = this;    
     if(c && c.get && c.get('status') && c.get('status') === SC.Record.READY_CLEAN){
       Greenhouse.libraryController.set('content', SC.Object.create({
@@ -49,29 +49,29 @@ Greenhouse.viewConfigsController = SC.ArrayController.create(
     }
   }.observes('*content.status'),
   
-  refreshContent: function(){
+  refreshContent: function refreshContent(){
    this._content_status_changed(); 
   },
   
   /** 
     Generates the arrays of views, panes and controllers that can be dropped into this app
   */
-  views: function() {
+  views: function views() {
     return this._collect_all_the_elements('views');
   }.property('[]').cacheable(),
   
-  panes: function() {
+  panes: function panes() {
     return this._collect_all_the_elements('panes');
     
   }.property('[]').cacheable(),
   
-  controllers: function() {
+  controllers: function controllers() {
     return this._collect_all_the_elements('controllers');
     
   }.property('[]').cacheable(),
   
   
-  _collect_all_the_elements: function(key){
+  _collect_all_the_elements: function _collect_all_the_elements(key){
     var c = this.get('content'), ret = [], subItem;
     if(c && c.get('length') > 0){
       c.forEach(function(vc){
@@ -88,7 +88,7 @@ Greenhouse.viewConfigsController = SC.ArrayController.create(
   /*
     lists the editable views
   */
-  editable: function(){
+  editable: function editable(){
     var ret = [], c =this.get('content');
     if(c){
       c.forEach(function(item){

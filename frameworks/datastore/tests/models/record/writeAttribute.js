@@ -7,7 +7,7 @@
 
 var store, Foo, json, foo ;
 module("SC.Record#writeAttribute", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     store = SC.Store.create();
     Foo = SC.Record.extend();

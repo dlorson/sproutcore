@@ -9,7 +9,7 @@ sc_require("panes/pane");
 SC.Pane.reopen(
   /** @scope SC.Pane.prototype */ {
 
-  performKeyEquivalent: function(keystring, evt) {
+  performKeyEquivalent: function performKeyEquivalent(keystring, evt) {
     var ret = sc_super() ; // try normal view behavior first
     if (!ret) {
       var defaultResponder = this.get('defaultResponder') ;
@@ -37,7 +37,7 @@ SC.Pane.reopen(
     If the keyDown event reaches the pane, we can assume that no responders in
     the responder chain, nor the default responder, handled the event.
   */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     var nextValidKeyView;
 
     // Handle tab key presses if we don't have a first responder already
@@ -61,7 +61,7 @@ SC.Pane.reopen(
   },
 
   /** @private method forwards status changes in a generic way. */
-  _forwardKeyChange: function(shouldForward, methodName, pane, isKey) {
+  _forwardKeyChange: function _forwardKeyChange(shouldForward, methodName, pane, isKey) {
     var keyView, responder, newKeyView;
     if (shouldForward && (responder = this.get('firstResponder'))) {
       newKeyView = (pane) ? pane.get('firstResponder') : null ;

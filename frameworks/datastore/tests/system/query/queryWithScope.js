@@ -8,7 +8,7 @@
 // test parsing of query string
 var q, scope1, scope2;
 module("SC.Query#queryWithScope", {
-  setup: function() {
+  setup: function setup() {
     q = SC.Query.create({
       conditions: "foo = bar",
       parameters: { foo: "bar" },
@@ -22,7 +22,7 @@ module("SC.Query#queryWithScope", {
     scope2 = SC.CoreSet.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     q = scope1 = scope2 = null;
   }
 });

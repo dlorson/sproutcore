@@ -8,7 +8,7 @@
 
 var source, indexes, observer, obj ; // base array to work with
 module("SC.RangeObserver#destroy", {
-  setup: function() {
+  setup: function setup() {
     
     // create array with 5 SC.Object's in them
     source = [1,2,3,4,5].map(function(x) {
@@ -21,7 +21,7 @@ module("SC.RangeObserver#destroy", {
       
       callCount: 0, 
       
-      rangeDidChange: function() { 
+      rangeDidChange: function rangeDidChange() { 
         this.callCount++;
       }
       

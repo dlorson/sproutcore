@@ -42,7 +42,7 @@ SC.TableHeaderView = SC.View.extend({
     
     layout: { left: 0, right: 0, bottom: 0 },
     
-    init: function() {
+    init: function init() {
       sc_super();
 
       var tableHeaderView = this.get('parentView');
@@ -54,7 +54,7 @@ SC.TableHeaderView = SC.View.extend({
       
     },
     
-    _scthv_dragModeDidChange: function() {
+    _scthv_dragModeDidChange: function _scthv_dragModeDidChange() {
       // var isInDragMode = this.get('tableHeaderView').get('isInDragMode');
       // this.set('isVisible', isInDragMode);
     }
@@ -65,7 +65,7 @@ SC.TableHeaderView = SC.View.extend({
   */
   column:  null,
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var column = this.get('column'), icon = column.get('icon'), html;
     var span = context.begin('span');
     if (icon) {
@@ -80,7 +80,7 @@ SC.TableHeaderView = SC.View.extend({
   // ========================================================
   // = For the column we look after, set up some observers. =
   // ========================================================
-  init: function() {
+  init: function init() {
     sc_super();
 
     var column = this.get('column');
@@ -98,29 +98,29 @@ SC.TableHeaderView = SC.View.extend({
   /**
     The sortState of the header view's column.
   */
-  sortState: function() {
+  sortState: function sortState() {
     return this.get('column').get('sortState');
   }.property(),
   
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var tableView = this.get('tableView');    
     return tableView ? tableView.mouseDownInTableHeaderView(evt, this) :
      sc_super();
   },
   
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var tableView = this.get('tableView');
     return tableView ? tableView.mouseUpInTableHeaderView(evt, this) :
      sc_super();
   },
   
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     var tableView = this.get('tableView');
     return tableView ? tableView.mouseDraggedInTableHeaderView(evt, this) :
      sc_super();
   },
   
-  _scthv_dragViewForHeader: function() {
+  _scthv_dragViewForHeader: function _scthv_dragViewForHeader() {
     var dragLayer = this.get('layer').cloneNode(true);
     var view = SC.View.create({ layer: dragLayer, parentView: this });
     
@@ -132,15 +132,15 @@ SC.TableHeaderView = SC.View.extend({
     return view;
   },
   
-  _scthv_enterDragMode: function() {
+  _scthv_enterDragMode: function _scthv_enterDragMode() {
     this.set('isInDragMode', YES);
   },
   
-  _scthv_exitDragMode: function() {
+  _scthv_exitDragMode: function _scthv_exitDragMode() {
     this.set('isInDragMode', NO);
   },
   
-  // _scthv_hideViewInDragMode: function() {    
+  // _scthv_hideViewInDragMode: function _scthv_hideViewInDragMode() {    
   //   var shouldBeVisible = !this.get('isInDragMode'), layer = this.get('layer');
   //   console.log('should be visible: %@'.fmt(!this.get('isInDragMode')));
   //   SC.RunLoop.begin();
@@ -148,7 +148,7 @@ SC.TableHeaderView = SC.View.extend({
   //   SC.RunLoop.end();
   // }.observes('isInDragMode'),
   
-  // _scthv_setupDragMode: function() {
+  // _scthv_setupDragMode: function _scthv_setupDragMode() {
   //   var isInDragMode = this.get('isInDragMode');
   //   if (isInDragMode) {
   //     });      
@@ -159,7 +159,7 @@ SC.TableHeaderView = SC.View.extend({
   //   
   // }.observes('isInDragMode'),
   
-  _scthv_dragModeViewDidChange: function() {
+  _scthv_dragModeViewDidChange: function _scthv_dragModeViewDidChange() {
     var dragModeView = this.get('dragModeView');
     if (dragModeView && dragModeView.set) {
       dragModeView.set('tableHeadView', this);
@@ -167,7 +167,7 @@ SC.TableHeaderView = SC.View.extend({
     }
   }.observes('dragModeView'),
   
-  _scthv_layoutDidChange: function(sender, key, value, rev) {
+  _scthv_layoutDidChange: function _scthv_layoutDidChange(sender, key, value, rev) {
     var pv = this.get('parentView');
     pv.invokeOnce(pv.layoutChildViews);
     
@@ -178,13 +178,13 @@ SC.TableHeaderView = SC.View.extend({
   },
   
   // When our column's tableContent property changes, we need to go back and get our column content
-  _scthv_tableContentDidChange: function() {
+  _scthv_tableContentDidChange: function _scthv_tableContentDidChange() {
     var tableContent = this.get('column').get('tableContent');    
     var columnContent = this.get('parentView')._scthv_columnContentFromTableContent(tableContent, this.get('columnIndex'));
     this.set('content', columnContent);
   },
   
-  _scthv_sortStateDidChange: function() {
+  _scthv_sortStateDidChange: function _scthv_sortStateDidChange() {
     SC.RunLoop.begin();
     var sortState  = this.get('column').get('sortState');
     var classNames = this.get('classNames');

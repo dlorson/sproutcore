@@ -57,19 +57,19 @@
         }),
         
         // handle the swipe action
-        swipe: function(touch, direction) {
+        swipe: function swipe(touch, direction) {
           console.error("Swiped! In direction: " + direction);
         },
         
-        swipeStart: function(touch, direction, delta) {
+        swipeStart: function swipeStart(touch, direction, delta) {
           console.error("Swipe started in direction: " + direction + "; dist: " + delta);
         },
         
-        swipeChanged: function(touch, direction, delta) {
+        swipeChanged: function swipeChanged(touch, direction, delta) {
           console.error("Swipe continued in direction: " + direction + "; dist: " + delta);
         },
         
-        swipeEnd: function(touch, direction, delta) {
+        swipeEnd: function swipeEnd(touch, direction, delta) {
           console.error("Completed swipe in direction: " + direction + "; dist: " + delta);
         }
         
@@ -85,7 +85,7 @@ SC.Gesturable = {
     @private
     When SC.Gesturable initializes, any gestures on the view must be instantiated.
   */
-  initMixin: function() {
+  initMixin: function initMixin() {
     this.createGestures();
   },
   
@@ -93,7 +93,7 @@ SC.Gesturable = {
     @private
     Instantiates the gestures.
   */
-  createGestures: function() {
+  createGestures: function createGestures() {
     var gestures = this.get("gestures"), idx, len = gestures.length, g, _g = [];
 
     // loop through all gestures
@@ -138,7 +138,7 @@ SC.Gesturable = {
     have determined your own touchStart, touchesDragged, and touchEnd methods
     are not going to handle it.
   */
-  touchStart: function(touch) {
+  touchStart: function touchStart(touch) {
     this.gestureTouchStart(touch);
   },
   
@@ -149,7 +149,7 @@ SC.Gesturable = {
     (at least for any touches you called gestureTouchStart for in touchStart) to 
     allow the gesture system to update.
   */
-  touchesDragged: function(evt, touches) {
+  touchesDragged: function touchesDragged(evt, touches) {
     this.gestureTouchesDragged(evt, touches);
   },
   
@@ -159,7 +159,7 @@ SC.Gesturable = {
     If you override touchEnd, you will need to call gestureTouchEnd
     for any touches you called touchStart for.
   */
-  touchEnd: function(touch) {
+  touchEnd: function touchEnd(touch) {
     this.gestureTouchEnd(touch);
   },
   
@@ -172,7 +172,7 @@ SC.Gesturable = {
     Once they have claimed the touch, further events will go _directly_ to them—
     this view will cease receiving the touchesDragged and will not receive a touchEnd.
   */
-  gestureTouchStart: function(touch) {
+  gestureTouchStart: function gestureTouchStart(touch) {
     touch.isInteresting = 0;
     
     var gestures = this.get("gestures"), idx, len = gestures.length, g;
@@ -189,7 +189,7 @@ SC.Gesturable = {
     are "unassigned" because all "assigned" touches already get sent directly
     to the gesture.
   */
-  gestureTouchesDragged: function(evt, touches) {
+  gestureTouchesDragged: function gestureTouchesDragged(evt, touches) {
     var gestures = this.get("gestures"), idx, len = gestures.length, g;
     for (idx = 0; idx < len; idx++) {
       g = gestures[idx];
@@ -204,7 +204,7 @@ SC.Gesturable = {
     an unassigned touch as, if it were assigned to a gesture, it would have
     been sent directly to the gesture, bypassing this view.
   */
-  gestureTouchEnd: function(touch) {
+  gestureTouchEnd: function gestureTouchEnd(touch) {
     var gestures = this.get("gestures"), idx, len = gestures.length, g;
     for (idx = 0; idx < len; idx++) {
       g = gestures[idx];

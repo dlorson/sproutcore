@@ -8,11 +8,11 @@
 var originalTabbing;
 
 module("SC.View - Keyboard support with Tabbing Only Inside Document", {
-  setup: function(){
+  setup: function setup(){
     originalTabbing = SC.TABBING_ONLY_INSIDE_DOCUMENT;
     SC.TABBING_ONLY_INSIDE_DOCUMENT = YES;
   },
-  teardown: function(){
+  teardown: function teardown(){
     SC.TABBING_ONLY_INSIDE_DOCUMENT = originalTabbing;
   }
 });
@@ -25,7 +25,7 @@ test("Views only attempt to call performKeyEquivalent on child views that suppor
 
     unsupported: SC.CoreView,
     supported: SC.View.design({
-      performKeyEquivalent: function(str) {
+      performKeyEquivalent: function performKeyEquivalent(str) {
         performKeyEquivalentCalled++;
         return NO;
       }
@@ -237,7 +237,7 @@ test("nextValidKeyView prioritizes parent's lastKeyView even if nextKeyView is s
     view1: SC.View.extend({
       childViews: ['view3', 'view4'],
 
-      lastKeyView: function() {
+      lastKeyView: function lastKeyView() {
         return this.view3;
       }.property(),
 
@@ -416,7 +416,7 @@ test("previousValidKeyView prioritizes parent's firstKeyView even if previousKey
     view2: SC.View.extend({
       childViews: ['view5', 'view6'],
 
-      firstKeyView: function() {
+      firstKeyView: function firstKeyView() {
         return this.view6;
       }.property(),
 

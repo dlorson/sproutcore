@@ -8,7 +8,7 @@
 
 var TestRunner;
 module("Sample Model from TestRunner Application", { 
-  setup: function() {
+  setup: function setup() {
 
     // namespace
     TestRunner = SC.Object.create({

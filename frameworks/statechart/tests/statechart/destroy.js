@@ -6,7 +6,7 @@
 var obj, rootState, stateA, stateB;
 
 module("SC.Statechart: Destroy Statechart Tests", {
-  setup: function() {
+  setup: function setup() {
     
     obj = SC.Object.create(SC.StatechartManager, {
       
@@ -24,7 +24,7 @@ module("SC.Statechart: Destroy Statechart Tests", {
     stateB = obj.getState('stateB');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj = rootState = stateA = stateB = null;
   }
 });

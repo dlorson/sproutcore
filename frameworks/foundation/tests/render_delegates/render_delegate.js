@@ -22,14 +22,14 @@ test("sc_super works.", function() {
   var tick = 0, base_called_on = -1, derived_called_on = -1;
 
   var base = SC.RenderDelegate.create({
-    aMethod: function() {
+    aMethod: function aMethod() {
       base_called_on = tick;
       tick++;
     }
   });
 
   var derived = base.create({
-    aMethod: function() {
+    aMethod: function aMethod() {
       derived_called_on = tick;
       tick++;
       sc_super();
@@ -47,7 +47,7 @@ test("Function.prototype.enhance works.", function() {
   var tick = 0, base_called_on = -1, derived_called_on = -1;
 
   var base = SC.RenderDelegate.create({
-    aMethod: function(arg1, arg2) {
+    aMethod: function aMethod(arg1, arg2) {
       equals(arg1, "ARG2", "First argument is swapped");
       equals(arg2, "ARG1", "Second argument is swapped");
 
@@ -58,7 +58,7 @@ test("Function.prototype.enhance works.", function() {
   });
 
   var derived = base.create({
-    aMethod: function(orig, arg1, arg2) {
+    aMethod: function aMethod(orig, arg1, arg2) {
       equals(arg1, "ARG1", "First argument is correct");
       equals(arg2, "ARG2", "Second argument is correct");
 

@@ -8,7 +8,7 @@
 var view, content ;
 
 module("SC.CollectionView.reload", {
-  setup: function() {
+  setup: function setup() {
     content = "1 2 3 4 5 6 7 8 9 10".w().map(function(x) {
       return SC.Object.create({ value: x });
     });
@@ -162,7 +162,7 @@ test("reloading should only render nowShowing component", function() {
 
   view = SC.CollectionView.create({
     content: content, 
-    computeNowShowing: function() {
+    computeNowShowing: function computeNowShowing() {
       return expected;
     },
     isVisibleInWindow: YES

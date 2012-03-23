@@ -70,7 +70,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String|DOMElement} tagNameOrElement
     @returns {SC.RenderContext} receiver
   */
-  init: function(tagNameOrElement, prevContext) {
+  init: function init(tagNameOrElement, prevContext) {
     var strings, tagNameOrElementIsString;
 
     // if a prevContext was passed, setup with that first...
@@ -178,7 +178,7 @@ SC.RenderContext = SC.Builder.create(
     @param {Number} idx the index
     @returns {String|Array}
   */
-  get: function(idx) {
+  get: function get(idx) {
     var strings = this.strings || [];
     return (idx === undefined) ? strings.slice(this.offset, this.length) : strings[idx+this.offset];
   },
@@ -190,7 +190,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} line the liene to add to the string.
     @returns {SC.RenderContext} receiver
   */
-  push: function(line) {
+  push: function push(line) {
     var strings = this.strings, len = arguments.length;
     if (!strings) this.strings = strings = []; // create array lazily
 
@@ -214,7 +214,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} line one or mroe lines of text to add
     @returns {SC.RenderContext} receiver
   */
-  text: function(line) {
+  text: function text(line) {
     var len = arguments.length, idx=0;
     for(idx=0;idx<len;idx++) {
       this.push(SC.RenderContext.escapeHTML(arguments[idx]));
@@ -229,7 +229,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} joinChar optional string to use in joins. def empty string
     @returns {String} joined string
   */
-  join: function(joinChar) {
+  join: function join(joinChar) {
     // generate tag if needed...
     if (this._needsTag) this.end();
 
@@ -247,7 +247,7 @@ SC.RenderContext = SC.Builder.create(
 
     @returns {SC.RenderContext} new context
   */
-  begin: function(tagNameOrElement) {
+  begin: function begin(tagNameOrElement) {
     // console.log('%@.begin(%@) called'.fmt(this, tagNameOrElement));
     return SC.RenderContext(tagNameOrElement, this);
   },
@@ -259,14 +259,14 @@ SC.RenderContext = SC.Builder.create(
 
     @returns {DOMElement} the element
   */
-  element: function() {
+  element: function element() {
     return this._elem ? this._elem : SC.$(this.join())[0];
   },
 
   /**
     Removes an element with the passed id in the currently managed element.
   */
-  remove: function(elementId) {
+  remove: function remove(elementId) {
     // console.log('remove('+elementId+')');
     if (!elementId) return ;
 
@@ -293,7 +293,7 @@ SC.RenderContext = SC.Builder.create(
 
     @returns {SC.RenderContext} previous context or null if top
   */
-  update: function() {
+  update: function update() {
     var elem = this._elem,
         mode = this.updateMode,
         cq, value, factory, cur, next;
@@ -355,7 +355,7 @@ SC.RenderContext = SC.Builder.create(
 
     @returns {SC.RenderContext}
   */
-  end: function() {
+  end: function end() {
     // console.log('%@.end() called'.fmt(this));
     // NOTE: If you modify this method, be careful to consider memory usage
     // and performance here.  This method is called frequently during renders
@@ -439,7 +439,7 @@ SC.RenderContext = SC.Builder.create(
     @param {Hash} opts optional tag options.  defaults to empty options.
     @returns {SC.RenderContext} receiver
   */
-  tag: function(tagName, opts) {
+  tag: function tag(tagName, opts) {
     return this.begin(tagName, opts).end();
   },
 
@@ -453,7 +453,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} tagName pass to set tag name.
     @returns {String|SC.RenderContext} tag name or receiver
   */
-  tagName: function(tagName) {
+  tagName: function tagName(tagName) {
     if (tagName === undefined) {
       if (!this._tagName && this._elem) this._tagName = this._elem.tagName;
       return this._tagName;
@@ -470,7 +470,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} idName the id or set
     @returns {String|SC.RenderContext} id or receiver
   */
-  id: function(idName) {
+  id: function id(idName) {
     if (idName === undefined) {
       if (!this._id && this._elem) this._id = this._elem.id;
       return this._id ;
@@ -501,7 +501,7 @@ SC.RenderContext = SC.Builder.create(
     @param {Boolean} cloneOnModify
     @returns {Array|SC.RenderContext} classNames array or receiver
   */
-  classNames: function(classNames, cloneOnModify) {
+  classNames: function classNames(classNames, cloneOnModify) {
     if (this._elem) {
       if (classNames) {
         this.$().resetClassNames().addClass(classNames);
@@ -536,7 +536,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} className the class name
     @returns {Boolean}
   */
-  hasClass: function(className) {
+  hasClass: function hasClass(className) {
     if (this._elem) {
       return this.$().hasClass(className);
     }
@@ -553,7 +553,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String|Array} nameOrClasses the class name or an array of classes
     @returns {SC.RenderContext} receiver
   */
-  addClass: function(nameOrClasses) {
+  addClass: function addClass(nameOrClasses) {
     if(nameOrClasses === undefined || nameOrClasses === null) {
       SC.Logger.warn('You are adding an undefined or empty class'+ this.toString());
       return this;
@@ -599,7 +599,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} className the class to add
     @returns {SC.RenderContext} receiver
   */
-  removeClass: function(className) {
+  removeClass: function removeClass(className) {
     if (this._elem) {
       this.$().removeClass(className);
       return this;
@@ -628,7 +628,7 @@ SC.RenderContext = SC.Builder.create(
 
     @returns {SC.RenderContext} receiver
   */
-  resetClassNames: function() {
+  resetClassNames: function resetClassNames() {
     if (this._elem) {
       this.$().resetClassNames();
       return this;
@@ -654,7 +654,7 @@ SC.RenderContext = SC.Builder.create(
     @param {Boolean} shouldAdd for class name if a string was passed
     @returns {SC.RenderContext} receiver
   */
-  setClass: function(className, shouldAdd) {
+  setClass: function setClass(className, shouldAdd) {
     if (this._elem) {
       this.$().setClass(className, shouldAdd);
       return this;
@@ -711,7 +711,7 @@ SC.RenderContext = SC.Builder.create(
     @param {Boolean} cloneOnModify
     @returns {Hash|SC.RenderContext} styles hash or receiver
   */
-  styles: function(styles, cloneOnModify) {
+  styles: function styles(styles, cloneOnModify) {
     if (this._elem) {
       if (styles) {
         this.$().resetStyles().css(styles);
@@ -771,7 +771,7 @@ SC.RenderContext = SC.Builder.create(
     }
   },
 
-  _deleteComboStyles: function(styles, key) {
+  _deleteComboStyles: function _deleteComboStyles(styles, key) {
     var comboStyles = SC.COMBO_STYLES[key],
         didChange = NO, tmp;
 
@@ -792,7 +792,7 @@ SC.RenderContext = SC.Builder.create(
     Clears all of the tag's styles.
     @returns {SC.RenderContext} receiver
    */
-  resetStyles: function() {
+  resetStyles: function resetStyles() {
     this.styles({});
     return this;
   },
@@ -807,7 +807,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String|Number} value style value if string name was passed
     @returns {SC.RenderContext} receiver
   */
-  addStyle: function(nameOrStyles, value) {
+  addStyle: function addStyle(nameOrStyles, value) {
     if (this._elem) {
       this.$().css(nameOrStyles, value);
       return this;
@@ -857,7 +857,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} styleName
     @returns {SC.RenderContext} receiver
   */
-  removeStyle: function(styleName) {
+  removeStyle: function removeStyle(styleName) {
     if (this._elem) {
       this.$().css(styleName, null);
       return this;
@@ -887,7 +887,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} value attribute value if attribute name was passed
     @returns {SC.RenderContext} receiver
   */
-  attr: function(nameOrAttrs, value) {
+  attr: function attr(nameOrAttrs, value) {
     if (this._elem) {
       this.$().attr(nameOrAttrs, value);
       return this;
@@ -933,7 +933,7 @@ SC.RenderContext = SC.Builder.create(
     @param {String} value attribute value if attribute name was passed
     @returns {SC.RenderContext} receiver
   */
-  removeAttr: function(name) {
+  removeAttr: function removeAttr(name) {
     if (this._elem) {
       this.$().removeAttr(name);
       return this;
@@ -950,7 +950,7 @@ SC.RenderContext = SC.Builder.create(
 
     Renderers may use this to modify DOM.
    */
-  $: function(sel) {
+  $: function (sel) {
     var ret, elem = this._elem;
     ret = !elem ? SC.$.buffer([]) : (sel === undefined) ? SC.$.buffer(elem) : SC.$.buffer(sel, elem);
     elem = null;
@@ -960,7 +960,7 @@ SC.RenderContext = SC.Builder.create(
 
   /** @private
   */
-  _camelizeStyleName: function(name) {
+  _camelizeStyleName: function _camelizeStyleName(name) {
     // IE wants the first letter lowercase so we can allow normal behavior
     var needsCap = name.match(/^-(webkit|moz|o)-/),
         camelized = SC.String.camelize(name);
@@ -975,7 +975,7 @@ SC.RenderContext = SC.Builder.create(
   /** @private
     Converts camelCased style names to dasherized forms
   */
-  _dasherizeStyleName: function(name) {
+  _dasherizeStyleName: function _dasherizeStyleName(name) {
     var dasherized = SC.String.dasherize(name);
     if (dasherized.match(/^(webkit|moz|ms|o)-/)) { dasherized = '-'+dasherized; }
     return dasherized;

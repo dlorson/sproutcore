@@ -81,7 +81,7 @@ SC._PropertyChain = SC.Object.extend(
 
     @param {Object} [newObject] The object in the chain to hook to.
   */
-  activate: function(newObject) {
+  activate: function activate(newObject) {
     var curObject = this.get('object'),
         property  = this.get('property'),
         nextObject;
@@ -116,7 +116,7 @@ SC._PropertyChain = SC.Object.extend(
     usually called when the object represented by the previous segment in the 
     chain changes.
   */
-  deactivate: function() {
+  deactivate: function deactivate() {
     var object   = this.get('object'),
         property = this.get('property');
 
@@ -130,7 +130,7 @@ SC._PropertyChain = SC.Object.extend(
   /**
     Invalidates the +toInvalidate+ property of the +target+ object.
   */
-  notifyPropertyDidChange: function() {
+  notifyPropertyDidChange: function notifyPropertyDidChange() {
     var target       = this.get('target'),
         toInvalidate = this.get('toInvalidate'),
         curObj, newObj;
@@ -158,7 +158,7 @@ SC._PropertyChain = SC.Object.extend(
 
     @returns {String}
   */
-  toString: function() {
+  toString: function toString() {
     return "SC._PropertyChain(target: %@, property: %@)".fmt(
       this.get('target'), this.get('property'));
   }

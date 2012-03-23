@@ -28,7 +28,7 @@
 SC.BaseTheme.radioRenderDelegate = SC.RenderDelegate.create({
   className: 'radio',
   
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     var theme = dataSource.get('theme');
@@ -59,7 +59,7 @@ SC.BaseTheme.radioRenderDelegate = SC.RenderDelegate.create({
     context = context.end();
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
 
     var theme = dataSource.get('theme');

@@ -19,7 +19,7 @@ var CustomView = SC.View.extend({
   classNames: 'custom'.w(),
   displayProperties: 'childClasses'.w(),
 
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     context = context.begin().addClass('child').setClass(this.get('childClasses'));
     context = context.end();
   }
@@ -81,11 +81,11 @@ pane.show();
 
 
 module("SC.pointInElement()", {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style> .custom { background-color: #BBF; } .padding { padding: 10px !important; } .border { border: 10px red solid !important;} .margin { margin: 10px !important; } .padding-em { padding: 10em !important; } .border-em { border: 10em red solid !important;} .margin-em { margin: 10em !important; } .child { background-color: #AAA; width: 80px; height: 80px; } .absolute { position: absolute; top: 10px; left: 10px; } </style>');
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

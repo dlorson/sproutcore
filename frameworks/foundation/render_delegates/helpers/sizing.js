@@ -39,7 +39,7 @@ SC.RenderDelegate.reopen({
    
     @returns {Hash undefined}
   */
-  sizeFor: function(dataSource) {
+  sizeFor: function sizeFor(dataSource) {
     var controlSize = dataSource.get('controlSize'), size, idx, len;
 
     // if there is a control size set on the control
@@ -128,7 +128,7 @@ SC.RenderDelegate.reopen({
     Determines the proper size for the dataSource, and then renders the class
     name corresponding to that size.
   */
-  addSizeClassName: function(dataSource, context) {
+  addSizeClassName: function addSizeClassName(dataSource, context) {
     var size = this.sizeFor(dataSource);
     if (size) {
       context.addClass(size.name);
@@ -139,7 +139,7 @@ SC.RenderDelegate.reopen({
     Determines the proper size for the dataSource, and then updates
     the DOM to include that size's class name.
   */
-  updateSizeClassName: function(dataSource, jquery) {
+  updateSizeClassName: function updateSizeClassName(dataSource, jquery) {
     var size = this.sizeFor(dataSource);
     if (size) {
       jquery.addClass(size.name);
@@ -157,7 +157,7 @@ SC.RenderDelegate.reopen({
     some may have different values depending on size.
     @param {String} propertyName The name of the property to retrieve.
   */
-  getPropertyFor: function(dataSource, propertyName) {
+  getPropertyFor: function getPropertyFor(dataSource, propertyName) {
     var size = this.sizeFor(dataSource);
     if (size) {
       if (size[propertyName + 'For']) {

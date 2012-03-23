@@ -19,7 +19,7 @@ test("invokes renderLayerSettings() and then updates layer element", function() 
 
   var times = 0;
   var view = SC.View.create({
-    _renderLayerSettings: function() {
+    _renderLayerSettings: function _renderLayerSettings() {
       times++;
       this.$().addClass('did-update-' + times);
     }
@@ -34,12 +34,12 @@ test("invokes renderLayerSettings() and then updates layer element", function() 
 // 
 var view, callCount ;
 module("SC.View#updateLayerIfNeeded", {
-  setup: function() {
+  setup: function setup() {
     // setup a fake view class so that updateLayerIfNeeded() will call
     // updateLayer() if needed.  updateLayer() is faked to isolate test
     view = SC.View.create({
       isVisibleInWindow: YES,
-      updateLayer: function() { callCount++; }
+      updateLayer: function updateLayer() { callCount++; }
     });
     callCount = 0 ;
     
@@ -89,10 +89,10 @@ test("only runs updateLayer() once if called multiple times (since layerNeedsUpd
 // TEST: layerNeedsUpdate auto-trigger
 // 
 module("SC.View#layerNeedsUpdate auto-triggers", {
-  setup: function() {
+  setup: function setup() {
     // use fake method to isolate call...
     view = SC.View.create({
-      updateLayerIfNeeded: function() { callCount++; }
+      updateLayerIfNeeded: function updateLayerIfNeeded() { callCount++; }
     });
     callCount = 0;
   }
@@ -127,7 +127,7 @@ test("layerNeedsUpdate actually triggers updateLayer", function() {
   var layer = document.createElement('div');
   var view = SC.View.create({
     isVisibleInWindow: YES,
-    updateLayer: function() { callCount++; }
+    updateLayer: function updateLayer() { callCount++; }
   });
   view.createLayer();
   

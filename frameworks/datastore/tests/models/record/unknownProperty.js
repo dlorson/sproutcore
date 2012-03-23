@@ -7,7 +7,7 @@
 
 var MyFoo = null ;
 module("SC.Record#unknownProperty", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     MyApp = SC.Object.create({
       store: SC.Store.create()
@@ -33,7 +33,7 @@ module("SC.Record#unknownProperty", {
     
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
 });

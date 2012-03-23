@@ -25,7 +25,7 @@ SC.ANIMATABLE_PROPERTIES = {
 SC.View.reopen(
   /** @scope SC.View.prototype */ {
 
-  didCreateLayerMixin: function() {
+  didCreateLayerMixin: function didCreateLayerMixin() {
     // Animation prep
     if (SC.platform.supportsCSSTransitions) { this.resetAnimation(); }
   },
@@ -45,7 +45,7 @@ SC.View.reopen(
     @params {Number|Hash} duration or options
     @returns {SC.View} receiver
   */
-  animate: function(keyOrHash, valueOrOptions, optionsOrCallback, callback) {
+  animate: function animate(keyOrHash, valueOrOptions, optionsOrCallback, callback) {
     var hash, options;
 
     if (typeof keyOrHash === SC.T_STRING) {
@@ -108,7 +108,7 @@ SC.View.reopen(
   /**
   Resets animation, stopping all existing animations.
   */
-  resetAnimation: function() {
+  resetAnimation: function resetAnimation() {
     var layout = this.get('layout'),
         animations = layout.animate,
         didChange = NO, key;
@@ -133,7 +133,7 @@ SC.View.reopen(
   /**
     Called when animation ends, should not usually be called manually
   */
-  transitionDidEnd: function(evt){
+  transitionDidEnd: function transitionDidEnd(evt){
     // WARNING: Sometimes this will get called more than once for a property. Not sure why.
     this.get('layoutStyleCalculator').transitionDidEnd(evt);
   }

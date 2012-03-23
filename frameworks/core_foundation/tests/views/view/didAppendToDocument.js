@@ -11,7 +11,7 @@
 var counter, pane, view, additionalView;
 
 module("SC.View#didAppendToDocument", {
-  setup: function() {
+  setup: function setup() {
     counter = 0;
 
     pane = SC.MainPane.create({
@@ -20,7 +20,7 @@ module("SC.View#didAppendToDocument", {
           render: function (context, firstTime) {
             context.push('new string');
           },
-          didAppendToDocument: function(){
+          didAppendToDocument: function didAppendToDocument(){
             ok(document.getElementById(this.get('layerId')), "view layer should exist");
             counter++;
           }
@@ -30,14 +30,14 @@ module("SC.View#didAppendToDocument", {
     view = pane.childViews[0];
 
     additionalView = SC.View.create({
-      didAppendToDocument: function(){
+      didAppendToDocument: function didAppendToDocument(){
         ok(document.getElementById(this.get('layerId')), "additionalView layer should exist");
         counter++;
       }
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove().destroy();
     pane = null;
   }

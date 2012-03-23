@@ -12,28 +12,28 @@
 var revMatches = NO , ObjectA;
 
 module("object.propertyChanges", {  
-  setup: function() {
+  setup: function setup() {
     ObjectA = SC.Object.create({
       foo  : 'fooValue',
       prop : 'propValue',
             
-      action: function() {
+      action: function action() {
         this.prop= 'changedPropValue';
       }.observes('foo'),
       
       newFoo : 'newFooValue',
       newProp: 'newPropValue',
       
-      notifyAction: function() {
+      notifyAction: function notifyAction() {
         this.newProp = 'changedNewPropValue';
       }.observes('newFoo'),
       
-      notifyAllAction: function() {
+      notifyAllAction: function notifyAllAction() {
         this.newFoo = 'changedNewFooValue';
       }.observes('prop'),
 
       starProp: null,
-      starObserver: function(target, key, value, rev) {
+      starObserver: function starObserver(target, key, value, rev) {
         revMatches = (rev === target.propertyRevision) ;
         this.starProp = key;
       }
@@ -141,7 +141,7 @@ test("should invalidate function property cache when notifyPropertyChange is cal
   
   var a = SC.Object.create({
     _b: null,
-    b: function(key, value) {
+    b: function b(key, value) {
       if (value !== undefined) {
         this._b = value;
         return this;

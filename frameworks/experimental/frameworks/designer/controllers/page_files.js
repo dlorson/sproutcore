@@ -22,7 +22,7 @@ SC.pageFilesController = SC.ArrayController.create(
 SC.pageFilesController.mixin({
   pages: [],
   
-  register: function(page){
+  register: function register(page){
     SC.pageFilesController.pages.pushObject(page);
   }
 });

@@ -8,7 +8,7 @@
 
 var set ;
 module("SC.IndexSet#intersects", {
-  setup: function() {
+  setup: function setup() {
     set = SC.IndexSet.create().add(1000, 10).add(2000,1);
   }
 });

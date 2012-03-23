@@ -54,7 +54,7 @@ SC.ViewDesigner = SC.Object.extend(
 
     @property {SC.Page}
   */
-  page: function() {
+  page: function page() {
     var v = this.get('view');
     return (v) ? v.get('page') : null;
   }.property('view').cacheable(),
@@ -64,7 +64,7 @@ SC.ViewDesigner = SC.Object.extend(
 
     @property {SC.PageDesignController}
   */
-  designController: function() {
+  designController: function designController() {
     var p = this.get('page');
     return (p) ? p.get('designController') : null ;
   }.property('page').cacheable(),
@@ -130,7 +130,7 @@ SC.ViewDesigner = SC.Object.extend(
     @property
     @type {Hash}
   */
-  layout: function(key, value) {
+  layout: function layout(key, value) {
     var view = this.get('view');
     if (!view) return null;
 
@@ -151,7 +151,7 @@ SC.ViewDesigner = SC.Object.extend(
     @property
     @type {Number}
   */
-  anchorLocation: function(key, value) {
+  anchorLocation: function anchorLocation(key, value) {
     var layout = this.get('layout'),
         K      = SC.ViewDesigner,
         h, v, frame, view, pview, pframe, ret;
@@ -223,7 +223,7 @@ SC.ViewDesigner = SC.Object.extend(
     return v | h;
   }.property('layout').cacheable(),
 
-  _layoutProperty: function(key, value) {
+  _layoutProperty: function _layoutProperty(key, value) {
     var layout = this.get('layout');
     if (!layout) return null;
 
@@ -239,63 +239,63 @@ SC.ViewDesigner = SC.Object.extend(
   /**
     Returns the top offset of the current layout or `null` if not defined
   */
-  layoutTop: function(key, value) {
+  layoutTop: function layoutTop(key, value) {
     return this._layoutProperty('top', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the bottom offset of the current layout or `null` if not defined
   */
-  layoutBottom: function(key, value) {
+  layoutBottom: function layoutBottom(key, value) {
     return this._layoutProperty('bottom', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the centerY offset of the current layout or `null` if not defined
   */
-  layoutCenterY: function(key, value) {
+  layoutCenterY: function layoutCenterY(key, value) {
     return this._layoutProperty('centerY', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the height offset of the current layout or null if not defined
   */
-  layoutHeight: function(key, value) {
+  layoutHeight: function layoutHeight(key, value) {
     return this._layoutProperty('height', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the top offset of the current layout or `null` if not defined
   */
-  layoutTop: function(key, value) {
+  layoutTop: function layoutTop(key, value) {
     return this._layoutProperty('top', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the left offset of the current layout or `null` if not defined
   */
-  layoutLeft: function(key, value) {
+  layoutLeft: function layoutLeft(key, value) {
     return this._layoutProperty('left', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the right offset of the current layout or `null` if not defined
   */
-  layoutRight: function(key, value) {
+  layoutRight: function layoutRight(key, value) {
     return this._layoutProperty('right', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the centerX offset of the current layout or `null` if not defined
   */
-  layoutCenterX: function(key, value) {
+  layoutCenterX: function layoutCenterX(key, value) {
     return this._layoutProperty('centerX', value);
   }.property('layout').cacheable(),
 
   /**
     Returns the width offset of the current layout or `null` if not defined
   */
-  layoutWidth: function(key, value) {
+  layoutWidth: function layoutWidth(key, value) {
     return this._layoutProperty('width', value);
   }.property('layout').cacheable(),
 
@@ -314,7 +314,7 @@ SC.ViewDesigner = SC.Object.extend(
     the coder.  This is used by `encodeDesignProperties()` and
     `encodeLocalizedProperties()`.
   */
-  encodeSimpleProperties: function(props, coder) {
+  encodeSimpleProperties: function encodeSimpleProperties(props, coder) {
     var view = this.get('view'), proto = this.get('viewClass').prototype ;
     props.forEach(function(prop) {
       var val = view[prop] ; // avoid get() since we don't want to exec props
@@ -355,7 +355,7 @@ SC.ViewDesigner = SC.Object.extend(
     Array of properties available to edit in greenhouse
 
   */
-  editableProperties: function(){
+  editableProperties: function editableProperties(){
 
     var con = this.get('designAttrs'),
         view = this.get('view'),
@@ -384,7 +384,7 @@ SC.ViewDesigner = SC.Object.extend(
     `encodeChildViewsDesign()`.  You can override this method with your own
     additional encoding if you like.
   */
-  encodeDesign: function(coder) {
+  encodeDesign: function encodeDesign(coder) {
     coder.set('className', SC._object_className(this.get('viewClass')));
     this.encodeDesignProperties(coder);
     this.encodeDesignAttributeProperties(coder);
@@ -398,12 +398,12 @@ SC.ViewDesigner = SC.Object.extend(
     each property will be checked against the default value in the class. If
     they match, the property will not be emitted.
   */
-  encodeDesignProperties: function(coder) {
+  encodeDesignProperties: function encodeDesignProperties(coder) {
     return this.encodeSimpleProperties(this.get('designProperties'), coder);
   },
 
 
-  encodeDesignAttributeProperties: function(coder){
+  encodeDesignAttributeProperties: function encodeDesignAttributeProperties(coder){
     var designProps = this.get('designProperties'),
         designAttrs = this.get('designAttrs'),
         simpleProps = [];
@@ -424,7 +424,7 @@ SC.ViewDesigner = SC.Object.extend(
     config (for example as named properties), then you may want to override
     this method with your own encoding.
   */
-  encodeChildViewsDesign: function(coder) {
+  encodeChildViewsDesign: function encodeChildViewsDesign(coder) {
     if (!this.get('encodeChildViews')) return;
     var view = this.view, childViews = view.get('childViews');
     if (childViews.length>0) coder.object('childViews', childViews);
@@ -446,7 +446,7 @@ SC.ViewDesigner = SC.Object.extend(
     `encodeChildViewsLoc()`.  You can override this method with your own
     additional encoding if you like.
   */
-  encodeLoc: function(coder) {
+  encodeLoc: function encodeLoc(coder) {
     coder.set('className', SC._object_className(this.get('viewClass')));
     this.encodeLocalizedProperties(coder);
     this.encodeChildViewsLoc(coder);
@@ -459,7 +459,7 @@ SC.ViewDesigner = SC.Object.extend(
     of  each property will be checked against the default value in the class.
     If they match, the property will not be emitted.
   */
-  encodeLocalizedProperties: function(coder) {
+  encodeLocalizedProperties: function encodeLocalizedProperties(coder) {
     return this.encodeSimpleProperties(this.get('localizedProperties'),coder);
   },
 
@@ -469,7 +469,7 @@ SC.ViewDesigner = SC.Object.extend(
     config (for example as named properties), then you may want to override
     this method with your own encoding.
   */
-  encodeChildViewsLoc: function(coder) {
+  encodeChildViewsLoc: function encodeChildViewsLoc(coder) {
     if (!this.get('encodeChildViews')) return;
     var view = this.view, childViews = view.childViews;
     if (childViews.length>0) coder.object('childViews', childViews);
@@ -481,7 +481,7 @@ SC.ViewDesigner = SC.Object.extend(
     before any observers or bindings are setup to give you a chance to
     configure the initial state of the designer.
   */
-  awakeDesign: function() {},
+  awakeDesign: function awakeDesign() {},
 
 
   /**
@@ -490,7 +490,7 @@ SC.ViewDesigner = SC.Object.extend(
 
     TODO: Come up with a better name for this method.
   */
-  addView: function(view){
+  addView: function addView(view){
     this.view.appendChild(view);
   },
 
@@ -503,7 +503,7 @@ SC.ViewDesigner = SC.Object.extend(
     Invoked whenever the view changes.  This will observe all property
     changes on the new view.
   */
-  viewDidChange: function() {
+  viewDidChange: function viewDidChange() {
     var view = this.get('view'), old = this._designer_view ;
     if (view === old) return; // nothing to do
 
@@ -523,7 +523,7 @@ SC.ViewDesigner = SC.Object.extend(
     It will notify all properties changed for '*'.  You may override this
     method with your own behavior if you like.
   */
-  viewPropertyDidChange: function(view, key) {
+  viewPropertyDidChange: function viewPropertyDidChange(view, key) {
     if (key === '*') this.allPropertiesDidChange();
     else if (this[key] === undefined) this.notifyPropertyChange(key) ;
 
@@ -540,7 +540,7 @@ SC.ViewDesigner = SC.Object.extend(
     customize the Designer.  Just make sure you don't define a conflicting
     property name on the designer itself!
   */
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     if (value !== undefined) {
       this.view.set(key, value);
       return value ;
@@ -551,7 +551,7 @@ SC.ViewDesigner = SC.Object.extend(
   // PRIVATE METHODS
   //
 
-  init: function() {
+  init: function init() {
 
     // setup design from view state...
     this.awakeDesign();
@@ -568,12 +568,12 @@ SC.ViewDesigner = SC.Object.extend(
 
   },
 
-  destroy: function() {
+  destroy: function destroy() {
     sc_super();
     this.set('view', null); // clears the view observer...
   },
 
-  designIsSelectedDidChange: function() {
+  designIsSelectedDidChange: function designIsSelectedDidChange() {
     if (SC.kindOf(this.view, SC.Pane)) return this ;
 
     var isSel = this.get('designIsSelected');
@@ -595,7 +595,7 @@ SC.ViewDesigner = SC.Object.extend(
     }
   }.observes('designIsSelected'),
 
-  tryToPerform: function(methodName, arg1, arg2) {
+  tryToPerform: function tryToPerform(methodName, arg1, arg2) {
     // only handle event if we are in design mode
     var page = this.view ? this.view.get('page') : null ;
     var isDesignMode = page ? page.get('needsDesigner') || page.get('isDesignMode') : NO ;
@@ -616,23 +616,23 @@ SC.ViewDesigner = SC.Object.extend(
   /**
     Update the layer to add any design-specific marking
   */
-  didCreateLayer: function() {},
+  didCreateLayer: function didCreateLayer() {},
 
   /**
     Update the layer to add any design-specific marking
   */
-  didUpdateLayer: function() {},
+  didUpdateLayer: function didUpdateLayer() {},
 
   /**
     Update the layer to add any design-specific marking
   */
-  willDestroyLayer: function() {},
+  willDestroyLayer: function willDestroyLayer() {},
 
   // ..........................................................
   // ROOT DESIGNER SUPPORT
   //
 
-  parentDesignerIsRoot: function(){
+  parentDesignerIsRoot: function parentDesignerIsRoot(){
     var dc = this.get('designController'), view = this.get('view');
     return dc.get('rootDesigner') === view.getPath('parentView.designer');
   }.property(),
@@ -644,7 +644,7 @@ SC.ViewDesigner = SC.Object.extend(
 
   isRootDesigner: NO,
 
-  isRootDesignerDidChange: function() {
+  isRootDesignerDidChange: function isRootDesignerDidChange() {
 
     var isRoot = this.get('isRootDesigner'),
         highLight = this._highLight;
@@ -667,7 +667,7 @@ SC.ViewDesigner = SC.Object.extend(
     }
   }.observes('isRootDesigner'),
 
-  resignRootDesigner: function(){
+  resignRootDesigner: function resignRootDesigner(){
     var prevRoot = this.get('prevRootDesigner');
     if(this.get('isRootDesigner') && prevRoot){
       var dc = this.get('designController');
@@ -675,7 +675,7 @@ SC.ViewDesigner = SC.Object.extend(
     }
   },
 
-  shouldReleaseRootDesigner: function(evt){
+  shouldReleaseRootDesigner: function shouldReleaseRootDesigner(evt){
     var frame = this.view.get('frame');
     if(this.get('isRootDesigner') && !SC.pointInRect({ x: evt.pageX, y: evt.pageY }, frame)){
       this.resignRootDesigner();
@@ -694,7 +694,7 @@ SC.ViewDesigner = SC.Object.extend(
     Select on `mouseDown`.  If `metaKey` or `shiftKey` is pressed, add to
     selection.  Otherwise just save starting info for dragging
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     this.shouldReleaseRootDesigner(evt);
     if (!this.get('designIsEnabled') || !this.get('parentDesignerIsRoot')) return NO ;
 
@@ -778,7 +778,7 @@ SC.ViewDesigner = SC.Object.extend(
     return YES ;
   },
 
-  prepareReposition: function(info) {
+  prepareReposition: function prepareReposition(info) {
     var view = this.get('view'),
         layout = view ? SC.copy(view.get('layout')) : {};
     info[SC.keyFor('layout', SC.guidFor(this))] = layout;
@@ -789,7 +789,7 @@ SC.ViewDesigner = SC.Object.extend(
     mouse dragged will resize or reposition depending on the settings from
     mousedown.
   */
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     if (!this.get('designIsEnabled') || !this.get('parentDesignerIsRoot')) return NO ;
     var info = this._mouseDownInfo,
         view = this.get('view'),
@@ -804,7 +804,7 @@ SC.ViewDesigner = SC.Object.extend(
         startPoint: {x: startX, y: startY},
         endPoint: {x: startX, y: startY},
         // private update
-        _pointsDidChange: function(){
+        _pointsDidChange: function _pointsDidChange(){
           var sp = this.get('startPoint'),
               ep = this.get('endPoint'),
               xDiff, yDiff, newLink;
@@ -854,14 +854,14 @@ SC.ViewDesigner = SC.Object.extend(
   //
   dragDataTypes: ['SC.Binding'],
 
-  dragDataForType: function(drag, dataType) {
+  dragDataForType: function dragDataForType(drag, dataType) {
     return dataType === 'SC.Binding' ? this.get('view') : null;
   },
 
   /**
     On `mouseUp` potentially change selection and cleanup.
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     if (!this.get('designIsEnabled') || !this.get('parentDesignerIsRoot')) return NO ;
 
     var info = this._mouseDownInfo;
@@ -902,7 +902,7 @@ SC.ViewDesigner = SC.Object.extend(
   /**
     Called by `designerController` to reposition the view
   */
-  mouseReposition: function(evt, info) {
+  mouseReposition: function mouseReposition(evt, info) {
     var layout = SC.copy(this.get('layout'));
     this._mouseReposition(evt, info, this.HKEYS, layout);
     this._mouseReposition(evt, info, this.VKEYS, layout);
@@ -937,7 +937,7 @@ SC.ViewDesigner = SC.Object.extend(
   /**
     Generic resizer.  Must pass one set of keys: VKEYS, HKEYS
   */
-  _mouseResize: function(evt, info, keys, ret) {
+  _mouseResize: function _mouseResize(evt, info, keys, ret) {
 
     var delta  = evt[keys.evtPoint] - info[keys.point],
         layout = info.layout,
@@ -1006,7 +1006,7 @@ SC.ViewDesigner = SC.Object.extend(
     return this;
   },
 
-  _mouseReposition: function(evt, info, keys, ret) {
+  _mouseReposition: function _mouseReposition(evt, info, keys, ret) {
     var delta  = evt[keys.evtPoint] - info[keys.point],
         layout = info[SC.keyFor('layout', SC.guidFor(this))],
         view   = this.get('view'),
@@ -1054,7 +1054,7 @@ SC.ViewDesigner = SC.Object.extend(
     @param {SC.Drag} drag The SC.Drag instance managing this drag.
 
   */
-  dragSourceOperationMaskFor: function(drag, dropTarget) {
+  dragSourceOperationMaskFor: function dragSourceOperationMaskFor(drag, dropTarget) {
     return SC.DRAG_LINK;
   },
 
@@ -1069,7 +1069,7 @@ SC.ViewDesigner = SC.Object.extend(
       began.  You can use convertOffsetFromView() to convert this to local
       coordinates.
   */
-  dragDidBegin: function(drag, loc) {
+  dragDidBegin: function dragDidBegin(drag, loc) {
   },
 
   /**
@@ -1082,7 +1082,7 @@ SC.ViewDesigner = SC.Object.extend(
       mouse is.  You can use convertOffsetFromView() to convert this to local
       coordinates.
   */
-  dragDidMove: function(drag, loc) {
+  dragDidMove: function dragDidMove(drag, loc) {
     var dragLink = drag.dragLink;
     var endX, endY, pv, frame, globalFrame;
     if (dragLink) {
@@ -1111,7 +1111,7 @@ SC.ViewDesigner = SC.Object.extend(
       SC.DRAG_COPY, SC.DRAG_MOVE, SC.DRAG_LINK, or SC.DRAG_NONE.
 
   */
-  dragDidEnd: function(drag, loc, op) {
+  dragDidEnd: function dragDidEnd(drag, loc, op) {
     var dragLink = drag.dragLink;
     if (dragLink) dragLink.destroy();
   }
@@ -1142,7 +1142,7 @@ SC.ViewDesigner.mixin({
     Invoked whenever a designed view is loaded.  This will save the design
     attributes for later use by a designer.
   */
-  didLoadDesign: function(designedView, sourceView, attrs) {
+  didLoadDesign: function didLoadDesign(designedView, sourceView, attrs) {
     designedView.isDesign = YES ; // indicates that we need a designer.
     designedView.designAttrs = attrs;
     //designedView.sourceView = sourceView; TODO: not sure we need this...
@@ -1152,7 +1152,7 @@ SC.ViewDesigner.mixin({
     Invoked whenever a location is applied to a designed view.  Saves the
     attributes separately for use by the design view.
   */
-  didLoadLocalization: function(designedView, attrs) {
+  didLoadLocalization: function didLoadLocalization(designedView, attrs) {
     // nothing to do for now.
   },
 
@@ -1160,7 +1160,7 @@ SC.ViewDesigner.mixin({
     Invoked whenver a view is created.  This will create a peer designer if
     needed.
   */
-  didCreateView: function(view, attrs) {
+  didCreateView: function didCreateView(view, attrs) {
     // add designer if page is in design mode
     var page = view.get('page'), design = view.constructor;
 

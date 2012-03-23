@@ -16,13 +16,13 @@ SC.BaseTheme.segmentedRenderDelegate = SC.RenderDelegate.create({
     delegate to render its contents.
 
     */
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     // Use text-align to align the segments
     this.addSizeClassName(dataSource, context);
     context.addStyle('text-align', dataSource.get('align'));
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
     jquery.css('text-align', dataSource.get('align'));
   }

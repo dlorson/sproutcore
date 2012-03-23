@@ -6,7 +6,7 @@
 
 var set, array, array2;
 module("SC.SelectionSet#indexSetForSource", {
-  setup: function() {
+  setup: function setup() {
     set = SC.SelectionSet.create();
     array = '0 1 2 3 4 5 6 7 8 9'.w();
     array2 = 'a b c d e f g h i k l m'.w();

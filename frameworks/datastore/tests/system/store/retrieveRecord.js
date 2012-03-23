@@ -11,7 +11,7 @@ var storeKey7, storeKey8, json, json1, json2, json3, json4, json5, json6 ;
 var json7, json8;
 
 module("SC.Store#retrieveRecord", {
-  setup: function() {
+  setup: function setup() {
     
     store = SC.Store.create();
     
@@ -164,7 +164,7 @@ test("Retrieve a record without a data source", function() {
 test("Retrieve a record without a working data source and check for different errors and states", function() {
   // build a fake data source that claims to NOT handle retrieval
   var source = SC.DataSource.create({
-    retrieveRecords: function() { return NO ; }
+    retrieveRecords: function retrieveRecords() { return NO ; }
   });
   store.set('dataSource', source);
 
@@ -175,7 +175,7 @@ test("Retrieve a record without a working data source and check for different er
 test("Retrieve a record with working data source and check for different errors and states", function() {
   // build a fake data source that claims to handle retrieval
   var source = SC.DataSource.create({
-    retrieveRecords: function() { return YES ; }
+    retrieveRecords: function retrieveRecords() { return YES ; }
   });
   store.set('dataSource', source);
 
@@ -186,7 +186,7 @@ test("Retrieve a record with working data source and check for different errors 
 test("Retrieve a record with callback", function() {
   // build a fake data source that claims to handle retrieval
   var source = SC.DataSource.create({
-    retrieveRecords: function() { return YES ; }
+    retrieveRecords: function retrieveRecords() { return YES ; }
   });
   store.set('dataSource', source);
   var callback = NO;

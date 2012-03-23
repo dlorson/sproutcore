@@ -11,7 +11,7 @@
 //
 var parent, child, parentLayer, childLayer;
 module("SC.View#updateLayerLocation", {
-	setup: function() {
+	setup: function setup() {
 		parent = SC.View.create({ 
 			childViews: [SC.View]
 		});
@@ -22,7 +22,7 @@ module("SC.View#updateLayerLocation", {
 		childLayer = child.get('layer');
 	},
 	
-	teardown: function() {
+	teardown: function teardown() {
 		parent = child = parentLayer = childLayer = null;
 	}
 });  
@@ -174,14 +174,14 @@ test("should insert a CoreView without layer before a sibling with layer", funct
 //
 var view, runCount ;
 module("SC.View#updateLayerLocationIfNeeded",{
- setup: function() {
+ setup: function setup() {
    view = SC.View.create({
-     updateLayerLocation: function() { runCount++; }
+     updateLayerLocation: function updateLayerLocation() { runCount++; }
    });
    runCount = 0;
  },
  
- teardown: function() { view = null; }
+ teardown: function teardown() { view = null; }
 });  
 
 test("returns receiver", function() {

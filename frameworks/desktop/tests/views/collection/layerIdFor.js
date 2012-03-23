@@ -8,7 +8,7 @@
 var view ;
 
 module("SC.CollectionView.layerIdFor, contentIndexForLayerId", {
-  setup: function() {
+  setup: function setup() {
     view = SC.CollectionView.create();
   }
 });

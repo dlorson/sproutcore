@@ -10,11 +10,11 @@
 var context = null;
 
 module("SC.RenderContext#get", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     context = null;
   }
 });

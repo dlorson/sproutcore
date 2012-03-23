@@ -18,7 +18,7 @@ Greenhouse.fileController = SC.ObjectController.create(
   contentBindingDefault: SC.Binding.single(),
   
 
-  _content_statusDidChange: function(){
+  _content_statusDidChange: function _content_statusDidChange(){
     var c = this.get('content');
     if(c && c.get('isPage') ) {
       this.invokeOnce(function(){

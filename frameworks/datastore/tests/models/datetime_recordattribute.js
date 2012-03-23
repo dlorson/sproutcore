@@ -14,7 +14,7 @@ var sprocket, nullSprocket, d1, d2;
 
 module('SC.DateTime transform', {
 
-  setup: function() {
+  setup: function setup() {
     
     d1 = SC.DateTime.create({ year: 2009, month: 3, day: 1, hour: 20, minute: 30, timezone: 480 });
     d2 = SC.DateTime.create({ year: 2009, month: 3, day: 1, hour: 20, minute: 30, timezone: SC.DateTime.timezone });

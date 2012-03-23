@@ -84,10 +84,10 @@ test("arrays", function() {
 var obj1, obj2, str, arr;
 
 module("SC.hashFor", {
-  setup: function() {
+  setup: function setup() {
     obj1 = {};
     obj2 = {
-      hash: function() {
+      hash: function hash() {
         return '%1234';
       }
     };

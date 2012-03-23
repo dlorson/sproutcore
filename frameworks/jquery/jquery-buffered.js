@@ -13,7 +13,7 @@ jQuery.buffer = jQuery.bufferedJQuery = jQuery.sub();
 
 jQuery.bufferedJQuery.fn.extend({
 
-  html: function(value) {
+  html: function html(value) {
     // if there is no value, we don't handle it.
     if (value === undefined) {
       if (this.length < 1) return undefined;
@@ -30,7 +30,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  text: function(value) {
+  text: function text(value) {
     if (value === undefined) {
       if (this.length < 1) return undefined;
       return jQuery.Buffer.bufferForElement(this[0]).text();
@@ -46,7 +46,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  attr: function(key, value) {
+  attr: function attr(key, value) {
     // first, handle the get-case
     var buffer;
     if (typeof value === "undefined" && typeof key === "string") {
@@ -64,12 +64,12 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  hasClass: function(className) {
+  hasClass: function hasClass(className) {
     if (this.length < 1) return false;
     return jQuery.Buffer.bufferForElement(this[0]).hasClass(className);
   },
   
-  setClass: function(value, on) {
+  setClass: function setClass(value, on) {
     // now, buffer the command.
     var len = this.length, i, buffer;
     for (i = 0; i < len; i++) {
@@ -79,7 +79,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  addClass: function(value) {
+  addClass: function addClass(value) {
     // now, buffer the command.
     var len = this.length, i, buffer;
     for (i = 0; i < len; i++) {
@@ -89,7 +89,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  removeClass: function(value) {
+  removeClass: function removeClass(value) {
     // now, buffer the command.
     var len = this.length, i, buffer;
     for (i = 0; i < len; i++) {
@@ -99,7 +99,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  resetClassNames: function() {
+  resetClassNames: function resetClassNames() {
     // now, buffer the command.
     var len = this.length, i, buffer;
     for (i = 0; i < len; i++) {
@@ -109,7 +109,7 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  css: function(key, value) {
+  css: function css(key, value) {
     // now, buffer the command.
     var len = this.length, i, buffer;
     for (i = 0; i < len; i++) {
@@ -119,12 +119,12 @@ jQuery.bufferedJQuery.fn.extend({
     return this;
   },
 
-  styles: function() {
+  styles: function styles() {
     if (this.length < 1) return null;
     return jQuery.Buffer.bufferForElement(this[0]).styles();
   },
 
-  resetStyles: function() {
+  resetStyles: function resetStyles() {
     if (this.length < 1) return null;
     jQuery.Buffer.bufferForElement(this[0]).resetStyles();
     return this;

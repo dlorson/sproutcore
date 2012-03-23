@@ -51,11 +51,11 @@ pane.show(); // add a test to show the test pane
 // TEST VIEWS
 // 
 module('SC.CheckboxView ui', {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style> .sc-static-layout { border: 1px red dotted; } </style>');
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

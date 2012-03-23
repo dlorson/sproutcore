@@ -10,7 +10,7 @@ var json1, json2;
 var storeKey6, storeKey7;
 
 module("SC.Store#cancelRecord", {
-  setup: function() {
+  setup: function setup() {
     
     store = SC.Store.create();
     

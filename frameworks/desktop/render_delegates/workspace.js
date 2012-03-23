@@ -8,11 +8,11 @@
 SC.BaseTheme.workspaceRenderDelegate = SC.RenderDelegate.create({
   className: 'workspace',
   
-  render: function() {
+  render: function render() {
     // No DOM to generate -- uses CSS3 to style.
   },
 
-  update: function() {
+  update: function update() {
     // No DOM to generate -- uses CSS3 to style.
   }
 });

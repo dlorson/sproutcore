@@ -53,7 +53,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  cancel: function(store, storeKeys) {
+  cancel: function cancel(store, storeKeys) {
     return NO;
   },
   
@@ -63,7 +63,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  fetch: function(store, query) {
+  fetch: function fetch(store, query) {
     
     // can only handle local queries out of the box
     if (query.get('location') !== SC.Query.LOCAL) {
@@ -83,7 +83,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   /** @private
     Actually performs the fetch.  
   */
-  _fetch: function(store, query) {
+  _fetch: function _fetch(store, query) {
     
     // NOTE: Assumes recordType or recordTypes is defined.  checked in fetch()
     var recordType = query.get('recordType'),
@@ -107,7 +107,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  retrieveRecords: function(store, storeKeys) {
+  retrieveRecords: function retrieveRecords(store, storeKeys) {
     // first let's see if the fixture data source can handle any of the
     // storeKeys
     var latency = this.get('latency'),
@@ -121,7 +121,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     return ret ;
   },
   
-  _retrieveRecords: function(store, storeKeys) {
+  _retrieveRecords: function _retrieveRecords(store, storeKeys) {
     
     storeKeys.forEach(function(storeKey) {
       var ret        = [], 
@@ -138,7 +138,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  updateRecords: function(store, storeKeys, params) {
+  updateRecords: function updateRecords(store, storeKeys, params) {
     // first let's see if the fixture data source can handle any of the
     // storeKeys
     var latency = this.get('latency'),
@@ -152,7 +152,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     return ret ;
   },
   
-  _updateRecords: function(store, storeKeys) {
+  _updateRecords: function _updateRecords(store, storeKeys) {
     storeKeys.forEach(function(storeKey) {
       var hash = store.readDataHash(storeKey);
       this.setFixtureForStoreKey(store, storeKey, hash);
@@ -166,7 +166,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  createRecords: function(store, storeKeys, params) {
+  createRecords: function createRecords(store, storeKeys, params) {
     // first let's see if the fixture data source can handle any of the
     // storeKeys
     var latency = this.get('latency');
@@ -178,7 +178,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     return YES ;
   },
 
-  _createRecords: function(store, storeKeys) {
+  _createRecords: function _createRecords(store, storeKeys) {
     storeKeys.forEach(function(storeKey) {
       var id         = store.idFor(storeKey),
           recordType = store.recordTypeFor(storeKey),
@@ -198,7 +198,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  destroyRecords: function(store, storeKeys, params) {
+  destroyRecords: function destroyRecords(store, storeKeys, params) {
     // first let's see if the fixture data source can handle any of the
     // storeKeys
     var latency = this.get('latency'),
@@ -213,7 +213,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
   },
   
 
-  _destroyRecords: function(store, storeKeys) {
+  _destroyRecords: function _destroyRecords(store, storeKeys) {
     storeKeys.forEach(function(storeKey) {
       var id         = store.idFor(storeKey),
           recordType = store.recordTypeFor(storeKey),
@@ -238,7 +238,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {SC.Array} ret is passed, array to add loaded storeKeys to.
     @returns {SC.FixturesDataSource} receiver
   */
-  loadFixturesFor: function(store, recordType, ret) {
+  loadFixturesFor: function loadFixturesFor(store, recordType, ret) {
     var hashes   = [],
         dataHashes, i, storeKey ;
     
@@ -269,7 +269,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {Number} storeKey store key for the item
     @returns {String}
   */
-  generateIdFor: function(recordType, dataHash, store, storeKey) {
+  generateIdFor: function generateIdFor(recordType, dataHash, store, storeKey) {
     return "@id%@".fmt(SC.Store.generateStoreKey());
   },
   
@@ -280,7 +280,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {Number} storeKey the storeKey
     @returns {Hash} data hash or null
   */
-  fixtureForStoreKey: function(store, storeKey) {
+  fixtureForStoreKey: function fixtureForStoreKey(store, storeKey) {
     var id         = store.idFor(storeKey),
         recordType = store.recordTypeFor(storeKey),
         fixtures   = this.fixturesFor(recordType);
@@ -295,7 +295,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {Hash} dataHash 
     @returns {SC.FixturesDataSource} receiver
   */
-  setFixtureForStoreKey: function(store, storeKey, dataHash) {
+  setFixtureForStoreKey: function setFixtureForStoreKey(store, storeKey, dataHash) {
     var id         = store.idFor(storeKey),
         recordType = store.recordTypeFor(storeKey),
         fixtures   = this.fixturesFor(recordType);
@@ -311,7 +311,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {SC.Record} recordType
     @returns {Hash} data hashes
   */
-  fixturesFor: function(recordType) {
+  fixturesFor: function fixturesFor(recordType) {
     // get basic fixtures hash.
     if (!this._fixtures) this._fixtures = {};
     var fixtures = this._fixtures[SC.guidFor(recordType)];
@@ -339,7 +339,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {SC.Record} recordType
     @returns {Boolean} storeKeys
   */
-  fixturesLoadedFor: function(recordType) {
+  fixturesLoadedFor: function fixturesLoadedFor(recordType) {
     if (!this._fixtures) return NO;
     var ret = [], fixtures = this._fixtures[SC.guidFor(recordType)];
     return fixtures ? YES: NO;
@@ -350,7 +350,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
 
     @returns {SC.FixturesDataSource} receiver
   */
-  reset: function(){
+  reset: function reset(){
     this._fixtures = null;
     return this;
   },
@@ -362,7 +362,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {Array} storeKeys the store keys
     @returns {Boolean} YES if all handled, MIXED_STATE if some handled
   */
-  hasFixturesFor: function(storeKeys) {
+  hasFixturesFor: function hasFixturesFor(storeKeys) {
     var ret = NO ;
     storeKeys.forEach(function(storeKey) {
       if (ret !== SC.MIXED_STATE) {
@@ -387,7 +387,7 @@ SC.FixturesDataSource = SC.DataSource.extend(
     @param {String} id optional record id
     @returns {SC.FixturesDataSource} receiver
   */
-  _invalidateCachesFor: function(recordType, storeKey, id) {
+  _invalidateCachesFor: function _invalidateCachesFor(recordType, storeKey, id) {
     var cache = this._storeKeyCache;
     if (cache) delete cache[SC.guidFor(recordType)];
     return this ;

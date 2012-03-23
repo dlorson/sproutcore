@@ -72,14 +72,14 @@ SC.ControlTestPane = SC.Pane.extend(
     @param {String} keyName the key used to register the view.
     @returns {SC.View} view instance
   */
-  view: function(keyName) { 
+  view: function view(keyName) { 
     var idx = this._views[keyName];
     if (!idx) throw "SC.ControlTestPane does not have a view named %@".fmt(keyName);
     return this.childViews[idx].childViews[0]; 
   },
   
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     if (!this._views) this._views = {};
     this.append(); // auto-add to screen
@@ -157,13 +157,13 @@ SC.ControlTestPane.add = function(label, view, attrs) {
 SC.ControlTestPane.standardSetup = function() {
   var pane = this ;
   return {
-    setup: function() { 
+    setup: function setup() { 
       SC.RunLoop.begin();
       pane._pane = pane.create(); 
       SC.RunLoop.end();
     },
     
-    teardown: function() {
+    teardown: function teardown() {
       SC.RunLoop.begin();
       if (pane._pane) pane._pane.remove();
       SC.RunLoop.end();

@@ -107,7 +107,7 @@
     tests.
   */
   var commonSetup = {
-    setup: function() {
+    setup: function setup() {
 
       // create basic parent view
       parent = SC.View.create({
@@ -118,7 +118,7 @@
       child = SC.View.create();
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       parent = child = null ;
     }
   };
@@ -186,7 +186,7 @@
   test("layout {top, left, width: auto, height: auto}", function() {
     child = SC.View.create({
       useStaticLayout: YES,
-      render: function(context) {
+      render: function render(context) {
         // needed for auto
         context.push('<div style="padding: 10px"></div>');
       }
@@ -264,7 +264,7 @@
   test("layout {top, left, width: auto, height: auto}", function() {
     child = SC.View.create({
       useStaticLayout: YES,
-      render: function(context) {
+      render: function render(context) {
         // needed for auto
         context.push('<div style="padding: 10px"></div>');
       }
@@ -298,13 +298,13 @@
   // parent.
 
   module('CSS TRANSFORM LAYOUT VARIATIONS', {
-    setup: function(){
+    setup: function setup(){
       commonSetup.setup();
       child.createLayer();
       document.body.appendChild(child.get('layer'));
     },
 
-    teardown: function(){
+    teardown: function teardown(){
       child.destroyLayer();
       commonSetup.teardown();
     }
@@ -370,7 +370,7 @@
     // parent.
 
     module('ACCELERATED LAYOUT VARIATIONS', {
-      setup: function(){
+      setup: function setup(){
         commonSetup.setup();
         child.wantsAcceleratedLayer = YES;
       },
@@ -403,7 +403,7 @@
       child = SC.View.create({
         wantsAcceleratedLayer: YES,
         useStaticLayout: YES,
-        render: function(context) {
+        render: function render(context) {
           // needed for auto
           context.push('<div style="padding: 10px"></div>');
         }
@@ -629,7 +629,7 @@
   test("layout {top, left, width: auto, height: auto}", function() {
     child = SC.View.create({
       useStaticLayout: YES,
-      render: function(context) {
+      render: function render(context) {
         // needed for auto
         context.push('<div style="padding: 10px"></div>');
       }

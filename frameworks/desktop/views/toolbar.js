@@ -126,7 +126,7 @@ SC.ToolbarView = SC.View.extend(
   layout: { left: 0, height: 32, right: 0 },
 
   /** @private */
-  init: function() {
+  init: function init() {
     // apply anchor location before setting up the rest of the view.
     if (this.anchorLocation) {
       this.layout = SC.merge(this.layout, this.anchorLocation);

@@ -52,14 +52,14 @@ test("setting nil sets key pane to mainPane if mainPane accepts key focus", func
 
 var p1, p2, r, callCount ;
 module("SC.RootResponder#makeKeyPane - testing notifications", {
-  setup: function() {
+  setup: function setup() {
     p1 = SC.Pane.create({ acceptsKeyPane: YES });    
     p2 = SC.Pane.create({ acceptsKeyPane: YES });    
     r = SC.RootResponder.create();
     callCount = 0 ;
   },
   
-  teardown: function() { p1 = p2 = r ; }
+  teardown: function teardown() { p1 = p2 = r ; }
 });
 
 test("should call willLoseKeyPaneTo on current keyPane", function() {

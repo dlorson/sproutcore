@@ -12,7 +12,7 @@ var content, controller, extra;
 var TestObject = SC.Object.extend({
   title: "test",  
   xFactor: "THETA",
-  toString: function() { return "TestObject(%@)".fmt(this.get("title")); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get("title")); }
 });
 
 
@@ -21,7 +21,7 @@ var TestObject = SC.Object.extend({
 // 
 
 module("SC.ArrayController - enum_case - EMPTY SET", {
-  setup: function() {
+  setup: function setup() {
     content = SC.Set.create();
     controller = SC.ArrayController.create({ 
       content: content, orderBy: "title" 
@@ -29,7 +29,7 @@ module("SC.ArrayController - enum_case - EMPTY SET", {
     extra = TestObject.create({ title: "FOO", xFactor: "ZED" });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -87,7 +87,7 @@ test("arrangedObjects", function() {
 // 
 
 module("SC.ArrayController - enum_case - NON-EMPTY SET", {
-  setup: function() {
+  setup: function setup() {
     content = SC.Set.create();
     "1 2 3 4 5".w().forEach(function(x) {
       content.add(TestObject.create({ title: x, xFactor: (5-x) }));
@@ -99,7 +99,7 @@ module("SC.ArrayController - enum_case - NON-EMPTY SET", {
     extra = TestObject.create({ title: "FOO", xFactor: 0 });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

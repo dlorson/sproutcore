@@ -5,7 +5,7 @@
 /*globals module test ok isObj equals expects */
 var view, base, inherited, pane, computed;
 module("Animatable", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.Pane.create({
       layout: { top: 0, right: 0, width: 200, height: 200 }
@@ -44,7 +44,7 @@ module("Animatable", {
     // computed
     computed = base.create({
       _test_left: 5,
-      layout: function() {
+      layout: function layout() {
         return { left: this._test_left, top: 5, width: 50, height: 50 };
       }.property("_test_left").cacheable()
     });
@@ -52,7 +52,7 @@ module("Animatable", {
     SC.RunLoop.end();
   },
 
-  teardown: function(){
+  teardown: function teardown(){
     pane.remove();
   }
 });
@@ -106,7 +106,7 @@ test("animatable callbacks work in general", function(){
   SC.RunLoop.begin();
   view.transitions["left"] = {
     duration: 0.25,
-    action: function() {
+    action: function action() {
       start();
       ok(true, "Callback was called.");
     }

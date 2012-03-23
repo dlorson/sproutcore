@@ -19,7 +19,7 @@ SC.TableDelegate = {
     can use this method to constrain the allowed width.  The default 
     implementation uses the minWidth and maxWidth of the column object.
   */
-  tableShouldResizeColumnTo: function(table, column, proposedWidth) {
+  tableShouldResizeColumnTo: function tableShouldResizeColumnTo(table, column, proposedWidth) {
     var min = column.get('minWidth') || 0,
         max = column.get('maxWidth') || proposedWidth;
     
@@ -29,7 +29,7 @@ SC.TableDelegate = {
     return proposedWidth;
   },
   
-  tableShouldResizeWidthTo: function(table, proposedWidth) {
+  tableShouldResizeWidthTo: function tableShouldResizeWidthTo(table, proposedWidth) {
     var min = table.get('minWidth') || 0,
         max = table.get('maxWidth') || proposedWidth;
         

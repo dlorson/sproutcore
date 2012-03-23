@@ -25,7 +25,7 @@ SC.Validator.DateTime = SC.Validator.extend({
   /**
     if we have a number, then convert to a date object.
   */
-  fieldValueForObject: function(object, form, field) {
+  fieldValueForObject: function fieldValueForObject(object, form, field) {
     if (SC.kindOf(object, SC.DateTime)) {
       object = object.toFormattedString(this.get('format'));
     } else {
@@ -38,7 +38,7 @@ SC.Validator.DateTime = SC.Validator.extend({
     Try to pass value as a date. convert into a number, or return null if
     it could not be parsed.
   */
-  objectForFieldValue: function(value, form, field) {
+  objectForFieldValue: function objectForFieldValue(value, form, field) {
     if (value) {
       value = SC.DateTime.parse(value, this.get('format'));
     }

@@ -46,7 +46,7 @@ SC.PinchGesture = SC.Gesture.extend(
     @param {Event} evt The touch event
     @param {Array} touches All touches
   */
-  unassignedTouchesDidChange: function(evt, touches) {
+  unassignedTouchesDidChange: function unassignedTouchesDidChange(evt, touches) {
     if (touches.length == 2) {
       this.take(touches[0]);
       this.take(touches[1]);
@@ -61,7 +61,7 @@ SC.PinchGesture = SC.Gesture.extend(
     @param {Touch} touch
     @returns {Boolean} YES if there were none or one touches prior to this, NO otherwise
   */
-  touchStart: function(touch) {
+  touchStart: function touchStart(touch) {
     var touches = touch.touchesForResponder(this);
     if (!touches || touches.length === 0) {
       return YES;
@@ -81,7 +81,7 @@ SC.PinchGesture = SC.Gesture.extend(
     @param {Event} evt
     @param {Array} touches
   */
-  touchesDragged: function(evt, touches) {
+  touchesDragged: function touchesDragged(evt, touches) {
     var touch = touches.firstObject(),
         avg = touch.averagedTouchesForView(this);
 
@@ -101,7 +101,7 @@ SC.PinchGesture = SC.Gesture.extend(
     
     @param {SC.Touch} touch
   */
-  touchEnd: function(touch) {
+  touchEnd: function touchEnd(touch) {
     this._startDistance = null;
 
     var touches = touch.touchesForResponder(this);

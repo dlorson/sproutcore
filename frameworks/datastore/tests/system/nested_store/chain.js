@@ -14,11 +14,11 @@ var Rec = SC.Record.extend({
   
   fired: NO,
   
-  reset: function() { 
+  reset: function reset() { 
     this.fired = NO;
   },
   
-  titleDidChange: function() {
+  titleDidChange: function titleDidChange() {
     this.fired = YES;
   }.observes('title')
     

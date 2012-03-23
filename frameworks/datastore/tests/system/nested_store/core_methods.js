@@ -8,7 +8,7 @@
 var store, nestedStore, Application, dataSource;
 
 module("SC.NestedStore Core Methods", {
-  setup: function() {
+  setup: function setup() {
     dataSource = SC.DataSource.create();
     
     Application = {};
@@ -16,7 +16,7 @@ module("SC.NestedStore Core Methods", {
     
     Application.File = SC.Record.extend({ 
       
-      nameDidChange: function(object, key) {
+      nameDidChange: function nameDidChange(object, key) {
         Application._nameDidChange++;
       }.observes('name', 'url', 'isDirectory')
       

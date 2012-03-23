@@ -36,7 +36,7 @@ SC.ObjectDesigner = SC.Object.extend(
     
     @property {SC.Page}
   */
-  page: function() {
+  page: function page() {
     var v = this.get('object');
     return (v) ? v.get('page') : null;
   }.property('object').cacheable(),
@@ -46,7 +46,7 @@ SC.ObjectDesigner = SC.Object.extend(
     
     @property {SC.PageDesignController}
   */
-  designController: function() {
+  designController: function designController() {
     var p = this.get('page');
     return (p) ? p.get('designController') : null ;  
   }.property('page').cacheable(),
@@ -69,7 +69,7 @@ SC.ObjectDesigner = SC.Object.extend(
     the coder.  This is used by encodeDesignProperties() and 
     encodeLocalizedProperties().
   */
-  encodeSimpleProperties: function(props, coder) {
+  encodeSimpleProperties: function encodeSimpleProperties(props, coder) {
     var object = this.get('object'), proto = this.get('objectClass').prototype ;
     props.forEach(function(prop) {
       var val = object[prop] ; // avoid get() since we don't want to exec props
@@ -102,7 +102,7 @@ SC.ObjectDesigner = SC.Object.extend(
     Array of properties available to edit in greenhouse
     
   */
-  editableProperties: function(){
+  editableProperties: function editableProperties(){
 
     var con = this.get('designAttrs'), 
         obj = this.get('object'),
@@ -130,7 +130,7 @@ SC.ObjectDesigner = SC.Object.extend(
     `encodeChildViewsDesign()`.  You can override this method with your own
     additional encoding if you like.
   */
-  encodeDesign: function(coder) {
+  encodeDesign: function encodeDesign(coder) {
     coder.set('className', SC._object_className(this.get('objectClass')));
     this.encodeDesignProperties(coder);
     return YES ;
@@ -142,7 +142,7 @@ SC.ObjectDesigner = SC.Object.extend(
     each property will be checked against the default value in the class. If
     they match, the property will not be emitted.
   */
-  encodeDesignProperties: function(coder) {
+  encodeDesignProperties: function encodeDesignProperties(coder) {
     return this.encodeSimpleProperties(this.get('designProperties'), coder);
   },
   
@@ -162,7 +162,7 @@ SC.ObjectDesigner = SC.Object.extend(
     `encodeChildViewsLoc()`.  You can override this method with your own
     additional encoding if you like.
   */
-  encodeLoc: function(coder) {
+  encodeLoc: function encodeLoc(coder) {
     coder.set('className', SC._object_className(this.get('objectClass')));
     this.encodeLocalizedProperties(coder);
     return YES ;
@@ -174,7 +174,7 @@ SC.ObjectDesigner = SC.Object.extend(
     of  each property will be checked against the default value in the class. 
     If they match, the property will not be emitted.
   */
-  encodeLocalizedProperties: function(coder) {
+  encodeLocalizedProperties: function encodeLocalizedProperties(coder) {
     return this.encodeSimpleProperties(this.get('localizedProperties'),coder);
   },
 
@@ -184,7 +184,7 @@ SC.ObjectDesigner = SC.Object.extend(
     before any observers or bindings are setup to give you a chance to 
     configure the initial state of the designer.
   */
-  awakeDesign: function() {},
+  awakeDesign: function awakeDesign() {},
   
   /**
     The `unknownProperty` handler will pass through to the object by default.
@@ -192,7 +192,7 @@ SC.ObjectDesigner = SC.Object.extend(
     customize the Designer.  Just make sure you don't define a conflicting
     property name on the designer itself!
   */
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     if (value !== undefined) {
       this.object.set(key, value);
       return value ;
@@ -203,7 +203,7 @@ SC.ObjectDesigner = SC.Object.extend(
   // PRIVATE METHODS
   //
   
-  init: function() {
+  init: function init() {
     
     // setup design from object state...
     this.awakeDesign();
@@ -217,12 +217,12 @@ SC.ObjectDesigner = SC.Object.extend(
     
   },
 
-  destroy: function() {
+  destroy: function destroy() {
     sc_super();
     this.set('object', null); // clears the object observer...  
   },
     
-  tryToPerform: function(methodName, arg1, arg2) {
+  tryToPerform: function tryToPerform(methodName, arg1, arg2) {
     // only handle event if we are in design mode
     var page = this.object ? this.object.get('page') : null ;
     var isDesignMode = page ? page.get('needsDesigner') || page.get('isDesignMode') : NO ;
@@ -251,7 +251,7 @@ SC.ObjectDesigner.mixin({
     Invoked whenever a designed object is loaded.  This will save the design
     attributes for later use by a designer.
   */
-  didLoadDesign: function(designedObject, sourceObject, attrs) {
+  didLoadDesign: function didLoadDesign(designedObject, sourceObject, attrs) {
     designedObject.isDesign = YES ; // indicates that we need a designer.
     designedObject.designAttrs = attrs;
     //designedObject.sourceObject = sourceObject; TODO: don't need this..
@@ -261,7 +261,7 @@ SC.ObjectDesigner.mixin({
     Invoked whenever a location is applied to a designed object.  Saves the 
     attributes separately for use by the design object.
   */
-  didLoadLocalization: function(designedObject, attrs) {
+  didLoadLocalization: function didLoadLocalization(designedObject, attrs) {
     // nothing to do for now.
   },
   
@@ -269,7 +269,7 @@ SC.ObjectDesigner.mixin({
     Invoked whenver a object is created.  This will create a peer designer if 
     needed.
   */
-  didCreateObject: function(object, attrs) {
+  didCreateObject: function didCreateObject(object, attrs) {
     // add designer if page is in design mode
     var page = object.get('page'), design = object.constructor;
     

@@ -10,7 +10,7 @@ var r, r2, sender, pane, pane2, barView, fooView, defaultResponder;
 var keyPane, mainPane, globalResponder, globalResponderContext, actionSender ;
 
 var CommonSetup = {
-  setup: function() { 
+  setup: function setup() { 
     
     actionSender = null ; // use for sendAction tests
     var action = function(sender) { actionSender = sender; } ;
@@ -103,7 +103,7 @@ var CommonSetup = {
     
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     r = r2 = sender = pane = window.Dummy = barView = fooView = null; 
     defaultResponder = keyPane = mainPane = globalResponder = null; 
     globalResponderContext = null;    

@@ -13,7 +13,7 @@ SC.Function = /** @scope SC.Function.prototype */{
   /**
     @see Function.prototype.property
   */
-  property: function(fn, keys) {
+  property: function property(fn, keys) {
     fn.dependentKeys = SC.$A(keys) ;
     var guid = SC.guidFor(fn) ;
     fn.cacheKey = "__cache__" + guid ;
@@ -25,7 +25,7 @@ SC.Function = /** @scope SC.Function.prototype */{
   /**
     @see Function.prototype.cacheable
   */
-  cacheable: function(fn, aFlag) {
+  cacheable: function cacheable(fn, aFlag) {
     fn.isProperty = true ;  // also make a property just in case
     if (!fn.dependentKeys) fn.dependentKeys = [] ;
     fn.isCacheable = (aFlag === undefined) ? true : aFlag ;
@@ -35,7 +35,7 @@ SC.Function = /** @scope SC.Function.prototype */{
   /**
     @see Function.prototype.idempotent
   */
-  idempotent: function(fn, aFlag) {
+  idempotent: function idempotent(fn, aFlag) {
     fn.isProperty = true;  // also make a property just in case
     if (!fn.dependentKeys) this.dependentKeys = [] ;
     fn.isVolatile = (aFlag === undefined) ? true : aFlag ;
@@ -45,7 +45,7 @@ SC.Function = /** @scope SC.Function.prototype */{
   /**
     @see Function.prototype.enhance
   */
-  enhance: function(fn) {
+  enhance: function enhance(fn) {
     fn.isEnhancement = true;
     return fn ;
   },
@@ -53,7 +53,7 @@ SC.Function = /** @scope SC.Function.prototype */{
   /**
     @see Function.prototype.observes
   */
-  observes: function(fn, propertyPaths) {
+  observes: function observes(fn, propertyPaths) {
     // sort property paths into local paths (i.e just a property name) and
     // full paths (i.e. those with a . or * in them)
     var loc = propertyPaths.length, local = null, paths = null ;

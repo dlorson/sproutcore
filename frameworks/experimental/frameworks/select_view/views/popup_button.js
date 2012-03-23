@@ -59,7 +59,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
   /**
     @private
   */
-  init: function() {
+  init: function init() {
     sc_super();
 
     // keep track of the current instantiated menu separately from
@@ -77,7 +77,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
     @method
     @private
    */
-  scheduleMenuSetupIfNeeded: function() {
+  scheduleMenuSetupIfNeeded: function scheduleMenuSetupIfNeeded() {
     var menu = this.get('menu');
 
     if (menu && menu.isClass && this.get('shouldLoadInBackground')) {
@@ -86,7 +86,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
   },
 
   /** @private if the menu changes, it must be set up again. */
-  menuDidChange: function() {
+  menuDidChange: function menuDidChange() {
     // first, check if we are the ones who changed the property
     // by setting it to the instantiated menu
     var menu = this.get('menu');
@@ -101,7 +101,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
    Instantiates the menu if it exists and is not already instantiated.
    If another menu is already instantiated, it will be destroyed.
   */
-  setupMenu: function() {
+  setupMenu: function setupMenu() {
     var menu = this.get('menu');
 
     // handle our existing menu, if any
@@ -130,7 +130,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
     
     @param {SC.MenuPane} menu The MenuPane class to instantiate.
   */
-  createMenu: function(menu) {
+  createMenu: function createMenu(menu) {
     return menu.create();
   },
 
@@ -140,7 +140,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
     
     NOTE: The menu will not be shown until the end of the Run Loop.
   */
-  showMenu: function() {
+  showMenu: function showMenu() {
     // problem: menu's bindings may not flush
     this.setupMenu();
 
@@ -151,7 +151,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
   /**
     Hides the PopupButton's menu if it is currently showing.
   */
-  hideMenu: function() {
+  hideMenu: function hideMenu() {
     var menu = this.get('menu');
     if (menu && !menu.isClass) {
       menu.remove();
@@ -172,14 +172,14 @@ SC.PopupButtonView = SC.ButtonView.extend({
     The actual showing of the menu is delayed because bindings may need
     to flush.
   */
-  _showMenu: function() {
+  _showMenu: function _showMenu() {
     var menu = this.get('menu');
 
     menu.popup(this, this.get('menuPreferMatrix'));
   },
 
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     // If disabled, handle mouse down but ignore it.
     if (!this.get('isEnabled')) return YES ;
 
@@ -211,7 +211,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
   },
 
   /** @private */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var menu = this.get('menu'), targetMenuItem, success;
 
     if (menu && this.get('_mouseDown')) {
@@ -252,7 +252,7 @@ SC.PopupButtonView = SC.ButtonView.extend({
     Shows the menu when the user presses Enter. Otherwise, hands it off to button
     to decide what to do.
   */
-  keyDown: function(event) {
+  keyDown: function keyDown(event) {
     if (event.which == 13) {
       this.showMenu();
       return YES;
@@ -281,7 +281,7 @@ SC.PopupButtonView.InstantiateMenuTask = SC.Task.extend(
   popupButton: null,
   
   /** Instantiates the menu. */
-  run: function(queue) {
+  run: function run(queue) {
     this.popupButton.setupMenu();
   }
 });

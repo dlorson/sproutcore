@@ -20,7 +20,7 @@ SC.String = /** @scope SC.String.prototype */ {
     
         key[:argument to formatter]
   */
-  _scs_valueForKey: function(key, data, /* for debugging purposes: */ string) {
+  _scs_valueForKey: function _scs_valueForKey(key, data, /* for debugging purposes: */ string) {
     var arg, value, formatter, argsplit = key.indexOf(':');
     if (argsplit > -1) {
       arg = key.substr(argsplit + 1);
@@ -80,7 +80,7 @@ SC.String = /** @scope SC.String.prototype */ {
     used with named parameters (not indexed parameters).
         
   */
-  fmt: function(string, args) {
+  fmt: function fmt(string, args) {
     var i = 0, data = undefined, hasHadNamedArguments;
     if (args) {
       data = args[0];
@@ -109,7 +109,7 @@ SC.String = /** @scope SC.String.prototype */ {
 
     @returns {Array} An array of non-empty strings
   */
-  w: function(str) {
+  w: function w(str) {
     var ary = [], ary2 = str.split(' '), len = ary2.length, string, idx=0;
     for (idx=0; idx<len; ++idx) {
       string = ary2[idx] ;

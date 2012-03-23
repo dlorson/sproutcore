@@ -7,11 +7,11 @@ var sc, root, foo, bar;
 
 module("SC.State: addSubstate method Tests", {
   
-  setup: function() {
+  setup: function setup() {
     
     sc = SC.Statechart.create({
       
-      stateWillTryToHandleEvent: function(state, event, handler) {
+      stateWillTryToHandleEvent: function stateWillTryToHandleEvent(state, event, handler) {
         sc_super();
         this.stateWillTryToHandleEventInfo = {
           state: state,
@@ -20,7 +20,7 @@ module("SC.State: addSubstate method Tests", {
         };
       },
 
-      stateDidTryToHandleEvent: function(state, event, handler, handled) {
+      stateDidTryToHandleEvent: function stateDidTryToHandleEvent(state, event, handler, handled) {
         sc_super();
         this.stateDidTryToHandleEventInfo = {
           state: state,
@@ -36,7 +36,7 @@ module("SC.State: addSubstate method Tests", {
         
         eventHandlerReturnValue: YES,
         
-        _notifyHandledEvent: function(handler, event, arg1, arg2) {
+        _notifyHandledEvent: function _notifyHandledEvent(handler, event, arg1, arg2) {
           this.handledEventInfo = {
             handler: handler,
             event: event,
@@ -45,22 +45,22 @@ module("SC.State: addSubstate method Tests", {
           };
         },
         
-        eventHandler1: function(arg1, arg2) {
+        eventHandler1: function eventHandler1(arg1, arg2) {
           this._notifyHandledEvent('eventHandler1', 'eventHandler1', arg1, arg2);
           return this.get('eventHandlerReturnValue');
         },
         
-        eventHandler2: function(event, arg1, arg2) {
+        eventHandler2: function eventHandler2(event, arg1, arg2) {
           this._notifyHandledEvent('eventHandler2', event, arg1, arg2);
           return this.get('eventHandlerReturnValue');
         }.handleEvents('test1'),
         
-        eventHandler3: function(event, arg1, arg2) {
+        eventHandler3: function eventHandler3(event, arg1, arg2) {
           this._notifyHandledEvent('eventHandler3', event, arg1, arg2);
           return this.get('eventHandlerReturnValue');
         }.handleEvents(/^digit[0-9]$/),
         
-        unknownEvent: function(event, arg1, arg2) {
+        unknownEvent: function unknownEvent(event, arg1, arg2) {
           this._notifyHandledEvent('unknownEvent', event, arg1, arg2);
           return this.get('eventHandlerReturnValue');
         }
@@ -73,7 +73,7 @@ module("SC.State: addSubstate method Tests", {
     foo = sc.getState('foo');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     sc = foo = null;
   }
   

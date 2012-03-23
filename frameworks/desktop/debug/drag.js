@@ -13,7 +13,7 @@ SC.Drag.mixin(
   /**
     Convenience method to turn an operation mask into a descriptive string.
   */
-  inspectOperation: function(op) {
+  inspectOperation: function inspectOperation(op) {
     var ret = [] ;
     if (op === SC.DRAG_NONE) {
       ret = ['DRAG_NONE'];

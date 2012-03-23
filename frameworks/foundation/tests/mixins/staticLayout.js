@@ -67,7 +67,7 @@ function performLayoutTest(layout, no_f, no_s, with_f, with_s) {
   tests.
 */
 var commonSetup = {
-  setup: function() {
+  setup: function setup() {
     
     // create basic parent view
     parent = SC.View.create({
@@ -78,7 +78,7 @@ var commonSetup = {
     child = SC.View.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     //parent.destroy(); child.destroy();
     parent = child = null ;
   }
@@ -90,7 +90,7 @@ test("Test that auto as a value for width height is set correctly when"
   +" setting the element style", function() {
   child = SC.View.create({
     useStaticLayout:YES,
-    render: function(context) {
+    render: function render(context) {
       // needed for auto
       context.push('<div style="padding: 10px"></div>');
     }

@@ -30,7 +30,7 @@ CoreTools.Test = SC.Record.extend(
     Display name to show in the tests UI.  This is computed by removing some
     generic cruft from the filename.
   */
-  displayName: function() {
+  displayName: function displayName() {
     return (this.get('filename') || '').replace(/^tests\//,'');
   }.property('filename').cacheable(),
 

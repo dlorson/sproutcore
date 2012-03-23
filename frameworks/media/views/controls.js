@@ -25,7 +25,7 @@ SC.MediaControlsView = SC.View.extend(
   rightHandleInset:null,  //for the slider to be able to have its notEmpty bindings function and drop in
   handleWidth:null,       //their placeholder values.
   
-  playObserver: function(){
+  playObserver: function playObserver(){
     if(this.getPath('target.paused')){
       this.get('playButton').set('icon', 'play');
     }else{

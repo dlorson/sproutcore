@@ -13,14 +13,14 @@ var DummyEnumerable = SC.Object.extend( SC.Enumerable, {
   
   content: [],
   
-  length: function() { return this.content.length; }.property(),
+  length: function length() { return this.content.length; }.property(),
   
-  objectAt: function(idx) { return this.content[idx]; },
+  objectAt: function objectAt(idx) { return this.content[idx]; },
   
-  nextObject: function(idx) { return this.content[idx]; },
+  nextObject: function nextObject(idx) { return this.content[idx]; },
   
   // add support for reduced properties.
-  unknownProperty: function(key, value) {
+  unknownProperty: function unknownProperty(key, value) {
     var ret = this.reducedProperty(key, value) ;
     if (ret === undefined) {
       if (value !== undefined) this[key] = value ;
@@ -29,7 +29,7 @@ var DummyEnumerable = SC.Object.extend( SC.Enumerable, {
     return ret ;
   },
   
-  pushObject: function(object) {
+  pushObject: function pushObject(object) {
     this.content.push(object) ;
     this.enumerableContentDidChange() ;
   }
@@ -93,11 +93,11 @@ var CommonArray = [
 
 module("Real Array & DummyEnumerable", {
   
-  setup: function() { 
+  setup: function setup() { 
     enumerables = [SC.$A(CommonArray), DummyEnumerable.create({ content: CommonArray })] ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     delete enumerables;
     delete Array.prototype["@max(balance)"] ; // remove cached value
     delete Array.prototype["@min(balance)"] ;
@@ -559,11 +559,11 @@ var source ; // global variables
 
 module("Real Array", {
   
-  setup: function() { 
+  setup: function setup() { 
     source = SC.$A(CommonArray); 
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     delete source ; 
     
     delete Array.prototype["@max(balance)"] ; // remove cached value

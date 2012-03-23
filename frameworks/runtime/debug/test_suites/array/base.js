@@ -48,7 +48,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     @param {Hash} attrs one or more attribute hashes
     @returns {SC.TestSuite} subclass of suite.
   */
-  create: function(desc, attrs) {
+  create: function create(desc, attrs) {
     var len = arguments.length,
         ret = SC.beget(this),
         idx;
@@ -76,7 +76,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     @param {Hash} attrs one or more attribute hashes
     @returns {SC.TestSuite} suite instance
   */
-  generate: function(desc, attrs) {
+  generate: function generate(desc, attrs) {
     var len = arguments.length,
         ret = SC.beget(this),
         idx, defs;
@@ -104,7 +104,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     @param {Function} func definition function
     @returns {SC.TestSuite} receiver
   */
-  define: function(func) {
+  define: function define(func) {
     this.definitions.push(func);
     return this ;
   },
@@ -123,7 +123,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     @param {String} str detailed description for this module
     @returns {String} generated description
   */
-  desc: function(str) {
+  desc: function desc(str) {
     return this.basedesc.fmt(this.subdesc, str);
   },
   
@@ -139,7 +139,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     newObject() method and set its return value on the object property of 
     the receiver.
   */
-  setup: function() {
+  setup: function setup() {
     this.object = this.newObject();
   },
   
@@ -148,7 +148,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     destroyObject() method, passing the current object property on the 
     receiver.  It will also clear the object property.
   */
-  teardown: function() {
+  teardown: function teardown() {
     if (this.object) this.destroyObject(this.object);
     this.object = null;
   },
@@ -160,7 +160,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     
     @returns {Object} generated object
   */
-  newObject: function() { return null; },
+  newObject: function newObject() { return null; },
   
   /**
     Default method to destroy a generated object instance after a test has 
@@ -169,7 +169,7 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     
     Default method does nothing.
   */
-  destroyObject: function(obj) { 
+  destroyObject: function destroyObject(obj) { 
     // do nothing.
   },
   
@@ -180,18 +180,18 @@ SC.TestSuite = /** @scope SC.TestSuite.prototype */ {
     
         var T = this ;
         module(T.desc(description), {
-          setup: function() { T.setup(); },
-          teardown: function() { T.teardown(); }
+          setup: function setup() { T.setup(); },
+          teardown: function teardown() { T.teardown(); }
         }
     
     @param {String} desc detailed description
     @returns {SC.TestSuite} receiver
   */
-  module: function(desc) {
+  module: function module(desc) {
     var T = this ;
     module(T.desc(desc), {
-      setup: function() { T.setup(); },
-      teardown: function() { T.teardown(); }
+      setup: function setup() { T.setup(); },
+      teardown: function teardown() { T.teardown(); }
     });
   }
   
@@ -203,7 +203,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
     Override to return a set of simple values such as numbers or strings.
     Return null if your set does not support primitives.
   */
-  simple: function(amt) {
+  simple: function simple(amt) {
     var ret = [];
     if (amt === undefined) amt = 0;
     while(--amt >= 0) ret[amt] = amt ;
@@ -216,7 +216,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
   /**
     Override to return hashes of values if supported.  Or return null.
   */
-  hashes: function(amt) {
+  hashes: function hashes(amt) {
     var ret = [];  
     if (amt === undefined) amt = 0;
     while(--amt >= 0) {
@@ -232,7 +232,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
   /**
     Override to return observable objects if supported.  Or return null.
   */
-  objects: function(amt) {
+  objects: function objects(amt) {
     var ret = [];  
     if (amt === undefined) amt = 0;
     while(--amt >= 0) {
@@ -247,14 +247,14 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
     Returns an array of content items in your preferred format.  This will
     be used whenever the test does not care about the specific object content.
   */
-  expected: function(amt) {
+  expected: function expected(amt) {
     return this.simple(amt);
   },
   
   /**
     Example of how to implement newObject
   */
-  newObject: function(expected) {
+  newObject: function newObject(expected) {
     if (!expected || SC.typeOf(expected) === SC.T_NUMBER) {
       expected = this.expected(expected);
     }
@@ -266,24 +266,24 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
   /**
     Creates an observer object for use when tracking object modifications.
   */
-  observer: function(obj) {
+  observer: function observer(obj) {
     return SC.Object.create({
 
       // ..........................................................
       // NORMAL OBSERVER TESTING
       // 
       
-      observer: function(target, key, value) {
+      observer: function observer(target, key, value) {
         this.notified[key] = true ;
         this.notifiedValue[key] = value ;
       },
 
-      resetObservers: function() {
+      resetObservers: function resetObservers() {
         this.notified = {} ;
         this.notifiedValue = {} ;
       },
 
-      observe: function() {
+      observe: function observe() {
         var keys = SC.$A(arguments) ;
         var loc = keys.length ;
         while(--loc >= 0) {
@@ -292,11 +292,11 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
         return this ;
       },
 
-      didNotify: function(key) {
+      didNotify: function didNotify(key) {
         return !!this.notified[key] ;
       },
 
-      init: function() {
+      init: function init() {
         sc_super() ;
         this.resetObservers() ;
       },
@@ -308,7 +308,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
       callCount: 0,
 
       // call afterward to verify
-      expectRangeChange: function(source, object, key, indexes, context) {
+      expectRangeChange: function expectRangeChange(source, object, key, indexes, context) {
         equals(this.callCount, 1, 'expects one callback');
         
         if (source !== undefined && source !== NO) {
@@ -336,7 +336,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
         
       },
       
-      rangeDidChange: function(source, object, key, indexes, context) {
+      rangeDidChange: function rangeDidChange(source, object, key, indexes, context) {
         this.callCount++ ;
         this.source = source ;
         this.object = object ;
@@ -354,7 +354,7 @@ SC.ArraySuite = SC.TestSuite.create("Verify SC.Array compliance: %@#%@", {
   /**
     Verifies that the passed object matches the passed array.
   */
-  validateAfter: function(obj, after, observer, lengthDidChange, enumerableDidChange) {
+  validateAfter: function validateAfter(obj, after, observer, lengthDidChange, enumerableDidChange) {
     var loc = after.length;
     equals(obj.get('length'), loc, 'length should update (%@)'.fmt(obj)) ;
     while(--loc >= 0) {

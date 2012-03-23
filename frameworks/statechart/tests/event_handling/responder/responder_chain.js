@@ -6,7 +6,7 @@
 var pane, viewA, viewB, stateA, stateB, responder = null;
 
 module("SC.Statechart: Responder Chain Tests", {
-  setup: function() {
+  setup: function setup() {
     pane = SC.MainPane.create({
       
       childViews: 'viewA'.w(),
@@ -21,48 +21,48 @@ module("SC.Statechart: Responder Chain Tests", {
           returnValue: NO,
 
           a: SC.State.design({
-            mouseDown: function(evt) {
+            mouseDown: function mouseDown(evt) {
               responder = this;
               this.gotoState('b');
             },
             
-            click: function(evt) {
+            click: function click(evt) {
               responder = this;
               return NO;
             }
           }),
 
           b: SC.State.design({
-            mouseUp: function(evt) {
+            mouseUp: function mouseUp(evt) {
               responder = this;
               this.gotoState('a');
             }
 
           }),
           
-          keyUp: function(evt) { 
+          keyUp: function keyUp(evt) { 
             responder = this;
             return this.get('returnValue');
           },
           
-          toString: function() { return "view B"; }
+          toString: function toString() { return "view B"; }
 
         }),
         
-        keyUp: function(evt) { 
+        keyUp: function keyUp(evt) { 
           console.log('%@: keyUp invoked'.fmt(this));
           responder = this;
         },
         
-        keyDown: function(evt) { 
+        keyDown: function keyDown(evt) { 
           responder = this;
         },
         
-        click: function(evt) {
+        click: function click(evt) {
           responder = this;
         },
         
-        toString: function() { return "view A"; }
+        toString: function toString() { return "view A"; }
         
       })
       
@@ -74,7 +74,7 @@ module("SC.Statechart: Responder Chain Tests", {
     stateB = viewB.getState('b');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     pane = viewA = viewB = stateA = stateB = responder = null;
   }
 });

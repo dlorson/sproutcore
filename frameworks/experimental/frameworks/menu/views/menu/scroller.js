@@ -81,7 +81,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
     @type String
     @default 'verticalScrollOffset'
    */
-  ownerScrollValueKey: function() {
+  ownerScrollValueKey: function ownerScrollValueKey() {
     return 'verticalScrollOffset';
   }.property('layoutDirection').cacheable(),
 
@@ -91,7 +91,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
   //
 
   /** @private */
-  init: function() {
+  init: function init() {
     // Set the scrollerThickness based on controlSize
     switch (this.get('controlSize')) {
     case SC.TINY_CONTROL_SIZE:
@@ -115,13 +115,13 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
   },
 
   /** @private */
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     this.set('isMouseOver', YES);
     this._invokeScrollOnMouseOver();
   },
 
   /** @private */
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     this.set('isMouseOver', NO);
   },
 
@@ -143,7 +143,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
   },
 
   /** @private */
-  _sc_scroller_armScrollTimer: function() {
+  _sc_scroller_armScrollTimer: function _sc_scroller_armScrollTimer() {
     if (!this._sc_scrollTimer) {
       SC.RunLoop.begin();
       var method = this._sc_scroller_scrollDidChange;
@@ -153,7 +153,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
   },
 
   /** @private */
-  _sc_scroller_scrollDidChange: function() {
+  _sc_scroller_scrollDidChange: function _sc_scroller_scrollDidChange() {
     var now = (new Date()).getTime(),
         last = this._sc_lastScroll,
         layer = this.get('layer'),
@@ -179,7 +179,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
     Scroll the menu if it is is an up or down arrow. This is called by
     the function that simulates mouseOver.
    */
-  _scrollMenu: function(){
+  _scrollMenu: function _scrollMenu(){
     var val = this.get('value'),
         lineScroll = this.getPath('parentView.verticalLineScroll'),
         newval;
@@ -206,7 +206,7 @@ SC.MenuScrollerView = SC.CoreScrollerView.extend(
     isMouseOver which is turned on when mouseEntered is called and turned off
     when mouseExited is called.
   */
-  _invokeScrollOnMouseOver: function(){
+  _invokeScrollOnMouseOver: function _invokeScrollOnMouseOver(){
     this._scrollMenu();
     if (this.get('isMouseOver')) {
       this.invokeLater(this._invokeScrollOnMouseOver, 100);

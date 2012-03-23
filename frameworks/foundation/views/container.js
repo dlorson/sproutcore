@@ -62,13 +62,13 @@ SC.ContainerView = SC.View.extend(
     
     @param {SC.View} newContent the new content view or null.
   */
-  replaceContent: function(newContent) {
+  replaceContent: function replaceContent(newContent) {
     this.removeAllChildren() ;
     if (newContent) this.appendChild(newContent) ;
   },
 
   /** @private */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     // if contentView is defined, then create the content
     var view = this.get('contentView') ;
     if (view) {
@@ -81,7 +81,7 @@ SC.ContainerView = SC.View.extend(
     When a container view awakes, it will try to find the nowShowing, if 
     there is one, and set it as content if necessary.
   */
-  awake: function() {
+  awake: function awake() {
     sc_super();
     var nowShowing = this.get('nowShowing') ;
     if (nowShowing && nowShowing.length>0) this.nowShowingDidChange();
@@ -95,7 +95,7 @@ SC.ContainerView = SC.View.extend(
     If you set the content manually, the nowShowing property will be set to
     SC.CONTENT_SET_DIRECTLY
   */
-  nowShowingDidChange: function() {
+  nowShowingDidChange: function nowShowingDidChange() {
     // This code turns this.nowShowing into a view object by any means necessary.
     
     var content = this.get('nowShowing') ;
@@ -145,7 +145,7 @@ SC.ContainerView = SC.View.extend(
     call replaceContent.  Override replaceContent to change how the view is
     swapped out.
   */
-  contentViewDidChange: function() {
+  contentViewDidChange: function contentViewDidChange() {
     this.replaceContent(this.get('contentView'));
   }.observes('contentView')
   

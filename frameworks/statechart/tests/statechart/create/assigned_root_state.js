@@ -7,20 +7,20 @@ var obj1, rootState1, stateA, stateB;
 var obj2;
 
 module("SC.Statechart: Create Statechart with Assigned Root State Tests", {
-  setup: function() {
+  setup: function setup() {
     obj1 = SC.Object.extend(SC.StatechartManager, {
       rootState: SC.State.design({
         
         initialSubstate: 'a',
         
         a: SC.State.design({
-          foo: function() {
+          foo: function foo() {
             this.gotoState('b');
           }
         }),
         
         b: SC.State.design({
-          bar: function() {
+          bar: function bar() {
             this.gotoState('a');
           }
         })
@@ -41,7 +41,7 @@ module("SC.Statechart: Create Statechart with Assigned Root State Tests", {
     obj2 = obj2.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj1 = rootState1 = stateA = stateB = null;
     obj2 = null;
   }

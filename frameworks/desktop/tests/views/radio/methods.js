@@ -9,7 +9,7 @@
 
 var pane, view ;
 module("SC.RadioView Logic", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -41,7 +41,7 @@ module("SC.RadioView Logic", {
     view = pane.childViews[0];
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }

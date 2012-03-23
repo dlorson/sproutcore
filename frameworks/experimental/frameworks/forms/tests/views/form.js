@@ -9,7 +9,7 @@
 var Form, FormWithChildren, FormWithLabelWidths;
 
 module("Forms - FormView", {
-  setup: function() {
+  setup: function setup() {
     // a basic form view, no children
     Form = SC.FormView.extend({
 

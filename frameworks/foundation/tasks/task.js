@@ -11,7 +11,7 @@
   might not finish.
 */
 SC.Task = SC.Object.extend({
-  run: function(queue) {
+  run: function run(queue) {
     // if needed, you could put the task back on the queue for later finishing.
   }
 });

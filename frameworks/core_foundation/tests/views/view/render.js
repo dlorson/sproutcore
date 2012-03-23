@@ -18,20 +18,20 @@ test("default implementation invokes renderChildViews if firstTime = YES", funct
     displayProperties: ["triggerRenderProperty"],
     childViews: ["child"],
 
-    render: function(context) {
+    render: function render(context) {
       parentRendered++;
     },
 
-    update: function(jquery) {
+    update: function update(jquery) {
       parentUpdated++;
     },
 
     child: SC.View.create({
-      render: function(context) {
+      render: function render(context) {
         rendered++;
       },
 
-      update: function(jquery) {
+      update: function update(jquery) {
         updated++;
       }
     })
@@ -56,21 +56,21 @@ test("default implementation does not invoke renderChildViews if explicitly rend
     displayProperties: ["triggerRenderProperty"],
     childViews: ["child"],
 
-    render: function(context) {
+    render: function render(context) {
       this.renderChildViews(context);
       parentRendered++;
     },
 
-    update: function(jquery) {
+    update: function update(jquery) {
       parentUpdated++;
     },
 
     child: SC.View.create({
-      render: function(context) {
+      render: function render(context) {
         rendered++;
       },
 
-      update: function(jquery) {
+      update: function update(jquery) {
         updated++;
       }
     })
@@ -96,20 +96,20 @@ test("should invoke renderChildViews if layer is destroyed then re-rendered", fu
     displayProperties: ["triggerRenderProperty"],
     childViews: ["child"],
 
-    render: function(context) {
+    render: function render(context) {
       parentRendered++;
     },
 
-    update: function(jquery) {
+    update: function update(jquery) {
       parentUpdated++;
     },
 
     child: SC.View.create({
-      render: function(context) {
+      render: function render(context) {
         rendered++;
       },
 
-      update: function(jquery) {
+      update: function update(jquery) {
         updated++;
       }
     })
@@ -138,7 +138,7 @@ test("creates a context and then invokes renderToContext or updateLayer on each 
   var runCount = 0, curContext, curFirstTime ;
 
   var ChildView = SC.View.extend({
-    renderToContext: function(context) {
+    renderToContext: function renderToContext(context) {
       equals(context.prevObject, curContext, 'passed child context of curContext');
 
       equals(context.tagName(), this.get('tagName'), 'context setup with current tag name');
@@ -146,7 +146,7 @@ test("creates a context and then invokes renderToContext or updateLayer on each 
       runCount++; // record run
     },
 
-    updateLayer: function() {
+    updateLayer: function updateLayer() {
       runCount++;
     }
   });
@@ -180,7 +180,7 @@ test("creates a context and then invokes renderChildViews to call renderToContex
   var runCount = 0, curContext ;
 
   var ChildView = SC.View.extend({
-    renderToContext: function(context) {
+    renderToContext: function renderToContext(context) {
       equals(context.prevObject, curContext, 'passed child context of curContext');
       equals(context.tagName(), this.get('tagName'), 'context setup with current tag name');
       runCount++; // record run

@@ -75,7 +75,7 @@ SC.Editable = {
     
     @returns {Boolean} YES if editing began or is in progress, NO otherwise
   */
-  beginEditing: function() {
+  beginEditing: function beginEditing() {
     if (!this.get('isEditable')) return NO ;
     if (this.get('isEditing')) return YES ;
     
@@ -109,7 +109,7 @@ SC.Editable = {
     
     @returns {Boolean} YES if changes were discarded and editing ended.
   */
-  discardEditing: function() {
+  discardEditing: function discardEditing() {
     // if we are not editing, return YES, otherwise NO.
     
     return !this.get('isEditing') ;
@@ -142,7 +142,7 @@ SC.Editable = {
     
     @returns {Boolean} YES if changes were discarded and editing ended.
   */
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     if (!this.get('isEditing')) return YES;
     this.set('isEditing', NO) ;
     this.resignFirstResponder();

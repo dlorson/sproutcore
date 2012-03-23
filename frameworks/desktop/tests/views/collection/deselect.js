@@ -8,7 +8,7 @@
 var view, sel, content ;
 
 module("SC.CollectionView.deselect", {
-  setup: function() {
+  setup: function setup() {
     
     content = "1 2 3 4 5 6 7 8 9 10".w().map(function(x) {
       return SC.Object.create({ title: x });
@@ -67,7 +67,7 @@ test("deselect() with empty selection", function() {
 var del;
 
 module("SC.CollectionView.deselect - delegate support", {
-  setup: function() {
+  setup: function setup() {
 
     content = "1 2 3 4 5 6 7 8 9 10".w().map(function(x) {
       return SC.Object.create({ title: x });

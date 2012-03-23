@@ -10,7 +10,7 @@
 var object ;
 
 module("object.registerDependentKeys()", {  
-  setup: function() {
+  setup: function setup() {
     object = SC.Object.create({
 
         // normal properties
@@ -19,12 +19,12 @@ module("object.registerDependentKeys()", {
         observedValue: '',
 
         // computed property
-        fullName: function() {
+        fullName: function fullName() {
           return this.getEach('firstName','lastName').compact().join(' ');
         }.property(),
 
         // init to setup registerDependentKey...
-        init: function() {
+        init: function init() {
           sc_super();
           this.registerDependentKey('fullName', 'firstName', 'lastName');
         },
@@ -89,7 +89,7 @@ test("should invalidate computed property once per changed key", function() {
               SC.Object.create({name:'Camilo'}),
               SC.Object.create({name:'Pinzon'})],
 
-    fullName: function(key, value) {
+    fullName: function fullName(key, value) {
       if (value !== undefined) {
         setCalls++;
         this.content.setEach('name', value);
@@ -116,11 +116,11 @@ test("should invalidate key when properties higher up in the chain change", func
   var obj = SC.Object.create({
     contact: null,
     
-    fullName: function(key, value) {
+    fullName: function fullName(key, value) {
       return [this.getPath('contact.firstName'), this.getPath('contact.lastName')].join(' ');
     }.property('contact.firstName', 'contact.lastName').cacheable(),
     
-    fullNameDidChange: function() {
+    fullNameDidChange: function fullNameDidChange() {
       notified++;
     }.observes('fullName')
   });

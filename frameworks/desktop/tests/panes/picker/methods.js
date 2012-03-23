@@ -10,11 +10,11 @@
 window.target = null;
 
 module("SC.PickerPane Methods", {
-  setup: function(){
+  setup: function setup(){
     window.target = SC.Object.create({
       fooInvoked: NO,
       sender: null,
-      foo: function(sender) {
+      foo: function foo(sender) {
         this.set('sender', sender);
         this.set('fooInvoked', YES);
         sender.remove();
@@ -22,7 +22,7 @@ module("SC.PickerPane Methods", {
     });
   },
   
-  teardown: function(){
+  teardown: function teardown(){
     window.target = null;
   }
 });
@@ -61,7 +61,7 @@ test("check action on pane#mouseDown with removeAction set", function() {
     }),
     removeAction: 'foo',
     fooInvoked: NO,
-    foo: function() { 
+    foo: function foo() { 
       this.set('fooInvoked', YES);
       this.remove();
     }

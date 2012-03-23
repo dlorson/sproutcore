@@ -12,7 +12,7 @@ var pane, view , view1, view2, view3, view4 ;
 module("SC.SelectButtonView",{
 
   //setup
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     var isDue = NO ;
 
@@ -80,7 +80,7 @@ module("SC.SelectButtonView",{
   },
 
   //teardown
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove() ;
     pane = view = null ;
   }

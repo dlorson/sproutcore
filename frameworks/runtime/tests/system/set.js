@@ -13,14 +13,14 @@ var a, b, c ; // global variables
 
 module("creating SC.Set instances", {
   
-  setup: function() {
+  setup: function setup() {
     // create objects...
     a = { name: "a" } ;
     b = { name: "b" } ;
     c = { name: "c" } ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     a = undefined ;
     b = undefined ;
     c = undefined ;
@@ -45,7 +45,7 @@ test("SC.Set.create() should accept anything that implements SC.Array", function
   var arrayLikeObject = SC.Object.create(SC.Array, {
     _content: [a,b,c],
     length: 3,
-    objectAt: function(idx) { return this._content[idx]; } 
+    objectAt: function objectAt(idx) { return this._content[idx]; } 
   }) ;
   
   var set = SC.Set.create(arrayLikeObject) ;
@@ -61,11 +61,11 @@ var set ; // global variables
 // exhaustively.
 module("SC.Set.add + SC.Set.contains", {
   
-  setup: function() {
+  setup: function setup() {
     set = SC.Set.create() ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     set = undefined ;
   }
   
@@ -166,7 +166,7 @@ module("SC.Set.remove + SC.Set.contains", {
   
   // generate a set with every type of object, but none of the specific
   // ones we add in the tests below...
-  setup: function() {
+  setup: function setup() {
     set = SC.Set.create([
       SC.Object.create({ dummy: YES }),
       { isHash: YES },
@@ -174,7 +174,7 @@ module("SC.Set.remove + SC.Set.contains", {
       16, true, false, 0]) ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     set = undefined ;
   }
   
@@ -284,7 +284,7 @@ test("should ignore removing an object not in the set", function() {
 module("SC.Set.pop + SC.Set.clone", {
 // generate a set with every type of object, but none of the specific
 // ones we add in the tests below...
-	setup: function() {
+	setup: function setup() {
 		set = SC.Set.create([
 			SC.Object.create({ dummy: YES }),
 			{ isHash: YES },
@@ -292,7 +292,7 @@ module("SC.Set.pop + SC.Set.clone", {
 			16, false]) ;
 		},
 		
-		teardown: function() {
+		teardown: function teardown() {
 			set = undefined ;
 		}
 });

@@ -17,7 +17,7 @@ customEditor = SC.View.extend(SC.InlineEditor);
 commitEditor = SC.View.extend(SC.InlineEditor, {
   didCommit: NO,
 
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     this.didCommit = YES;
     return YES;
   }
@@ -26,14 +26,14 @@ commitEditor = SC.View.extend(SC.InlineEditor, {
 discardEditor = SC.View.extend(SC.InlineEditor, {
   didCommit: NO,
 
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     this.didCommit = YES;
     return NO;
   },
 
   didDiscard: NO,
 
-  discardEditing: function() {
+  discardEditing: function discardEditing() {
     this.didDiscard = YES;
     return YES;
   }
@@ -42,14 +42,14 @@ discardEditor = SC.View.extend(SC.InlineEditor, {
 failEditor = SC.View.extend(SC.InlineEditor, {
   didCommit: NO,
 
-  commitEditing: function() {
+  commitEditing: function commitEditing() {
     this.didCommit = YES;
     return NO;
   },
 
   didDiscard: NO,
 
-  discardEditing: function() {
+  discardEditing: function discardEditing() {
     this.didDiscard = YES;
     return NO;
   }

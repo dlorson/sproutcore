@@ -20,7 +20,7 @@
     state = SC.State.extend({
     
       // Will be invoked when a event named "foo" is sent to this state
-      foo: function(event, sender, context) { ... }
+      foo: function foo(event, sender, context) { ... }
     
     })
   
@@ -36,11 +36,11 @@
   
     state = SC.State.extend({
     
-      eventHandlerA: function(event, sender, context) {
+      eventHandlerA: function eventHandlerA(event, sender, context) {
       
       }.handleEvents('foo', 'bar'),
       
-      eventHandlerB: function(event, sender, context) {
+      eventHandlerB: function eventHandlerB(event, sender, context) {
       
       }.handleEvents(/num\d/, 'decimal')
     
@@ -88,15 +88,15 @@ Function.prototype.handleEvents = function() {
       
       user: null,
     
-      observeHandlerA: function(target, key) {
+      observeHandlerA: function observeHandlerA(target, key) {
         
       }.stateObserves('MyApp.someController.status'),
       
-      observeHandlerB: function(target, key) {
+      observeHandlerB: function observeHandlerB(target, key) {
       
       }.stateObserves('foo'),
       
-      observeHandlerC: function(target, key) {
+      observeHandlerC: function observeHandlerC(target, key) {
       
       }.stateObserves('.user.name', '.user.salary')
     

@@ -61,7 +61,7 @@ SC.StateRouteHandlerContext = SC.Object.extend(
     essentially perform the same call as when the handler 
     was originally triggered on state. 
   */
-  retry: function() {
+  retry: function retry() {
     var state = this.get('state'),
         params = this.get('params'),
         handler = this.get('handler');

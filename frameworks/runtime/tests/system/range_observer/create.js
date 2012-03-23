@@ -8,7 +8,7 @@
 
 var source, indexes, observer, obj ; // base array to work with
 module("SC.RangeObserver#create", {
-  setup: function() {
+  setup: function setup() {
 
     // create array with 5 SC.Object's in them
     source = [1,2,3,4,5].map(function(x) {
@@ -21,7 +21,7 @@ module("SC.RangeObserver#create", {
 
       callCount: 0,
 
-      rangeDidChange: function() {
+      rangeDidChange: function rangeDidChange() {
         this.callCount++;
       }
 
@@ -62,7 +62,7 @@ test("SC.RangeObserver.create should accept methods specified as strings", funct
   var myArray = [ SC.Object.create({ prop: 0 })],
       rangeObserverCount = 0,
       observer = SC.Object.create({
-        rangeObserverDidFire: function(source, object, key, index) {
+        rangeObserverDidFire: function rangeObserverDidFire(source, object, key, index) {
           ++rangeObserverCount;
         }
       }),

@@ -11,7 +11,7 @@
 var Ace, Dark, Capsule, DarkCapsule, AceOnly;
 
 module("SC.Theme", {
-  setup: function() {
+  setup: function setup() {
     // make and register Ace
     Ace = SC.Theme.create({
       name: 'ace',
@@ -26,7 +26,7 @@ module("SC.Theme", {
     Capsule = Ace.subtheme("capsule");
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     
   }
 });

@@ -16,16 +16,16 @@ SC.pageItemView = SC.ListItemView.extend(
 /** @scope SC.ListItemView.prototype */ { 
   isDropTarget: YES,
 
-  dragEntered: function(drag, evt) {
+  dragEntered: function dragEntered(drag, evt) {
     this.$().addClass('highlight');
   },
 
-  dragExited: function(drag, evt) {
+  dragExited: function dragExited(drag, evt) {
     this.$().removeClass('highlight');
  
   },
 
-  dragEnded: function(drag, evt) {
+  dragEnded: function dragEnded(drag, evt) {
     this.$().removeClass('highlight');
  
   },
@@ -47,7 +47,7 @@ SC.pageItemView = SC.ListItemView.extend(
    @returns {DragOps} A mask of all the drag operations allowed or 
      SC.DRAG_NONE
   */
-  computeDragOperations: function(drag, evt) { 
+  computeDragOperations: function computeDragOperations(drag, evt) { 
     if(drag.hasDataType('SC.Binding')){
       return SC.DRAG_LINK;
     }
@@ -69,7 +69,7 @@ SC.pageItemView = SC.ListItemView.extend(
 
    @return {Boolean} YES if operation is OK, NO to cancel.
   */  
-  acceptDragOperation: function(drag, op) { return YES; },
+  acceptDragOperation: function acceptDragOperation(drag, op) { return YES; },
 
   /**
    Called to actually perform the drag operation.
@@ -87,14 +87,14 @@ SC.pageItemView = SC.ListItemView.extend(
 
    @return {DragOp} Drag Operation actually performed
   */
-  performDragOperation: function(drag, op) { 
+  performDragOperation: function performDragOperation(drag, op) { 
     var data = drag.dataForType('SC.Binding'), that = this;
     if(data && SC._Greenhouse){
       var actionObj = SC.Object.create({
         type: 'Binding', 
         source: data,
         target: that.get('content'),
-        addItem: function(from, to, designAttrs){
+        addItem: function addItem(from, to, designAttrs){
           var view = this.getPath('source');
           var value = that._propertyPathForProp(this.getPath('target.view.page'),this.getPath('target.view'));
           view[from+"Binding"] = designAttrs[from+"Binding"] = value+"."+to;
@@ -118,7 +118,7 @@ SC.pageItemView = SC.ListItemView.extend(
     }
   },
   
-  _propertyPathForProp: function(page, prop){
+  _propertyPathForProp: function _propertyPathForProp(page, prop){
     for(var key in page){
       if(page.hasOwnProperty(key)){
         if(page[key] === prop) return page.get('pageName')+"."+key.toString();

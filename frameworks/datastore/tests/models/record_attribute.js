@@ -9,7 +9,7 @@
 var storeKeys, rec, rec2, rec3, bar, MyApp;
 
 module("SC.RecordAttribute core methods", {
-  setup: function() {
+  setup: function setup() {
 
     MyApp = SC.Object.create({
       store: SC.Store.create()
@@ -49,7 +49,7 @@ module("SC.RecordAttribute core methods", {
 
       // used to test default value
       defaultComputedValue: SC.Record.attr(Number, {
-        defaultValue: function() {
+        defaultValue: function defaultValue() {
           return Math.floor(Math.random()*3+1);
         }
       }),

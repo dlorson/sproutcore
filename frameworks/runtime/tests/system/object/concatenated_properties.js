@@ -9,7 +9,7 @@
   var klass;
 
   module("SC.Object Concatenated Properties", {
-    setup: function(){
+    setup: function setup(){
       klass = SC.Object.extend({
         concatenatedProperties: ['values'],
         values: ['a', 'b', 'c']

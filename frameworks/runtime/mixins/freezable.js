@@ -47,7 +47,7 @@ SC.FROZEN_ERROR = new Error("Cannot modify a frozen object");
           lastName: null,
 
           // swaps the names
-          swapNames: function() {
+          swapNames: function swapNames() {
             if (this.get('isFrozen')) throw SC.FROZEN_ERROR;
             var tmp = this.get('firstName');
             this.set('firstName', this.get('lastName'));
@@ -93,7 +93,7 @@ SC.Freezable = /** @scope SC.Freezable.prototype */ {
 
     @returns {Object} receiver
   */
-  freeze: function() {
+  freeze: function freeze() {
     // NOTE: Once someone actually implements Object.freeze() in the browser,
     // add a call to that here also.
 

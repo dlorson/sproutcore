@@ -13,7 +13,7 @@ var object, object1,object3; //global variables
 
 module("Checking the tuple for property path",{
 	
-	setup: function(){
+	setup: function setup(){
 		 object = SC.Object.create({
 			name:'SproutCore',
 			value:'',						//no value defined for the property

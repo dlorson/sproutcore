@@ -10,7 +10,7 @@ var statechart = null;
 // 
 
 module("SC.Statechart: With Concurrent States - Send Event Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -24,7 +24,7 @@ module("SC.Statechart: With Concurrent States - Send Event Tests", {
           
           fooInvokedCount: 0,
           
-          foo: function() {
+          foo: function foo() {
             this.fooInvokedCount++;
           },
           
@@ -36,15 +36,15 @@ module("SC.Statechart: With Concurrent States - Send Event Tests", {
 
             eventAInvoked: NO,
 
-            eventA: function() { this.set('eventAInvoked', YES); },
+            eventA: function eventA() { this.set('eventAInvoked', YES); },
 
             c: SC.State.design({
-              eventB: function() { this.gotoState('d'); },
-              eventD: function() { this.gotoState('y'); }
+              eventB: function eventB() { this.gotoState('d'); },
+              eventD: function eventD() { this.gotoState('y'); }
             }),
 
             d: SC.State.design({
-              eventC: function() { this.gotoState('c'); }
+              eventC: function eventC() { this.gotoState('c'); }
             })
 
           }),
@@ -55,15 +55,15 @@ module("SC.Statechart: With Concurrent States - Send Event Tests", {
 
             eventAInvoked: NO,
 
-            eventA: function() { this.set('eventAInvoked', YES); },
+            eventA: function eventA() { this.set('eventAInvoked', YES); },
 
             e: SC.State.design({
-              eventB: function() { this.gotoState('f'); },
-              eventD: function() { this.gotoState('y'); }
+              eventB: function eventB() { this.gotoState('f'); },
+              eventD: function eventD() { this.gotoState('y'); }
             }),
 
             f: SC.State.design({
-              eventC: function() { this.gotoState('e'); }
+              eventC: function eventC() { this.gotoState('e'); }
             })
 
           })
@@ -79,7 +79,7 @@ module("SC.Statechart: With Concurrent States - Send Event Tests", {
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = null;
   }

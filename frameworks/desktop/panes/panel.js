@@ -117,13 +117,13 @@ SC.PanelPane = SC.Pane.extend(
   /**
     @param {SC.View} newContent
   */
-  replaceContent: function(newContent) {
+  replaceContent: function replaceContent(newContent) {
     this.removeAllChildren() ;
     if (newContent) this.appendChild(newContent);
   },
 
   /** @private */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     // if contentView is defined, then create the content
     var view = this.contentView ;
     if (view) {
@@ -138,7 +138,7 @@ SC.PanelPane = SC.Pane.extend(
     call replaceContent. Override replaceContent to change how the view is
     swapped out.
   */
-  contentViewDidChange: function() {
+  contentViewDidChange: function contentViewDidChange() {
     this.replaceContent(this.get('contentView'));
   }.observes('contentView'),
 
@@ -155,7 +155,7 @@ SC.PanelPane = SC.Pane.extend(
   renderDelegateName: 'panelRenderDelegate',
 
   // get the modal pane. 
-  _modalPane: function() {
+  _modalPane: function _modalPane() {
     var pane = this.get('modalPane');
     
     // instantiate if needed
@@ -168,7 +168,7 @@ SC.PanelPane = SC.Pane.extend(
   },
   
   /** @private - whenever showing on screen, deal with modal pane as well */
-  appendTo: function(elem) {
+  appendTo: function appendTo(elem) {
     var pane ;
     if (!this.get('isVisibleInWindow') && this.get('isModal') && (pane = this._modalPane())) {
       this._isShowingModal = YES;
@@ -178,7 +178,7 @@ SC.PanelPane = SC.Pane.extend(
   },
   
   /** @private - when removing from screen, deal with modal pane as well. */
-  remove: function() {
+  remove: function remove() {
     var pane, ret = sc_super();
     
     if (this._isShowingModal) {
@@ -188,7 +188,7 @@ SC.PanelPane = SC.Pane.extend(
     return ret ;
   },
 
-  destroy: function() {
+  destroy: function destroy() {
     var modal = this.get('modalPane');
     if (modal && !modal.isClass) {
       modal.destroy();
@@ -198,7 +198,7 @@ SC.PanelPane = SC.Pane.extend(
   },
   
   /** @private - if isModal state changes, update pane state if needed. */
-  _isModalDidChange: function() {
+  _isModalDidChange: function _isModalDidChange() {
     var pane, isModal = this.get('isModal');
     if (isModal) {
        if (!this._isShowingModal && this.get('isVisibleInWindow') && (pane = this._modalPane())) {
@@ -215,7 +215,7 @@ SC.PanelPane = SC.Pane.extend(
   }.observes('isModal'),
   
   /** @private - extends SC.Pane's method - make panel keyPane when shown */
-  paneDidAttach: function() {
+  paneDidAttach: function paneDidAttach() {
     var ret = sc_super();
     this.becomeKeyPane();
     return ret ;

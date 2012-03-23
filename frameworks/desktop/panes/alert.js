@@ -96,7 +96,7 @@ SC.BUTTON3_STATUS = 'button3';
   the user's dismisses the dialog.
   
       MyApp.calendarController = SC.Object.create({
-        alertPaneDidDismiss: function(pane, status) {
+        alertPaneDidDismiss: function alertPaneDidDismiss(pane, status) {
           switch(status) {
             case SC.BUTTON1_STATUS:
               this.tryAgain();
@@ -176,7 +176,7 @@ SC.AlertPane = SC.PanelPane.extend(
     
     The method to be called on your delegate will be:
     
-        alertPaneDidDismiss: function(pane, status) {}
+        alertPaneDidDismiss: function alertPaneDidDismiss(pane, status) {}
     
     The status will be one of `SC.BUTTON1_STATUS`, `SC.BUTTON2_STATUS` or `SC.BUTTON3_STATUS`
     depending on which button was clicked.
@@ -209,7 +209,7 @@ SC.AlertPane = SC.PanelPane.extend(
     
     @field {String}
   */
-  ariaLabel: function() {
+  ariaLabel: function ariaLabel() {
     return this.get('message');
   }.property('message').cacheable(),
 
@@ -230,7 +230,7 @@ SC.AlertPane = SC.PanelPane.extend(
     @type String
     @observes description
   */
-  displayDescription: function() {
+  displayDescription: function displayDescription() {
     var desc = this.get('description');
     if (!desc || desc.length === 0) return desc ;
     
@@ -255,7 +255,7 @@ SC.AlertPane = SC.PanelPane.extend(
     @type String
     @observes caption
   */
-  displayCaption: function() {
+  displayCaption: function displayCaption() {
     var caption = this.get('caption');
     if (!caption || caption.length === 0) return caption ;
     
@@ -310,7 +310,7 @@ SC.AlertPane = SC.PanelPane.extend(
         classNames: ['info'],
 
         /** @private */
-        render: function(context, firstTime) {
+        render: function render(context, firstTime) {
           var pane = this.get('pane');
           if(pane.get('icon') == 'blank') context.addClass('plain');
           context.push('<img src="'+SC.BLANK_IMAGE_URL+'" class="icon '+pane.get('icon')+'" />');
@@ -376,7 +376,7 @@ SC.AlertPane = SC.PanelPane.extend(
     
     @param {SC.View} sender - the button view that was clicked
   */
-  dismiss: function(sender) {
+  dismiss: function dismiss(sender) {
     var del = this.delegate,
         rootResponder, action, target;
     
@@ -403,7 +403,7 @@ SC.AlertPane = SC.PanelPane.extend(
     Executes whenever one of the icon, message, description or caption is changed.
     This simply causes the UI to refresh.
   */
-  alertInfoDidChange: function() {
+  alertInfoDidChange: function alertInfoDidChange() {
     var v = this.getPath('contentView.childViews.0');
     if (v) v.displayDidChange(); // re-render message
   }.observes('icon', 'message', 'displayDescription', 'displayCaption')
@@ -429,7 +429,7 @@ SC.AlertPane.mixin(
     @param {Hash} args
     @return {SC.AlertPane} the pane shown
   */
-  show: function(args) {
+  show: function show(args) {
     // normalize the arguments if this is a deprecated call
     args = SC.AlertPane._argumentsCall.apply(this, arguments);
     
@@ -475,7 +475,7 @@ SC.AlertPane.mixin(
     @param {Hash} args
     @return {SC.AlertPane} the pane shown
   */
-  warn: function(args) {
+  warn: function warn(args) {
     // normalize the arguments if this is a deprecated call
     args = SC.AlertPane._argumentsCall.apply(this, arguments);
     
@@ -490,7 +490,7 @@ SC.AlertPane.mixin(
     @param {Hash} args
     @return {SC.AlertPane} the pane shown
   */
-  info: function(args) {
+  info: function info(args) {
     // normalize the arguments if this is a deprecated call
     args = SC.AlertPane._argumentsCall.apply(this, arguments);
     
@@ -505,7 +505,7 @@ SC.AlertPane.mixin(
     @param {Hash} args
     @return {SC.AlertPane} the pane shown
   */
-  error: function(args) {
+  error: function error(args) {
     // normalize the arguments if this is a deprecated call
     args = SC.AlertPane._argumentsCall.apply(this, arguments);
     
@@ -520,7 +520,7 @@ SC.AlertPane.mixin(
     @param {Hash} args
     @return {SC.AlertPane} the pane shown
   */
-  plain: function(args) {
+  plain: function plain(args) {
     // normalize the arguments if this is a deprecated call
     args = SC.AlertPane._argumentsCall.apply(this, arguments);
     
@@ -536,7 +536,7 @@ SC.AlertPane.mixin(
     
     @deprecated
   */
-  _argumentsCall: function(args) {
+  _argumentsCall: function _argumentsCall(args) {
     var ret = args;
     if(SC.typeOf(args)!==SC.T_HASH) {
       //@if(debug)
@@ -571,7 +571,7 @@ SC.AlertPane.mixin(
   /** @private
     internal method normalizes arguments for processing by helper methods.
   */
-  _normalizeArguments: function(args) {
+  _normalizeArguments: function _normalizeArguments(args) {
     args = SC.A(args); // convert to real array
     var len = args.length, delegate = args[len-1];
     if (SC.typeOf(delegate) !== SC.T_STRING) {

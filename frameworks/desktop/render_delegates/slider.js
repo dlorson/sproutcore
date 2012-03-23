@@ -20,7 +20,7 @@ SC.BaseTheme.sliderRenderDelegate = SC.RenderDelegate.create({
 
   className: 'slider',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
 
     var blankImage = SC.BLANK_IMAGE_URL,
@@ -50,7 +50,7 @@ SC.BaseTheme.sliderRenderDelegate = SC.RenderDelegate.create({
     dataSource.get('renderState')._cachedHandle = null;
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
 
     var valueMax    = dataSource.get('maximum'),

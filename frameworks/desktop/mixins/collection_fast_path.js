@@ -16,7 +16,7 @@ SC.CollectionFastPath = {
   //
   // ITEM VIEW CLASS/INSTANCE MANAGEMENT
   //
-  initMixin: function() {
+  initMixin: function initMixin() {
     this._indexMap = {};
   },
   
@@ -27,7 +27,7 @@ SC.CollectionFastPath = {
     
     @param {SC.View} exampleView
   */
-  poolForExampleView: function(exampleView) {
+  poolForExampleView: function poolForExampleView(exampleView) {
     var poolKey = "_pool_" + SC.guidFor(exampleView);
     if (!this[poolKey]) this[poolKey] = [];
     return this[poolKey];
@@ -40,7 +40,7 @@ SC.CollectionFastPath = {
     @param {SC.View} exampleView
     @param {Hash} attrs
   */
-  createItemViewFromExampleView: function(exampleView, attrs) {
+  createItemViewFromExampleView: function createItemViewFromExampleView(exampleView, attrs) {
     // create the example view
     var ret = this.createItemView(exampleView, null, attrs);
     
@@ -61,7 +61,7 @@ SC.CollectionFastPath = {
     @param {SC.View} itemView
     @param {Hash} attrs
   */
-  configureItemView: function(itemView, attrs) {
+  configureItemView: function configureItemView(itemView, attrs) {
     // set settings. Self explanatory.
     itemView.beginPropertyChanges();
     itemView.setIfChanged('content', attrs.content);
@@ -85,7 +85,7 @@ SC.CollectionFastPath = {
     @param {SC.View} itemView
     @param {Hash} attrs
   */
-  wakePooledView: function(itemView, attrs) {
+  wakePooledView: function wakePooledView(itemView, attrs) {
     // configure
     this.configureItemView(itemView, attrs);
     
@@ -100,7 +100,7 @@ SC.CollectionFastPath = {
     @param {SC.View} exampleView
     @param {Hash} attrs
   */
-  allocateItemView: function(exampleView, attrs) {
+  allocateItemView: function allocateItemView(exampleView, attrs) {
     // we will try to get it from a pool. This will fill ret. If ret is not
     // filled, then we'll know to generate one.
     var ret;
@@ -131,7 +131,7 @@ SC.CollectionFastPath = {
 
     @param {SC.View} itemView
   */
-  releaseItemView: function(itemView) {
+  releaseItemView: function releaseItemView(itemView) {
     // if it is not poolable, there is not much we can do.
     if (!itemView.isPoolable) {
       itemView.destroy();
@@ -147,7 +147,7 @@ SC.CollectionFastPath = {
   /** @private
     Returns YES if the item at the index is a group.
   */
-  contentIndexIsGroup: function(view, content, index) {
+  contentIndexIsGroup: function contentIndexIsGroup(view, content, index) {
     var contentDelegate = this.get("contentDelegate");
     
     // setup our properties
@@ -165,7 +165,7 @@ SC.CollectionFastPath = {
     Determines the example view for a content index. There are two optional parameters that will
     speed things up: `contentObject` and `isGroupView`. If you don't supply them, they must be computed.
   */
-  exampleViewForItem: function(item, index) {
+  exampleViewForItem: function exampleViewForItem(item, index) {
     var del = this.get('contentDelegate'),
         groupIndexes = this.get('_contentGroupIndexes'),
         key, ExampleView,
@@ -193,7 +193,7 @@ SC.CollectionFastPath = {
     Properties include both the attributes given to the view and some `CollectionView` tracking
     properties, most importantly the exampleView.
   */
-  setAttributesForItem: function(item, index, attrs) {
+  setAttributesForItem: function setAttributesForItem(item, index, attrs) {
     var del = this.get('contentDelegate'), 
         isGroupView = this.contentIndexIsGroup(this, this.get('content'), index),
         ExampleView = this.exampleViewForItem(item, index),
@@ -226,7 +226,7 @@ SC.CollectionFastPath = {
   /** @private
     Returns mapped item views for the supplied item.
   */
-  mappedViewsForItem: function(item, map) {
+  mappedViewsForItem: function mappedViewsForItem(item, map) {
     if (!map) map = this._viewMap;
     return map[SC.guidFor(item)];
   },
@@ -234,7 +234,7 @@ SC.CollectionFastPath = {
   /** @private
     Returns the mapped view for an item at the specified index. 
   */
-  mappedViewForItem: function(item, idx, map) {
+  mappedViewForItem: function mappedViewForItem(item, idx, map) {
     if (!map) map = this._viewMap;
     var m = map[SC.guidFor(item)];
     if (!m) return undefined;
@@ -244,7 +244,7 @@ SC.CollectionFastPath = {
   /** @private
     Maps a view to an item/index combination.
   */
-  mapView: function(item, index, view, map) {
+  mapView: function mapView(item, index, view, map) {
     // get the default view map if a map was not supplied
     if (!map) map = this._viewMap;
     
@@ -261,7 +261,7 @@ SC.CollectionFastPath = {
   /** @private
     Unmaps a view from an item/index combination.
   */
-  unmapView: function(item, index, map) {
+  unmapView: function unmapView(item, index, map) {
     if (!map) map = this._viewMap;
     var g = SC.guidFor(item),
         imap = map[g];
@@ -286,7 +286,7 @@ SC.CollectionFastPath = {
 
     @param {Number} index
   */
-  itemViewForContentIndex: function(index) {
+  itemViewForContentIndex: function itemViewForContentIndex(index) {
     var content = this.get("content");
     if (!content) return;
     
@@ -312,7 +312,7 @@ SC.CollectionFastPath = {
   /** @private
     Returns the nearest item view index to the supplied index mapped to the item.
   */
-  nearestMappedViewIndexForItem: function(item, index, map) {
+  nearestMappedViewIndexForItem: function nearestMappedViewIndexForItem(item, index, map) {
     var m = this.mappedViewsForItem(item, map);
     if (!m) return null;
     
@@ -339,7 +339,7 @@ SC.CollectionFastPath = {
   /** @private
     Remaps the now showing views to their new indexes (if they have moved).
   */
-  remapItemViews: function(nowShowing) {
+  remapItemViews: function remapItemViews(nowShowing) {
     // reset the view map, but keep the old for removing
     var oldMap = this._viewMap || {},
         newMap = (this._viewMap = {}),
@@ -407,7 +407,7 @@ SC.CollectionFastPath = {
     @param {SC.IndexSet} nowShowing
     @param {Boolean} scrollOnly
   */
-  reloadIfNeeded: function(nowShowing, scrollOnly) {
+  reloadIfNeeded: function reloadIfNeeded(nowShowing, scrollOnly) {
     var content = this.get("content"), invalid;
     
     // we use the nowShowing to determine what should and should not be showing.
@@ -465,7 +465,7 @@ SC.CollectionFastPath = {
 
     @param {Hash} oldMap
   */
-  processRemovals: function(oldMap) {
+  processRemovals: function processRemovals(oldMap) {
     var content = this.get("content");
     for (var guid in oldMap) {
       var imap = oldMap[guid];
@@ -486,7 +486,7 @@ SC.CollectionFastPath = {
   /** @private
     Loops through update queue and... updates.
   */
-  processUpdates: function(invalid) {
+  processUpdates: function processUpdates(invalid) {
     var u = this._itemsToUpdate, content = this.get("content"), item, view;
     invalid.forEach(function(idx) {
       item = content.objectAt(idx);
@@ -501,7 +501,7 @@ SC.CollectionFastPath = {
   /** @private
     Loops through add queue and, well, adds.
   */
-  processAdds: function() {
+  processAdds: function processAdds() {
     var content = this.get("content");
     
     var add = this._itemsToAdd, idx, len = add.length, itemIdx, item;
@@ -517,7 +517,7 @@ SC.CollectionFastPath = {
   /** @private
     Clear all DOM pools.
   */
-  clearDOMPools: function() {
+  clearDOMPools: function clearDOMPools() {
     var pools = this._domPools || (this._domPools = {});
     for (var p in pools) {
       this.clearDOMPool(pools[p]);
@@ -533,7 +533,7 @@ SC.CollectionFastPath = {
   /** @private
     Clears a specific DOM pool.
   */
-  clearDOMPool: function(pool) {
+  clearDOMPool: function clearDOMPool(pool) {
     var idx, len = pool.length, item;
     
     // we skip one because there is a buffer area of one while scrolling
@@ -554,7 +554,7 @@ SC.CollectionFastPath = {
   /** @private
     Returns the DOM pool for the given exampleView.
   */
-  domPoolForExampleView: function(exampleView) {
+  domPoolForExampleView: function domPoolForExampleView(exampleView) {
     var pools = this._domPools || (this._domPools = {}), guid = SC.guidFor(exampleView);
     var pool = pools[guid];
     if (!pool) pool = pools[guid] = [];
@@ -565,7 +565,7 @@ SC.CollectionFastPath = {
     Tries to find an item for the given example view in a dom pool.
     If one could not be found, returns `null`.
   */
-  itemFromDOMPool: function(exampleView) {
+  itemFromDOMPool: function itemFromDOMPool(exampleView) {
     var pool = this.domPoolForExampleView(exampleView);
     if (pool.length < 1) return null;
     var view = pool.shift();
@@ -576,7 +576,7 @@ SC.CollectionFastPath = {
   /** @private
     Sends a view to a DOM pool.
   */
-  sendToDOMPool: function(view) {
+  sendToDOMPool: function sendToDOMPool(view) {
     var pool = this.domPoolForExampleView(view.createdFromExampleView);
     pool.push(view);
     var f = view.get("frame");
@@ -588,7 +588,7 @@ SC.CollectionFastPath = {
   /** @private
     Adds an item view (grabbing the actual item from one of the pools if possible).
   */
-  addItemView: function(exampleView, object, index) {
+  addItemView: function addItemView(exampleView, object, index) {
     var view, attrs = this._TMP_ATTRS || (this._TMP_ATTRS = {});
     
     // in any case, we need attributes
@@ -629,7 +629,7 @@ SC.CollectionFastPath = {
   /** @private
     Removes an item view.
   */
-  removeItemView: function(current) {
+  removeItemView: function removeItemView(current) {
     if (current.get("layerIsCacheable")) {
       this.sendToDOMPool(current);
     } else {
@@ -644,7 +644,7 @@ SC.CollectionFastPath = {
     
     Otherwise, nothing will happen.
   */
-  updateItemView: function(current, exampleView, object, index) {
+  updateItemView: function updateItemView(current, exampleView, object, index) {
     if (!current.get("layerIsCacheable") || current.createdFromExampleView !== exampleView) {
       // unmap old and remove
       this.unmapView(current, index);
@@ -675,7 +675,7 @@ SC.CollectionFastPath = {
   _tolerance: 100,
   
   /** @private */
-  touchScrollDidChange: function(left, top) {
+  touchScrollDidChange: function touchScrollDidChange(left, top) {
     // prevent getting too many in close succession.
     if (Date.now() - this._lastTouchScrollTime < 25) return;
     

@@ -9,13 +9,13 @@
 var pane, menu, callCount = 0;
 
 module("SC.MenuItemView", {
-  setup: function() {
+  setup: function setup() {
    pane = SC.MainPane.create({
      layout: { width: 100, height: 20, centerX: 0, centerY: 0 },
      childViews: 'button'.w(),
 
      button: SC.ButtonView.design({
-       menuItemAction: function() {
+       menuItemAction: function menuItemAction() {
          callCount += 1;
        }
      })
@@ -32,7 +32,7 @@ module("SC.MenuItemView", {
    menu.popup(pane.anchor);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     menu.remove();
     pane = menu = null;

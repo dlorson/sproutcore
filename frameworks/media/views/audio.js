@@ -110,7 +110,7 @@ SC.AudioView = SC.View.extend(
     Formatted currentTime. (00:00)
     @property {String}
   */
-  time: function(){
+  time: function time(){
     var currentTime=this.get('currentTime'),
         totaltimeInSecs = this.get('duration');
     var formattedTime = this._addZeros(Math.floor(currentTime/60))+':'+this._addZeros(Math.floor(currentTime%60))+"/"+this._addZeros(Math.floor(totaltimeInSecs/60))+':'+this._addZeros(Math.floor(totaltimeInSecs%60));
@@ -124,7 +124,7 @@ SC.AudioView = SC.View.extend(
     @param {Boolean} firstTime YES if this is creating a layer
     @returns {void}
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var i, j, listLen, pluginsLen, id = SC.guidFor(this);
     if(firstTime){
       for(i=0, listLen = this.degradeList.length; i<listLen; i++){
@@ -269,7 +269,7 @@ SC.AudioView = SC.View.extend(
 
     @returns {void}
   */
-  addAudioDOMEvents: function() {
+  addAudioDOMEvents: function addAudioDOMEvents() {
     var audioElem, view=this;
     audioElem = this.$('audio')[0];
     this.set('audioObject', audioElem);
@@ -427,7 +427,7 @@ SC.AudioView = SC.View.extend(
 
      @returns {void}
    */
-  addQTDOMEvents: function() {
+  addQTDOMEvents: function addQTDOMEvents() {
     var media=this._getAudioObject(),
         audioElem = this.$()[0],
         view=this,
@@ -561,7 +561,7 @@ SC.AudioView = SC.View.extend(
 
     @returns {void}
   */
-  startSeek: function(){
+  startSeek: function startSeek(){
     if(!this.get('paused')) {
       SC.Logger.log('startseetk');
       this.stop();
@@ -575,7 +575,7 @@ SC.AudioView = SC.View.extend(
 
     @returns {void}
   */
-  endSeek: function(){
+  endSeek: function endSeek(){
     if(this._wasPlaying) {
       SC.Logger.log('startseetk');
       this.play();
@@ -600,7 +600,7 @@ SC.AudioView = SC.View.extend(
     Calls the right play method depending on the technology.
     @returns {void}
   */
-  play: function(){
+  play: function play(){
     var media=this._getAudioObject();
     if(this.loaded==="html5") media.play();
     if(this.loaded==="quicktime") media.Play();
@@ -612,7 +612,7 @@ SC.AudioView = SC.View.extend(
     Calls the right stop method depending on the technology.
     @returns {void}
   */
-  stop: function(){
+  stop: function stop(){
     var media=this._getAudioObject();
     if(this.loaded==="html5")  media.pause();
     if(this.loaded==="quicktime")  media.Stop();
@@ -624,7 +624,7 @@ SC.AudioView = SC.View.extend(
     Plays or stops the audio.
     @returns {void}
   */
-  playPause: function(){
+  playPause: function playPause(){
     if(this.get('paused')){
       this.play();
     }else{

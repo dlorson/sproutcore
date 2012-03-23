@@ -108,14 +108,14 @@ SC.Border = {
   _BORDER_REGEXP: (/-border$/),
 
   /** @private */
-  initMixin: function() {
+  initMixin: function initMixin() {
     console.warn("SC.Border is deprecated, please set border in your layout");
     this._sc_border_borderStyleDidChange();
     this._sc_border_borderDimensionsDidChange();
   },
 
   /** @private */
-  renderMixin: function(context, firstTime) {
+  renderMixin: function renderMixin(context, firstTime) {
     var style = this.get('borderStyle');
     if (style) {
       if (this._BORDER_REGEXP.exec(style)) {
@@ -125,7 +125,7 @@ SC.Border = {
   },
 
   /** @private */
-  _sc_border_borderStyleDidChange: function() {
+  _sc_border_borderStyleDidChange: function _sc_border_borderStyleDidChange() {
     var borderStyle = this.get('borderStyle'),
         borderSize = SC.Border.dimensions[borderStyle];
 
@@ -140,7 +140,7 @@ SC.Border = {
   },
 
   /** @private */
-  _sc_border_borderDimensionsDidChange: function(){
+  _sc_border_borderDimensionsDidChange: function _sc_border_borderDimensionsDidChange(){
     var borderTop     = this.get('borderTop'),
         borderRight   = this.get('borderRight'),
         borderBottom  = this.get('borderBottom'),

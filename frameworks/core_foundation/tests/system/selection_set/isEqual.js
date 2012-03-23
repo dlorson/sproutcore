@@ -8,7 +8,7 @@
 
 var set1, set2, content;
 module("SC.SelectionSet.isEqual", {
-  setup: function() {
+  setup: function setup() {
     content = '1 2 3 4 5 6 7 8 9 0'.w();
     set1 = SC.SelectionSet.create();
     set2 = SC.SelectionSet.create();

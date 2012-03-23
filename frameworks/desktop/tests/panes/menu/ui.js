@@ -29,15 +29,15 @@ var items = [
 var menu;
 
 module('SC.MenuPane UI', {
-  setup: function() {
+  setup: function setup() {
     menu = SC.MenuPane.create({
       layout: { width: 206 },
 
-      selectedItemChanged: function() {
+      selectedItemChanged: function selectedItemChanged() {
         this._selectedItemCount = (this._selectedItemCount||0)+1;
       }.observes('selectedItem'),
 
-      countAction: function() {
+      countAction: function countAction() {
         this._actionCount = (this._actionCount||0)+1;
       }
     });
@@ -52,7 +52,7 @@ module('SC.MenuPane UI', {
     menu.set('items', items);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     menu.destroy();
     menu = null;
   }

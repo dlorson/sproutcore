@@ -9,10 +9,10 @@ SC.BaseTheme.formRenderDelegate = SC.RenderDelegate.create({
   className: 'form',
   flowSpacing: { left: 5, top: 5, bottom: 5, right: 5 },
 
-  render: function() {
+  render: function render() {
   },
 
-  update: function() {
+  update: function update() {
 
   }
 });

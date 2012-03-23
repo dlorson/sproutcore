@@ -9,10 +9,10 @@
 /*global module test htmlbody ok equals same stop start */
 
 module("SC.AlertPane UI", {
-  setup: function(){
+  setup: function setup(){
     SC.TestDelegate = SC.Object.create();
   },
-  teardown: function(){
+  teardown: function teardown(){
     delete SC.TestDelegate;SC.Object.create()}
 });
 
@@ -206,7 +206,7 @@ test("AlertPane.info with individual actions and targets for three buttons", fun
       buttons: [
         { title: 'okButtonTitle', action: 'didClickOK', target: SC.TestDelegate },
         { title: 'cancelButtonTitle', action: 'didClickCancel', target: 'SC.TestDelegate' },
-        { title: 'extraButtonTitle', action: function() { clickValue = 'Extra'; } }
+        { title: 'extraButtonTitle', action: function action() { clickValue = 'Extra'; } }
       ]
     });
     clickValue = null;
@@ -232,7 +232,7 @@ test("users interaction with mutiple alert panes with 1-3 buttons", function() {
 
   var delegate = SC.Object.create({
     
-    threeButtonAlertPane: function() {
+    threeButtonAlertPane: function threeButtonAlertPane() {
       pane = SC.AlertPane.warn({
         title: "AlertPane.warn title",
         description: 'Click OK to see this alert pane again.  \nClick Other... to see other alert panes.',
@@ -247,7 +247,7 @@ test("users interaction with mutiple alert panes with 1-3 buttons", function() {
       pane.dismiss(pane.get('button3'));
     },
 
-    twoButtonAlertPane: function() {
+    twoButtonAlertPane: function twoButtonAlertPane() {
       pane = SC.AlertPane.error({
         title: "AlertPane.error title",
         description: 'Click OK to see one button alert pane.',
@@ -261,7 +261,7 @@ test("users interaction with mutiple alert panes with 1-3 buttons", function() {
       pane.dismiss(pane.get('button2'));
     },
 
-    oneButtonAlertPane: function() {
+    oneButtonAlertPane: function oneButtonAlertPane() {
       pane = SC.AlertPane.info({
         title: "AlertPane.info title",
         description: 'Click OK to dismiss.',
@@ -270,7 +270,7 @@ test("users interaction with mutiple alert panes with 1-3 buttons", function() {
       pane.dismiss(pane.get('button1'));
     },
    
-    alertPaneDidDismiss: function(alert, status) {
+    alertPaneDidDismiss: function alertPaneDidDismiss(alert, status) {
       switch(status) {
         case SC.BUTTON1_STATUS:
           if (alert.icon && alert.icon.indexOf('info')!=-1){ didDismiss = YES; }
@@ -298,22 +298,22 @@ test("users interaction with mutiple alert panes with 1-3 buttons - old style", 
 
   var delegate = SC.Object.create({
     
-    threeButtonAlertPane: function() {
+    threeButtonAlertPane: function threeButtonAlertPane() {
       pane = SC.AlertPane.warn("AlertPane.warn title", 'Click OK to see this alert pane again.  \nClick Other... to see other alert panes.', 'Click cancel to dismiss.', "OK", "Cancel", 'Other...', this);      
       pane.dismiss(pane.get('button3'));
     },
 
-    twoButtonAlertPane: function() {
+    twoButtonAlertPane: function twoButtonAlertPane() {
       pane = SC.AlertPane.error("AlertPane.error title", 'Click OK to see one button alert pane.', 'Click cancel to dismiss.', "OK", "Cancel", delegate);
       pane.dismiss(pane.get('button2'));
     },
 
-    oneButtonAlertPane: function() {
+    oneButtonAlertPane: function oneButtonAlertPane() {
       pane = SC.AlertPane.info("AlertPane.info title", 'Click OK to dismiss.', delegate);
       pane.dismiss(pane.get('button1'));
     },
    
-    alertPaneDidDismiss: function(alert, status) {
+    alertPaneDidDismiss: function alertPaneDidDismiss(alert, status) {
       switch(status) {
         case SC.BUTTON1_STATUS:
           if (alert.icon && alert.icon.indexOf('info')!=-1){ didDismiss = YES; }

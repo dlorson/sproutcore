@@ -7,10 +7,10 @@
 /*global module test equals context ok same htmlbody */
 
 module("Create a pane with some custom views and adding it to the window", {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style>.sc-view { border: 1px red solid; z-index: -1; position: absolute; }</style>');
   },
-  teardown: function(){
+  teardown: function teardown(){
     clearHtmlbody();
   }
 });
@@ -23,7 +23,7 @@ test("layer creation and management", function() {
     
     displayProperties: 'cv'.w(),
     
-    render: function(context, firstTime) {
+    render: function render(context, firstTime) {
       this.renderChildViews(context, YES); // always re-render...
       context.begin()
         .push('View %@'.fmt(this.get('cv')))

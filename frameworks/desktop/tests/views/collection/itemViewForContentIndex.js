@@ -8,7 +8,7 @@
 var view, del, content ;
 
 module("SC.CollectionView.itemViewForContentIndex", {
-  setup: function() {
+  setup: function setup() {
     content = "a b c".w().map(function(x) { 
       return SC.Object.create({ title: x });
     });
@@ -21,19 +21,19 @@ module("SC.CollectionView.itemViewForContentIndex", {
         disclosureState: SC.LEAF_NODE
       },
       
-      contentIndexIsEnabled: function() { 
+      contentIndexIsEnabled: function contentIndexIsEnabled() { 
         return this.fixture.isEnabled; 
       },
       
-      contentIndexIsSelected: function() { 
+      contentIndexIsSelected: function contentIndexIsSelected() { 
         return this.fixture.isSelected; 
       },
 
-      contentIndexOutlineLevel: function() { 
+      contentIndexOutlineLevel: function contentIndexOutlineLevel() { 
         return this.fixture.outlineLevel; 
       },
       
-      contentIndexDisclosureState: function() {
+      contentIndexDisclosureState: function contentIndexDisclosureState() {
         return this.fixture.disclosureState ;
       }
     };
@@ -42,7 +42,7 @@ module("SC.CollectionView.itemViewForContentIndex", {
     view = SC.CollectionView.create(del, {
       content: content,
       
-      layoutForContentIndex: function(contentIndex) {
+      layoutForContentIndex: function layoutForContentIndex(contentIndex) {
         return this.fixtureLayout ;
       },
       
@@ -54,16 +54,16 @@ module("SC.CollectionView.itemViewForContentIndex", {
       
       testAsGroup: NO,
       
-      contentIndexIsGroup: function() { return this.testAsGroup; },
+      contentIndexIsGroup: function contentIndexIsGroup() { return this.testAsGroup; },
       
-      contentGroupIndexes: function() {
+      contentGroupIndexes: function contentGroupIndexes() {
         if (this.testAsGroup) {
           return SC.IndexSet.create(0, this.get('length'));
         } else return null ;
       },
       
       fixtureNowShowing: SC.IndexSet.create(0,3),
-      computeNowShowing: function() {
+      computeNowShowing: function computeNowShowing() {
         return this.fixtureNowShowing;
       }
       

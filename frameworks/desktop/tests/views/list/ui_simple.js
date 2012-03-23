@@ -18,7 +18,7 @@ var ContentArray = SC.Object.extend(SC.Array, {
   
   length: 0,
   
-  objectAt: function(idx) {
+  objectAt: function objectAt(idx) {
     if (idx >= this.get('length')) return undefined;
     
     var content = this._content, ret ;

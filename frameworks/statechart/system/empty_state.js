@@ -26,7 +26,7 @@ SC.EmptyState = SC.State.extend(/** @scope SC.EmptyState.prototype */{
   
   name: SC.EMPTY_STATE_NAME,
   
-  enterState: function() {
+  enterState: function enterState() {
     var msg = "No initial substate was defined for state %@. Entering default empty state";
     this.stateLogWarning(msg.fmt(this.get('parentState')));
   }

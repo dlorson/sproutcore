@@ -78,7 +78,7 @@ SC.ProgressView = SC.View.extend(SC.Control,
     @observes maximum
     @observes minimum
   */
-  displayValue: function(){
+  displayValue: function displayValue(){
     var minimum = this.get('minimum') || 0.0,
         maximum = this.get('maximum') || 1.0,
         value = this.get('value') || 0.0;
@@ -110,7 +110,7 @@ SC.ProgressView = SC.View.extend(SC.Control,
 
     @property
   */
-  ariaValue: function() {
+  ariaValue: function ariaValue() {
     return this.get('value');
   }.property('value').cacheable(),
   
@@ -223,20 +223,20 @@ SC.ProgressView = SC.View.extend(SC.Control,
   _nextBackground: 1,
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     this.animateProgressBar();
   },
   
   /** @private */
-  animateProgressBar: function() {
+  animateProgressBar: function animateProgressBar() {
     if (this.get('isRunning') && this.get('isVisibleInWindow')) {
       this._animateProgressBar(500); // wait to start to avoid probs
     }
   }.observes('isRunning', 'isVisibleInWindow'),
 
   /** @private */
-  _animateProgressBar: function(delay) {
+  _animateProgressBar: function _animateProgressBar(delay) {
     if (delay===0) delay = 1000/30;
     if (this.get('isRunning') && this.get('isVisibleInWindow')) {
       this.displayDidChange();
@@ -245,7 +245,7 @@ SC.ProgressView = SC.View.extend(SC.Control,
   },
 
   /** @private */
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
     var content = this.get('content');
     this.beginPropertyChanges()
       .updatePropertyFromContent('value', key, 'contentValueKey', content)

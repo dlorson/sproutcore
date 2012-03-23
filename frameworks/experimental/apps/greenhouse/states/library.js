@@ -23,11 +23,11 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       // ..........................................................
       // Events
       //
-      openLibrary: function(){
+      openLibrary: function openLibrary(){
         this.gotoState('openLibraryPicker');
       },
 
-      toggleDockedLibrary: function(){
+      toggleDockedLibrary: function toggleDockedLibrary(){
         this.gotoState('dockedLibrary');
       }
     }),
@@ -36,7 +36,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'library',
 
-      enterState: function(){
+      enterState: function enterState(){
         var picker = Greenhouse.appPage.get('libraryPicker'),
             button = Greenhouse.appPage.getPath('mainView.toolBar.library'),
             pickerContentView = Greenhouse.appPage.get('libraryPickerContentView');
@@ -46,22 +46,22 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         picker.becomeFirstResponder();
       },
 
-      exitState: function(){
+      exitState: function exitState(){
         var picker = Greenhouse.appPage.get('libraryPicker'),
             pickerContentView = Greenhouse.appPage.get('libraryPickerContentView');
         pickerContentView.setIfChanged('nowShowing', null);
         picker.remove();
       },
 
-      cancel: function(){
+      cancel: function cancel(){
         this.gotoState('libraryClosed');
       },
 
-      floatLibrary: function(){
+      floatLibrary: function floatLibrary(){
         this.gotoState('libraryPalette');
       },
 
-      toggleDockedLibrary: function(){
+      toggleDockedLibrary: function toggleDockedLibrary(){
         this.gotoState('dockedLibrary');
       }
     }),
@@ -69,7 +69,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
     libraryPalette: SC.State.design({
       parallelStatechart: 'library',
 
-      enterState: function(){
+      enterState: function enterState(){
         var ap = Greenhouse.appPage;
         var picker = ap.get('libraryPicker'),
             pickerContentView = ap.get('libraryPickerContentView');
@@ -85,7 +85,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         content.adjust('top', 49);    
         toolbar.set('isVisible', YES); 
       },
-      exitState: function(){
+      exitState: function exitState(){
         var ap = Greenhouse.appPage;
         var picker = ap.get('libraryPicker'),
             pickerContentView = ap.get('libraryPickerContentView');
@@ -102,11 +102,11 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         toolbar.set('isVisible', NO);
       },
 
-      closeLibrary: function(){
+      closeLibrary: function closeLibrary(){
         this.gotoState('libraryClosed');
       },
 
-      toggleDockedLibrary: function(){
+      toggleDockedLibrary: function toggleDockedLibrary(){
         this.gotoState('dockedLibrary');
       }
     }),
@@ -115,11 +115,11 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
       parallelStatechart: 'library',
 
-      enterState: function(){
+      enterState: function enterState(){
         var libDock = Greenhouse.appPage.get('libraryDockView');
         libDock.setIfChanged('nowShowing', 'Greenhouse.appPage.libraryContentView');
       },
-      exitState: function(){
+      exitState: function exitState(){
         var libDock = Greenhouse.appPage.get('libraryDockView');
         libDock.setIfChanged('nowShowing', null);
       },
@@ -127,7 +127,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       // ..........................................................
       // Events
       //
-      toggleDockedLibrary: function(){
+      toggleDockedLibrary: function toggleDockedLibrary(){
         var states = Greenhouse.get('currentStates') || [];
         if (states.indexOf(Greenhouse.getState('dockedInspector'))) Greenhouse.sendEvent('undock');
 

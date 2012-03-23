@@ -23,7 +23,7 @@
 var createSplitView;
 
 module("SplitView Dividers", {
-  setup: function() {
+  setup: function setup() {
     // Rather than instantiate one here, we'll create a function that
     // instantiates with the supplied options.
     var SplitView = SC.SplitView.extend({
@@ -47,7 +47,7 @@ module("SplitView Dividers", {
     };
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     
   }
 });
@@ -67,7 +67,7 @@ test("SC.SplitDividerView uses splitDividerView property", function(){
 
 test("SC.SplitDividerView uses splitViewDividerBetween method", function(){
   var MyDividerType = SC.SplitDividerView.extend();
-  var view = createSplitView({ splitViewDividerBetween: function(split, view1, view2) { return MyDividerType.create(); } });
+  var view = createSplitView({ splitViewDividerBetween: function splitViewDividerBetween(split, view1, view2) { return MyDividerType.create(); } });
   equals(view.childViews.length, 3, "Should have created 3 views: left, divider, and right.");
   ok(view.childViews[1].kindOf(MyDividerType), "Middle view is a MyDividerType");
 });
@@ -79,7 +79,7 @@ test("splitViewDividerBetween works properly", function(){
   var view = createSplitView({
     childViews: 'left middle right'.w(),
     middle: SC.View.design(SC.SplitChild, { name: 'middle' }),
-    splitViewDividerBetween: function(split, view1, view2) { 
+    splitViewDividerBetween: function splitViewDividerBetween(split, view1, view2) { 
       if (view1 === split.left) return MyDividerType1.create();
       if (view1 === split.middle) return MyDividerType2.create();
     } 

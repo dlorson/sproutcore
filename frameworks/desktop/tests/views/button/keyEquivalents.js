@@ -11,7 +11,7 @@
 //
 var pane = SC.ControlTestPane.design()
   .add("basic", SC.ButtonView, { 
-    triggerAction: function() { return YES; },
+    triggerAction: function triggerAction() { return YES; },
     title:'hello world',
     keyEquivalent: 'return'
   });

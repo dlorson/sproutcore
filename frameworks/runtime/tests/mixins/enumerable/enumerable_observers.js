@@ -11,11 +11,11 @@
   var didChangeStart, didChangeAdded, didChangeRemoved, didChangeSource, didChangeCallCount;
 
   module("Enumerable Observers", {
-    setup: function() {
+    setup: function setup() {
       array = [1, 2, 3];
 
       observerObject = SC.Object.create({
-        arrayContentWillChange: function(start, removedCount, addedCount, source) {
+        arrayContentWillChange: function arrayContentWillChange(start, removedCount, addedCount, source) {
           willChangeStart = start;
           willChangeAdded = addedCount;
           willChangeRemoved = removedCount;
@@ -23,7 +23,7 @@
           willChangeCallCount = willChangeCallCount ? willChangeCallCount++ : 1;
         },
 
-        arrayContentDidChange: function(start, removedCount, addedCount, source) {
+        arrayContentDidChange: function arrayContentDidChange(start, removedCount, addedCount, source) {
           didChangeStart = start;
           didChangeAdded = addedCount;
           didChangeRemoved = removedCount;

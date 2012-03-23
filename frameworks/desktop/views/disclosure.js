@@ -69,7 +69,7 @@ SC.DisclosureView = SC.ButtonView.extend(
     Extends the behavior inherited from SC.ButtonView.
     @param evt
   */
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     if (evt.which === 37 || evt.which === 38) {
       this.set('value', this.get('toggleOffValue')) ;
       return YES;

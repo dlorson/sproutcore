@@ -20,7 +20,7 @@ SC.Pane.reopen(
 
     @returns {Rect} current window size
   */
-  computeParentDimensions: function(frame) {
+  computeParentDimensions: function computeParentDimensions(frame) {
     if(this.get('designer') && SC.suppressMain) { return sc_super(); }
 
     var wDim = {x: 0, y: 0, width: 1000, height: 1000},
@@ -64,7 +64,7 @@ SC.Pane.reopen(
   },
 
   /** @private Disable caching due to an known bug in SC. */
-  frame: function() {
+  frame: function frame() {
     if(this.get('designer') && SC.suppressMain) { return sc_super(); }
     return this.computeFrameWithParentFrame(null) ;
   }.property(),
@@ -78,7 +78,7 @@ SC.Pane.reopen(
     @param {Rect} newSize the new window size
     @returns {SC.Pane} receiver
   */
-  windowSizeDidChange: function(oldSize, newSize) {
+  windowSizeDidChange: function windowSizeDidChange(oldSize, newSize) {
     this.set('currentWindowSize', newSize) ;
     this.setBodyOverflowIfNeeded();
     this.parentViewDidResize(); // start notifications.
@@ -101,7 +101,7 @@ SC.Pane.reopen(
     @param {Boolean} [force] force a style to be set even if there are
                              no minimums.
   */
-  setBodyOverflowIfNeeded: function(force) {
+  setBodyOverflowIfNeeded: function setBodyOverflowIfNeeded(force) {
     //Code to get rid of Lion rubberbanding.
     var layout = this.get('layout'),
         size = this.get('currentWindowSize');
@@ -118,12 +118,12 @@ SC.Pane.reopen(
   },
 
   /** @private */
-  paneLayoutDidChange: function() {
+  paneLayoutDidChange: function paneLayoutDidChange() {
     this.invokeOnce(this.updateLayout);
     this.setBodyOverflowIfNeeded();
   }.observes('layout'),
 
-  recomputeDependentProperties: function(original) {
+  recomputeDependentProperties: function recomputeDependentProperties(original) {
     this.set('currentWindowSize', this.rootResponder.computeWindowSize()) ;
     original();
   }.enhance()

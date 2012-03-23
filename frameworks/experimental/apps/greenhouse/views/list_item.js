@@ -19,7 +19,7 @@ Greenhouse.ListItem = SC.ListItemView.extend(
     @param finalValue {Object} the final value
     @returns {void}
   */
-  // inlineEditorDidEndEditing: function(inlineEditor, finalValue) {
+  // inlineEditorDidEndEditing: function inlineEditorDidEndEditing(inlineEditor, finalValue) {
   //   var content = this.get('content');
   //   var parent = content.get('parent'), newContent = SC.copy(content);
   //   newContent.set('name', finalValue);

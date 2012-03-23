@@ -8,7 +8,7 @@
 var view, content1, content2 ;
 
 module("SC.CollectionView.nowShowing", {
-  setup: function() {
+  setup: function setup() {
 
     content1 = "a b c".w();
     
@@ -23,12 +23,12 @@ module("SC.CollectionView.nowShowing", {
       reloadCallCount: 0,
       reloadIndexes: "not called",
       
-      reload: function(indexes) {
+      reload: function reload(indexes) {
         this.reloadIndexes = indexes ? indexes.frozenCopy() : indexes;
         this.reloadCallCount++;
       },
       
-      expectReload: function(indexes, callCount) {
+      expectReload: function expectReload(indexes, callCount) {
         if (indexes !== NO) {
           var pass = (indexes === null) ? (this.reloadIndexes === null) : indexes.isEqual(this.reloadIndexes);
           if (!pass) {
@@ -46,7 +46,7 @@ module("SC.CollectionView.nowShowing", {
 
       observer: CoreTest.stub('nowShowing observer').observes('nowShowing'),
       
-      reset: function() { 
+      reset: function reset() { 
         this.updateContentRangeObserver.reset();
         this.reloadCallCount = 0 ;
         this.reloadIndexes = 'not called';
@@ -57,7 +57,7 @@ module("SC.CollectionView.nowShowing", {
       
       // override to reeturn whatever index set is in nextNowShowing property just
       // for testing.
-      computeNowShowing: function() {
+      computeNowShowing: function computeNowShowing() {
         return this.nextNowShowing;
       },
       

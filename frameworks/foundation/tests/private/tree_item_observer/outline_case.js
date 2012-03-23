@@ -20,7 +20,7 @@ var Delegate = SC.Object.extend(SC.TreeItemContent, {
   rangeIndexes: null,
   rangeCallCount: 0,
 
-  rangeDidChange: function(array, objects, key, indexes) {
+  rangeDidChange: function rangeDidChange(array, objects, key, indexes) {
     this.rangeCallCount++;
     this.rangeIndexes = indexes.frozenCopy();
   }
@@ -28,7 +28,7 @@ var Delegate = SC.Object.extend(SC.TreeItemContent, {
 });
 
 var TestObject = SC.Object.extend({
-  toString: function() { return "TestObject(%@)".fmt(this.get('title')); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get('title')); }
 });
 
 /**
@@ -68,7 +68,7 @@ function verifyObjectAt(obs, expected, eindexes, desc) {
 }
 
 module("SC.TreeItemObserver - Outline Use Case", {
-  setup: function() {
+  setup: function setup() {
     content = [
       TestObject.create({
         title: "A",
@@ -166,7 +166,7 @@ module("SC.TreeItemObserver - Outline Use Case", {
 
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     if (obs) obs.destroy(); // cleanup
     content = delegate = obs = null ;
   }

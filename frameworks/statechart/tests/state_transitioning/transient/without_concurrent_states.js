@@ -10,7 +10,7 @@ var statechart;
 // 
 
 module("SC.Statechart: No Concurrent States - Transient State Transition Tests", {
-  setup: function() {
+  setup: function setup() {
 
     statechart = SC.Statechart.create({
       
@@ -25,22 +25,22 @@ module("SC.Statechart: No Concurrent States - Transient State Transition Tests",
           initialSubstate: 'b',
                     
           b: SC.State.design({
-            eventC: function() { this.gotoState('c'); },
-            eventD: function() { this.gotoState('d'); },
-            eventE: function() { this.gotoState('e'); },
-            eventX: function() { this.gotoState('x'); }
+            eventC: function eventC() { this.gotoState('c'); },
+            eventD: function eventD() { this.gotoState('d'); },
+            eventE: function eventE() { this.gotoState('e'); },
+            eventX: function eventX() { this.gotoState('x'); }
           }),
           
           c: SC.State.design({
-            enterState: function() { this.gotoState('z'); }
+            enterState: function enterState() { this.gotoState('z'); }
           }),
           
           d: SC.State.design({
-            enterState: function() { this.gotoState('c'); }
+            enterState: function enterState() { this.gotoState('c'); }
           }),
           
           e: SC.State.design({
-            enterState: function() { this.gotoState('f'); }
+            enterState: function enterState() { this.gotoState('f'); }
           }),
           
           f: SC.State.design(),
@@ -49,14 +49,14 @@ module("SC.Statechart: No Concurrent States - Transient State Transition Tests",
             
             initialSubstate: 'x',
             
-            foo: function() { /* no-op */ },
+            foo: function foo() { /* no-op */ },
             
-            enterState: function() {
+            enterState: function enterState() {
               return this.performAsync('foo');
             },
             
             x: SC.State.design({
-              enterState: function() { this.gotoState('h'); }
+              enterState: function enterState() { this.gotoState('h'); }
             })
   
           }),
@@ -74,7 +74,7 @@ module("SC.Statechart: No Concurrent States - Transient State Transition Tests",
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     statechart = null;
   }

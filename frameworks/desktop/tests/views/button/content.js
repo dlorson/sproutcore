@@ -11,13 +11,13 @@
 // 
 var view, content ;
 module('SC.ButtonView#contentPropertyDidChange', {
-  setup: function() {
+  setup: function setup() {
     content = SC.Object.create();
     view = SC.ButtonView.create();
     view.set('title', 'hello world');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     content = null;
     view.destroy();
   }
@@ -66,7 +66,7 @@ test("should no longer be invoked when a key is changed on a former content obje
 test("should fire even on a content object set when the object is created", function() {
   var callCount = 0;
   var view = SC.ButtonView.create({
-    contentPropertyDidChange: function() { callCount++; },
+    contentPropertyDidChange: function contentPropertyDidChange() { callCount++; },
     content: content,
     contentTitleKey: 'title'
   });
@@ -79,13 +79,13 @@ test("should fire even on a content object set when the object is created", func
 
 
 module('SC.ButtonView#titleRendering', {
-  setup: function() {
+  setup: function setup() {
     content = SC.Object.create();
     view = SC.ButtonView.create();
     view.set('title', 'hello world');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     content = null;
     view.destroy();
   }
@@ -103,11 +103,11 @@ test("should return the title localized or not", function() {
 // updatePropertyFromContent()
 // 
 module("SC.ButtonView#updatePropertyFromContent()", {
-  setup: function() {
+  setup: function setup() {
     content = SC.Object.create({ foo: "foo", bar: "bar" });
     view = SC.ButtonView.create({ content: content });
   },
-  teardown: function() {
+  teardown: function teardown() {
     content = null ;
     view.destroy();
   }
@@ -153,7 +153,7 @@ test("should be able to get value from a content object that is not SC.Object", 
 // updateContentWithValueObserver()
 // 
 module("SC.ButtonView#updatePropertyFromContent()", {
-  setup: function() {
+  setup: function setup() {
     content = SC.Object.create({ foo: "foo", bar: "bar" });
     view = SC.ButtonView.create({ 
       value: "bar",
@@ -162,7 +162,7 @@ module("SC.ButtonView#updatePropertyFromContent()", {
       displayDelegate: SC.Object.create({ contentValueKey: "foo" }) 
     });
   },
-  teardown: function() {
+  teardown: function teardown() {
     content = null ;
     view.destroy();
   }

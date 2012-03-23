@@ -56,7 +56,7 @@ CoreTest.Plan = {
     @param {Hash} attrs plan arguments
     @returns {CoreTest.Plan} new instance/subclass
   */
-  create: function(attrs) {
+  create: function create(attrs) {
     var len = arguments.length,
         ret = CoreTest.beget(this),
         idx;
@@ -113,7 +113,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  start: function() {
+  start: function start() {
     var plan = this ;
     setTimeout(function() {
       if (plan.timeout) clearTimeout(plan.timeout);
@@ -132,7 +132,7 @@ CoreTest.Plan = {
     @param {Number} timeout optional timeout in msec
     @returns {CoreTest.Plan} receiver
   */
-  stop: function(timeout) {
+  stop: function stop(timeout) {
     this.isRunning = false ;
 
     if (this.timeout) clearTimeout(this.timeout);
@@ -149,7 +149,7 @@ CoreTest.Plan = {
     Force the test plan to take a break.  Avoids slow script warnings.  This
     is called automatically after each test completes.
   */
-  pause: function() {
+  pause: function pause() {
     if (this.isRunning) {
       var del = this.delegate;
       if (del && del.planDidPause) del.planDidPause(this);
@@ -166,7 +166,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  run: function() {
+  run: function run() {
     this.isRunning = true;
     this.prepare();
 
@@ -196,7 +196,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  begin: function() {
+  begin: function begin() {
     var del = this.delegate;
     if (del && del.planDidBegin) del.planDidBegin(this);
     return this ;
@@ -208,7 +208,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  finish: function() {
+  finish: function finish() {
     var r   = this.results,
         del = this.delegate;
 
@@ -225,7 +225,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  module: function(desc, lifecycle) {
+  module: function module(desc, lifecycle) {
     if (typeof SC !== 'undefined' && SC.filename) {
       desc = SC.filename.replace(/^.+?\/current\/tests\//,'') + '\n' + desc;
     }
@@ -243,7 +243,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  setup: function(func) {
+  setup: function setup(func) {
     this.currentSetup = func || CoreTest.K;
     return this;
   },
@@ -258,7 +258,7 @@ CoreTest.Plan = {
     return this;
   },
 
-  now: function() { return new Date().getTime(); },
+  now: function now() { return new Date().getTime(); },
 
   /**
     Generates a unit test, adding it to the test plan.
@@ -371,7 +371,7 @@ CoreTest.Plan = {
     });
   },
 
-  clearHtmlbody: function(){
+  clearHtmlbody: function clearHtmlbody(){
     var body = Q$('body')[0];
 
     // first, find the first element with id 'htmlbody-begin'  if exists,
@@ -406,7 +406,7 @@ CoreTest.Plan = {
     and notify the delegate.  The passed assertions array should contain
     hashes with the result and message.
   */
-  record: function(module, test, assertions, timings) {
+  record: function record(module, test, assertions, timings) {
     var r   = this.results,
         len = assertions.length,
         del = this.delegate,
@@ -434,7 +434,7 @@ CoreTest.Plan = {
     application for each test.  The default implementation will reset any
     saved fixture.
   */
-  reset: function() {
+  reset: function reset() {
     if (this.fixture) {
       var mainEl = document.getElementById('main');
       if (mainEl) mainEl.innerHTML = this.fixture;
@@ -449,7 +449,7 @@ CoreTest.Plan = {
 
     @returns {Boolean}
   */
-  enabled: function(moduleName, testName) {
+  enabled: function enabled(moduleName, testName) {
     return true;
   },
 
@@ -461,7 +461,7 @@ CoreTest.Plan = {
     Called by a matcher to record that a test has passed.  Requires a working
     test property.
   */
-  pass: function(msg) {
+  pass: function pass(msg) {
     var w = this.working ;
     if (!w) throw "pass("+msg+") called outside of a working test";
     w.assertions.push({ message: msg, result: CoreTest.OK });
@@ -472,7 +472,7 @@ CoreTest.Plan = {
     Called by a matcher to record that a test has failed.  Requires a working
     test property.
   */
-  fail: function(msg) {
+  fail: function fail(msg) {
     var w = this.working ;
     if (!w) throw "fail("+msg+") called outside of a working test";
     w.assertions.push({ message: msg, result: CoreTest.FAIL });
@@ -483,7 +483,7 @@ CoreTest.Plan = {
     Called by a matcher to record that a test issued a warning.  Requires a
     working test property.
   */
-  warn: function(msg) {
+  warn: function warn(msg) {
     var w = this.working ;
     if (!w) throw "warn("+msg+") called outside of a working test";
     w.assertions.push({ message: msg, result: CoreTest.WARN });
@@ -494,7 +494,7 @@ CoreTest.Plan = {
     Called by a matcher to record that a test had an error.  Requires a
     working test property.
   */
-  error: function(msg, e) {
+  error: function error(msg, e) {
     var w = this.working ;
     if (!w) throw "error("+msg+") called outside of a working test";
 
@@ -612,7 +612,7 @@ CoreTest.Plan = {
       @param {String} msg optional message
       @returns {CoreTest.Plan} receiver
     */
-    same: function(actual, expected, msg) {
+    same: function same(actual, expected, msg) {
       if (msg === undefined) msg = null ; // make sure ok logs properly
       return this.ok(CoreTest.equiv(actual, expected), actual, expected, msg);
     },
@@ -625,7 +625,7 @@ CoreTest.Plan = {
       @param {Number} timeout timeout in msec
       @returns {CoreTest.Plan} receiver
     */
-    stop: function(timeout) {
+    stop: function stop(timeout) {
       return this.stop(timeout);
     },
 
@@ -634,11 +634,11 @@ CoreTest.Plan = {
 
       @returns {CoreTest.Plan} receiver
     */
-    start: function() {
+    start: function start() {
       return this.start();
     },
 
-    reset: function() {
+    reset: function reset() {
       return this.reset();
     }
 
@@ -651,7 +651,7 @@ CoreTest.Plan = {
 
     @returns {CoreTest.Plan} receiver
   */
-  prepare: function() {
+  prepare: function prepare() {
     var fn   = this.fn,
         plan = this,
         key, func;
@@ -666,7 +666,7 @@ CoreTest.Plan = {
     return this ;
   },
 
-  _bind: function(func) {
+  _bind: function _bind(func) {
     var plan = this;
     return function() { return func.apply(plan, arguments); };
   }

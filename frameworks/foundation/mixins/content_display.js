@@ -45,7 +45,7 @@ SC.ContentDisplay = {
   /** @private
     Setup observers on the content object when initializing the mixin.
   */
-  initMixin: function() {
+  initMixin: function initMixin() {
     this._display_contentDidChange();
   },
 
@@ -60,7 +60,7 @@ SC.ContentDisplay = {
   },
 
   /** @private */
-  _display_beginObservingContent: function(content) {
+  _display_beginObservingContent: function _display_beginObservingContent(content) {
     var f = this._display_contentPropertyDidChange;
 
     if (SC.isArray(content)) {
@@ -72,7 +72,7 @@ SC.ContentDisplay = {
   },
 
   /** @private */
-  _display_stopObservingContent: function(content) {
+  _display_stopObservingContent: function _display_stopObservingContent(content) {
     var f = this._display_contentPropertyDidChange;
 
     if (SC.isArray(content)) {
@@ -84,7 +84,7 @@ SC.ContentDisplay = {
   },
 
   /** @private */
-  _display_contentDidChange: function(target, key, value) {
+  _display_contentDidChange: function _display_contentDidChange(target, key, value) {
     // handle changes to the content...
     if ((value = this.get('content')) === this._display_content) return;
 
@@ -100,7 +100,7 @@ SC.ContentDisplay = {
   }.observes('content', 'contentDisplayProperties'),
   
   /** @private Invoked when properties on the content object change. */
-  _display_contentPropertyDidChange: function(target, key, value, propertyRevision) {
+  _display_contentPropertyDidChange: function _display_contentPropertyDidChange(target, key, value, propertyRevision) {
     if (key === '*') {
       this.displayDidChange() ;
     } else {

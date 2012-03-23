@@ -20,7 +20,7 @@ var Delegate = SC.Object.extend(SC.TreeItemContent, {
   rangeIndexes: null,
   rangeCallCount: 0,
 
-  rangeDidChange: function(array, objects, key, indexes) {
+  rangeDidChange: function rangeDidChange(array, objects, key, indexes) {
     this.rangeCallCount++;
     this.rangeIndexes = indexes.frozenCopy();
   }
@@ -29,7 +29,7 @@ var Delegate = SC.Object.extend(SC.TreeItemContent, {
 
 
 var TestObject = SC.Object.extend({
-  toString: function() { return "TestObject(%@)".fmt(this.get('title')); }
+  toString: function toString() { return "TestObject(%@)".fmt(this.get('title')); }
 });
 
 /**
@@ -70,7 +70,7 @@ function verifyObjectAt(obs, expected, eindexes, desc) {
 
 
 module("SC.TreeItemObserver - Flat Array Use Case", {
-  setup: function() {
+  setup: function setup() {
     content = "1 2 3 4 5".w().map(function(x) {
       return TestObject.create({ title: x });
     });
@@ -92,7 +92,7 @@ module("SC.TreeItemObserver - Flat Array Use Case", {
     obs.addRangeObserver(null, delegate, delegate.rangeDidChange);
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     if (obs) obs.destroy(); // cleanup
     content = delegate = obs = null ;
   }

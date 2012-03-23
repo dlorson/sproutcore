@@ -16,10 +16,10 @@ if (document.cookie !== "") {
 }
 
 module("SC.Cookie", {
-  setup: function() {
+  setup: function setup() {
     setCookies = [];
   },
-  teardown: function() {
+  teardown: function teardown() {
     eraseCookies();
   }
 });

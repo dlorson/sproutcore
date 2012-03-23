@@ -13,11 +13,11 @@ var context = null;
 // push()
 // 
 module("SC.RenderContext#push", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     context = null;
   }
 });
@@ -57,11 +57,11 @@ test("pushing a line onto a subcontext, should update the length in the parent c
 // text()
 // 
 module("SC.RenderContext#text", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     context = null;
   }
 });

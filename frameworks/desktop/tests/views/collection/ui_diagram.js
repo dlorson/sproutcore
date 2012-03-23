@@ -15,7 +15,7 @@ var ShapeView = SC.View.extend(SC.Control, {
 
   DIMENSION_KEYS: 'x y width height'.w(),
   
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
     if (key === '*') {
       this.recomputeLayout();
       this.displayDidChange();
@@ -26,7 +26,7 @@ var ShapeView = SC.View.extend(SC.Control, {
     }
   },
   
-  recomputeLayout: function() {
+  recomputeLayout: function recomputeLayout() {
     var content = this.get('content'), layout ;
     if (content) {
       layout = {
@@ -42,7 +42,7 @@ var ShapeView = SC.View.extend(SC.Control, {
     this.set('layout', layout);
   },
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var label = this.getPath('content.label');
     context.push('<label>', label, '</label>');  
   }
@@ -75,7 +75,7 @@ var ShapeCanvasView = SC.CollectionView.extend({
   
   // save position on screen at mouse down so that we can properly compute
   // you can save in mouseDownInfo, which will be cleared on mouseUp
-  mouseDown: function(ev) {
+  mouseDown: function mouseDown(ev) {
     var ret = sc_super();
     if (ret) {
       var offset = { x: ev.pageX, y: ev.pageY };
@@ -85,7 +85,7 @@ var ShapeCanvasView = SC.CollectionView.extend({
   },
   
   // handle dragging of content around on the screen
-  mouseDragged: function(ev) {
+  mouseDragged: function mouseDragged(ev) {
     var info   = this.mouseDownInfo,
         items  = info.dragContent,
         anchor = info.dragAnchor,
@@ -160,7 +160,7 @@ window.pane = pane ;
 // BASIC TESTS
 // 
 module("Basic Tests", {
-  setup: function(){
+  setup: function setup(){
     htmlbody(["<style>",
       '.sc-collection-view { border: 1px black solid; background-color: white; }',
       '.shape.sel { background-color: #f55; color: white; }',
@@ -169,7 +169,7 @@ module("Basic Tests", {
     '</style>'].join("\n"));
     pane.standardSetup().setup();
   },
-  teardown: function(){
+  teardown: function teardown(){
     pane.standardSetup().teardown();
     clearHtmlbody();
   }

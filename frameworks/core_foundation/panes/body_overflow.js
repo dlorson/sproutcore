@@ -17,13 +17,13 @@
 */
 SC.bodyOverflowArbitrator = SC.Object.create(/**@scope SC.bodyOverflowArbitrator.prototype */{
   /** Request that the body be given overflow:hidden;. Pass your object, then (optionally) true to confer importance. */
-  requestHidden: function(from,important) { this._makeRequest(from,-1-9*!!important); },
+  requestHidden: function requestHidden(from,important) { this._makeRequest(from,-1-9*!!important); },
 
   /** Request that the body be given overflow:visible;. Pass your object, then (optionally) true to confer importance. */
-  requestVisible: function(from,important) { this._makeRequest(from,1+9*!!important); },
+  requestVisible: function requestVisible(from,important) { this._makeRequest(from,1+9*!!important); },
   
   /** State that your object no longer cares about the body overflow. */
-  withdrawRequest: function(from) {
+  withdrawRequest: function withdrawRequest(from) {
     if(!from) return;
     var guid = SC.guidFor(from);
     if(this._requests[guid]) delete this._requests[guid];
@@ -31,13 +31,13 @@ SC.bodyOverflowArbitrator = SC.Object.create(/**@scope SC.bodyOverflowArbitrator
   },
   
   /** Perform the action of setting the overflow depending on what requests are currently registered. Does nothing if there are no requests. */
-  setOverflow: function() {
+  setOverflow: function setOverflow() {
     var overflow = this._decideOverflow();
     if(overflow!==undefined) document.body.style.overflow = overflow ? "auto" : "hidden";
     // console.log("Body Overflow Arbitrator now decides "+(overflow===undefined?"that overflow is unimportant.":"to use overflow:"+(overflow===true?'visible':"hidden")+";")+" Requests are:",this._requests);
   },
   
-  _makeRequest: function(from,value) {
+  _makeRequest: function _makeRequest(from,value) {
     if(!from) return;
     var guid = SC.guidFor(from);
     this._requests[guid] = value;
@@ -45,7 +45,7 @@ SC.bodyOverflowArbitrator = SC.Object.create(/**@scope SC.bodyOverflowArbitrator
   },
   
   _requests: {},
-  _decideOverflow: function() {
+  _decideOverflow: function _decideOverflow() {
     var haveHidden, haveVisible, haveImportantHidden, haveImportantVisible,
         reqs = this._requests, req;
     for(var i in reqs) {

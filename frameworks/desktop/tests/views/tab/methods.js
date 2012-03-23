@@ -10,7 +10,7 @@
 var iconURL= "http://www.freeiconsweb.com/Icons/16x16_people_icons/People_046.gif";
 var pane, view;
 module("SC.TabView", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     pane = SC.MainPane.create({
       childViews: [
@@ -36,7 +36,7 @@ module("SC.TabView", {
     view = pane.childViews[0];
   }, 
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
     pane = view = null ;
   }

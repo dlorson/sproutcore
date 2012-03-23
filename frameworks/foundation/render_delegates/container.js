@@ -8,11 +8,11 @@
 sc_require('render_delegates/render_delegate');
 
 SC.BaseTheme.containerRenderDelegate = SC.RenderDelegate.create({
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
 
   },
   
-  update: function() {
+  update: function update() {
 
   }
 });

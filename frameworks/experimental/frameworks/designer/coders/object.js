@@ -62,7 +62,7 @@ SC.ObjectCoder = SC.Object.extend({
     Utility method transforms the passed value with the passed function.  
     Handles both Arrays and individual items.
   */
-  transform: function(val, func) {
+  transform: function transform(val, func) {
     
     // for an array, transform each value with the func and then return a
     // combined array.
@@ -90,7 +90,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param transform {Function} optional transform function to apply to val
     @returns {SC.ObjectCoder} receiver
   */
-  js: function(key, val, transform) {
+  js: function js(key, val, transform) {
     
     // normalize
     if (val===undefined) { val=key; key = undefined; }
@@ -112,7 +112,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param val {String} the value
     @returns {SC.ObjectCoder} receiver
   */
-  string: function(key, val) {
+  string: function string(key, val) {
     return this.js(key, val, function(x) {
       return '"' + x.replace(/"/g, '\\"') + '"' ;
     });
@@ -125,7 +125,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param val {Number} the value
     @returns {SC.ObjectCoder} receiver
   */
-  number: function(key, val) {
+  number: function number(key, val) {
     return this.js(key, val, function(x) { return x.toString(); });
   },
   
@@ -136,7 +136,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param val {Boolean} the value
     @returns {SC.ObjectCoder} receiver
   */
-  bool: function(key, val) {
+  bool: function bool(key, val) {
     return this.js(key, val, function(x) { return x ? "true" : "false"; });
   },
 
@@ -160,7 +160,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param func {Function} optional transform func
     @returns {SC.ObjectCoder} receiver
   */
-  encode: function(key, val, func) {
+  encode: function encode(key, val, func) {
     // normalize params
     if (func===undefined && val instanceof Function) {
       func = val; val = key; key = undefined; 
@@ -209,7 +209,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param func {Function} optional transform func
     @returns {SC.ObjectCoder} receiver
   */
-  hash: function(key, val, func) {
+  hash: function hash(key, val, func) {
     
     // normalize params
     if (func===undefined && val instanceof Function) {
@@ -237,7 +237,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param func {Function} optional transform func
     @returns {SC.ObjectCoder} receiver
   */
-  array: function(key, val, func) {
+  array: function array(key, val, func) {
     
     // normalize params
     if (func===undefined && val instanceof Function) {
@@ -258,7 +258,7 @@ SC.ObjectCoder = SC.Object.extend({
     @param val {Object} the object to encode
     @returns {SC.ObjectCoder} receiver
   */
-  object: function(key, val) {
+  object: function object(key, val) {
     return this.js(key, val, function(x) {
       return this.constructor.encode(x, this);
     });
@@ -268,7 +268,7 @@ SC.ObjectCoder = SC.Object.extend({
   // INTERNAL SUPPORT
   // 
   
-  spaces: function() {
+  spaces: function spaces() {
     var spaces = this.context ? this.context.get('spaces') : '' ;
     spaces = spaces + '  ';  
     return spaces ;
@@ -278,7 +278,7 @@ SC.ObjectCoder = SC.Object.extend({
     Emits the final JavaScript output for this coder based on the current
     attributes.
   */
-  emit: function() {
+  emit: function emit() {
     
     // return undefined if the encoding was rejected...
     if (this.invalid) return undefined ;
@@ -306,7 +306,7 @@ SC.ObjectCoder = SC.Object.extend({
     Begins encoding with a particular object, setting the className to the 
     object's `className`.  This is used internally by the `encode()` method.
   */
-  begin: function(object) {
+  begin: function begin(object) {
     var methodName = this.get('encodeMethodName');
     if (SC.typeOf(object[methodName]) !== SC.T_FUNCTION) {
       throw SC.$error("Cannot encode %@ because it does not respond to %@()".fmt(object, methodName)) ;
@@ -326,12 +326,12 @@ SC.ObjectCoder = SC.Object.extend({
     return this ;
   },
   
-  init: function() {
+  init: function init() {
     sc_super();
     this.set('attributes', {});
   },
   
-  destroy: function() {
+  destroy: function destroy() {
     sc_super();
     this.context = this.className = this.attributes = null ; // cleanup
   }

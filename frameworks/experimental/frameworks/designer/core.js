@@ -17,11 +17,11 @@ SC.Designer = SC.Object.extend({
 //   
 //   controllers: [],
 //   
-//   registerPage: function(page){
+//   registerPage: function registerPage(page){
 //     SC.Designer.pages.pushObject(page);
 //   },
 //   
-//   registerController: function(controller){
+//   registerController: function registerController(controller){
 //     SC.Designer.controllers.pushObject(controller);
 //   }
 //   

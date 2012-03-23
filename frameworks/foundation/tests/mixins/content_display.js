@@ -7,7 +7,7 @@
 var view, contentA, contentB;
 
 module('ContentDisplay', {
-  setup: function() {
+  setup: function setup() {
     contentA = SC.Object.create({
       foo: 'foo.A',
       bar: 'bar.A'

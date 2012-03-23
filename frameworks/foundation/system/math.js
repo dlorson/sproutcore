@@ -25,7 +25,7 @@ SC.Math = SC.Object.create(
     @param {Number} lambda The closeness sufficient for a positive result. Default 0.00001
     @returns {Boolean}
   */
-  near: function(n1, n2, lambda) {
+  near: function near(n1, n2, lambda) {
     if (!lambda) lambda = 0.00001;
     return Math.abs(n1 - n2) <= lambda;
   },
@@ -43,7 +43,7 @@ SC.Math = SC.Object.create(
     @param {Integer} decimalPlace
     @returns {Number}
   */
-  round: function(n, decimalPlace) {
+  round: function round(n, decimalPlace) {
     if (!decimalPlace) decimalPlace = 0;
     var factor = Math.pow(10, decimalPlace);
     if (decimalPlace < 0) {

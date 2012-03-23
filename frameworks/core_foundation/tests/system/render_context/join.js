@@ -10,11 +10,11 @@
 var context = null;
 
 module("SC.RenderContext#join", {
-  setup: function() {
+  setup: function setup() {
     context = SC.RenderContext().push("line1", "line2") ;
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     context = null;
   }
 });

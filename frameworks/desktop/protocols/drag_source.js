@@ -27,7 +27,7 @@ SC.DragSource = {
     @param {SC.View} dropTarget The proposed target of the drop.
     @param {SC.Drag} drag The SC.Drag instance managing this drag.
   */
-  dragSourceOperationMaskFor: function(drag, dropTarget) {
+  dragSourceOperationMaskFor: function dragSourceOperationMaskFor(drag, dropTarget) {
     return SC.DRAG_NONE;
   },
   
@@ -51,7 +51,7 @@ SC.DragSource = {
       began.  You can use convertOffsetFromView() to convert this to local 
       coordinates.
   */
-  dragDidBegin: function(drag, loc) {},
+  dragDidBegin: function dragDidBegin(drag, loc) {},
   
   /**
     This method is called whenever the drag image is moved.  This is
@@ -62,7 +62,7 @@ SC.DragSource = {
       mouse is.  You can use convertOffsetFromView() to convert this to local 
       coordinates.
   */
-  dragDidMove: function(drag, loc) {},
+  dragDidMove: function dragDidMove(drag, loc) {},
   
   /**
     This method is called when the drag ended. You can use this to do any
@@ -74,6 +74,6 @@ SC.DragSource = {
     @param {DragOp} op The drag operation that was performed. One of
       SC.DRAG_COPY, SC.DRAG_MOVE, SC.DRAG_LINK, or SC.DRAG_NONE.
   */
-  dragDidEnd: function(drag, loc, op) {}
+  dragDidEnd: function dragDidEnd(drag, loc, op) {}
 
 };

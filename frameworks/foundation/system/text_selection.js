@@ -54,7 +54,7 @@ SC.TextSelection = SC.Object.extend(SC.Copyable, SC.Freezable,
     
     @property {Number}
   */
-  length: function() {
+  length: function length() {
     var start = this.get('start') ;
     var end   = this.get('end') ;
     if ((start) === -1  ||  (end === -1)) {
@@ -71,13 +71,13 @@ SC.TextSelection = SC.Object.extend(SC.Copyable, SC.Freezable,
   // INTERNAL SUPPORT
   //
   
-  init: function() {
+  init: function init() {
     sc_super();
     this.freeze();
   },
   
   
-  copy: function() {
+  copy: function copy() {
     return SC.TextSelection.create({
       start: this.get('start'),
       end:   this.get('end')
@@ -85,7 +85,7 @@ SC.TextSelection = SC.Object.extend(SC.Copyable, SC.Freezable,
   },
   
   
-  toString: function() {
+  toString: function toString() {
     var length = this.get('length');
     if (length  &&  length > 0) {
       if (length === 1) {

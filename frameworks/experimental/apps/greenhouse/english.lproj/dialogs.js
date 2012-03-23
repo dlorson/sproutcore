@@ -71,7 +71,7 @@ Greenhouse.dialogPage = SC.Page.design({
   propertyPicker: SC.PickerPane.design({
     layout: {width: 240, height: 290},
     defaultResponder: 'Greenhouse',
-    modalPaneDidClick: function(evt) {
+    modalPaneDidClick: function modalPaneDidClick(evt) {
       var f = this.get("frame");
       if(!this.clickInside(f, evt)){ 
         Greenhouse.sendAction('cancel');

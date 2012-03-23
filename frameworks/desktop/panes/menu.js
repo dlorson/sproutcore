@@ -271,7 +271,7 @@ SC.MenuPane = SC.PickerPane.extend(
     should anchor.
     @param {Array} (preferMatrix) The prefer matrix used to position the pane.
   */
-  popup: function(anchorViewOrElement, preferMatrix) {
+  popup: function popup(anchorViewOrElement, preferMatrix) {
     var anchor;
     this.beginPropertyChanges();
     if(anchorViewOrElement){
@@ -303,7 +303,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @returns {SC.MenuPane} receiver
   */
-  remove: function() {
+  remove: function remove() {
     var parentMenu = this.get('parentMenu');
 
     this.set('currentMenuItem', null);
@@ -525,7 +525,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @returns {SC.MenuPane} the newly instantiated menu pane
     @private
   */
-  init: function() {
+  init: function init() {
    return sc_super();
   },
 
@@ -540,7 +540,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @private
     @returns {SC.View} receiver
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     var scroll, menuView, menuItemViews;
 
     scroll = this.createChildView(SC.MenuScrollView, {
@@ -549,11 +549,11 @@ SC.MenuPane = SC.PickerPane.extend(
     });
 
     menuView = this._menuView = SC.View.create({
-      parentViewDidResize: function() {
+      parentViewDidResize: function parentViewDidResize() {
         this.notifyPropertyChange('frame');
       },
       
-      viewDidResize: function() {
+      viewDidResize: function viewDidResize() {
         
       }
     });
@@ -577,7 +577,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @returns {SC.MenuPane} receiver
   */
-  paneDidAttach: function() {
+  paneDidAttach: function paneDidAttach() {
     // hook into root responder
     var responder = (this.rootResponder = SC.RootResponder.responder);
     responder.panes.add(this);
@@ -604,7 +604,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @returns {SC.Pane} receiver
   */
-  becomeMenuPane: function() {
+  becomeMenuPane: function becomeMenuPane() {
     if (this.rootResponder) this.rootResponder.makeMenuPane(this) ;
     return this ;
   },
@@ -615,7 +615,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @returns {SC.Pane} receiver
   */
-  resignMenuPane: function() {
+  resignMenuPane: function resignMenuPane() {
     if (this.rootResponder) this.rootResponder.makeMenuPane(null);
     return this ;
   },
@@ -636,7 +636,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @type Array
     @readOnly
   */
-  menuItemViews: function() {
+  menuItemViews: function menuItemViews() {
     return this.createMenuItemViews();
   }.property('displayItems').cacheable(),
 
@@ -647,7 +647,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @return Array
   */
-  createMenuItemViews: function() {
+  createMenuItemViews: function createMenuItemViews() {
     var views = [], items = this.get('displayItems'),
         exampleView = this.get('exampleView'), item, itemView, view,
         height, heightKey, separatorKey, defaultHeight, separatorHeight,
@@ -722,7 +722,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @param {Number} idx the item index
     @returns {SC.MenuItemView} instantiated view
   */
-  menuItemViewForContentIndex: function(idx) {
+  menuItemViewForContentIndex: function menuItemViewForContentIndex(idx) {
     var menuItemViews = this.get('menuItemViews');
 
     if (!menuItemViews) return undefined;
@@ -746,7 +746,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @isReadOnly
     @property
   */
-  rootMenu: function() {
+  rootMenu: function rootMenu() {
     if (this.get('isSubMenu')) return this.getPath('parentMenu.rootMenu');
     return this;
   }.property('isSubMenu').cacheable(),
@@ -756,7 +756,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @private
   */
-  windowSizeDidChange: function(oldSize, newSize) {
+  windowSizeDidChange: function windowSizeDidChange(oldSize, newSize) {
     this.remove();
     return sc_super();
   },
@@ -788,7 +788,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @type Array
     @isReadOnly
   */
-  displayItems: function() {
+  displayItems: function displayItems() {
     var items = this.get('items'), localize = this.get('localize'),
         itemHeight = this.get('itemHeight'), len,
         ret = [], idx, item, itemType;
@@ -824,7 +824,7 @@ SC.MenuPane = SC.PickerPane.extend(
     return ret;
   }.property('items').cacheable(),
 
-  _sc_menu_itemsDidChange: function() {
+  _sc_menu_itemsDidChange: function _sc_menu_itemsDidChange() {
     var views = this.get('menuItemViews');
     this._menuView.replaceAllChildren(views);
     this._menuView.adjust('height', this.get('menuHeight'));
@@ -851,7 +851,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @private
   */
-  convertArrayMenuItemToObject: function(item) {
+  convertArrayMenuItemToObject: function convertArrayMenuItemToObject(item) {
     SC.Logger.warn('Support for Array-based menu items has been deprecated.  Please update your menus to use a hash.');
 
     var keys, fetchKeys = SC._menu_fetchKeys,
@@ -878,7 +878,7 @@ SC.MenuPane = SC.PickerPane.extend(
     return ret;
   },
 
-  currentMenuItem: function(key, value) {
+  currentMenuItem: function currentMenuItem(key, value) {
     if (value !== undefined) {
       if (this._currentMenuItem !== null) {
         this.set('previousMenuItem', this._currentMenuItem);
@@ -892,7 +892,7 @@ SC.MenuPane = SC.PickerPane.extend(
     return this._currentMenuItem;
   }.property().cacheable(),
 
-  _sc_menu_currentMenuItemDidChange: function() {
+  _sc_menu_currentMenuItemDidChange: function _sc_menu_currentMenuItemDidChange() {
     var currentMenuItem = this.get('currentMenuItem'),
         previousMenuItem = this.get('previousMenuItem');
 
@@ -913,7 +913,7 @@ SC.MenuPane = SC.PickerPane.extend(
     }
   }.observes('currentMenuItem'),
 
-  closeOpenMenusFor: function(menuItem) {
+  closeOpenMenusFor: function closeOpenMenusFor(menuItem) {
     if (!menuItem) return;
 
     var menu = menuItem.get('parentMenu');
@@ -929,14 +929,14 @@ SC.MenuPane = SC.PickerPane.extend(
     }
   },
 
-  closeOpenMenus: function() {
+  closeOpenMenus: function closeOpenMenus() {
     this.closeOpenMenusFor(this.get('previousMenuItem'));
   },
 
   //Mouse and Key Events
 
   /** @private */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     this.modalPaneDidClick(evt);
     return YES ;
   },
@@ -948,11 +948,11 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @param {Event} evt
   */
-  mouseEntered: function(evt) {
+  mouseEntered: function mouseEntered(evt) {
     this.set('mouseHasEntered', YES);
   },
 
-  keyUp: function(evt) {
+  keyUp: function keyUp(evt) {
     var ret = this.interpretKeyEvents(evt) ;
     return !ret ? NO : ret ;
   },
@@ -963,7 +963,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @private
   */
-  moveUp: function() {
+  moveUp: function moveUp() {
     var currentMenuItem = this.get('currentMenuItem'),
         items = this.get('menuItemViews'),
         currentIndex, parentMenu, idx;
@@ -994,7 +994,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @private
   */
-  moveDown: function() {
+  moveDown: function moveDown() {
     var currentMenuItem = this.get('currentMenuItem'),
         items = this.get('menuItemViews'),
         len = items.get('length'),
@@ -1020,7 +1020,7 @@ SC.MenuPane = SC.PickerPane.extend(
     return YES;
   },
 
-  insertText: function(chr, evt) {
+  insertText: function insertText(chr, evt) {
     var timer = this._timer, keyBuffer = this._keyBuffer;
 
     if (timer) {
@@ -1057,7 +1057,7 @@ SC.MenuPane = SC.PickerPane.extend(
     to this menu by a visible parent control
     @returns {Boolean}
   */
-  performKeyEquivalent: function(keyEquivalent, evt, fromVisibleControl) {
+  performKeyEquivalent: function performKeyEquivalent(keyEquivalent, evt, fromVisibleControl) {
     //If menu is not visible
     if (!fromVisibleControl && !this.get('isVisibleInWindow')) return NO;
 
@@ -1081,7 +1081,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
   },
 
-  selectMenuItemForString: function(buffer) {
+  selectMenuItemForString: function selectMenuItemForString(buffer) {
     var items = this.get('menuItemViews'), item, title, idx, len, bufferLength;
     if (!items) return;
 
@@ -1110,7 +1110,7 @@ SC.MenuPane = SC.PickerPane.extend(
 
     @private
   */
-  clearKeyBuffer: function() {
+  clearKeyBuffer: function clearKeyBuffer() {
     this._keyBuffer = '';
   },
 
@@ -1123,7 +1123,7 @@ SC.MenuPane = SC.PickerPane.extend(
     @returns Boolean
     @private
   */
-  modalPaneDidClick: function(evt) {
+  modalPaneDidClick: function modalPaneDidClick(evt) {
     this.remove();
 
     return YES;

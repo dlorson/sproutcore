@@ -273,7 +273,7 @@ Greenhouse.appPage = SC.Page.design({
           selectionBinding: 'Greenhouse.libraryController.selection',
           delegate: Greenhouse.libraryController,
           canReorderContent: YES,
-          dragDidBegin: function(drag, loc) {
+          dragDidBegin: function dragDidBegin(drag, loc) {
             Greenhouse.sendAction('cancel');
           }
         })
@@ -318,7 +318,7 @@ Greenhouse.appPage = SC.Page.design({
     classNames: ['gh-picker'],
     layout: {width: 200, height: 500},
     defaultResponder: 'Greenhouse',
-    computeAnchorRect: function(anchor) {
+    computeAnchorRect: function computeAnchorRect(anchor) {
       var ret = SC.viewportOffset(anchor); // get x & y
       var cq = SC.$(anchor);
       var wsize = SC.RootResponder.responder.computeWindowSize() ;
@@ -327,7 +327,7 @@ Greenhouse.appPage = SC.Page.design({
       ret.y = ret.y -11;
       return ret ;
     },
-    modalPaneDidClick: function(evt) {
+    modalPaneDidClick: function modalPaneDidClick(evt) {
       var f = this.get("frame");
       if(!this.clickInside(f, evt)){ 
         Greenhouse.sendAction('cancel');

@@ -40,7 +40,7 @@ Greenhouse.DropDown = {
   
   dropDownType: SC.PICKER_MENU,
   
-  initMixin: function() {
+  initMixin: function initMixin() {
     // Try to create a new menu instance
     var dropDown = this.get('dropDown');
     if (dropDown && SC.typeOf(dropDown) === SC.T_CLASS) {
@@ -61,7 +61,7 @@ Greenhouse.DropDown = {
     Hides the attached drop down if present.  This is called automatically when
     the button gets toggled off.
   */
-  hideDropDown: function() {
+  hideDropDown: function hideDropDown() {
     if (this._dropDownPane && SC.typeOf(this._dropDownPane.remove) === SC.T_FUNCTION) {
       this._dropDownPane.remove();
       this.set('isShowingDropDown', NO);
@@ -71,7 +71,7 @@ Greenhouse.DropDown = {
   /**
     Shows the menu.  This is called automatically when the button is toggled on.
   */
-  showDropDown: function() {
+  showDropDown: function showDropDown() {
     // If a menu already exists, get rid of it
     this.hideDropDown();
 
@@ -86,7 +86,7 @@ Greenhouse.DropDown = {
   /**
     Toggles the menu on/off accordingly
   */
-  toggle: function() {
+  toggle: function toggle() {
     if (this.get('isShowingDropDown')){
       this.hideDropDown();
     }

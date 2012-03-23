@@ -36,7 +36,7 @@ SC.NavigationBuilder = {
   */
   navigationTransitions: NO,
   
-  initMixin: function() {
+  initMixin: function initMixin() {
     // force integrate SC.Animatable
     var animatable = SC.Animatable;
     if (animatable && !this.isAnimatable) {
@@ -67,7 +67,7 @@ SC.NavigationBuilder = {
   /** @private
     Determines metrics of the view. This may be adapted to work with non-CSS transforms in future...
   */
-  metrics: function() {
+  metrics: function metrics() {
     var f = this.computeFrameWithParentFrame();
     return f;
   },
@@ -75,7 +75,7 @@ SC.NavigationBuilder = {
   /** @private
     Applies the supplied CSS transform.
   */
-  transform: function(pos) {
+  transform: function transform(pos) {
     if (SC.platform.supportsCSS3DTransforms) {
       this.adjust("transform", "translate3d(" + pos + "px,0px,0px)");
     } else {
@@ -83,7 +83,7 @@ SC.NavigationBuilder = {
     }
   },
   
-  buildInNavigation: function() {
+  buildInNavigation: function buildInNavigation() {
     // set initial state
     var metrics = this.metrics();
     this.disableAnimation();
@@ -94,7 +94,7 @@ SC.NavigationBuilder = {
     this.invokeLater("transform", 10, 0);
   },
   
-  buildOutNavigation: function() {
+  buildOutNavigation: function buildOutNavigation() {
     // we already have an initial state
     var metrics = this.metrics();
     this.transform(this.get("buildDirection") === SC.TO_LEFT ? -metrics.width : metrics.width);
@@ -104,7 +104,7 @@ SC.NavigationBuilder = {
     You may override this. If you do, call `buildInNavigation` to call the original functionality.
     You may need to override `navigationBuildDidFinish` as well if you call `buildInNavigation`.
   */
-  buildIn: function() {
+  buildIn: function buildIn() {
     this.buildInNavigation();
   },
   
@@ -112,21 +112,21 @@ SC.NavigationBuilder = {
     You may override this. If you do, call `buildOutNavigation` to call the original functionality.
     You may need to override `navigationBuildDidFinish`as well if you call `buildOutNavigation`.
   */
-  buildOut: function() {
+  buildOut: function buildOut() {
     this.buildOutNavigation();
   },
   
   /**
     This ensures that the view has a CSS transform set, even if it is added without build in, etc.
   */
-  resetBuild: function() {
+  resetBuild: function resetBuild() {
     this.transform(0);
   },
   
   /**
     Called when the transitions finish.
   */
-  navigationBuildDidFinish: function() {
+  navigationBuildDidFinish: function navigationBuildDidFinish() {
     if (this.isBuildingIn) {
       this.buildInDidFinish();
     } else if (this.isBuildingOut) {

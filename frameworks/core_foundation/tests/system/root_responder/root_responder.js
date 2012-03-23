@@ -14,9 +14,9 @@ var sub, newPane, oldPane, lightPane, darkPane, myPane, responder;
 
 
 module("SC.RootResponder", {
-	setup: function() {		
+	setup: function setup() {		
 		sub = SC.Object.create({
-			action: function() { var objectA = "hello"; }
+			action: function action() { var objectA = "hello"; }
 		});
 		
 		newPane = SC.Pane.create({ owner: this});
@@ -27,13 +27,13 @@ module("SC.RootResponder", {
 		responder = SC.RootResponder.create({});
 	},
 	
-	teardown: function() {
+	teardown: function teardown() {
 		delete sub;
 	}
 	
 	// var objectA, submit = document.createElement('pane');
 	// 
-	//   triggerMe: function() {
+	//   triggerMe: function triggerMe() {
 	//     SC.Event.trigger(submit, 'click');
 	//   }
 	//   

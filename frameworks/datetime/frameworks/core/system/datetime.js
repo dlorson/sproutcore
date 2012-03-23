@@ -105,7 +105,7 @@ SC.Scanner = SC.Object.extend(
     @throws {SC.SCANNER_OUT_OF_BOUNDS_ERROR} If asked to read too many characters
     @returns {String} The characters
   */
-  scan: function(len) {
+  scan: function scan(len) {
     if (this.scanLocation + len > this.length) throw SC.SCANNER_OUT_OF_BOUNDS_ERROR;
     var str = this.string.substr(this.scanLocation, len);
     this.scanLocation += len;
@@ -120,7 +120,7 @@ SC.Scanner = SC.Object.extend(
     @throws {SC.SCANNER_INT_ERROR} If asked to read non numeric characters
     @returns {Integer} The scanned integer
   */
-  scanInt: function(min_len, max_len) {
+  scanInt: function scanInt(min_len, max_len) {
     if (max_len === undefined) max_len = min_len;
     var str = this.scan(max_len);
     var re = new RegExp("^\\d{" + min_len + "," + max_len + "}");
@@ -139,7 +139,7 @@ SC.Scanner = SC.Object.extend(
     @throws {SC.SCANNER_SKIP_ERROR} If the given string could not be scanned
     @returns {Boolean} YES if the given string was successfully scanned, NO otherwise
   */
-  skipString: function(str) {
+  skipString: function skipString(str) {
     if (this.scan(str.length) !== str) throw SC.SCANNER_SKIP_ERROR;
     return YES;
   },
@@ -151,7 +151,7 @@ SC.Scanner = SC.Object.extend(
     @throws {SC.SCANNER_SCAN_ARRAY_ERROR} If no string of the given array is found
     @returns {Integer} The index of the scanned string of the given array
   */
-  scanArray: function(ary) {
+  scanArray: function scanArray(ary) {
     for (var i = 0, len = ary.length; i < len; i++) {
       if (this.scan(ary[i].length) === ary[i]) {
         return i;
@@ -248,7 +248,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     @see SC.DateTime#create for the list of options you can pass
     @returns {SC.DateTime} copy of receiver
   */
-  adjust: function(options, resetCascadingly) {
+  adjust: function adjust(options, resetCascadingly) {
     var timezone;
 
     options = options ? SC.clone(options) : {};
@@ -265,7 +265,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     @param {Hash} options the amount of date/time to advance the receiver
     @returns {DateTime} copy of the receiver
   */
-  advance: function(options) {
+  advance: function advance(options) {
     return this.constructor._advance(options, this._ms, this.timezone)._createFromCurrentState();
   },
 
@@ -298,7 +298,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     @param {String} key the property name to get
     @return the value asked for
   */
-  unknownProperty: function(key) {
+  unknownProperty: function unknownProperty(key) {
     return this.constructor._get(key, this._ms, this.timezone);
   },
 
@@ -341,7 +341,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     @param {String} format the format string
     @return {String} the formatted string
   */
-  toFormattedString: function(fmt) {
+  toFormattedString: function toFormattedString(fmt) {
     return this.constructor._toFormattedString(fmt, this._ms, this.timezone);
   },
 
@@ -351,7 +351,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
 
     @return {String} the formatted string
   */
-  toISO8601: function(){
+  toISO8601: function toISO8601(){
     return this.constructor._toFormattedString(SC.DATETIME_ISO8601, this._ms, this.timezone);
   },
 
@@ -367,7 +367,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     
     @returns {String}
   */
-  toString: function() {
+  toString: function toString() {
     return "UTC: " +
            new Date(this._ms).toUTCString() +
            ", timezone: " +
@@ -383,7 +383,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
     @param {SC.DateTime} aDateTime the DateTime to compare to
     @returns {Boolean}
   */
-  isEqual: function(aDateTime) {
+  isEqual: function isEqual(aDateTime) {
     return this.constructor.compare(this, aDateTime) === 0;
   },
 
@@ -393,7 +393,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
 
     @returns {SC.DateTime}
   */
-  copy: function() {
+  copy: function copy() {
     return this;
   },
   
@@ -411,7 +411,7 @@ SC.DateTime = SC.Object.extend(SC.Freezable, SC.Copyable,
 
     @return {SC.DateTime}
   */
-  toTimezone: function(timezone) {
+  toTimezone: function toTimezone(timezone) {
     if (timezone === undefined) timezone = 0;
     return this.advance({ timezone: timezone - this.timezone });
   }
@@ -562,7 +562,7 @@ SC.DateTime.mixin(SC.Comparable,
     Returns a hash of the previous milliseconds and time zone in case they
     are wanted for later restoration.
   */
-  _setCalcState: function(ms, timezone) {
+  _setCalcState: function _setCalcState(ms, timezone) {
     var previous = {
       milliseconds: this._date.getTime(),
       timezone: this._tz
@@ -580,7 +580,7 @@ SC.DateTime.mixin(SC.Comparable,
     By this time, any time zone setting on 'hash' will be ignored.
     'timezone' will be used, or the last this._tz.
   */
-  _setCalcStateFromHash: function(hash, timezone) {
+  _setCalcStateFromHash: function _setCalcStateFromHash(hash, timezone) {
     var tz = (timezone !== undefined) ? timezone : this._tz; // use the last-known time zone if necessary
     var ms = this._toMilliseconds(hash, this._ms, tz); // convert the hash (local to specified time zone) to milliseconds (in UTC)
     return this._setCalcState(ms, tz); // now call the one we really wanted
@@ -590,7 +590,7 @@ SC.DateTime.mixin(SC.Comparable,
     @private
     @see SC.DateTime#unknownProperty
   */
-  _get: function(key, start, timezone) {
+  _get: function _get(key, start, timezone) {
     var ms, tz, doy, m, y, firstDayOfWeek, dayOfWeek, dayOfYear, prefix, suffix;
     var currentWeekday, targetWeekday;
     var d = this._date;
@@ -733,7 +733,7 @@ SC.DateTime.mixin(SC.Comparable,
 
     Sets the internal calculation state to something specified.
   */
-  _adjust: function(options, start, timezone, resetCascadingly) {
+  _adjust: function _adjust(options, start, timezone, resetCascadingly) {
     var opts = options ? SC.clone(options) : {};
     var ms = this._toMilliseconds(options, start, timezone, resetCascadingly);
     this._setCalcState(ms, timezone);
@@ -744,7 +744,7 @@ SC.DateTime.mixin(SC.Comparable,
     @private
     @see SC.DateTime#advance
   */
-  _advance: function(options, start, timezone) {
+  _advance: function _advance(options, start, timezone) {
     var opts = options ? SC.clone(options) : {};
     var tz;
 
@@ -765,7 +765,7 @@ SC.DateTime.mixin(SC.Comparable,
     Converts a standard date/time options hash to an integer representing that position
     in time relative to Jan 1, 1970
   */
-  _toMilliseconds: function(options, start, timezone, resetCascadingly) {
+  _toMilliseconds: function _toMilliseconds(options, start, timezone, resetCascadingly) {
     var opts = options ? SC.clone(options) : {};
     var d = this._date;
     var previousMilliseconds = d.getTime(); // rather than create a new Date object, we'll reuse the instance we have for calculations, then restore it
@@ -861,7 +861,7 @@ SC.DateTime.mixin(SC.Comparable,
     @returns {SC.DateTime} the SC.DateTime instance that corresponds to the
       passed parameters, possibly fetched from cache
   */
-  create: function() {
+  create: function create() {
     var arg = arguments.length === 0 ? {} : arguments[0];
     var timezone;
 
@@ -909,7 +909,7 @@ SC.DateTime.mixin(SC.Comparable,
 
     @return {SC.DateTime} the SC.DateTime instance returned by create()
   */
-  _createFromCurrentState: function() {
+  _createFromCurrentState: function _createFromCurrentState() {
     return this.create({
       milliseconds: this._date.getTime(),
       timezone: this._tz
@@ -925,7 +925,7 @@ SC.DateTime.mixin(SC.Comparable,
     @param {String} fmt the format to parse the string with
     @returns {DateTime} the DateTime corresponding to the string parameter
   */
-  parse: function(str, fmt) {
+  parse: function parse(str, fmt) {
     // Declared as an object not a literal since in some browsers the literal
     // retains state across function calls
     var re = new RegExp('(?:%([aAbBcdDhHiIjmMpsSUWwxXyYZ%])|(.))', "g");
@@ -1007,7 +1007,7 @@ SC.DateTime.mixin(SC.Comparable,
     @param {Integer} the minimum length of the returned string
     @returns {String} the padded string
   */
-  _pad: function(x, len) {
+  _pad: function _pad(x, len) {
     var str = '' + x;
     if (len === undefined) len = 2;
     while (str.length < len) str = '0' + str;
@@ -1018,7 +1018,7 @@ SC.DateTime.mixin(SC.Comparable,
     @private
     @see SC.DateTime#_toFormattedString
   */
-  __toFormattedString: function(part, start, timezone) {
+  __toFormattedString: function __toFormattedString(part, start, timezone) {
     var hour, offset;
 
     // Note: all calls to _get() here should include only one
@@ -1073,7 +1073,7 @@ SC.DateTime.mixin(SC.Comparable,
     @private
     @see SC.DateTime#toFormattedString
   */
-  _toFormattedString: function(format, start, timezone) {
+  _toFormattedString: function _toFormattedString(format, start, timezone) {
     var that = this;
     var tz = (timezone !== undefined) ? timezone : (this.timezone !== undefined) ? this.timezone : 0;
 
@@ -1097,7 +1097,7 @@ SC.DateTime.mixin(SC.Comparable,
                        +1 if a > b,
                        0 if a == b
   */
-  compare: function(a, b) {
+  compare: function compare(a, b) {
     var ma = a.get('milliseconds');
     var mb = b.get('milliseconds');
     return ma < mb ? -1 : ma === mb ? 0 : 1;
@@ -1116,7 +1116,7 @@ SC.DateTime.mixin(SC.Comparable,
     @throws {SC.DATETIME_COMPAREDATE_TIMEZONE_ERROR} if the passed arguments
       don't have the same timezone
   */
-  compareDate: function(a, b) {
+  compareDate: function compareDate(a, b) {
     if (a.get('timezone') !== b.get('timezone')) throw SC.DATETIME_COMPAREDATE_TIMEZONE_ERROR;
     var ma = a.adjust({hour: 0}).get('milliseconds');
     var mb = b.adjust({hour: 0}).get('milliseconds');

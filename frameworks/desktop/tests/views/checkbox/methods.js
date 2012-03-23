@@ -11,12 +11,12 @@
   var pane, view, triggered = false;
 
   module("SC.Checkbox", {
-    setup: function() {
+    setup: function setup() {
       SC.RunLoop.begin();
 
       // actions must be strings, and there must be a target. So, we need this dummy.
       var act = SC.Object.create({
-        action: function() {
+        action: function action() {
           triggered = true;
         }
       });
@@ -37,7 +37,7 @@
       view = pane.childViews[0];
     }, 
 
-    teardown: function() {
+    teardown: function teardown() {
       pane.remove();
       pane = view = null;
       triggered = false;

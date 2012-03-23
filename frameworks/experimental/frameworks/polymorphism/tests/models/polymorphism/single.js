@@ -10,7 +10,7 @@
   var store, Person, Place, Male, Female, home, colin, maggie;
   
   module("Polymorphic SC.Record - toOne tests", {
-    setup: function() {
+    setup: function setup() {
       SC.RunLoop.begin();
       store = SC.Store.create();
 
@@ -48,7 +48,7 @@
         name: 'Maggie'
       });
     },
-    teardown: function() {
+    teardown: function teardown() {
       store = Person = Place = Male = Female = home = colin = maggie = null;
       SC.RunLoop.end();
     }

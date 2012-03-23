@@ -8,7 +8,7 @@ externalState1 = null;
 externalState2 = null;
 
 module("SC.State.plugin: Nest States Tests", {
-  setup: function() {
+  setup: function setup() {
     
     externalState1 = SC.State.extend({
       
@@ -49,7 +49,7 @@ module("SC.State.plugin: Nest States Tests", {
     statechart.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart.destroy();
     externalState1 = null;
     externalState2 = null;

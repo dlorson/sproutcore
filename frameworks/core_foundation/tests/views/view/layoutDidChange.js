@@ -24,7 +24,7 @@ test("invokes layoutDidChangeFor() on layoutView each time it is called", functi
 
   var callCount = 0 ;
   var layoutView = SC.View.create({
-    layoutDidChangeFor: function(changedView){
+    layoutDidChangeFor: function layoutDidChangeFor(changedView){
       equals(this.get('childViewsNeedLayout'), YES, 'should set childViewsNeedLayout to YES before calling layoutDidChangeFor()');
 
       equals(view, changedView, 'should pass view');
@@ -45,7 +45,7 @@ test("invokes layoutChildViewsIfNeeded() on layoutView once per runloop", functi
 
   var callCount = 0 ;
   var layoutView = SC.View.create({
-    layoutChildViewsIfNeeded: function(){
+    layoutChildViewsIfNeeded: function layoutChildViewsIfNeeded(){
       callCount++;
     }
   });
@@ -66,11 +66,11 @@ test("should not invoke layoutChildViewsIfNeeded() if layoutDidChangeFor() sets 
 
   var callCount = 0 ;
   var layoutView = SC.View.create({
-    layoutDidChangeFor: function() {
+    layoutDidChangeFor: function layoutDidChangeFor() {
       this.set('childViewsNeedLayout', NO);
     },
 
-    layoutChildViewsIfNeeded: function(){
+    layoutChildViewsIfNeeded: function layoutChildViewsIfNeeded(){
       callCount++;
     }
   });
@@ -95,7 +95,7 @@ test("is invoked whenever layout property changes", function() {
 
   var callCount = 0 ;
   var layoutView = SC.View.create({
-    layoutDidChangeFor: function(changedView){
+    layoutDidChangeFor: function layoutDidChangeFor(changedView){
       callCount++;
     }
   });
@@ -112,7 +112,7 @@ test("is invoked on parentView if no layoutView whenever layout property changes
 
   var callCount = 0 ;
   var parentView = SC.View.create({
-    layoutDidChangeFor: function(changedView){
+    layoutDidChangeFor: function layoutDidChangeFor(changedView){
       callCount++;
     }
   });
@@ -157,7 +157,7 @@ test("Calling viewDidResize on a view notifies its child views", function() {
     childViews: ['regular', 'core'],
 
     regular: SC.View.create({
-      viewDidResize: function() {
+      viewDidResize: function viewDidResize() {
         regularViewCounter++;
         // Make sure we call the default implementation to
         // ensure potential blow-uppy behavior is invoked
@@ -166,7 +166,7 @@ test("Calling viewDidResize on a view notifies its child views", function() {
     }),
 
     core: SC.CoreView.create({
-      viewDidResize: function() {
+      viewDidResize: function viewDidResize() {
         coreViewCounter++;
         sc_super();
       }

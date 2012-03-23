@@ -7,7 +7,7 @@ var sc, root, stateA, stateB, stateX, stateY;
 
 module("SC.State: addSubstate method Tests", {
   
-  setup: function() {
+  setup: function setup() {
     
     sc = SC.Statechart.create({
       
@@ -37,7 +37,7 @@ module("SC.State: addSubstate method Tests", {
     stateY = sc.getState('y');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     sc = root = stateA = stateB = stateX = stateY = null;
   }
   

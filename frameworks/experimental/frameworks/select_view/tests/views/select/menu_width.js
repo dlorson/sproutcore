@@ -3,7 +3,7 @@
 var View, pane, obj;
 
 module("SelectView - Minimum Menu Width", {
-  setup: function() {
+  setup: function setup() {
     pane = SC.Pane.create();
 
     obj = SC.Object.create({title: 'Lost', value: 'Found'});
@@ -19,7 +19,7 @@ module("SelectView - Minimum Menu Width", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     
   }
 });

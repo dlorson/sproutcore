@@ -129,7 +129,7 @@ SC.routes = SC.Object.create(
     
     @returns {Hash}
   */
-  _extractParametersAndRoute: function(obj) {
+  _extractParametersAndRoute: function _extractParametersAndRoute(obj) {
     var params = {},
         route = obj.route || '',
         separator, parts, i, len, crumbs, key;
@@ -213,7 +213,7 @@ SC.routes = SC.Object.create(
     @property
     @type {String}
   */
-  location: function(key, value) {
+  location: function location(key, value) {
     this._skipRoute = NO;
     return this._extractLocation(key, value);
   }.property(),
@@ -222,7 +222,7 @@ SC.routes = SC.Object.create(
     Works exactly like 'location' but you use this property only when
     you want to just change the location w/out triggering the routes
   */
-  informLocation: function(key, value){
+  informLocation: function informLocation(key, value){
     this._skipRoute = YES;
     // This is a very special case where this property
     // has a very heavy influence on the 'location' property
@@ -237,7 +237,7 @@ SC.routes = SC.Object.create(
     return this._extractLocation(key, value);
   }.property(),
   
-  _extractLocation: function(key, value) {
+  _extractLocation: function _extractLocation(key, value) {
     var crumbs, encodedValue;
     
     if (value !== undefined) {
@@ -276,7 +276,7 @@ SC.routes = SC.Object.create(
     It registers for the hashchange event if available. If not, it creates a
     timer that looks for location changes every 150ms.
   */
-  ping: function() {
+  ping: function ping() {
     var that;
     
     if (!this._didSetup) {
@@ -313,7 +313,7 @@ SC.routes = SC.Object.create(
     Event handler for the hashchange event. Called automatically by the browser
     if it supports the hashchange event, or by our timer if not.
   */
-  hashChange: function(event) {
+  hashChange: function hashChange(event) {
     var loc = window.location.hash;
     
     // Remove the '#' prefix
@@ -332,7 +332,7 @@ SC.routes = SC.Object.create(
     this._skipRoute = false;
   },
   
-  popState: function(event) {
+  popState: function popState(event) {
     var base = this.get('baseURI'),
         loc = document.location.href;
     
@@ -372,7 +372,7 @@ SC.routes = SC.Object.create(
     @param {Function} method the method to be called on target to handle the
       route, can be a function or a string
   */
-  add: function(route, target, method) {
+  add: function add(route, target, method) {
     if (!this._didSetup) {
       this.invokeLast(this.ping);
     }
@@ -394,7 +394,7 @@ SC.routes = SC.Object.create(
     Observer of the 'location' property that calls the correct route handler
     when the location changes.
   */
-  locationDidChange: function() {
+  locationDidChange: function locationDidChange() {
     this.trigger();
   }.observes('location'),
   
@@ -405,7 +405,7 @@ SC.routes = SC.Object.create(
     If the location is not the same as the supplied location, this simply lets "location"
     handle it (which ends up coming back to here).
   */
-  trigger: function() {
+  trigger: function trigger() {
     var firstRoute = this._firstRoute,
         location = this.get('location'),
         params, route;
@@ -443,7 +443,7 @@ SC.routes = SC.Object.create(
 
     wildcardRoutes: null,
 
-    add: function(parts, target, method) {
+    add: function add(parts, target, method) {
       var part, nextRoute;
 
       // clone the parts array because we are going to alter it
@@ -486,7 +486,7 @@ SC.routes = SC.Object.create(
       }
     },
 
-    routeForParts: function(parts, params) {
+    routeForParts: function routeForParts(parts, params) {
       var part, key, route;
 
       // clone the parts array because we are going to alter it

@@ -7,7 +7,7 @@
 
 var MyFoo = null, callInfo ;
 module("SC.Record#refresh", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     MyApp = SC.Object.create({
       store: SC.Store.create()
@@ -31,7 +31,7 @@ module("SC.Record#refresh", {
     };
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
   

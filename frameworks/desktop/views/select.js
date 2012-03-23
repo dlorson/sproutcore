@@ -28,7 +28,7 @@ SC.SelectView = SC.ButtonView.extend(
     @type Boolean
     @default YES
   */
-  acceptsFirstResponder: function() {
+  acceptsFirstResponder: function acceptsFirstResponder() {
     return this.get('isEnabled');
   }.property('isEnabled'),
 
@@ -338,7 +338,7 @@ SC.SelectView = SC.ButtonView.extend(
 
     @private
   */
-  leftAlign: function() {
+  leftAlign: function leftAlign() {
     switch (this.get('controlSize')) {
       case SC.TINY_CONTROL_SIZE:
         return SC.SelectView.TINY_OFFSET_X;
@@ -361,7 +361,7 @@ SC.SelectView = SC.ButtonView.extend(
     @param {SC.Array} objects the unsorted array of objects to display.
     @returns {SC.Array} sorted array of objects
   */
-  sortObjects: function(objects) {
+  sortObjects: function sortObjects(objects) {
     if(!this.get('disableSort')){
       var nameKey = this.get('itemSortKey') || this.get('itemTitleKey') ;
       objects = objects.sort(function(a,b) {
@@ -380,7 +380,7 @@ SC.SelectView = SC.ButtonView.extend(
 
     @private
   */
-  render: function(context,firstTime) {
+  render: function render(context,firstTime) {
     sc_super();
 
     var escapeHTML, layoutWidth, items, len, nameKey, iconKey, valueKey, separatorKey, showCheckbox,
@@ -545,7 +545,7 @@ SC.SelectView = SC.ButtonView.extend(
     @private
     @param {DOMMouseEvent} evt mouseup event that triggered the action
   */
-  _action: function( evt )
+  _action: function _action( evt )
   {
     var buttonLabel, menuWidth, scrollWidth, lastMenuWidth, offsetWidth,
       items, elementOffsetWidth, largestMenuWidth, item, element, idx,
@@ -689,7 +689,7 @@ SC.SelectView = SC.ButtonView.extend(
   /** @private
      Action method for the select button menu items
   */
-  displaySelectedItem: function(menuView) {
+  displaySelectedItem: function displaySelectedItem(menuView) {
     var currentItem = menuView.get("selectedItem");
 
     this.set("value", currentItem.get("value"));
@@ -702,7 +702,7 @@ SC.SelectView = SC.ButtonView.extend(
      position menu such that the selected item in the menu will be
      place aligned to the item on the button when menu is opened.
   */
-  changeSelectPreferMatrix: function() {
+  changeSelectPreferMatrix: function changeSelectPreferMatrix() {
     var controlSizeTuning = 0, customMenuItemHeight = 0 ;
     switch (this.get('controlSize')) {
       case SC.TINY_CONTROL_SIZE:
@@ -749,7 +749,7 @@ SC.SelectView = SC.ButtonView.extend(
     @private
     Holding down the button should display the menu pane.
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return YES ; // handled event, but do nothing
     this.set('isActive', YES);
     this._isMouseDown = YES;
@@ -774,7 +774,7 @@ SC.SelectView = SC.ButtonView.extend(
     @param {SC.Event} evt
     @returns {Boolean}
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var menu = this.get('menu'), targetMenuItem, success;
 
     if (menu) {
@@ -805,7 +805,7 @@ SC.SelectView = SC.ButtonView.extend(
   /** @private
     Override mouseExited to not remove the active state on mouseexit.
   */
-  mouseExited: function() {
+  mouseExited: function mouseExited() {
     return YES;
   },
 
@@ -813,7 +813,7 @@ SC.SelectView = SC.ButtonView.extend(
     @private
     Handle Key event - Down arrow key
   */
-  keyDown: function(event) {
+  keyDown: function keyDown(event) {
     if ( this.interpretKeyEvents(event) ) {
       return YES;
     }
@@ -826,7 +826,7 @@ SC.SelectView = SC.ButtonView.extend(
     @private
     Pressing the Up or Down arrow key should display the menu pane
   */
-  interpretKeyEvents: function(event) {
+  interpretKeyEvents: function interpretKeyEvents(event) {
     if (event) {
       if ((event.keyCode === 38 || event.keyCode === 40)) {
         this._action() ;
@@ -842,7 +842,7 @@ SC.SelectView = SC.ButtonView.extend(
     Override the button isSelectedDidChange function in order to not perform any action
     on selecting the select_button
   */
-  _button_isSelectedDidChange: function() {
+  _button_isSelectedDidChange: function _button_isSelectedDidChange() {
 
   }.observes('isSelected')
 

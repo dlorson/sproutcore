@@ -84,7 +84,7 @@ SC._ChainObserver.prototype = {
   method: null,
 
   // an accessor method that traverses the list and finds the tail
-  tail: function() {
+  tail: function tail() {
     if(this._tail) { return this._tail; }
 
     var tail = this;
@@ -99,7 +99,7 @@ SC._ChainObserver.prototype = {
 
   // invoked when the source object changes.  removes observer on old
   // object, sets up new observer, if needed.
-  objectDidChange: function(newObject) {
+  objectDidChange: function objectDidChange(newObject) {
     if (newObject === this.object) return; // nothing to do.
 
     // if an old object, remove observer on it.
@@ -136,7 +136,7 @@ SC._ChainObserver.prototype = {
   },
 
   // the observer method invoked when the observed property changes.
-  propertyDidChange: function() {
+  propertyDidChange: function propertyDidChange() {
     // get the new value
     var object = this.object ;
     var property = this.property ;
@@ -162,7 +162,7 @@ SC._ChainObserver.prototype = {
   },
 
   // teardown the chain...
-  destroyChain: function() {
+  destroyChain: function destroyChain() {
 
     // remove observer
     var obj = this.object ;

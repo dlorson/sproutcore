@@ -14,7 +14,7 @@ sc_require("tasks/task");
 */
 SC.TaskQueue = SC.Task.extend({
   
-  init: function() {
+  init: function init() {
     var self = this;
     this._doIdleEntry = function() {
       self._idleEntry();
@@ -56,21 +56,21 @@ SC.TaskQueue = SC.Task.extend({
   /**
     Returns YES if there are tasks in the queue.
   */
-  hasTasks: function() {
+  hasTasks: function hasTasks() {
     return this._tasks.length > 0;
   }.property('taskCount').cacheable(),
   
   /**
     Returns the number of tasks in the queue.
   */
-  taskCount: function() {
+  taskCount: function taskCount() {
     return this._tasks.length;
   }.property().cacheable(),
   
   /**
     Adds the task to the end of the queue.
   */
-  push: function(task) {
+  push: function push(task) {
     this._tasks.push(task);
     this.notifyPropertyChange('taskCount');
   },
@@ -78,7 +78,7 @@ SC.TaskQueue = SC.Task.extend({
   /**
     Removes and returns the first task in the queue.
   */
-  next: function() {
+  next: function next() {
     // null if there is no task
     if (this._tasks.length < 1) return null;
     
@@ -92,14 +92,14 @@ SC.TaskQueue = SC.Task.extend({
     Suspends cycling of the queue. Only affects task queues that run when idle,
     such as the backgroundTaskQueue.
   */
-  suspend: function() {
+  suspend: function suspend() {
     this._suspendCount++;
   },
   
   /**
     Resumes cycling of the queue.
   */
-  resume: function() {
+  resume: function resume() {
     this._suspendCount--;
     if (this._suspendCount <= 0) {
       this._setupIdle();
@@ -110,7 +110,7 @@ SC.TaskQueue = SC.Task.extend({
     @private
     Sets up idling if needed when the task count changes.
   */
-  _taskCountDidChange: function() {
+  _taskCountDidChange: function _taskCountDidChange() {
     this._setupIdle();
   }.observes('taskCount'),
   
@@ -118,7 +118,7 @@ SC.TaskQueue = SC.Task.extend({
     When runWhenIdle changes, we need to setup idle again if needed. This allows us to suspend
     and resume processing of the background task queue.
   */
-  _runWhenIdleDidChange: function() {
+  _runWhenIdleDidChange: function _runWhenIdleDidChange() {
     this._setupIdle();
   }.observes('runWhenIdle'),
   
@@ -126,7 +126,7 @@ SC.TaskQueue = SC.Task.extend({
     Sets up the scheduled idling check if needed and applicable.
     @private
   */
-  _setupIdle: function() {
+  _setupIdle: function _setupIdle() {
     if (
       !this._suspendCount && this.get('runWhenIdle') && 
       !this._idleIsScheduled && this.get('taskCount') > 0
@@ -142,7 +142,7 @@ SC.TaskQueue = SC.Task.extend({
     The entry point for the idle.
     @private
   */
-  _idleEntry: function() {
+  _idleEntry: function _idleEntry() {
     this._idleIsScheduled = NO;
     var last = SC.RunLoop.lastRunLoopEnd;
     
@@ -162,7 +162,7 @@ SC.TaskQueue = SC.Task.extend({
   /**
     Runs tasks until limit (TaskQueue.runLimit by default) is reached.
   */
-  run: function(limit) {
+  run: function run(limit) {
     this.set("isRunning", YES);
     if (!limit) limit = this.get("runLimit");
     

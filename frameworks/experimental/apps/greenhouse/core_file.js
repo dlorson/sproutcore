@@ -14,13 +14,13 @@ Greenhouse.mixin({
   rootFolder: null,
   
   
-  loadFileList: function(){
+  loadFileList: function loadFileList(){
     if(!this._listRequest) this._listRequest = SC.Request.create({type: 'GET', isJSON: YES, address: '/sproutcore/fs?action=list'});
     
     this._listRequest.notify(this,this._listCompleted, {}).send();
   },
   
-  _listCompleted: function(request, params){
+  _listCompleted: function _listCompleted(request, params){
     var root = Greenhouse.File.create({treeItemIsExpanded: YES});
     var response = this._parse_response(request.response(), root);
     root.set('contents', response);
@@ -33,7 +33,7 @@ Greenhouse.mixin({
   /*
     wraps everything in an Greenhouse.File object
   */
-  _parse_response: function(content, parent){
+  _parse_response: function _parse_response(content, parent){
     for(var i=0; i < content.length; i+=1){
       content[i] = Greenhouse.File.create(content[i]);
       if(content[i].contents){
@@ -44,7 +44,7 @@ Greenhouse.mixin({
     return content;
   },
   
-  getFile: function(file){
+  getFile: function getFile(file){
     if(!this._getRequest) this._getRequest = SC.Request.create({type: 'GET'});
     this._getRequest.set('address', "/sproutcore/fs/%@".fmt(file.get('path')));
 
@@ -52,13 +52,13 @@ Greenhouse.mixin({
     
   },
   
-  _getCompleted: function(request, params){
+  _getCompleted: function _getCompleted(request, params){
     var file = params.file;
     file.requestComplete(request.response());
     //TODO: set content type...
   },
   
-  commitFile: function(file){
+  commitFile: function commitFile(file){
     if(!this._postRequest) this._postRequest = SC.Request.create({type: 'POST'});
     this._postRequest.set('address', "/sproutcore/fs/%@?action=overwrite".fmt(file.get('path')));
     
@@ -66,7 +66,7 @@ Greenhouse.mixin({
     
   },
   
-  _commitCompleted: function(request, params){
+  _commitCompleted: function _commitCompleted(request, params){
     var file = params.file;
     file.requestComplete();
   },
@@ -74,7 +74,7 @@ Greenhouse.mixin({
     create folder
   
   */
-  createFolder: function(file){
+  createFolder: function createFolder(file){
     if(!this._postRequest) this._postRequest = SC.Request.create({type: 'POST'});
     this._postRequest.set('address', "/sproutcore/fs/%@?action=mkdir".fmt(file.get('path')));
     
@@ -82,7 +82,7 @@ Greenhouse.mixin({
     
   },
   
-  _createFolderCompleted: function(request, params){
+  _createFolderCompleted: function _createFolderCompleted(request, params){
     var file = params.file;
     file.requestComplete();
   },
@@ -91,7 +91,7 @@ Greenhouse.mixin({
     create a file
   
   */
-  createFile: function(file){
+  createFile: function createFile(file){
     if(!this._postRequest) this._postRequest = SC.Request.create({type: 'POST'});
     this._postRequest.set('address', "/sproutcore/fs/%@?action=touch".fmt(file.get('path')));
     
@@ -99,7 +99,7 @@ Greenhouse.mixin({
     
   },
   
-  _createFileCompleted: function(request, params){
+  _createFileCompleted: function _createFileCompleted(request, params){
     var file = params.file;
     file.requestComplete();
   },
@@ -108,7 +108,7 @@ Greenhouse.mixin({
     destroys a file
   
   */
-  destroyFile: function(file){
+  destroyFile: function destroyFile(file){
     if(!this._postRequest) this._postRequest = SC.Request.create({type: 'POST'});
     this._postRequest.set('address', "/sproutcore/fs/%@?action=remove".fmt(file.get('path')));
     
@@ -116,7 +116,7 @@ Greenhouse.mixin({
     
   },
   
-  _destroyFileCompleted: function(request, params){
+  _destroyFileCompleted: function _destroyFileCompleted(request, params){
     var file = params.file;
     file.requestComplete();
     file.destroy();

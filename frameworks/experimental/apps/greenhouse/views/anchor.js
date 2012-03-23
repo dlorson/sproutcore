@@ -35,7 +35,7 @@ Greenhouse.AnchorView = SC.View.extend(
   
   displayProperties: "anchorLocation isEnabled isActive proposedAnchorLocation".w(),
   
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     if (firstTime) {
       var f = this.get('frame');
       context.begin('canvas')
@@ -44,11 +44,11 @@ Greenhouse.AnchorView = SC.View.extend(
     }
   },
   
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     this.didUpdateLayer();
   },
   
-  didUpdateLayer: function() {
+  didUpdateLayer: function didUpdateLayer() {
     var elem   = this.$('canvas'),
         ctx    = elem[0].getContext("2d"),
         width  = this.$().width(),
@@ -98,15 +98,15 @@ Greenhouse.AnchorView = SC.View.extend(
   // MOUSE EVENTS
   // 
   
-  mouseMoved: function(evt) {
+  mouseMoved: function mouseMoved(evt) {
     this._updateProposedAnchorLocation(evt);
   },
   
-  mouseExited: function(evt) {
+  mouseExited: function mouseExited(evt) {
     this.setIfChanged('proposedAnchorLocation', null);
   },
   
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (this.get('isEnabled') && this.get('anchorLocation')) {
       this.get('mouseDown');
       
@@ -116,12 +116,12 @@ Greenhouse.AnchorView = SC.View.extend(
     return YES ;
   },
   
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     if (this.get('isActive')) this._updateProposedAnchorLocation(evt);
     return YES ;
   },
   
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var loc;
 
     if (this.get('isActive')) {
@@ -139,7 +139,7 @@ Greenhouse.AnchorView = SC.View.extend(
   // PRIVATE
   // 
 
-  _updateProposedAnchorLocation: function(evt) {
+  _updateProposedAnchorLocation: function _updateProposedAnchorLocation(evt) {
     var loc = this.get('anchorLocation'),
         pnt = this.convertFrameFromView({ x: evt.pageX, y: evt.pageY },null),
         K   = SC.ViewDesigner,
@@ -203,7 +203,7 @@ Greenhouse.AnchorView = SC.View.extend(
   },
   
     
-  _drawAnchorAt: function(loc, ctx, color, width, height) {
+  _drawAnchorAt: function _drawAnchorAt(loc, ctx, color, width, height) {
     var x = this._xForAnchorLocation(loc, 20, width-40),
         y = this._yForAnchorLocation(loc, 20, height-40),
         tmp;
@@ -250,7 +250,7 @@ Greenhouse.AnchorView = SC.View.extend(
     }
   },
   
-  _xForAnchorLocation: function(loc, left, w) {
+  _xForAnchorLocation: function _xForAnchorLocation(loc, left, w) {
     var K = SC.ViewDesigner, ret ;
         
     if (loc & K.ANCHOR_LEFT) ret = left;
@@ -262,7 +262,7 @@ Greenhouse.AnchorView = SC.View.extend(
     return ret ;
   },
 
-  _yForAnchorLocation: function(loc, top, h) {
+  _yForAnchorLocation: function _yForAnchorLocation(loc, top, h) {
     var K = SC.ViewDesigner, ret ;
 
     if (loc & K.ANCHOR_TOP) ret = top;

@@ -73,10 +73,10 @@ var pane = SC.ControlTestPane.design({height:24})
 pane.show(); // add a test to show the test pane
 
 module('SC.ButtonView ui', {
-  setup: function(){
+  setup: function setup(){
     htmlbody('<style> .sc-static-layout { border: 1px red dotted; } </style>');
   },
-  teardown: function(){
+  teardown: function teardown(){
     clearHtmlbody();
   }
 });

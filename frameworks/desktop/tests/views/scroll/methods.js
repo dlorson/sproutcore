@@ -10,7 +10,7 @@
 var pane, view , view2, view3, view4;
 var appleURL='http://photos4.meetupstatic.com/photos/event/4/6/9/9/600_4518073.jpeg';
 module("SC.ScrollView",{
-	setup: function() {
+	setup: function setup() {
 	  SC.RunLoop.begin();
 	    pane = SC.MainPane.create({
 		  childViews: [
@@ -34,25 +34,25 @@ module("SC.ScrollView",{
        })
 		   ],
 
-		  expectedVertLine: function(line) {
+		  expectedVertLine: function expectedVertLine(line) {
 			var ret = view.get('verticalLineScroll')*line;
 			var alt = view.get('maximumVerticalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedHorzLine: function(line) {
+		  expectedHorzLine: function expectedHorzLine(line) {
 			var ret = view.get('horizontalLineScroll')*line;
 			var alt = view.get('maximumHorizontalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedVertPage: function(page) {
+		  expectedVertPage: function expectedVertPage(page) {
 			var ret = view.get('verticalPageScroll')*page;
 			var alt = view.get('maximumVerticalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedHorzPage: function(page) {
+		  expectedHorzPage: function expectedHorzPage(page) {
 			var ret = view.get('horizontalPageScroll')*page;
 			var alt = view.get('maximumHorizontalScrollOffset');
 			ret = (ret > alt)? alt : ret;
@@ -75,7 +75,7 @@ module("SC.ScrollView",{
     view4 = view3.get('contentView').get('childViews')[0];
 	},
 
-	teardown: function() {
+	teardown: function teardown() {
     	pane.remove();
     	pane = view = null ;
   	}
@@ -212,7 +212,7 @@ test("Mouse wheel events not capturable by the inner scroll should bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('horizontalScrollOffset'), 114, 'The inner scroll view should still have horizontalScrollOffset');
     equals(view3.get('horizontalScrollOffset'), 10, 'The outer scroll view should now have horizontalScrollOffset');
     window.start();
@@ -233,7 +233,7 @@ test("Mouse wheel events not capturable by the inner scroll should bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('verticalScrollOffset'), 114, 'The inner scroll view should still have verticalScrollOffset');
     equals(view3.get('verticalScrollOffset'), 10, 'The outer scroll view should now have verticalScrollOffset');
     window.start();
@@ -254,7 +254,7 @@ test("Mouse wheel events not capturable by the inner scroll should bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('horizontalScrollOffset'), 0, 'The inner scroll view should still have horizontalScrollOffset');
     equals(view3.get('horizontalScrollOffset'), 104, 'The outer scroll view should now have horizontalScrollOffset');
     window.start();
@@ -275,7 +275,7 @@ test("Mouse wheel events not capturable by the inner scroll should bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('verticalScrollOffset'), 0, 'The inner scroll view should still have verticalScrollOffset');
     equals(view3.get('verticalScrollOffset'), 104, 'The outer scroll view should now have verticalScrollOffset');
     window.start();
@@ -296,7 +296,7 @@ test("Mouse wheel events capturable by the inner scroll should not bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('horizontalScrollOffset'), 10, 'The inner scroll view should now have horizontalScrollOffset');
     equals(view3.get('horizontalScrollOffset'), 0, 'The outer scroll view should still have horizontalScrollOffset');
     window.start();
@@ -317,7 +317,7 @@ test("Mouse wheel events capturable by the inner scroll should not bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('verticalScrollOffset'), 104, 'The inner scroll view should now have verticalScrollOffset');
     equals(view3.get('verticalScrollOffset'), 114, 'The outer scroll view should still have verticalScrollOffset');
     window.start();
@@ -338,7 +338,7 @@ test("Mouse wheel events capturable by the inner scroll should not bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('horizontalScrollOffset'), 104, 'The inner scroll view should now have horizontalScrollOffset');
     equals(view3.get('horizontalScrollOffset'), 114, 'The outer scroll view should still have horizontalScrollOffset');
     window.start();
@@ -359,7 +359,7 @@ test("Mouse wheel events capturable by the inner scroll should not bubble to the
   SC.Event.trigger(elem, 'mousewheel', event);
 
   SC.RunLoop.begin();
-  SC.Timer.schedule({ target: this, action: function() {
+  SC.Timer.schedule({ target: this, action: function action() {
     equals(view4.get('verticalScrollOffset'), 10, 'The inner scroll view should now have verticalScrollOffset');
     equals(view3.get('verticalScrollOffset'), 0, 'The outer scroll view should still have verticalScrollOffset');
     window.start();

@@ -54,7 +54,7 @@ SC.CollectionViewDelegate = {
     @param {SC.IndexSet} sel Proposed array of selected objects.
     @returns {SC.IndexSet} Actual allow selection index set
   */
-  collectionViewSelectionForProposedSelection: function(view, sel) {
+  collectionViewSelectionForProposedSelection: function collectionViewSelectionForProposedSelection(view, sel) {
     return sel;
   },
 
@@ -104,7 +104,7 @@ SC.CollectionViewDelegate = {
     @param {SC.IndexSet} indexes proposed index set of items to delete.
     @returns {SC.IndexSet} index set allowed to delete or null.
   */
-  collectionViewShouldDeleteIndexes: function(view, indexes) {
+  collectionViewShouldDeleteIndexes: function collectionViewShouldDeleteIndexes(view, indexes) {
     return indexes;
   },
 
@@ -124,7 +124,7 @@ SC.CollectionViewDelegate = {
     @param {SC.IndexSet} indexes the items to delete
     @returns {Boolean} YES if the deletion was a success.
   */
-  collectionViewDeleteContent: function(view, content, indexes) {
+  collectionViewDeleteContent: function collectionViewDeleteContent(view, content, indexes) {
     if (!content) return NO ;
 
     if (SC.typeOf(content.destroyAt) === SC.T_FUNCTION) {
@@ -159,7 +159,7 @@ SC.CollectionViewDelegate = {
     @param {SC.CollectionView} view the collection view
     @returns {Boolean} YES to allow, NO to prevent it
   */
-  collectionViewShouldBeginDrag: function(view) {
+  collectionViewShouldBeginDrag: function collectionViewShouldBeginDrag(view) {
     return YES;
   },
 
@@ -183,7 +183,7 @@ SC.CollectionViewDelegate = {
     @param {SC.CollectionView} view the collection view to begin dragging.
     @returns {Array} array of supported data types.
   */
-  collectionViewDragDataTypes: function(view) {
+  collectionViewDragDataTypes: function collectionViewDragDataTypes(view) {
     return [];
   },
 
@@ -202,7 +202,7 @@ SC.CollectionViewDelegate = {
     @param drag {SC.Drag} the drag object
     @returns {Object} the data object or null if the data could not be provided.
   */
-  collectionViewDragDataForType: function(view, drag, dataType) {
+  collectionViewDragDataForType: function collectionViewDragDataForType(view, drag, dataType) {
     return null;
   },
 
@@ -215,7 +215,7 @@ SC.CollectionViewDelegate = {
     @param {Number} proposedDragOperations proposed logical OR of allowed drag operations.
     @returns {Number} the allowed drag operations. Defaults to op
   */
-  collectionViewComputeDragOperations: function(view, drag, proposedDragOperations) {
+  collectionViewComputeDragOperations: function collectionViewComputeDragOperations(view, drag, proposedDragOperations) {
     return proposedDragOperations;
   },
 
@@ -247,7 +247,7 @@ SC.CollectionViewDelegate = {
     @param {String} proposedDropOperation the proposed drop operation. Will be one of SC.DROP_ON, SC.DROP_BEFORE, or SC.DROP_ANY.
     @returns the allowed drag operation. Defaults to op
   */
-  collectionViewValidateDragOperation: function(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
+  collectionViewValidateDragOperation: function collectionViewValidateDragOperation(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
     // don't allow dropping on by default
     return (proposedDropOperation & SC.DROP_ON) ? SC.DRAG_NONE : op ;
   },
@@ -269,7 +269,7 @@ SC.CollectionViewDelegate = {
     @param {String} proposedDropOperation the proposed drop operation.  Will be one of SC.DROP_ON, SC.DROP_BEFORE, or SC.DROP_ANY.
     @returns the allowed drag operation. Defaults to proposedDragOperation
   */
-  collectionViewPerformDragOperation: function(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
+  collectionViewPerformDragOperation: function collectionViewPerformDragOperation(view, drag, op, proposedInsertionIndex, proposedDropOperation) {
     return SC.DRAG_NONE;
   },
   
@@ -283,7 +283,7 @@ SC.CollectionViewDelegate = {
     @param {SC.IndexSet} dragContent
     @returns {SC.View} view or null
   */
-  collectionViewDragViewFor: function(view, dragContent) {
+  collectionViewDragViewFor: function collectionViewDragViewFor(view, dragContent) {
     return null;
   },
 

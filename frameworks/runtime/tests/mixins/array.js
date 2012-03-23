@@ -31,7 +31,7 @@ var DummyArray = SC.Object.extend(SC.Array, {
   // The SC.Array mixin sends all mutations through replace.
   // As a result, we can implement KVO notification in
   // replace.
-  replace: function(idx, amt, objects) {
+  replace: function replace(idx, amt, objects) {
     if (!this.content) { this.content = [] ; }
 
     var len = objects ? objects.get('length') : 0;
@@ -63,7 +63,7 @@ var DummyArray = SC.Object.extend(SC.Array, {
 
   // SC.Arrays must implement objectAt, which returns an object
   // for a given index.
-  objectAt: function(idx) {
+  objectAt: function objectAt(idx) {
     if (!this.content) { this.content = [] ; }
     return this.content[idx] ;
   }
@@ -71,7 +71,7 @@ var DummyArray = SC.Object.extend(SC.Array, {
 });
 
 SC.ArraySuite.generate("DummyArray", {
-  newObject: function(expected) {
+  newObject: function newObject(expected) {
     if (!expected || typeof expected === SC.T_NUMBER) {
       expected = this.expected(expected);
     }

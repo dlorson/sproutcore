@@ -64,7 +64,7 @@ SC.ActionSupport =
      @returns {Boolean} true if successful
      @returns {Boolean} false otherwise
   */
-  fireAction: function(action) {
+  fireAction: function fireAction(action) {
     var target = this.get('target') || null,
         rootResponder = this.getPath('pane.rootResponder');
 

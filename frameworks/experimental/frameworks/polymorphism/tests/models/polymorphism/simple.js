@@ -10,7 +10,7 @@
   var store, Person, Male, Female, colin, maggie;
   
   module("Polymorphic SC.Record - Simple", {
-    setup: function() {
+    setup: function setup() {
       SC.RunLoop.begin();
 
       store = SC.Store.create();
@@ -34,7 +34,7 @@
         guid: '2'
       });
     },
-    teardown: function() {
+    teardown: function teardown() {
       store = Person = Male = Female = colin = maggie = null;
       SC.RunLoop.end();
     }

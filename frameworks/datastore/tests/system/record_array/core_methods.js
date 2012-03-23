@@ -8,7 +8,7 @@
 // test core array-mapping methods for RecordArray
 var store, storeKey, json, rec, storeKey2, json2, rec2, storeKeys, recs;
 module("SC.RecordArray core methods", {
-  setup: function() {
+  setup: function setup() {
     // setup dummy store
     store = SC.Store.create();
 
@@ -139,7 +139,7 @@ test("changing the underlying storeKeys should notify observers of records", fun
   // setup observer
   var obj = SC.Object.create({
     cnt: 0,
-    observer: function() { this.cnt++; }
+    observer: function observer() { this.cnt++; }
   });
   recs.addObserver('[]', obj, obj.observer);
 
@@ -161,7 +161,7 @@ test("swapping storeKey array should change recordArray and observers", function
   // setup observer
   var obj = SC.Object.create({
     cnt: 0,
-    observer: function() { this.cnt++; }
+    observer: function observer() { this.cnt++; }
   });
   recs.addObserver('[]', obj, obj.observer);
 

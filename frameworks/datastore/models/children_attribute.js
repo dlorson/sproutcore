@@ -33,7 +33,7 @@ SC.ChildrenAttribute = SC.ChildAttribute.extend(
   //
   
   /**  @private - adapted for to many relationship */
-  toType: function(record, key, value) {
+  toType: function toType(record, key, value) {
     var attrKey   = this.get('key') || key,
         arrayKey  = SC.keyFor('__kidsArray__', SC.guidFor(this)),
         ret       = record[arrayKey],
@@ -58,7 +58,7 @@ SC.ChildrenAttribute = SC.ChildAttribute.extend(
   },
   
   // Default fromType is just returning itself
-  fromType: function(record, key, value){
+  fromType: function fromType(record, key, value){
     var sk, store, 
         arrayKey = SC.keyFor('__kidsArray__', SC.guidFor(this)),
         ret = record[arrayKey];
@@ -77,7 +77,7 @@ SC.ChildrenAttribute = SC.ChildAttribute.extend(
     @param {Object} value the property value if called as a setter
     @returns {Object} property value
   */
-  call: function(record, key, value) {
+  call: function call(record, key, value) {
     var attrKey = this.get('key') || key, cRef,
         cacheKey = SC.keyFor('__kid__', SC.guidFor(this));
     if (value !== undefined) {

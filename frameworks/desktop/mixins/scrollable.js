@@ -23,7 +23,7 @@
 SC.Scrollable = {
   
 //@if(debug)
-  initMixin: function() {
+  initMixin: function initMixin() {
     SC.Logger.warn("SC.Scrollable is deprecated and will be removed in a future version of SproutCore.  Consider pulling the mixin into your own app if you want to keep using it.");
   },
 //@endif 
@@ -64,7 +64,7 @@ SC.Scrollable = {
     Used by the default implementation of `scrollUpPage()` and `scrollDownPage()`. Defaults to
     current `innerFrame` height.
   */
-  verticalPageScroll: function() {
+  verticalPageScroll: function verticalPageScroll() {
     return this.get('innerFrame').height;
   }.property('innerFrame'),
   
@@ -74,7 +74,7 @@ SC.Scrollable = {
     Used by the default implementation of `scrollLeftPage()` and `scrollRightPage()`.  Defaults
     to current `innerFrame` width.
   */
-  horizontalPageScroll: function() {
+  horizontalPageScroll: function horizontalPageScroll() {
     return this.get('innerFrame').width ;
   }.property('innerFrame'),
   
@@ -87,7 +87,7 @@ SC.Scrollable = {
     
     @field {Boolean}
   */
-  hasVerticalScroller: function() {
+  hasVerticalScroller: function hasVerticalScroller() {
     return this.get('scrollFrame').height > this.get('innerFrame').height;
   }.property('scrollFrame'),
   
@@ -100,7 +100,7 @@ SC.Scrollable = {
     
     @field {Boolean}
   */
-  hasHorizontalScroller: function() {
+  hasHorizontalScroller: function hasHorizontalScroller() {
     return this.get('scrollFrame').width > this.get('innerFrame').width;
   }.property('scrollFrame'),
 
@@ -111,7 +111,7 @@ SC.Scrollable = {
     @param {Point} amount the amount to scroll.  Must include x, y or both
     @returns {Point} the actual amount scrolled.
   */
-  scrollBy: function(amount) {
+  scrollBy: function scrollBy(amount) {
     var sf = this.get('scrollFrame') ;
     var f = this.get('innerFrame') ;
 
@@ -135,7 +135,7 @@ SC.Scrollable = {
     @param {Number} x
     @param {Number} y
   */
-  scrollTo: function(x,y) {
+  scrollTo: function scrollTo(x,y) {
     this.set('scrollFrame', { x: 0-x, y: 0-y });
   },
   
@@ -146,7 +146,7 @@ SC.Scrollable = {
     
     @param {SC.View} view the view you want to make visible
   */
-  scrollToVisible: function(view) {
+  scrollToVisible: function scrollToVisible(view) {
     // get frames and convert them to proper offsets
     var f = this.get('innerFrame') ;
     var sf = this.get('scrollFrame') ;
@@ -181,7 +181,7 @@ SC.Scrollable = {
     @param {Number} lines number of lines to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollDownLine: function(lines) {
+  scrollDownLine: function scrollDownLine(lines) {
     if (lines === undefined) lines = 1 ;
     return this.scrollBy({ y: this.get('verticalLineScroll')*lines }).y ;
   },
@@ -192,7 +192,7 @@ SC.Scrollable = {
     @param {Number} lines number of lines to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollUpLine: function(lines) {
+  scrollUpLine: function scrollUpLine(lines) {
     if (lines === undefined) lines = 1 ;
     return 0-this.scrollBy({ y: 0-this.get('verticalLineScroll')*lines }).y ;
   },
@@ -203,7 +203,7 @@ SC.Scrollable = {
     @param {Number} lines number of lines to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollRightLine: function(lines) {
+  scrollRightLine: function scrollRightLine(lines) {
     if (lines === undefined) lines = 1 ;
     return this.scrollTo({ y: this.get('horizontalLineScroll')*lines }).x ;
   },
@@ -214,7 +214,7 @@ SC.Scrollable = {
     @param {Number} lines number of lines to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollLeftLine: function(lines) {
+  scrollLeftLine: function scrollLeftLine(lines) {
     if (lines === undefined) lines = 1 ;
     return 0-this.scrollTo({ y: 0-this.get('horizontalLineScroll')*lines }).x ;
   },
@@ -225,7 +225,7 @@ SC.Scrollable = {
     @param {Number} pages number of pages to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollDownPage: function(pages) {
+  scrollDownPage: function scrollDownPage(pages) {
     if (pages === undefined) pages = 1 ;
     return this.scrollBy({ y: this.get('verticalPageScroll')*pages }).y ;
   },
@@ -236,7 +236,7 @@ SC.Scrollable = {
     @param {Number} pages number of pages to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollUpPage: function(pages) {
+  scrollUpPage: function scrollUpPage(pages) {
     if (pages === undefined) pages = 1 ;
     return 0-this.scrollBy({ y: 0-this.get('verticalPageScroll')*pages }).y ;
   },
@@ -247,7 +247,7 @@ SC.Scrollable = {
     @param {Number} pages number of pages to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollRightPage: function(pages) {
+  scrollRightPage: function scrollRightPage(pages) {
     if (pages === undefined) pages = 1 ;
     return this.scrollTo({ y: this.get('horizontalPageScroll')*pages }).x ;
   },
@@ -258,7 +258,7 @@ SC.Scrollable = {
     @param {Number} pages number of pages to scroll
     @returns {Number} the amount actually scrolled.
   */
-  scrollLeftPage: function(pages) {
+  scrollLeftPage: function scrollLeftPage(pages) {
     if (pages === undefined) pages = 1 ;
     return 0-this.scrollTo({ y: 0-this.get('horizontalPageScroll')*pages }).x ;
   }

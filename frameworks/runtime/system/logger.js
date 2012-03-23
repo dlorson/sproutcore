@@ -300,7 +300,7 @@ SC.Logger = SC.Object.create(
 
     @property {Boolean}
   */
-  exists: function() {
+  exists: function exists() {
     return !SC.none(this.get('reporter'));
   }.property('reporter').cacheable(),
 
@@ -355,7 +355,7 @@ SC.Logger = SC.Object.create(
     @param {String}              A message or a format string
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string
   */
-  debug: function(message, optionalFormatArgs) {
+  debug: function debug(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.debug() shorthand
     // variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleMessage(SC.LOGGER_LEVEL_DEBUG, YES, message, arguments);
@@ -374,7 +374,7 @@ SC.Logger = SC.Object.create(
 
     @param {String|Array|Function|Object}
   */
-  debugWithoutFmt: function() {
+  debugWithoutFmt: function debugWithoutFmt() {
     this._handleMessage(SC.LOGGER_LEVEL_DEBUG, NO, null, arguments);
   },
 
@@ -408,7 +408,7 @@ SC.Logger = SC.Object.create(
     @param {String}  (optional)  A title or format string to display above the group
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string as the title
   */
-  debugGroup: function(message, optionalFormatArgs) {
+  debugGroup: function debugGroup(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.debugGroup()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroup(SC.LOGGER_LEVEL_DEBUG, message, arguments);
@@ -421,7 +421,7 @@ SC.Logger = SC.Object.create(
 
     @see SC.Logger.debugGroup
   */
-  debugGroupEnd: function() {
+  debugGroupEnd: function debugGroupEnd() {
     // Implementation note:  To avoid having to put the SC.debugGroupEnd()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroupEnd(SC.LOGGER_LEVEL_DEBUG);
@@ -450,7 +450,7 @@ SC.Logger = SC.Object.create(
     @param {String}              A message or a format string
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string
   */
-  info: function(message, optionalFormatArgs) {
+  info: function info(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.info() shorthand
     // variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleMessage(SC.LOGGER_LEVEL_INFO, YES, message, arguments);
@@ -469,7 +469,7 @@ SC.Logger = SC.Object.create(
 
     @param {String|Array|Function|Object}
   */
-  infoWithoutFmt: function() {
+  infoWithoutFmt: function infoWithoutFmt() {
     this._handleMessage(SC.LOGGER_LEVEL_INFO, NO, null, arguments);
   },
 
@@ -503,7 +503,7 @@ SC.Logger = SC.Object.create(
     @param {String}  (optional)  A title or format string to display above the group
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string as the title
   */
-  infoGroup: function(message, optionalFormatArgs) {
+  infoGroup: function infoGroup(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.infoGroup()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroup(SC.LOGGER_LEVEL_INFO, message, arguments);
@@ -516,7 +516,7 @@ SC.Logger = SC.Object.create(
 
     @see SC.Logger.infoGroup
   */
-  infoGroupEnd: function() {
+  infoGroupEnd: function infoGroupEnd() {
     // Implementation note:  To avoid having to put the SC.infoGroupEnd()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroupEnd(SC.LOGGER_LEVEL_INFO);
@@ -545,7 +545,7 @@ SC.Logger = SC.Object.create(
     @param {String}              A message or a format string
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string
   */
-  warn: function(message, optionalFormatArgs) {
+  warn: function warn(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.warn() shorthand
     // variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleMessage(SC.LOGGER_LEVEL_WARN, YES, message, arguments);
@@ -565,7 +565,7 @@ SC.Logger = SC.Object.create(
 
     @param {String|Array|Function|Object}
   */
-  warnWithoutFmt: function() {
+  warnWithoutFmt: function warnWithoutFmt() {
     this._handleMessage(SC.LOGGER_LEVEL_WARN, NO, null, arguments);
   },
 
@@ -599,7 +599,7 @@ SC.Logger = SC.Object.create(
     @param {String}  (optional)  A title or format string to display above the group
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string as the title
   */
-  warnGroup: function(message, optionalFormatArgs) {
+  warnGroup: function warnGroup(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.warnGroup()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroup(SC.LOGGER_LEVEL_WARN, message, arguments);
@@ -612,7 +612,7 @@ SC.Logger = SC.Object.create(
 
     @see SC.Logger.warnGroup
   */
-  warnGroupEnd: function() {
+  warnGroupEnd: function warnGroupEnd() {
     // Implementation note:  To avoid having to put the SC.warnGroupEnd()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroupEnd(SC.LOGGER_LEVEL_WARN);
@@ -640,7 +640,7 @@ SC.Logger = SC.Object.create(
     @param {String}              A message or a format string
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string
   */
-  error: function(message, optionalFormatArgs) {
+  error: function error(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.error() shorthand
     // variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleMessage(SC.LOGGER_LEVEL_ERROR, YES, message, arguments);
@@ -659,7 +659,7 @@ SC.Logger = SC.Object.create(
 
     @param {String|Array|Function|Object}
   */
-  errorWithoutFmt: function() {
+  errorWithoutFmt: function errorWithoutFmt() {
     this._handleMessage(SC.LOGGER_LEVEL_ERROR, NO, null, arguments);
   },
 
@@ -693,7 +693,7 @@ SC.Logger = SC.Object.create(
     @param {String}  (optional)  A title or format string to display above the group
     @param {…}       (optional)  Other arguments to pass to String.fmt() when using a format string as the title
   */
-  errorGroup: function(message, optionalFormatArgs) {
+  errorGroup: function errorGroup(message, optionalFormatArgs) {
     // Implementation note:  To avoid having to put the SC.errorGroup()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroup(SC.LOGGER_LEVEL_ERROR, message, arguments);
@@ -706,7 +706,7 @@ SC.Logger = SC.Object.create(
 
     @see SC.Logger.errorGroup
   */
-  errorGroupEnd: function() {
+  errorGroupEnd: function errorGroupEnd() {
     // Implementation note:  To avoid having to put the SC.errorGroupEnd()
     // shorthand variant inside a function wrapper, we'll avoid 'this'.
     SC.Logger._handleGroupEnd(SC.LOGGER_LEVEL_ERROR);
@@ -724,7 +724,7 @@ SC.Logger = SC.Object.create(
 
     @param {Boolean}  (optional)  Whether to include timestamps in the output
   */
-  outputRecordedLogMessages: function(includeTimestamps) {
+  outputRecordedLogMessages: function outputRecordedLogMessages(includeTimestamps) {
     // If we have no reporter, there's nothing we can do.
     if (!this.get('exists')) return;
 
@@ -812,7 +812,7 @@ SC.Logger = SC.Object.create(
 
     @returns {String}
   */
-  stringifyRecordedLogMessages: function() {
+  stringifyRecordedLogMessages: function stringifyRecordedLogMessages() {
     var ret           = "",
         entries       = this.get('recordedLogMessages'),
         indentation   = 0,
@@ -881,7 +881,7 @@ SC.Logger = SC.Object.create(
     @param {String|Array|Function|Object}
     @returns {Boolean} Whether or not anything was logged
   */
-  log: function() {
+  log: function log() {
     var reporter     = this.get('reporter'),
         message      = arguments[0],
         prefix       = this.get('messagePrefix'),
@@ -941,7 +941,7 @@ SC.Logger = SC.Object.create(
 
     @param {String}  (optional)  An optional title to display above the group
   */
-  group: function(title) {
+  group: function group(title) {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.group === "function")) {
@@ -954,7 +954,7 @@ SC.Logger = SC.Object.create(
 
     @see SC.Logger.group
   */
-  groupEnd: function() {
+  groupEnd: function groupEnd() {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.groupEnd === "function")) {
@@ -972,7 +972,7 @@ SC.Logger = SC.Object.create(
 
     @param {Object}
   */
-  dir: function() {
+  dir: function dir() {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.dir === "function")) {
@@ -994,7 +994,7 @@ SC.Logger = SC.Object.create(
 
     @param {Object}
   */
-  dirxml: function() {
+  dirxml: function dirxml() {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.dirxml === "function")) {
@@ -1016,7 +1016,7 @@ SC.Logger = SC.Object.create(
     @param {String}     (optional)  A title to associate with the profile
     @returns {Boolean} YES if reporter.profile exists, NO otherwise
   */
-  profile: function(title) {
+  profile: function profile(title) {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.profile === "function")) {
@@ -1034,7 +1034,7 @@ SC.Logger = SC.Object.create(
     @returns {Boolean} YES if reporter.profileEnd exists, NO otherwise
     @see SC.Logger.profile
   */
-  profileEnd: function(title) {
+  profileEnd: function profileEnd(title) {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.profileEnd === "function")) {
@@ -1053,7 +1053,7 @@ SC.Logger = SC.Object.create(
     @returns {Boolean} YES if reporter.time exists, NO otherwise
     @see SC.Logger.timeEnd
   */
-  time: function(name) {
+  time: function time(name) {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.time === "function")) {
@@ -1070,7 +1070,7 @@ SC.Logger = SC.Object.create(
     @returns {Boolean}  YES if reporter.timeEnd exists, NO otherwise
     @see SC.Logger.time
   */
-  timeEnd: function(name) {
+  timeEnd: function timeEnd(name) {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.timeEnd === "function")) {
@@ -1086,7 +1086,7 @@ SC.Logger = SC.Object.create(
 
     @returns {Boolean} YES if reporter.trace exists, NO otherwise
   */
-  trace: function() {
+  trace: function trace() {
     var reporter = this.get('reporter');
 
     if (this.get('exists')  &&  (typeof reporter.trace === "function")) {
@@ -1103,7 +1103,7 @@ SC.Logger = SC.Object.create(
   // INTERNAL SUPPORT
   //
 
-  init: function() {
+  init: function init() {
     sc_super();
 
     // Set a reasonable default value if none has been set.
@@ -1125,7 +1125,7 @@ SC.Logger = SC.Object.create(
     our log output level to SC.LOGGER_LEVEL_DEBUG if 'debugEnabled' is set to
     YES.
   */
-  debugEnabledDidChange: function() {
+  debugEnabledDidChange: function debugEnabledDidChange() {
     if (this.get('debugEnabled')) {
       this.set('logOutputLevel', SC.LOGGER_LEVEL_DEBUG);
     }
@@ -1145,7 +1145,7 @@ SC.Logger = SC.Object.create(
     @param {String}               message              Expected to a string format (for String.fmt()) if there are other arguments
     @param {String}   (optional)  originalArguments    All arguments passed into debug(), etc. (which includes 'message'; for efficiency, we don’t copy it)
   */
-  _handleMessage: function(type, automaticallyFormat, message, originalArguments) {
+  _handleMessage: function _handleMessage(type, automaticallyFormat, message, originalArguments) {
     // Are we configured to show this type?
     var shouldOutput = this._shouldOutputType(type),
         shouldRecord = this._shouldRecordType(type),
@@ -1226,7 +1226,7 @@ SC.Logger = SC.Object.create(
     @param {String}  (optional)  title                Expected to a string format (for String.fmt()) if there are other arguments
     @param {String}  (optional)  originalArguments    All arguments passed into debug(), etc. (which includes 'title'; for efficiency, we don’t copy it)
   */
-  _handleGroup: function(type, title, originalArguments) {
+  _handleGroup: function _handleGroup(type, title, originalArguments) {
     // Are we configured to show this type?
     var shouldOutput = this._shouldOutputType(type),
         shouldRecord = this._shouldRecordType(type),
@@ -1282,7 +1282,7 @@ SC.Logger = SC.Object.create(
 
     @param {String}              type                 Expected to be SC.LOGGER_LEVEL_DEBUG, etc.
   */
-  _handleGroupEnd: function(type) {
+  _handleGroupEnd: function _handleGroupEnd(type) {
     // Are we configured to show this type?
     var shouldOutput = this._shouldOutputType(type),
         shouldRecord = this._shouldRecordType(type),
@@ -1330,7 +1330,7 @@ SC.Logger = SC.Object.create(
     @param {Constant}  type
     @returns {Boolean}
   */
-  _shouldOutputType: function(type) {
+  _shouldOutputType: function _shouldOutputType(type) {
     var logLevelMapping = this._LOG_LEVEL_MAPPING,
         level           = logLevelMapping[type]                        ||  0,
         currentLevel    = logLevelMapping[this.get('logOutputLevel')]  ||  0;
@@ -1346,7 +1346,7 @@ SC.Logger = SC.Object.create(
     @param {Constant}  type
     @returns {Boolean}
   */
-  _shouldRecordType: function(type) {
+  _shouldRecordType: function _shouldRecordType(type) {
     // This is the same code as in _shouldOutputType(), but inlined to
     // avoid yet another function call.
     var logLevelMapping = this._LOG_LEVEL_MAPPING,
@@ -1368,7 +1368,7 @@ SC.Logger = SC.Object.create(
     @param {String}                 message
     @param {Arguments}  (optional)  originalArguments  If specified, the assumption is that the message was not automatically formatted
   */
-  _outputMessage: function(type, timestampStr, indentation, message, originalArguments) {
+  _outputMessage: function _outputMessage(type, timestampStr, indentation, message, originalArguments) {
     if (!this.get('exists')) return;
 
     // Do we have reporter[type] defined as a function?  If not, we'll fall
@@ -1458,7 +1458,7 @@ SC.Logger = SC.Object.create(
     @param {Number}                 indentation   The current indentation level, not including what the group will set it to
     @param {String}     (optional)  title
   */
-  _outputGroup: function(type, timestampStr, indentation, title) {
+  _outputGroup: function _outputGroup(type, timestampStr, indentation, title) {
     if (!this.get('exists')) return;
 
     // Do we have reporter.group defined as a function?  If not, we'll fall
@@ -1494,7 +1494,7 @@ SC.Logger = SC.Object.create(
     'recordedLogMessagesMaximumLength' and
     'recordedLogMessagesPruningMinimumLength'.
   */
-  _addRecordedMessageEntry: function(entry) {
+  _addRecordedMessageEntry: function _addRecordedMessageEntry(entry) {
     var recordedMessages = this.get('recordedLogMessages'),
         len;
 
@@ -1525,7 +1525,7 @@ SC.Logger = SC.Object.create(
     @param {Array} arguments The arguments property of a function
     @returns {Array} An array containing the elements of arguments parameter
   */
-  _argumentsToArray: function(args) {
+  _argumentsToArray: function _argumentsToArray(args) {
     var ret = [],
         i, len;
 
@@ -1542,7 +1542,7 @@ SC.Logger = SC.Object.create(
     Formats the arguments array of a function by creating a string with
     SC.LOGGER_LOG_DELIMITER between the elements.
   */
-  _argumentsToString: function() {
+  _argumentsToString: function _argumentsToString() {
     var ret       = "",
         delimiter = SC.LOGGER_LOG_DELIMITER,
         i, len;
@@ -1562,7 +1562,7 @@ SC.Logger = SC.Object.create(
     @param {Number}  The indentation level
     @returns {String}
   */
-  _indentation: function(level) {
+  _indentation: function _indentation(level) {
     if (!level  ||  level < 0) {
       level = 0;
     }

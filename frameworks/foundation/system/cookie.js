@@ -88,7 +88,7 @@ SC.Cookie = SC.Object.extend(
   /**
     Sets SC.Cookie#expires to -1, which destroys the cookie.
   */
-  destroy: function() {
+  destroy: function destroy() {
     this.set('expires', -1);
     this.write();
 
@@ -101,7 +101,7 @@ SC.Cookie = SC.Object.extend(
 
     @see SC.Cookie.find
   */
-  write: function() {
+  write: function write() {
     var name = this.get('name'),
         value = this.get('value'),
         expires = this.get('expires'),
@@ -144,7 +144,7 @@ SC.Cookie.mixin(
     @param {String} name The name of the cookie
     @returns SC.Cookie object containing name and value of cookie
   */
-  find: function(name) {
+  find: function find(name) {
     if (document.cookie && document.cookie !== '') {
       var cookies = document.cookie.split(';');
       for (var i = 0; i < cookies.length; i++) {
@@ -163,7 +163,7 @@ SC.Cookie.mixin(
 });
 
 SC.CookieMonster = {
-  nomNomNom: function(cookie) {
+  nomNomNom: function nomNomNom(cookie) {
     var isCookie = SC.kindOf(cookie, SC.Cookie);
     if (isCookie) {
       SC.Logger.log("YUM!");

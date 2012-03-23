@@ -79,7 +79,7 @@ SC.FormRowView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.Form
   /**
     Updates keys, content, etc. on fields. Also, handles our "special" field (only-one case)
   */
-  createChildViews: function() {
+  createChildViews: function createChildViews() {
     // keep array of keys so we can pass on key to child.
     var cv = SC.clone(this.get('childViews'));
     
@@ -134,11 +134,11 @@ SC.FormRowView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.Form
     this.rowLabelSizeDidChange();
   },
   
-  labelDidChange: function() {
+  labelDidChange: function labelDidChange() {
     this.get("labelView").set("value", this.get("label"));
   }.observes("label"),
   
-  labelSizeDidChange: function() {
+  labelSizeDidChange: function labelSizeDidChange() {
     var size = this.get("labelView").get("measuredSize");
     this.set("rowLabelMeasuredSize", size.width);
     
@@ -147,7 +147,7 @@ SC.FormRowView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.Form
     if (pv && pv.get("isRowDelegate")) pv.rowLabelMeasuredSizeDidChange(this, size);
   },
   
-  rowLabelSizeDidChange: function() {
+  rowLabelSizeDidChange: function rowLabelSizeDidChange() {
     this.get("labelView").adjust({
       "width": this.get("rowLabelSize")
     });
@@ -156,7 +156,7 @@ SC.FormRowView = SC.View.extend(SC.FlowedLayout, SC.CalculatesEmptiness, SC.Form
 });
 
 SC.FormRowView.mixin({
-  row: function(label, fieldType, ext) {
+  row: function row(label, fieldType, ext) {
     if (label.isClass) {
       ext = fieldType;
       fieldType = label;

@@ -27,7 +27,7 @@ SC.RenderDelegate.reopen({
     @param {Slice Configuration} slices Instructions on how to slice. Can be a constant
     like SC.THREE_SLICE or SC.NINE_SLICE, or an array of slice names.
   */
-  includeSlices: function(dataSource, context, slices) {
+  includeSlices: function includeSlices(dataSource, context, slices) {
     for (var idx = 0, len = slices.length; idx < len; idx++) {
       context.push('<div class="' + slices[idx] + '"></div>');
     }

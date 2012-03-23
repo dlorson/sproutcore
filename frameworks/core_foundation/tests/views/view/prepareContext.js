@@ -25,7 +25,7 @@ test("check that testing without first time still renders to a context", functio
   var view = SC.View.create({
     layerId: "foo", 
     classNames: ["bar"],
-    createRenderer: function(t) {  return undefined; }
+    createRenderer: function createRenderer(t) {  return undefined; }
   });
   var context = view.renderContext();
   view.prepareContext(context, NO);
@@ -39,7 +39,7 @@ test("invokes renderLayout each time", function() {
   var runCount = 0;
   var context, isFirstTime ;
   var view = SC.View.create({
-    renderLayout: function(aContext, firstTime) { 
+    renderLayout: function renderLayout(aContext, firstTime) { 
     	equals(aContext, context, 'passed context');
     	equals(firstTime, isFirstTime, 'passed firstTime');
     	runCount++; 
@@ -132,7 +132,7 @@ test("invokes render() passing context & firstTime", function() {
 	var runCount = 0;
   var context, isFirstTime ;
   var view = SC.View.create({
-  	render: function(theContext, firstTime) {
+  	render: function render(theContext, firstTime) {
   		equals(context, theContext, 'context passed');
   		equals(firstTime, isFirstTime, 'firstTime passed');
   		runCount++;
@@ -158,7 +158,7 @@ test("invokes renderMixin() from mixins, passing context & firstTime", function(
 	
 	// define a few mixins to make sure this works w/ multiple mixins  	
 	var mixinA = {
-  	renderMixin: function(theContext, firstTime) {
+  	renderMixin: function renderMixin(theContext, firstTime) {
   		equals(context, theContext, 'context passed');
   		equals(firstTime, isFirstTime, 'firstTime passed');
   		runCount++;
@@ -166,7 +166,7 @@ test("invokes renderMixin() from mixins, passing context & firstTime", function(
 	};
 
 	var mixinB = {
-  	renderMixin: function(theContext, firstTime) {
+  	renderMixin: function renderMixin(theContext, firstTime) {
   		equals(context, theContext, 'context passed');
   		equals(firstTime, isFirstTime, 'firstTime passed');
   		runCount++;

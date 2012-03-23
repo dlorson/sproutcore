@@ -82,7 +82,7 @@ test("template view should call the function of the associated template with its
     _personName: "Tom DAAAALE",
     _i: 0,
 
-    personName: function() {
+    personName: function personName() {
       this._i++;
       return this._personName + this._i;
     }.property().cacheable(),
@@ -305,7 +305,7 @@ test("should not update when a property is removed from the view", function() {
       foo: SC.Object.create({
         baz: "unicorns",
 
-        removeObserver: function(property, func) {
+        removeObserver: function removeObserver(property, func) {
           sc_super();
           removeCalled++;
         }
@@ -570,8 +570,8 @@ test("views nested within an #if helper should be destroyed every time they are 
 
   TemplateTests.someView = SC.TemplateView.extend({
     template: SC.Handlebars.compile("<h1>hello</h1>"),
-    didCreateLayer: function() { didCreateLayerCalled++; },
-    willDestroyLayer: function() { willDestroyLayerCalled++; }
+    didCreateLayer: function didCreateLayer() { didCreateLayerCalled++; },
+    willDestroyLayer: function willDestroyLayer() { willDestroyLayerCalled++; }
   });
 
   view = SC.TemplateView.create({
@@ -646,7 +646,7 @@ test("Template views can belong to a pane and a parent view", function() {
         title: 'Do dishes',
         createdAt: "Today",
 
-        didCreateLayer: function() {
+        didCreateLayer: function didCreateLayer() {
           didCreateLayerWasCalled = YES;
         }
       })
@@ -943,7 +943,7 @@ test("should be able to bind element attributes using {{bindAttr}}", function() 
   SC.run(function() {
     view.set('content', {
       url: "http://www.sproutcore.com/img/branding/logo/png/dark.png",
-      title: function() {
+      title: function title() {
         return "Nanananana SproutCore!";
       }
     });

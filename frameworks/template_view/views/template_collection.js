@@ -44,7 +44,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
 
     @returns SC.TemplateCollectionView
   */
-  init: function() {
+  init: function init() {
     var templateCollectionView = sc_super();
     this._sctcv_contentDidChange();
     return templateCollectionView;
@@ -52,7 +52,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
 
   // In case a default content was set, trigger the child view creation
   // as soon as the empty layer was created
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     // FIXME: didCreateLayer gets called multiple times when template collection
     // views are nested - this is a hack to avoid rendering the content more
     // than once.
@@ -100,7 +100,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
   /**
     A template to render when there is no content or the content length is 0.
   */
-  inverseTemplate: function(key, value) {
+  inverseTemplate: function inverseTemplate(key, value) {
     if (value !== undefined) {
       return value;
     }
@@ -130,7 +130,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
 
   itemContext: null,
 
-  itemViewClass: function() {
+  itemViewClass: function itemViewClass() {
     var itemView = this.get('itemView');
     var itemViewTemplate = this.get('itemViewTemplate');
     var itemViewTemplateName = this.get('itemViewTemplateName');
@@ -170,7 +170,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     child views and observers, then set up an observer on the new content, if
     needed.
   */
-  _sctcv_contentDidChange: function() {
+  _sctcv_contentDidChange: function _sctcv_contentDidChange() {
 
     this.$().empty();
 
@@ -202,7 +202,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     this.arrayContentDidChange(0, oldLen, newLen);
   }.observes('content'),
 
-  arrayContentWillChange: function(start, removedCount, addedCount) {
+  arrayContentWillChange: function arrayContentWillChange(start, removedCount, addedCount) {
     if (!this.get('layer')) { return; }
 
     // If the contents were empty before and this template collection has an empty view
@@ -236,7 +236,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     @param {Array} removedObjects the objects that were removed from the content
     @param {Number} changeIndex the index at which the changes occurred
   */
-  arrayContentDidChange: function(start, removedCount, addedCount) {
+  arrayContentDidChange: function arrayContentDidChange(start, removedCount, addedCount) {
     if (!this.get('layer')) { return; }
 
     var content       = this.get('content'),
@@ -319,7 +319,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     this.invokeLast('invalidateFrame');
   },
 
-  itemTagName: function() {
+  itemTagName: function itemTagName() {
     switch(this.get('tagName')) {
       case 'dl':
         return 'dt';
@@ -338,7 +338,7 @@ SC.TemplateCollectionView = SC.TemplateView.extend(
     }
   }.property('tagName'),
 
-  invalidateFrame: function() {
+  invalidateFrame: function invalidateFrame() {
     this.notifyPropertyChange('frame');
   }
 });

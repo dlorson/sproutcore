@@ -12,7 +12,7 @@
 var objectA, objectB , arrayA, stringA; // global variables
 
 module("Beget function Module", {
-setup: function() {
+setup: function setup() {
     objectA = {} ;
     objectB = {} ;
 	arrayA  = [1,3];

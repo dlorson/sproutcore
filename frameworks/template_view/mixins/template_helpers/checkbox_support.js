@@ -15,7 +15,7 @@ SC.Checkbox = SC.TemplateView.extend(
   title: null,
   value: null,
 
-  displayTitle: function() {
+  displayTitle: function displayTitle() {
     var title = this.get('title');
     return title ? SC.String.loc(title) : null;
   }.property('title').cacheable(),
@@ -23,7 +23,7 @@ SC.Checkbox = SC.TemplateView.extend(
   classNames: ['sc-checkbox'],
   template: SC.Handlebars.compile('<label><input type="checkbox">{{displayTitle}}</label>'),
 
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     var self = this;
 
     this.$('input').bind('change', function() {
@@ -31,11 +31,11 @@ SC.Checkbox = SC.TemplateView.extend(
     });
   },
 
-  domValueDidChange: function(node) {
+  domValueDidChange: function domValueDidChange(node) {
     this.set('value', $(node).prop('checked'));
   },
 
-  value: function(key, value) {
+  value: function value(key, value) {
     if (value !== undefined) {
       this.$('input').prop('checked', value);
     } else {
@@ -47,7 +47,7 @@ SC.Checkbox = SC.TemplateView.extend(
 });
 
 SC.CheckboxSupport = /** @scope SC.CheckboxSupport */{
-  didCreateLayer: function() {
+  didCreateLayer: function didCreateLayer() {
     this.$('input').change(jQuery.proxy(function() {
       SC.RunLoop.begin();
       this.notifyPropertyChange('value');
@@ -55,7 +55,7 @@ SC.CheckboxSupport = /** @scope SC.CheckboxSupport */{
     }, this));
   },
 
-  value: function(key, value) {
+  value: function value(key, value) {
     if (value !== undefined) {
       this.$('input').prop('checked', value);
     } else {

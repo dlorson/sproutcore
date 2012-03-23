@@ -25,7 +25,7 @@ SC.AutoMixin = {
     @private
     Override createChildViews to mix in the mixins defined in autoMixins.
   */
-  createChildView: function(v, attrs) {
+  createChildView: function createChildView(v, attrs) {
     if (!attrs) attrs = {};
     attrs.owner = attrs.parentView = this;
     attrs.isVisibleInWindow = this.get('isVisibleInWindow');

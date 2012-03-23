@@ -38,7 +38,7 @@ var initModels = function(){
 // 
 module("Basic SC.Record Functions w/ a Parent > Child > Child", {
 
-  setup: function() {
+  setup: function setup() {
     NestedRecord = SC.Object.create({
       store: SC.Store.create()
     });
@@ -62,7 +62,7 @@ module("Basic SC.Record Functions w/ a Parent > Child > Child", {
     SC.RunLoop.end();
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     delete NestedRecord.ParentRecordTest;
     delete NestedRecord.Person;
     delete NestedRecord.Address;

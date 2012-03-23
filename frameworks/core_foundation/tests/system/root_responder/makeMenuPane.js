@@ -9,14 +9,14 @@
 var responder, menu;
 
 module("SC.RootResponder#makeMenuPane", {
-  setup: function() {
+  setup: function setup() {
     responder = SC.RootResponder.create();
     menu = SC.Pane.create({
       acceptsMenuPane: YES
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     menu.remove();
     menu = responder = null;
   }

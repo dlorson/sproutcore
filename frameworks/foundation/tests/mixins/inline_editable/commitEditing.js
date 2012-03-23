@@ -11,25 +11,25 @@
 var fakeDelegate, fakeEditor, view;
 
 fakeDelegate = {
-  acquireEditor: function() {
+  acquireEditor: function acquireEditor() {
     return fakeEditor;
   },
 
   shouldCommitCalled: NO,
   shouldCommitAllowed: YES,
-  inlineEditorShouldCommitEditing: function() {
+  inlineEditorShouldCommitEditing: function inlineEditorShouldCommitEditing() {
     this.shouldCommitCalled = YES;
 
     return this.shouldCommitAllowed;
   },
 
   willCommitCalled: NO,
-  inlineEditorWillCommitEditing: function() {
+  inlineEditorWillCommitEditing: function inlineEditorWillCommitEditing() {
     this.willCommitCalled = YES;
   },
 
   didCommitCalled: NO,
-  inlineEditorDidCommitEditing: function() {
+  inlineEditorDidCommitEditing: function inlineEditorDidCommitEditing() {
     this.didCommitCalled = YES;
     ok(this.willCommitCalled, "willCommit called before didCommit");
     view._endEditing();
@@ -39,13 +39,13 @@ fakeDelegate = {
 fakeEditor = SC.View.create(SC.InlineEditor, {
   inlineEditorDelegate: fakeDelegate,
 
-  beginEditing: function(original, editable) {
+  beginEditing: function beginEditing(original, editable) {
     return original(editable);
   }.enhance(),
 
   commitEditingCalled: NO,
   commitEditingAllowed: YES,
-  commitEditing: function(original) {
+  commitEditing: function commitEditing(original) {
     this.commitEditingCalled = YES;
 
     var ret = original();

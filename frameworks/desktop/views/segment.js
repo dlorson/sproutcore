@@ -163,7 +163,7 @@ SC.SegmentView = SC.View.extend(SC.Control,
     @type String
     @default ""
   */
-  displayTitle: function() {
+  displayTitle: function displayTitle() {
     var ret = this.get('title');
     if (this.get('localize')) ret = SC.String.loc(ret);
     return ret;
@@ -186,14 +186,14 @@ SC.SegmentView = SC.View.extend(SC.Control,
   /** @private
     Whenever the width property changes, adjust our layout accordingly.
   */
-  widthDidChange: function() {
+  widthDidChange: function widthDidChange() {
     this.adjust('width', this.get('width'));
   }.observes('width'),
 
   /** @private
     Update our properties according to our matching item.
   */
-  updateItem: function(parentView, item) {
+  updateItem: function updateItem(parentView, item) {
     var itemKeys = parentView.get('itemKeys'),
         itemKey,
         viewKeys = parentView.get('viewKeys'),

@@ -57,7 +57,7 @@ SC.BaseTheme.canvasImageRenderDelegate = SC.RenderDelegate.create({
     We don't have an element yet, so we do the minimal necessary setup
     here.
   */
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     var width = dataSource.get('width') || 0,
         height = dataSource.get('height') || 0;
 
@@ -65,7 +65,7 @@ SC.BaseTheme.canvasImageRenderDelegate = SC.RenderDelegate.create({
     context.attr('height', height);
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     var elem = jquery[0],
         image = dataSource.get('image'),
         frame = dataSource.get('frame'),

@@ -8,7 +8,7 @@
 // test core array-mapping methods for ManyArray
 var store, storeKey, storeId, rec, storeIds, recs, arrayRec;
 module("SC.ManyArray core methods", {
-  setup: function() {
+  setup: function setup() {
     
     // setup dummy app and store
     MyApp = SC.Object.create({
@@ -48,7 +48,7 @@ module("SC.ManyArray core methods", {
     arrayRec.relationships = [recs]; 
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
 });
@@ -150,7 +150,7 @@ test("changing the underlying storeIds should notify observers of records", func
   // setup observer
   var obj = SC.Object.create({
     cnt: 0,
-    observer: function() { this.cnt++; }
+    observer: function observer() { this.cnt++; }
   });
   recs.addObserver('[]', obj, obj.observer); 
   
@@ -169,7 +169,7 @@ test("swapping storeIds array should change ManyArray and observers", function()
   // setup observer
   var obj = SC.Object.create({
     cnt: 0,
-    observer: function() { this.cnt++; }
+    observer: function observer() { this.cnt++; }
   });
   recs.addObserver('[]', obj, obj.observer); 
   

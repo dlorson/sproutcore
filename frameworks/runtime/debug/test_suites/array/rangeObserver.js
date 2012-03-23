@@ -17,7 +17,7 @@ SC.ArraySuite.define(function(T) {
   // MODULE: isDeep = YES
   //
   module(T.desc("RangeObserver Methods"), {
-    setup: function() {
+    setup: function setup() {
       expected = T.objects(10);
       array = T.newObject(expected);
 
@@ -27,7 +27,7 @@ SC.ArraySuite.define(function(T) {
 
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       T.destroyObject(array);
     }
   });
@@ -222,7 +222,7 @@ SC.ArraySuite.define(function(T) {
   // MODULE: No explicit range
   //
   module(T.desc("RangeObserver Methods - No explicit range"), {
-    setup: function() {
+    setup: function setup() {
       expected = T.objects(10);
       array = T.newObject(expected);
 
@@ -232,7 +232,7 @@ SC.ArraySuite.define(function(T) {
 
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       T.destroyObject(array);
     }
   });
@@ -332,7 +332,7 @@ SC.ArraySuite.define(function(T) {
   // MODULE: isDeep = NO
   //
   module(T.desc("RangeObserver Methods - isDeep NO"), {
-    setup: function() {
+    setup: function setup() {
       expected = T.objects(10);
       array = T.newObject(expected);
 
@@ -342,7 +342,7 @@ SC.ArraySuite.define(function(T) {
 
     },
 
-    teardown: function() {
+    teardown: function teardown() {
       T.destroyObject(array);
     }
   });

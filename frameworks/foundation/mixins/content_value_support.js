@@ -33,7 +33,7 @@ SC.ContentValueSupport = {
   hasContentValueSupport: YES,
 
   /** @private */
-  initMixin: function() {
+  initMixin: function initMixin() {
     // setup content observing if needed.
     this._control_contentKeysDidChange();
   },
@@ -120,7 +120,7 @@ SC.ContentValueSupport = {
     @returns {void}
     @test in content
   */
-  contentPropertyDidChange: function(target, key) {
+  contentPropertyDidChange: function contentPropertyDidChange(target, key) {
     var contentKeys = this.get('contentKeys');
 
     if(contentKeys) {
@@ -150,7 +150,7 @@ SC.ContentValueSupport = {
     @param {Object} content
     @returns {SC.Control} receiver
   */
-  updatePropertyFromContent: function(prop, key, contentKey, content) {
+  updatePropertyFromContent: function updatePropertyFromContent(prop, key, contentKey, content) {
     var del, v;
 
     if (contentKey === undefined) contentKey = "content"+prop.capitalize()+"Key";
@@ -190,7 +190,7 @@ SC.ContentValueSupport = {
     
     @returns {void}
   */
-  updateContentWithValueObserver: function(target, key) {
+  updateContentWithValueObserver: function updateContentWithValueObserver(target, key) {
     var reverseContentKeys = this._reverseContentKeys;
 
     // if everything changed, iterate through and update them all
@@ -237,7 +237,7 @@ SC.ContentValueSupport = {
     a custom value for contentKeys it will switch to using a CoreSet to track
     observed keys.
   */
-  _control_contentDidChange: function(target, key) {
+  _control_contentDidChange: function _control_contentDidChange(target, key) {
     var content = this.get('content'),
     contentKeys = this.get('contentKeys'), contentKey,
     old = this._control_content,
@@ -318,7 +318,7 @@ SC.ContentValueSupport = {
     Observes changes to contentKeys and sets up observers on the local keys to
     update the observers on the content object.
   */
-  _control_contentKeysDidChange: function() {
+  _control_contentKeysDidChange: function _control_contentKeysDidChange() {
     var key, reverse = {},
     // if no hash is present, use the default contentValueKey -> value
     contentKeys = this.get('contentKeys') || this._default_contentKeys, contentKey,

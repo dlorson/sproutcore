@@ -36,7 +36,7 @@
 */
 SC.Locale = SC.Object.extend({
   
-  init: function() {
+  init: function init() {
     // make sure we know the name of our own locale.
     if (!this.language) SC.Locale._assignLocales();
     
@@ -72,7 +72,7 @@ SC.Locale = SC.Object.extend({
   */
   metrics: {},
 
-  toString: function() {
+  toString: function toString() {
     if (!this.language) SC.Locale._assignLocales() ;
     return "SC.Locale["+this.language+"]"+SC.guidFor(this) ;
   },
@@ -85,7 +85,7 @@ SC.Locale = SC.Object.extend({
     @param {String} optional default string to return instead
     @returns {String}
   */
-  locWithDefault: function(string, def) {
+  locWithDefault: function locWithDefault(string, def) {
     var ret = this.strings[string];
     
     // strings may be blank, so test with typeOf.
@@ -101,7 +101,7 @@ SC.Locale = SC.Object.extend({
     @param {String} key
     @returns {Number} ret
   */
-  locMetric: function(key) {
+  locMetric: function locMetric(key) {
     var ret = this.metrics[key];
     if (SC.typeOf(ret) === SC.T_NUMBER) {
       return ret;
@@ -150,7 +150,7 @@ SC.Locale = SC.Object.extend({
     @param {String} (optional) additionalHash
     @returns {Hash}
   */
-  locLayout: function(baseKey, additionalHash) {
+  locLayout: function locLayout(baseKey, additionalHash) {
     // Note:  In this method we'll directly access this.metrics rather than
     //        going through locMetric() for performance and to avoid
     //        locMetric()'s sanity checks.
@@ -220,7 +220,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     the currentLocale.  This will use the language properties you have set on
     the locale to make a decision.
   */
-  createCurrentLocale: function() {
+  createCurrentLocale: function createCurrentLocale() {
 
     // get values from String if defined for compatibility with < 1.0 build 
     // tools.
@@ -248,7 +248,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     Finds the locale class for the names language code or creates on based on
     its most likely parent.
   */
-  localeClassFor: function(lang) {
+  localeClassFor: function localeClassFor(lang) {
     lang = SC.Locale.normalizeLanguage(lang) ;
     var parent, klass = this.locales[lang];
     
@@ -284,7 +284,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     @param {Hash} options
     @returns {SC.Locale} the defined locale
   */
-  define: function(localeName, options) {
+  define: function define(localeName, options) {
     var locale ;
     if (options===undefined && (SC.typeOf(localeName) !== SC.T_STRING)) {
       locale = this; options = localeName ;
@@ -299,7 +299,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     
     @returns {Hash} options + instance methods
   */
-  options: function() { return this.prototype; },
+  options: function options() { return this.prototype; },
   
   /**
     Adds the passed hash of strings to the locale's strings table.  Note that
@@ -308,7 +308,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     
     @returns {Object} receiver
   */
-  addStrings: function(stringsHash) {
+  addStrings: function addStrings(stringsHash) {
     // make sure the target strings hash exists and belongs to the locale
     var strings = this.prototype.strings ;
     if (strings) {
@@ -331,7 +331,7 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
 
     @returns {Object} receiver
   */
-  addMetrics: function(metricsHash) {
+  addMetrics: function addMetrics(metricsHash) {
     // make sure the target metrics hash exists and belongs to the locale
     var metrics = this.prototype.metrics;
     if (metrics) {
@@ -364,24 +364,24 @@ SC.Locale.mixin(/** @scope SC.Locale */ {
     @param {String} languageCode
     @returns {String} normalized code
   */
-  normalizeLanguage: function(languageCode) {
+  normalizeLanguage: function normalizeLanguage(languageCode) {
     if (!languageCode) return 'en' ;
     return SC.Locale._map[languageCode.toLowerCase()] || languageCode ;
   },
   
   // this method is called once during init to walk the installed locales 
   // and make sure they know their own names.
-  _assignLocales: function() {
+  _assignLocales: function _assignLocales() {
     for(var key in this.locales) this.locales[key].prototype.language = key;
   },
   
-  toString: function() {
+  toString: function toString() {
     if (!this.prototype.language) SC.Locale._assignLocales() ;
     return "SC.Locale["+this.prototype.language+"]" ;
   },
   
   // make sure important properties are copied to new class. 
-  extend: function() {
+  extend: function extend() {
     var ret= SC.Object.extend.apply(this, arguments) ;
     ret.addStrings= SC.Locale.addStrings;
     ret.define = SC.Locale.define ;

@@ -8,7 +8,7 @@
 // test parsing of query string
 var store, storeKey, rec1, rec2, rec3, rec4, rec5, rec6, rec7, MyApp, q;
 module("SC.Query evaluation of records", {
-  setup: function() {
+  setup: function setup() {
     
     SC.RunLoop.begin();
     

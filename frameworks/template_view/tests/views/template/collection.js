@@ -379,7 +379,7 @@ test("should render inverse template name when its present and there is no conte
     inverseTemplateName: 'inverse_template',
 
     templates: SC.Object.create({
-      inverse_template: function(dataSource) {
+      inverse_template: function inverse_template(dataSource) {
         return "<h1>inverse template from file</h1>";
       }
     })

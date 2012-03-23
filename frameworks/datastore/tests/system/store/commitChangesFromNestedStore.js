@@ -7,7 +7,7 @@
 
 var store, child, storeKey, json;
 module("SC.Store#commitChangesFromNestedStore", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     store = SC.Store.create();

@@ -28,7 +28,7 @@ CoreTest.Runner = {
 
   showProgress: false,
 
-  create: function() {
+  create: function create() {
     var len = arguments.length,
         ret = CoreTest.beget(this),
         idx ;
@@ -40,13 +40,13 @@ CoreTest.Runner = {
     return ret ;
   },
   
-  begin: function() {
+  begin: function begin() {
     var plan = CoreTest.plan;
     plan.delegate = this;
     plan.run();
   },
   
-  planDidBegin: function(plan) {
+  planDidBegin: function planDidBegin(plan) {
     // setup the report DOM element.
     var str = [
       '<div class="core-test">',
@@ -103,7 +103,7 @@ CoreTest.Runner = {
     Q$('body').append(this.report);
   },
   
-  hidePassedTestsDidChange: function() {
+  hidePassedTestsDidChange: function hidePassedTestsDidChange() {
     var checked = this.hidePassedCheckbox.is(':checked');
         
     if (checked) {
@@ -113,12 +113,12 @@ CoreTest.Runner = {
     }
   },
 
-  showProgressCheckboxDidChange: function(){
+  showProgressCheckboxDidChange: function showProgressCheckboxDidChange(){
     this.showProgress = this.showProgressCheckbox.is(':checked');
     if (this.showProgress) { this.flush(); }
   },
 
-  planDidFinish: function(plan, r) {
+  planDidFinish: function planDidFinish(plan, r) {
     this.flush();
     
     var result = this.report.find('.testresult .status');
@@ -172,7 +172,7 @@ CoreTest.Runner = {
     }
   },
   
-  planDidRecord: function(plan, module, test, assertions, timings) {
+  planDidRecord: function planDidRecord(plan, module, test, assertions, timings) {
     var name = test, 
         s    = { passed: 0, failed: 0, errors: 0, warnings: 0 }, 
         len  = assertions.length, 
@@ -231,7 +231,7 @@ CoreTest.Runner = {
   },
   
   // called when the plan takes a break.  Good time to flush HTML output.
-  planDidPause: function(plan) {
+  planDidPause: function planDidPause(plan) {
     if(!this._cacheResultSelector){
       this._cacheResultSelector = this.report.find('.testresult .status');
     }
@@ -244,7 +244,7 @@ CoreTest.Runner = {
   },
   
   // flush any pending HTML changes...
-  flush: function() {
+  flush: function flush() {
     var logstr = this.logstr,
         resultStr = this.resultStr,
         result = this.report.find('.testresult .status');

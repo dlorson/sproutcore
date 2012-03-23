@@ -18,7 +18,7 @@ sc_require('css/css_rule') ;
 SC.CSSStyleSheet = SC.Object.extend(
 /** @scope SC.CSSStyleSheet.prototype */ {
   
-  init: function() {
+  init: function init() {
     sc_super() ;
     
     var ss = this.styleSheet ;
@@ -48,7 +48,7 @@ SC.CSSStyleSheet = SC.Object.extend(
   /**
     @property {Boolean} YES if the stylesheet is enabled.
   */
-  isEnabled: function(key, val) {
+  isEnabled: function isEnabled(key, val) {
     if (val !== undefined) {
       this.styleSheet.disabled = !val ;
     }
@@ -68,7 +68,7 @@ SC.CSSStyleSheet = SC.Object.extend(
   /**
     @property {String}
   */
-  href: function(key, val) {
+  href: function href(key, val) {
     if (val !== undefined) {
       this.styleSheet.href = val ;
     }
@@ -78,7 +78,7 @@ SC.CSSStyleSheet = SC.Object.extend(
   /**
     @property {String}
   */
-  title: function(key, val) {
+  title: function title(key, val) {
     if (val !== undefined) {
       this.styleSheet.title = val ;
     }
@@ -93,14 +93,14 @@ SC.CSSStyleSheet = SC.Object.extend(
   /**
     You can also insert and remove rules on the rules property array.
   */
-  insertRule: function(rule) {
+  insertRule: function insertRule(rule) {
     var rules = this.get('rules') ;
   },
   
   /**
     You can also insert and remove rules on the rules property array.
   */
-  deleteRule: function(rule) {
+  deleteRule: function deleteRule(rule) {
     var rules = this.get('rules') ;
     rules.removeObject(rule) ;
   },
@@ -113,7 +113,7 @@ SC.CSSStyleSheet = SC.Object.extend(
     Invoked by the sparse array whenever it needs a particular index 
     provided.  Provide the content for the index.
   */
-  sparseArrayDidRequestIndex: function(array, idx) {
+  sparseArrayDidRequestIndex: function sparseArrayDidRequestIndex(array, idx) {
     // sc_assert(this.rules === array) ;
     var rules = this.styleSheet.rules || SC.EMPTY_ARRAY ;
     var rule = rules[idx] ;
@@ -126,7 +126,7 @@ SC.CSSStyleSheet = SC.Object.extend(
   },
   
   /** @private synchronize the browser's rules array with our own */
-  sparseArrayDidReplace: function(array, idx, amt, objects) {
+  sparseArrayDidReplace: function sparseArrayDidReplace(array, idx, amt, objects) {
     var cssRules = objects.collect(function(obj) { return obj.rule; }) ;
     this.styleSheet.rules.replace(idx, amt, cssRules) ;
   }
@@ -147,7 +147,7 @@ SC.mixin(SC.CSSStyleSheet,
     @param {String} nameOrUrl a stylesheet name or href to find
     @returns {SC.CSSStyleSheet} null if not found
   */
-  find: function(nameOrUrl) {
+  find: function find(nameOrUrl) {
     var isUrl = nameOrUrl ? nameOrUrl.indexOf('/') >= 0 : NO ;
     
     if (!nameOrUrl) return null ; // no name or url? fail!

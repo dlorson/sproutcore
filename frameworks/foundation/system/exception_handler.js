@@ -35,7 +35,7 @@ SC.ExceptionHandler = {
 
     @param {Exception} exception the exception thrown during execution
   */
-  handleException: function(exception) {
+  handleException: function handleException(exception) {
     if (this.isShowingErrorDialog) return NO;
     
     this._displayErrorDialog(exception);
@@ -48,7 +48,7 @@ SC.ExceptionHandler = {
 
     @param {Exception} exception the exception to display
   */
-  _displayErrorDialog: function(exception) {
+  _displayErrorDialog: function _displayErrorDialog(exception) {
     var html = this._errorDialogHTMLForException(exception),
         node = document.createElement('div');
 
@@ -66,7 +66,7 @@ SC.ExceptionHandler = {
     @param {Exception} exception the exception to display
     @returns {String}
   */
-  _errorDialogHTMLForException: function(exception) {
+  _errorDialogHTMLForException: function _errorDialogHTMLForException(exception) {
     var html;
 
     html = [

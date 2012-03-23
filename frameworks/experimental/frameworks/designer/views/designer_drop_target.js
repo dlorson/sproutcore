@@ -21,39 +21,39 @@ SC.DesignerDropTarget = SC.ContainerView.extend(
   // 
   acceptsFirstResponder: YES,
   
-  keyDown: function(evt) {
+  keyDown: function keyDown(evt) {
     return this.interpretKeyEvents(evt);
   },
   
-  keyUp: function(evt) {
+  keyUp: function keyUp(evt) {
     return YES; 
   },
   
-  deleteForward: function(evt){
+  deleteForward: function deleteForward(evt){
     var c = SC.designsController.getPath('page.designController');
     if(c) c.deleteSelection();
     return YES;
   },
   
-  deleteBackward: function(evt){
+  deleteBackward: function deleteBackward(evt){
     var c = SC.designsController.getPath('page.designController');
     if(c) c.deleteSelection();
     return YES;
   },
 
-  moveLeft: function(sender, evt) {
+  moveLeft: function moveLeft(sender, evt) {
     return YES;
   },
   
-  moveRight: function(sender, evt) {   
+  moveRight: function moveRight(sender, evt) {   
     return YES;
   },
   
-  moveUp: function(sender, evt) {
+  moveUp: function moveUp(sender, evt) {
     return YES;
   },
   
-  moveDown: function(sender, evt) {
+  moveDown: function moveDown(sender, evt) {
     return YES;
   },
 
@@ -64,25 +64,25 @@ SC.DesignerDropTarget = SC.ContainerView.extend(
   
   targetIsInIFrame: YES,
   
-  dragStarted: function(drag, evt) {
+  dragStarted: function dragStarted(drag, evt) {
   },
   
-  dragEntered: function(drag, evt) {
+  dragEntered: function dragEntered(drag, evt) {
   },
   
-  dragUpdated: function(drag, evt) {},
+  dragUpdated: function dragUpdated(drag, evt) {},
   
-  dragExited: function(drag, evt) {},
+  dragExited: function dragExited(drag, evt) {},
   
-  dragEnded: function(drag, evt) {},
+  dragEnded: function dragEnded(drag, evt) {},
   
 
-  computeDragOperations: function(drag, evt) { 
+  computeDragOperations: function computeDragOperations(drag, evt) { 
     return SC.DRAG_ANY; 
   },
   
 
-  acceptDragOperation: function(drag, op) { 
+  acceptDragOperation: function acceptDragOperation(drag, op) { 
     var data = drag.dataForType('SC.Object'),
         scClass = eval(data.get('scClass'));
     return scClass.kindOf(SC.View);
@@ -104,7 +104,7 @@ SC.DesignerDropTarget = SC.ContainerView.extend(
     
     @return {DragOp} Drag Operation actually performed
   */
-  performDragOperation: function(drag, op) {
+  performDragOperation: function performDragOperation(drag, op) {
     var data = drag.dataForType('SC.Object'),
         cv = this.get('contentView'),
         loc = drag.get('location'),

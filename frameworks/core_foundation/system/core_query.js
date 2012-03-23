@@ -16,7 +16,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
   isCoreQuery: YES, // walk like a duck
 
   /** @private - better loggin */
-  toString: function() {
+  toString: function toString() {
     var values = [],
         len = this.length, idx=0;
     for(idx=0;idx<len;idx++) {
@@ -30,7 +30,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
     common test since CoreQuery does not support filtering by
     psuedo-selector.
   */
-  isVisible: function() {
+  isVisible: function isVisible() {
     return Array.prototype.every.call(this, function(elem){
       return SC.$.isVisible(elem);
     });
@@ -43,7 +43,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
 
     @returns {Array} array of views or null.
   */
-  view: function() {
+  view: function view() {
     return this.map(function() {
       var ret=null, guidKey = SC.viewKey, dom = this, value;
       while(!ret && dom && (dom !== document)) {
@@ -58,7 +58,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
   /**
     Returns YES if any of the matched elements have the passed element or CQ object as a child element.
   */
-  within: function(el) {
+  within: function within(el) {
     if( this.filter(el).length ) { return true; }
     return !!this.has(el).length;
   }
@@ -79,12 +79,12 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
 
     // if you call find with a selector, then use the jQuery way.  If you
     // call with a function/target, use Enumerable way
-    find: function(callback,target) {
+    find: function find(callback,target) {
       return (target !== undefined) ? SC.Enumerable.find.call(this, callback, target) : original.find.call(this, callback) ;
     },
 
     // ditto for filter - execute SC.Enumerable style if a target is passed.
-    filter: function(callback,target) {
+    filter: function filter(callback,target) {
       return (target !== undefined) ?
         this.pushStack(SC.Enumerable.filter.call(this, callback, target)) :
         original.filter.call(this, callback) ;
@@ -92,7 +92,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
 
     // filterProperty is an SC.Enumerable thing, but it needs to be wrapped
     // in a CoreQuery object.
-    filterProperty: function(key, value) {
+    filterProperty: function filterProperty(key, value) {
       return this.pushStack(
         SC.Enumerable.filterProperty.call(this,key,value));
     },
@@ -103,7 +103,7 @@ SC.mixin(SC.$.fn, /** @scope SC.$.prototype */ {
     // map() is a little tricky because jQuery is non-standard.  If you pass
     // a context object, we will treat it like SC.Enumerable.  Otherwise use
     // jQuery.
-    map: function(callback, target) {
+    map: function map(callback, target) {
       return (target !== undefined) ?
         SC.Enumerable.map.call(this, callback, target) :
         original.map.call(this, callback);
@@ -131,7 +131,7 @@ SC.mixin(SC.$, {
 
   /** @private helper method to determine if an element is visible.  Exposed
    for use in testing. */
-  isVisible: function(elem) {
+  isVisible: function isVisible(elem) {
     var CQ = SC.$;
     return ("hidden"!=elem.type) && (CQ.css(elem,"display")!="none") && (CQ.css(elem,"visibility")!="hidden");
   }

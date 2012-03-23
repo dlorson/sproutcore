@@ -11,7 +11,7 @@ var stateA, stateB, stateC, stateD;
 
 module("SC.Statechart: stateObserves Tests", {
 	
-  setup: function() {
+  setup: function setup() {
 
     obj1 = SC.Object.create({
       foo: 'abc'
@@ -27,7 +27,7 @@ module("SC.Statechart: stateObserves Tests", {
     
     TestState = SC.State.extend({
       
-      notifyStateObserveHandlerInvoked: function(handler, target, key) {
+      notifyStateObserveHandlerInvoked: function notifyStateObserveHandlerInvoked(handler, target, key) {
         this['%@Invoked'.fmt(handler)] = {
           target: target,
           key: key
@@ -48,19 +48,19 @@ module("SC.Statechart: stateObserves Tests", {
         
         testProp2: obj3,
         
-        testPropChanged: function(target, key) {
+        testPropChanged: function testPropChanged(target, key) {
           this.notifyStateObserveHandlerInvoked('testPropChanged', target, key);
         }.stateObserves('testProp'),
         
-        testProp2Changed: function(target, key) {
+        testProp2Changed: function testProp2Changed(target, key) {
           this.notifyStateObserveHandlerInvoked('testProp2Changed', target, key);
         }.stateObserves('.testProp2.mah'),
         
-    	  fooChanged: function(target, key) {
+    	  fooChanged: function fooChanged(target, key) {
           this.notifyStateObserveHandlerInvoked('fooChanged', target, key);
     		}.stateObserves('obj1.foo'),
     		
-    		barChanged: function(target, key) {
+    		barChanged: function barChanged(target, key) {
     		  this.notifyStateObserveHandlerInvoked('barChanged', target, key);
     		}.stateObserves('obj2.bar')
         
@@ -81,7 +81,7 @@ module("SC.Statechart: stateObserves Tests", {
       
       stateC: TestState.design({
       
-        mahChanged: function(target, key) {
+        mahChanged: function mahChanged(target, key) {
           this.notifyStateObserveHandlerInvoked('mahChanged', target, key);
         }.stateObserves('obj1.foo', 'obj2.bar')
         
@@ -96,7 +96,7 @@ module("SC.Statechart: stateObserves Tests", {
 
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     window.obj1 = undefined;
     window.obj2 = undefined;
     window.obj3 = undefined;

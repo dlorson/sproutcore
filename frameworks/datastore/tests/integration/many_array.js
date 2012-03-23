@@ -8,7 +8,7 @@
 var MyDataSource = SC.DataSource.extend({
   retrieveRecordsArguments: [],
 
-  retrieveRecords: function(store, storeKeys) {
+  retrieveRecords: function retrieveRecords(store, storeKeys) {
     this.get('retrieveRecordsArguments').push(storeKeys);
     sc_super();
   }
@@ -31,11 +31,11 @@ MyApp.Project = SC.Record.extend({
 });
 
 module("SC.Record.toMany array with data source", {
-  setup: function() {
+  setup: function setup() {
     window.MyApp = MyApp;
     window.MyDataSource = MyDataSource;
   },
-  teardown: function() {
+  teardown: function teardown() {
     window.MyApp = null;
     window.MyDataSource = null;
   }

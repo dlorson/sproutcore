@@ -134,7 +134,7 @@ SC.Set = SC.mixin({},
     @param {SC.Enumerable} items items to add
     @return {SC.Set}
   */
-  create: function(items) {
+  create: function create(items) {
     var ret, idx, pool = SC.Set._pool, isObservable = this.isObservable, len;
     if (!isObservable && items===undefined && pool.length>0) {
       return pool.pop();
@@ -185,7 +185,7 @@ SC.Set = SC.mixin({},
 
     @property {Object}
   */
-  firstObject: function() {
+  firstObject: function firstObject() {
     return (this.length > 0) ? this[0] : undefined ;
   }.property(),
 
@@ -194,7 +194,7 @@ SC.Set = SC.mixin({},
 
     @returns {SC.Set}
   */
-  clear: function() {
+  clear: function clear() {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
     this.length = 0;
     return this ;
@@ -205,7 +205,7 @@ SC.Set = SC.mixin({},
 
     @returns {Boolean}
   */
-  contains: function(obj) {
+  contains: function contains(obj) {
 
     // because of the way a set is "reset", the guid for an object may
     // still be stored as a key, but points to an index that is beyond the
@@ -223,7 +223,7 @@ SC.Set = SC.mixin({},
     @param {SC.Set} obj the other object
     @returns {Boolean}
   */
-  isEqual: function(obj) {
+  isEqual: function isEqual(obj) {
     // fail fast
     if (!obj || !obj.isSet || (obj.get('length') !== this.get('length'))) {
       return NO ;
@@ -245,7 +245,7 @@ SC.Set = SC.mixin({},
 
     Set observers are, in fact, stored in another set (a CoreSet).
   */
-  addSetObserver: function(setObserver) {
+  addSetObserver: function addSetObserver(setObserver) {
     // create set observer set if needed
     if (!this.setObservers) {
       this.setObservers = SC.CoreSet.create();
@@ -258,7 +258,7 @@ SC.Set = SC.mixin({},
   /**
     Removes a set observer.
   */
-  removeSetObserver: function(setObserver) {
+  removeSetObserver: function removeSetObserver(setObserver) {
     // if there is no set, there can be no currently observing set observers
     if (!this.setObservers) return;
 
@@ -275,7 +275,7 @@ SC.Set = SC.mixin({},
     @param {Object} obj the object to add
     @returns {SC.Set} receiver
   */
-  add: function(obj) {
+  add: function add(obj) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
     // cannot add null to a set.
@@ -306,7 +306,7 @@ SC.Set = SC.mixin({},
     @param {Array} objects
     @returns {SC.Set} receiver
   */
-  addEach: function(objects) {
+  addEach: function addEach(objects) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
     if (!objects || !objects.isEnumerable) {
       throw "%@.addEach must pass enumerable".fmt(this);
@@ -336,7 +336,7 @@ SC.Set = SC.mixin({},
     @param {Object} obj the object to remove
     @returns {SC.Set} receiver
   */
-  remove: function(obj) {
+  remove: function remove(obj) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
 
     // Implementation note:  SC.none() and SC.hashFor() are inlined because
@@ -379,7 +379,7 @@ SC.Set = SC.mixin({},
 
     @returns {Object} an object from the set or null
   */
-  pop: function() {
+  pop: function pop() {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
     var obj = (this.length > 0) ? this[this.length-1] : null ;
     this.remove(obj) ;
@@ -392,7 +392,7 @@ SC.Set = SC.mixin({},
     @param {Array} objects
     @returns {SC.Set} receiver
   */
-  removeEach: function(objects) {
+  removeEach: function removeEach(objects) {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
     if (!objects || !objects.isEnumerable) {
       throw "%@.addEach must pass enumerable".fmt(this);
@@ -418,7 +418,7 @@ SC.Set = SC.mixin({},
 
     @returns {SC.Set} new copy
   */
-  copy: function() {
+  copy: function copy() {
     return this.constructor.create(this);
   },
 
@@ -427,7 +427,7 @@ SC.Set = SC.mixin({},
 
     @returns {SC.Set} receiver
   */
-  destroy: function() {
+  destroy: function destroy() {
     this.isFrozen = NO ; // unfreeze to return to pool
     if (!this.isObservable) SC.Set._pool.push(this.clear());
     return this;
@@ -438,7 +438,7 @@ SC.Set = SC.mixin({},
   //
 
   /** @private - optimized */
-  forEach: function(iterator, target) {
+  forEach: function forEach(iterator, target) {
     var len = this.length;
     if (!target) target = this ;
     for(var idx=0;idx<len;idx++) iterator.call(target, this[idx], idx, this);
@@ -446,7 +446,7 @@ SC.Set = SC.mixin({},
   },
 
   /** @private */
-  toString: function() {
+  toString: function toString() {
     var len = this.length, idx, ary = [];
     for(idx=0;idx<len;idx++) ary[idx] = this[idx];
     return "SC.Set<%@>".fmt(ary.join(',')) ;
@@ -456,7 +456,7 @@ SC.Set = SC.mixin({},
     @private
     Alerts set observers that an item has been added.
   */
-  didAddItem: function(item) {
+  didAddItem: function didAddItem(item) {
     // get the set observers
     var o = this.setObservers;
 
@@ -472,7 +472,7 @@ SC.Set = SC.mixin({},
     @private
     Alerts set observers that an item has been removed.
   */
-  didRemoveItem: function(item) {
+  didRemoveItem: function didRemoveItem(item) {
     // get the set observers
     var o = this.setObservers;
 

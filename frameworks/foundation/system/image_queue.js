@@ -29,7 +29,7 @@ SC.IMAGE_FAILED_ERROR = SC.$error("SC.Image.FailedError", "Image", -101) ;
   the URL of the image, along with a target/method callback. The signature of 
   your callback should be:
   
-      imageDidLoad: function(imageUrl, imageOrError) {
+      imageDidLoad: function imageDidLoad(imageUrl, imageOrError) {
         //...
       }
 
@@ -93,7 +93,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     notified when the image has loaded.  Your callback should have a signature 
     like:
 
-        imageDidLoad: function(imageUrl, imageOrError) { .. }
+        imageDidLoad: function imageDidLoad(imageUrl, imageOrError) { .. }
 
     If you do pass a target/method you can optionally also choose to load the 
     image either in the foreground or in the background.  The imageQueue 
@@ -106,7 +106,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     @param {Boolean} isBackgroundFlag
     @returns {SC.imageQueue} receiver
   */
-  loadImage: function(url, target, method, isBackgroundFlag) {
+  loadImage: function loadImage(url, target, method, isBackgroundFlag) {
     // normalize params
     var type = SC.typeOf(target);
     if (SC.none(method) && SC.typeOf(target)===SC.T_FUNCTION) {
@@ -145,7 +145,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     @param {String|Function} method
     @returns {SC.imageQueue} receiver
   */
-  releaseImage: function(url, target, method) {
+  releaseImage: function releaseImage(url, target, method) {
     // get entry.  if there is no entry, just return as there is nothing to 
     // do.
     var entry = this._imageEntryFor(url, NO) ;
@@ -174,7 +174,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   /** 
     Forces the image to reload the next time you try to load it.
   */
-  reloadImage: function(url) {
+  reloadImage: function reloadImage(url) {
     var entry = this._imageEntryFor(url, NO); 
     if (entry && entry.status===this.IMAGE_LOADED) {
       entry.status = this.IMAGE_WAITING;
@@ -186,7 +186,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     not need to call this method yourself as it will be initiated 
     automatically when the queue becomes active.
   */
-  loadNextImage: function() {
+  loadNextImage: function loadNextImage() {
     var entry = null, queue;
 
     // only run if we don't have too many active request...
@@ -232,7 +232,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   // 
 
   /** @private Find or create an entry for the URL. */
-  _imageEntryFor: function(url, createIfNeeded) {
+  _imageEntryFor: function _imageEntryFor(url, createIfNeeded) {
     if (createIfNeeded === undefined) createIfNeeded = YES;
     var entry = this._images[url] ;
     if (!entry && createIfNeeded) {
@@ -251,7 +251,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   },
   
   /** @private deletes an entry from the image queue, descheduling also */
-  _deleteEntry: function(entry) {
+  _deleteEntry: function _deleteEntry(entry) {
     this._unscheduleImageEntry(entry) ;
     delete this._images[entry.url];    
   },
@@ -260,7 +260,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     Add a callback to the image entry.  First search the callbacks to make
     sure this is only added once.
   */
-  _addCallback: function(entry, target, method) {
+  _addCallback: function _addCallback(entry, target, method) {
     var callbacks = entry.callbacks;
 
     // try to find in existing array
@@ -278,7 +278,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     Removes a callback from the image entry.  Removing a callback just nulls
     out that position in the array.  It will be skipped when executing.
   */
-  _removeCallback: function(entry, target, method) {
+  _removeCallback: function _removeCallback(entry, target, method) {
     var callbacks = entry.callbacks ;
     callbacks.forEach(function(x, idx) {
       if (x[0]===target && x[1]===method) callbacks[idx] = null;
@@ -293,7 +293,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     queue, but it is in the background queue, possibly move it to the
     foreground queue.
   */
-  _scheduleImageEntry: function(entry, isBackgroundFlag) {
+  _scheduleImageEntry: function _scheduleImageEntry(entry, isBackgroundFlag) {
 
     var background = this._backgroundQueue ;
     var foreground = this._foregroundQueue ;
@@ -326,7 +326,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   /** @private
     Removes an entry from the foreground or background queue.  
   */
-  _unscheduleImageEntry: function(entry) {
+  _unscheduleImageEntry: function _unscheduleImageEntry(entry) {
     // if entry is not queued, do nothing
     if (entry.status !== this.IMAGE_QUEUED) return this ;
     
@@ -345,19 +345,19 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   },
   
   /** @private invoked by Image().  Note that this is the image instance */
-  _imageDidAbort: function() {
+  _imageDidAbort: function _imageDidAbort() {
     SC.run(function() {
       SC.imageQueue.imageStatusDidChange(this.entry, SC.imageQueue.ABORTED);
     }, this);
   },
   
-  _imageDidError: function() {
+  _imageDidError: function _imageDidError() {
     SC.run(function() {
       SC.imageQueue.imageStatusDidChange(this.entry, SC.imageQueue.ERROR);
     }, this);
   },
   
-  _imageDidLoad: function() {
+  _imageDidLoad: function _imageDidLoad() {
     SC.run(function() {
       SC.imageQueue.imageStatusDidChange(this.entry, SC.imageQueue.LOADED);
     }, this);
@@ -366,7 +366,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
   /** @private called whenever the image loading status changes.  Notifies
     items in the queue and then cleans up the entry.
   */
-  imageStatusDidChange: function(entry, status) {
+  imageStatusDidChange: function imageStatusDidChange(entry, status) {
     if (!entry) return; // nothing to do...
     
     var url = entry.url ;
@@ -416,7 +416,7 @@ SC.imageQueue = SC.Object.create(/** @scope SC.imageQueue.prototype */ {
     this.loadNextImage() ;
   },
   
-  init: function() {
+  init: function init() {
     sc_super();
     this._images = {};
     this._loading = [] ;

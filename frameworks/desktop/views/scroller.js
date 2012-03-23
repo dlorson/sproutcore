@@ -89,7 +89,7 @@ SC.ScrollerView = SC.View.extend(
     @observes maximum
     @observes minimum
   */
-  value: function(key, val) {
+  value: function value(key, val) {
     var minimum = this.get('minimum');
     if (val !== undefined) {
       this._scs_value = val;
@@ -103,7 +103,7 @@ SC.ScrollerView = SC.View.extend(
     @type Number
     @observes value
   */
-  displayValue: function() {
+  displayValue: function displayValue() {
     var ret;
     if (this.get("_touchScrollValue")) ret = this.get("_touchScrollValue");
     else ret = this.get("value");
@@ -153,7 +153,7 @@ SC.ScrollerView = SC.View.extend(
     @default YES
     @observes proportion
   */
-  isEnabled: function(key, value) {
+  isEnabled: function isEnabled(key, value) {
     if (value !== undefined) {
       this._scsv_isEnabled = value;
     }
@@ -264,7 +264,7 @@ SC.ScrollerView = SC.View.extend(
     @param {Boolean} firstTime YES if this is creating a layer
     @private
   */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var classNames = {},
         buttons = '',
         parentView = this.get('parentView'),
@@ -329,7 +329,7 @@ SC.ScrollerView = SC.View.extend(
     }
   },
 
-  renderThumb: function(context, layoutDirection, thumbLength, thumbPosition) {
+  renderThumb: function renderThumb(context, layoutDirection, thumbLength, thumbPosition) {
     var styleString;
     if(layoutDirection === SC.LAYOUT_HORIZONTAL) styleString = 'width: '+thumbLength+'px; left: ' + thumbPosition + 'px;';
     else styleString = 'height: '+thumbLength+'px; top: ' + thumbPosition + 'px;';
@@ -341,7 +341,7 @@ SC.ScrollerView = SC.View.extend(
 
   },
 
-  renderButtons: function(context, hasButtons) {
+  renderButtons: function renderButtons(context, hasButtons) {
     if (hasButtons) {
       context.push('<div class="button-bottom"></div><div class="button-top"></div>');
     } else {
@@ -350,17 +350,17 @@ SC.ScrollerView = SC.View.extend(
   },
 
   /** @private */
-  touchScrollDidStart: function(value) {
+  touchScrollDidStart: function touchScrollDidStart(value) {
     this.set("_touchScrollValue", value);
   },
   
   /** @private */
-  touchScrollDidEnd: function(value) {
+  touchScrollDidEnd: function touchScrollDidEnd(value) {
     this.set("_touchScrollValue", NO);
   },
   
   /** @private */
-  touchScrollDidChange: function(value) {
+  touchScrollDidChange: function touchScrollDidChange(value) {
     this.set("_touchScrollValue", value);
   },
 
@@ -371,7 +371,7 @@ SC.ScrollerView = SC.View.extend(
   /** @private
     Adjusts the thumb (for backwards-compatibility calls adjustThumbPosition+adjustThumbSize by default)
   */
-  adjustThumb: function(thumb, position, length) {
+  adjustThumb: function adjustThumb(thumb, position, length) {
     this.adjustThumbPosition(thumb, position);
     this.adjustThumbSize(thumb, length);
   },
@@ -381,7 +381,7 @@ SC.ScrollerView = SC.View.extend(
 
     @param {Number} position the position of the thumb in pixels
   */
-  adjustThumbPosition: function(thumb, position) {
+  adjustThumbPosition: function adjustThumbPosition(thumb, position) {
     // Don't touch the DOM if the position hasn't changed
     if (this._thumbPosition === position) return;
 
@@ -398,7 +398,7 @@ SC.ScrollerView = SC.View.extend(
   },
 
   /** @private */
-  adjustThumbSize: function(thumb, size) {
+  adjustThumbSize: function adjustThumbSize(thumb, size) {
     // Don't touch the DOM if the size hasn't changed
     if (this._thumbSize === size) return;
 
@@ -427,7 +427,7 @@ SC.ScrollerView = SC.View.extend(
 
     @property
   */
-  trackLength: function() {
+  trackLength: function trackLength() {
     var scrollerLength = this.get('scrollerLength');
 
     // Subtract the size of the top/left cap
@@ -446,7 +446,7 @@ SC.ScrollerView = SC.View.extend(
 
     @type Number
   */
-  scrollerLength: function() {
+  scrollerLength: function scrollerLength() {
     switch (this.get('layoutDirection')) {
       case SC.LAYOUT_VERTICAL:
         return this.get('frame').height;
@@ -463,7 +463,7 @@ SC.ScrollerView = SC.View.extend(
 
     @property
   */
-  thumbLength: function() {
+  thumbLength: function thumbLength() {
     var length;
 
     length = Math.floor(this.get('trackLength') * this.get('proportion'));
@@ -478,7 +478,7 @@ SC.ScrollerView = SC.View.extend(
     @type Number
     @isReadOnly
   */
-  thumbPosition: function() {
+  thumbPosition: function thumbPosition() {
     var value = this.get('displayValue'),
         max = this.get('maximum'),
         trackLength = this.get('trackLength'),
@@ -499,7 +499,7 @@ SC.ScrollerView = SC.View.extend(
     @type Boolean
     @isReadOnly
   */
-  controlsHidden: function() {
+  controlsHidden: function controlsHidden() {
     return this.get('proportion') >= 1;
   }.property('proportion').cacheable(),
 
@@ -511,7 +511,7 @@ SC.ScrollerView = SC.View.extend(
   /** @private
     Returns the value for a position within the scroller's frame.
   */
-  valueForPosition: function(pos) {
+  valueForPosition: function valueForPosition(pos) {
     var max = this.get('maximum'),
         trackLength = this.get('trackLength'),
         thumbLength = this.get('thumbLength'),
@@ -544,7 +544,7 @@ SC.ScrollerView = SC.View.extend(
 
     @param evt {SC.Event} the mousedown event
   */
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     if (!this.get('isEnabled')) return NO;
     
     // keep note of altIsDown for later.
@@ -641,7 +641,7 @@ SC.ScrollerView = SC.View.extend(
 
     @param evt {SC.Event} the mousedown event
   */
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     var active = this._scs_buttonActive, ret = NO, timer;
 
     // If we have an element that was set as active in mouseDown,
@@ -675,7 +675,7 @@ SC.ScrollerView = SC.View.extend(
 
     @param evt {SC.Event} the mousedragged event
   */
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     var value, length, delta, thumbPosition,
         target = evt.target,
         thumbPositionAtDragStart = this._thumbPositionAtDragStart,
@@ -772,7 +772,7 @@ SC.ScrollerView = SC.View.extend(
     
     Specify "immediate" as YES if it should not wait.
   */
-  startMouseDownTimer: function(action, immediate) {
+  startMouseDownTimer: function startMouseDownTimer(action, immediate) {
     var timer;
 
     this._mouseDownTimerAction = action;
@@ -785,7 +785,7 @@ SC.ScrollerView = SC.View.extend(
     Called by the mousedown timer.  This method determines the initial
     user action and repeats it until the timer is invalidated in mouseUp.
   */
-  mouseDownTimerDidFire: function() {
+  mouseDownTimerDidFire: function mouseDownTimerDidFire() {
     var scrollerLength = this.get('scrollerLength'),
         mouseLocation = SC.device.get('mouseLocation'),
         thumbPosition = this.get('thumbPosition'),
@@ -829,7 +829,7 @@ SC.ScrollerView = SC.View.extend(
 
     @param {String} the selector to find
   */
-  makeButtonActive: function(selector) {
+  makeButtonActive: function makeButtonActive(selector) {
     this._scs_buttonActive = this.$(selector).addClass('active');
   }
 });
@@ -881,7 +881,7 @@ SC.TouchScrollerView = SC.ScrollerView.extend(
   buttonOverlap: 36,
   
   /** @private */
-  adjustThumb: function(thumb, position, length) {
+  adjustThumb: function adjustThumb(thumb, position, length) {
     var thumbInner = this.$('.thumb-inner');
     var max = this.get("scrollerLength") - this.capLength, min = this.get("minimum") + this.capLength;
     
@@ -915,7 +915,7 @@ SC.TouchScrollerView = SC.ScrollerView.extend(
   },
   
   /** @private */
-  render: function(context, firstTime) {
+  render: function render(context, firstTime) {
     var classNames = [],
         thumbPosition, thumbLength, thumbCenterLength, thumbElement,
         value, max, scrollerLength, length, pct;
@@ -965,7 +965,7 @@ SC.TouchScrollerView = SC.ScrollerView.extend(
     }
   },
 
-  renderThumb: function(context, layoutDirection, thumbLength) {
+  renderThumb: function renderThumb(context, layoutDirection, thumbLength) {
     // where is this magic number from?
     thumbLength -= 1044;
     layoutDirection = (layoutDirection === SC.LAYOUT_HORIZONTAL ? 'X' : 'Y');

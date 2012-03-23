@@ -19,13 +19,13 @@ sc_require('validators/validator') ;
 SC.Validator.Password = SC.Validator.extend(
 /** @scope SC.Validator.Password.prototype */ {
 
-  attachTo: function(form,field) {
+  attachTo: function attachTo(form,field) {
     sc_super();
     if (!this.fields) this.fields = [] ;
     this.fields.push(field) ;
   },
 
-  validate: function(force) {
+  validate: function validate(force) {
     if (!this.fields || this.fields.length === 0) return true ;
     
     var empty = false ;
@@ -49,7 +49,7 @@ SC.Validator.Password = SC.Validator.extend(
   },
   
   // update field states
-  updateFields: function(form,valid) {
+  updateFields: function updateFields(form,valid) {
     if (!this.fields || this.fields.length === 0) return true ;
     var err = SC.String.loc("Invalid.Password");
     var topField = this._field ;
@@ -60,13 +60,13 @@ SC.Validator.Password = SC.Validator.extend(
     return (valid) ? SC.VALIDATE_OK : err ;
   },
   
-  validateChange: function(form, field, oldValue) { 
+  validateChange: function validateChange(form, field, oldValue) { 
     return this.updateFields(form, this.validate(false)) ;
   },
 
   // this method is called just before the form is submitted.
   // field: the field to validate.
-  validateSubmit: function(form, field) { 
+  validateSubmit: function validateSubmit(form, field) { 
     return this.updateFields(form, this.validate(true)) ;
   },
 
@@ -76,7 +76,7 @@ SC.Validator.Password = SC.Validator.extend(
   //
   // The default will validate a partial only if there was already an error.
   // this allows the user to try to get it right before you bug them.
-  validatePartial: function(form, field) {
+  validatePartial: function validatePartial(form, field) {
     var isInvalid = !this._field.get('isValid') ;
     if (isInvalid) {
       return this.updateFields(form, this.validate(false)) ;

@@ -16,7 +16,7 @@ SC.Pane.reopen(
       This is passed to `jQuery()`, so any value supported by `jQuery()` will work.
     @returns {SC.Pane} receiver
   */
-  prependTo: function(elem) {
+  prependTo: function prependTo(elem) {
     return this.insert(function(layer) {
       jQuery(elem).prepend(layer);
     });
@@ -27,7 +27,7 @@ SC.Pane.reopen(
 
     @returns {void}
   */
-  removeFromParent: function() {
+  removeFromParent: function removeFromParent() {
     throw SC.Error.desc("SC.Pane cannot be removed from its parent, since it's the root. Did you mean remove()?");
   }
 });

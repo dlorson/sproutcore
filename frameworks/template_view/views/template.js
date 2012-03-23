@@ -61,7 +61,7 @@ SC.TemplateView = SC.CoreView.extend(
 
     @property {Function}
   */
-  template: function(key, value) {
+  template: function template(key, value) {
     if (value !== undefined) {
       return value;
     }
@@ -93,7 +93,7 @@ SC.TemplateView = SC.CoreView.extend(
 
     @property {Object}
   */
-  context: function(key, value) {
+  context: function context(key, value) {
     if (value !== undefined) {
       return value;
     }
@@ -108,7 +108,7 @@ SC.TemplateView = SC.CoreView.extend(
 
     @param {SC.RenderContext} context the render context
   */
-  render: function(context) {
+  render: function render(context) {
     var data,
         output,
         template = this.get('template'),
@@ -125,13 +125,13 @@ SC.TemplateView = SC.CoreView.extend(
   // in TemplateView, updating is handled by observers created by helpers in the
   // template. As a result, we create an empty update method so that the old
   // (pre-1.5) behavior which would force a full re-render does not get activated.
-  update: function() { },
+  update: function update() { },
 
   /**
     Since mouseUp events will not fire unless we return YES to mouseDown, the
     default mouseDown implementation returns YES if a mouseDown method exists.
   */
-  mouseDown: function() {
+  mouseDown: function mouseDown() {
     if (this.mouseUp) { return YES; }
     return NO;
   }

@@ -60,7 +60,7 @@ SC.SplitThumb = {
    *
    * @property SC.View
   */
-  movesChild: function() {
+  movesChild: function movesChild() {
     var view = this, child, splitView = this.get('splitView'),
         sibling = this.get('movesSibling');
     while (view && view !== splitView) {
@@ -113,7 +113,7 @@ SC.SplitThumb = {
    *
    * @property SC.SplitView
   */
-  splitView: function() {
+  splitView: function splitView() {
     var view = this ;
     while (view && !view.isSplitView) view = view.get('parentView') ;
     return view ;
@@ -142,7 +142,7 @@ SC.SplitThumb = {
    *
    * @type {String}
   */
-  splitCursorStyle: function() {
+  splitCursorStyle: function splitCursorStyle() {
     if (this.get('splitViewLayoutDirection') === SC.LAYOUT_HORIZONTAL) {
       return 'ew-resize';
     } else {
@@ -151,7 +151,7 @@ SC.SplitThumb = {
     }
   }.property('splitViewLayoutDirection').cacheable(),
   
-  splitCursorStyleDidChange: function() {
+  splitCursorStyleDidChange: function splitCursorStyleDidChange() {
     if (this._isDragging) {
       this.get('splitView').set('splitChildCursorStyle', this.get('splitCursorStyle'));
     }
@@ -164,7 +164,7 @@ SC.SplitThumb = {
    * Renders the cursor for the view as defined by this view's splitCursor
    * property.
   */
-  renderMixin: function(context) {
+  renderMixin: function renderMixin(context) {
     context.css('cursor', this.get('splitCursorStyle'));
   },
   
@@ -172,7 +172,7 @@ SC.SplitThumb = {
   //
   // EVENT HANDLING
   //
-  touchStart: function(touch) {
+  touchStart: function touchStart(touch) {
     this._isDragging = YES;
     
     var splitView = this.get('splitView');
@@ -186,7 +186,7 @@ SC.SplitThumb = {
     return YES;
   },
   
-  touchesDragged: function(evt) {
+  touchesDragged: function touchesDragged(evt) {
     var splitView = this.get('splitView');
     
     var mousePosition = splitView.get('layoutDirection') === SC.LAYOUT_HORIZONTAL ? 
@@ -200,7 +200,7 @@ SC.SplitThumb = {
     return YES;
   },
   
-  touchEnd: function(touch) {
+  touchEnd: function touchEnd(touch) {
     this._isDragging = NO;
     
     var splitView = this.get('splitView');
@@ -218,18 +218,18 @@ SC.SplitThumb = {
     return YES;
   },
 
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var splitView = this.get('splitView');
     splitView.set('splitChildCursorStyle', this.get('splitCursorStyle'));
     
     return this.touchStart(evt);
   },
   
-  mouseDragged: function(evt) {
+  mouseDragged: function mouseDragged(evt) {
     return this.touchesDragged(evt);
   },
   
-  mouseUp: function(evt) {
+  mouseUp: function mouseUp(evt) {
     this.get('splitView').set('splitChildCursorStyle', null);
     
     return this.touchEnd(evt);

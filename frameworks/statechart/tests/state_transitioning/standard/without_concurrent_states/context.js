@@ -16,17 +16,17 @@ var statechart,
     stateF;
 
 module("SC.Statechart: Supply Context Parameter to gotoState - Without Concurrent States", {
-  setup: function() {
+  setup: function setup() {
     
     TestState = SC.State.extend({
       enterStateContext: null,
       exitStateContext: null,
       
-      enterState: function(context) {
+      enterState: function enterState(context) {
         this.set('enterStateContext', context);
       },
       
-      exitState: function(context) {
+      exitState: function exitState(context) {
         this.set('exitStateContext', context);
       }
     });
@@ -68,7 +68,7 @@ module("SC.Statechart: Supply Context Parameter to gotoState - Without Concurren
     stateF = statechart.getState('f');
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart = TestState = monitor = context = null;
     root = stateA = stateB = stateC = stateD = stateE = stateF;
   }

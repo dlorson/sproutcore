@@ -13,7 +13,7 @@ var obj; //global variables
 
 module("User Defaults",{
  	   
- 	  setup: function(){
+ 	  setup: function setup(){
  	   
  	   obj = SC.Object.create({
  		   bck : 'green'

@@ -9,14 +9,14 @@
 var pane;
 
 module("SC.Pane#layout", {
-  setup: function() {
+  setup: function setup() {
     pane = SC.Pane.create({
       layout: { top: 0, left: 0, width: 1, height: 1}
     });
     pane.append();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     pane.remove();
   }
 });

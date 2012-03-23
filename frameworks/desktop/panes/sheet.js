@@ -56,7 +56,7 @@ SC.SheetPane = SC.PanelPane.extend(
   _state: 'NO_VIEW', // no view
 
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
 
     if (SC.Animatable) {
@@ -81,7 +81,7 @@ SC.SheetPane = SC.PanelPane.extend(
 
     @returns {SC.SheetPane} receiver
   */
-  append: function() {
+  append: function append() {
     var layout = this.get('layout');
     if (!layout.height || !layout.top) {
       layout = SC.View.convertLayoutToAnchoredLayout(layout, this.computeParentDimensions());
@@ -103,7 +103,7 @@ SC.SheetPane = SC.PanelPane.extend(
 
     @returns {SC.SheetPane} receiver
   */
-  remove: function() {
+  remove: function remove() {
     // We want the functionality of `SC.PanelPane.remove()`, but we only want it once the animation is complete.
     // Store the reference to the superclass function, and it call it after the transition is complete.
     var that = this, args = arguments;
@@ -116,7 +116,7 @@ SC.SheetPane = SC.PanelPane.extend(
   /** @private
     Once the pane has been rendered out to the DOM, begin the animation.
   */
-  paneDidAttach: function() {
+  paneDidAttach: function paneDidAttach() {
     var ret = sc_super();
     // this.invokeLast(this.slideDown, this);
     this.slideDown();
@@ -125,7 +125,7 @@ SC.SheetPane = SC.PanelPane.extend(
   },
 
   /** @private */
-  slideDown: function(){
+  slideDown: function slideDown(){
     // setup other general state
     this._state   = SC.SheetPane.ANIMATING;
     this._direction = SC.SheetPane.SLIDE_DOWN;
@@ -140,7 +140,7 @@ SC.SheetPane = SC.PanelPane.extend(
   },
 
   /** @private */
-  slideUp: function(){
+  slideUp: function slideUp(){
     // setup other general state
     this._state   = SC.SheetPane.ANIMATING;
     this._direction = SC.SheetPane.SLIDE_UP;
@@ -156,7 +156,7 @@ SC.SheetPane = SC.PanelPane.extend(
   },
 
   /** @private */
-  _complete: function() {
+  _complete: function _complete() {
     var dir = this._direction;
 
     if (dir === SC.SheetPane.SLIDE_DOWN) {
@@ -183,13 +183,13 @@ SC.SheetPane = SC.PanelPane.extend(
     must lose focus because will break if selection is change
     on text fields that don't move.
   */
-  blurTo: function(pane) { this.setFirstResponder(''); },
+  blurTo: function blurTo(pane) { this.setFirstResponder(''); },
 
   /** @private
     Called while the animation runs. Will move the content view
     down until it is in position and then set the layout to the content layout
   */
-  tick: function() {
+  tick: function tick() {
     this._timer = null ; // clear out
 
     var now = Date.now();

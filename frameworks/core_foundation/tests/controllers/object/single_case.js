@@ -12,12 +12,12 @@ var content, controller;
 // 
 
 module("SC.ObjectController - single_case - OBSERVABLE OBJECT", {
-  setup: function() {
+  setup: function setup() {
     content = SC.Object.create({ foo: "foo1", bar: "bar1" });
     controller = SC.ObjectController.create({ content: content });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -120,12 +120,12 @@ test("hasContent", function() {
 // 
 
 module("SC.ObjectController - single_case - NON-OBSERVABLE OBJECT", {
-  setup: function() {
+  setup: function setup() {
     content = { foo: "foo1", bar: "bar1" };
     controller = SC.ObjectController.create({ content: content });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

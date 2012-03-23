@@ -8,11 +8,11 @@
 SC.BaseTheme.splitRenderDelegate = SC.RenderDelegate.create({
   className: 'split',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     context.addClass(dataSource.get('layoutDirection'));
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     jquery.addClass(dataSource.get('layoutDirection'));
   }
 });

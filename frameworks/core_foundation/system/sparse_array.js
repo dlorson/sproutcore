@@ -53,7 +53,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
 
     @property {Number}
   */
-  length: function() {
+  length: function length() {
     var del = this.delegate ;
     if (del && SC.none(this._length) && del.sparseArrayDidRequestLength) {
       this._requestingLength++ ;
@@ -72,7 +72,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Number} length the length or null
     @returns {SC.SparseArray} receiver
   */
-  provideLength: function(length) {
+  provideLength: function provideLength(length) {
     var oldLength;
     if (SC.none(length)) this._sa_content = null ;
     if (length !== this._length) {
@@ -107,7 +107,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     Make sure to create the index array during init so that it is not shared
     between all instances.
   */
-  init: function() {
+  init: function init() {
     sc_super();
     this.requestedRangeIndex = [];
 
@@ -131,7 +131,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Boolean} omitMaterializing
     @return {Object} the object
   */
-  objectAt: function(idx, omitMaterializing) {
+  objectAt: function objectAt(idx, omitMaterializing) {
     var content = this._sa_content, ret ;
     if (!content) content = this._sa_content = [] ;
     if ((ret = content[idx]) === undefined) {
@@ -151,7 +151,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {SC.IndexSet} indexes optional from indexes
     @returns {SC.IndexSet} defined indexes
   */
-  definedIndexes: function(indexes) {
+  definedIndexes: function definedIndexes(indexes) {
     var ret = SC.IndexSet.create(),
         content = this._sa_content,
         idx, len;
@@ -184,7 +184,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Number} idx the index to retrieve
     @returns {SC.SparseArray} receiver
   */
-  requestIndex: function(idx) {
+  requestIndex: function requestIndex(idx) {
     var del = this.delegate;
     if (!del) return this; // nothing to do
 
@@ -218,7 +218,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
      @param {Number} startIndex
      @return {Number} index in requestRangeIndex
   */
-  wasRangeRequested: function(rangeStart) {
+  wasRangeRequested: function wasRangeRequested(rangeStart) {
     var i, ilen;
     for(i=0, ilen=this.requestedRangeIndex.length; i<ilen; i++){
       if(this.requestedRangeIndex[i]===rangeStart) return i;
@@ -234,7 +234,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
      @param {Number} startIndex
      @return {Number} index in requestRangeIndex
   */
-  rangeRequestCompleted: function(start) {
+  rangeRequestCompleted: function rangeRequestCompleted(start) {
     var i = this.wasRangeRequested(start);
     if(i>=0) {
       this.requestedRangeIndex.removeAt(i,1);
@@ -253,7 +253,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Array} array the array of objects to insert
     @returns {SC.SparseArray} receiver
   */
-  provideObjectsInRange: function(range, array) {
+  provideObjectsInRange: function provideObjectsInRange(range, array) {
     var content = this._sa_content ;
     if (!content) content = this._sa_content = [] ;
     var start = range.start, len = range.length;
@@ -271,7 +271,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Object} the object to insert
     @return {SC.SparseArray} receiver
   */
-  provideObjectAtIndex: function(index, object) {
+  provideObjectAtIndex: function provideObjectAtIndex(index, object) {
     var array = this._TMP_PROVIDE_ARRAY, range = this._TMP_PROVIDE_RANGE;
     array[0] = object;
     range.start = index;
@@ -286,7 +286,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Range} the range
     @returns {SC.SparseArray} receiver
   */
-  objectsDidChangeInRange: function(range) {
+  objectsDidChangeInRange: function objectsDidChangeInRange(range) {
 
     // delete cached content
     var content = this._sa_content ;
@@ -313,7 +313,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Object} obj the object to search for
     @returns {Number} the discovered index or -1 if not found
   */
-  indexOf: function(obj) {
+  indexOf: function indexOf(obj) {
     var c, ret, del = this.delegate ;
     if (del && del.sparseArrayDidRequestIndexOf) {
       ret = del.sparseArrayDidRequestIndexOf(this, obj);
@@ -340,7 +340,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
     @param {Array} objects the new objects to set instead
     @returns {SC.SparseArray} receiver
   */
-  replace: function(idx, amt, objects) {
+  replace: function replace(idx, amt, objects) {
     objects = objects || [] ;
 
     // if we have a delegate, get permission to make the replacement.
@@ -380,7 +380,7 @@ SC.SparseArray = SC.Object.extend(SC.Observable, SC.Enumerable, SC.Array,
 
     @returns {SC.SparseArray} receiver
   */
-  reset: function() {
+  reset: function reset() {
     var oldLength;
     this._sa_content = null ;
     oldLength = this._length;

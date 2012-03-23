@@ -10,7 +10,7 @@
 var pane, view , view2;
 var appleURL='http://photos4.meetupstatic.com/photos/event/4/6/9/9/600_4518073.jpeg';
 module("SC.ScrollView",{
-	setup: function() {
+	setup: function setup() {
 	  SC.RunLoop.begin();
 	    pane = SC.MainPane.create({
 		  childViews: [
@@ -23,25 +23,25 @@ module("SC.ScrollView",{
 		   
 		   ],
 		   
-		  expectedVertLine: function(line) {
+		  expectedVertLine: function expectedVertLine(line) {
 			var ret = view.get('verticalLineScroll')*line;
 			var alt = view.get('maximumVerticalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedHorzLine: function(line) {
+		  expectedHorzLine: function expectedHorzLine(line) {
 			var ret = view.get('horizontalLineScroll')*line;
 			var alt = view.get('maximumHorizontalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedVertPage: function(page) {
+		  expectedVertPage: function expectedVertPage(page) {
 			var ret = view.get('verticalPageScroll')*page;
 			var alt = view.get('maximumVerticalScrollOffset');
 			ret = (ret > alt)? alt : ret;
 		    return ret;
 		  },
-		  expectedHorzPage: function(page) {
+		  expectedHorzPage: function expectedHorzPage(page) {
 			var ret = view.get('horizontalPageScroll')*page;
 			var alt = view.get('maximumHorizontalScrollOffset');
 			ret = (ret > alt)? alt : ret;
@@ -62,7 +62,7 @@ module("SC.ScrollView",{
 	  
 	},
 	
-	teardown: function() {
+	teardown: function teardown() {
     	pane.remove();
     	pane = view = null ;
   	}

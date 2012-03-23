@@ -6,7 +6,7 @@
 var b, counter;
 
 module("SC.ButtonView#actions", {
-	setup: function() {
+	setup: function setup() {
 	  b = SC.ButtonView.create();
 	}
 });
@@ -50,7 +50,7 @@ test("Actions should be sent up the responder chain", function() {
   var pane = SC.Pane.create({
     childViews: "v".w(),
     v: SC.View.extend({
-      methodOnParent: function() {
+      methodOnParent: function methodOnParent() {
         // schedule cleanup
         setTimeout(function() {
           clearTimeout(timeout);
@@ -86,10 +86,10 @@ test("Actions should be sent up the responder chain", function() {
 });
 
 module("SC.ButtonView#actions - SC.HOLD_BEHAVIOR", {
-  setup: function() {
+  setup: function setup() {
     counter = SC.Object.create({
       value: 0,
-      increment: function(){
+      increment: function increment(){
         this.set('value', this.get('value') + 1);
       }
     });
@@ -101,7 +101,7 @@ module("SC.ButtonView#actions - SC.HOLD_BEHAVIOR", {
       action: 'increment',
 
       // Is it a bad idea to stub like this? If we don't do it this way, we need to set up a Pane
-      _runAction: function(evt) {
+      _runAction: function _runAction(evt) {
         var action = this.get('action'),
             target = this.get('target') || null;
 

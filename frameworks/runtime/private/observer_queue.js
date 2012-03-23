@@ -37,7 +37,7 @@ SC.Observers = {
    Attempt to add the named observer.  If the observer cannot be found, put
    it into a queue for later.
   */
-  addObserver: function(propertyPath, target, method, pathRoot) {
+  addObserver: function addObserver(propertyPath, target, method, pathRoot) {
     var tuple ;
 
     // try to get the tuple for this.
@@ -63,7 +63,7 @@ SC.Observers = {
     Remove the observer.  If it is already in the queue, remove it.  Also
     if already found on the object, remove that.
   */
-  removeObserver: function(propertyPath, target, method, pathRoot) {
+  removeObserver: function removeObserver(propertyPath, target, method, pathRoot) {
     var idx, queue, tuple, item;
 
     tuple = SC.tupleForPropertyPath(propertyPath, pathRoot) ;
@@ -95,7 +95,7 @@ SC.Observers = {
     Range Observers register here to indicate that they may potentially
     need to start observing.
   */
-  addPendingRangeObserver: function(observer) {
+  addPendingRangeObserver: function addPendingRangeObserver(observer) {
     var ro = this.rangeObservers;
     if (!ro) ro = this.rangeObservers = SC.CoreSet.create();
     ro.add(observer);
@@ -107,7 +107,7 @@ SC.Observers = {
   /**
     Flush the queue.  Attempt to add any saved observers.
   */
-  flush: function(object) {
+  flush: function flush(object) {
 
     // flush any observers that we tried to setup but didn't have a path yet
     var oldQueue = this.queue, i,
@@ -159,20 +159,20 @@ SC.Observers = {
   _pending: SC.CoreSet.create(),
 
   /** @private */
-  objectHasPendingChanges: function(obj) {
+  objectHasPendingChanges: function objectHasPendingChanges(obj) {
     this._pending.add(obj) ; // save for later
   },
 
   /** @private */
   // temporarily suspends all property change notifications.
-  suspendPropertyObserving: function() {
+  suspendPropertyObserving: function suspendPropertyObserving() {
     this.isObservingSuspended++ ;
   },
 
   // resume change notifications.  This will call notifications to be
   // delivered for all pending objects.
   /** @private */
-  resumePropertyObserving: function() {
+  resumePropertyObserving: function resumePropertyObserving() {
     var pending ;
     if(--this.isObservingSuspended <= 0) {
       pending = this._pending ;

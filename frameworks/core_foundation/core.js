@@ -141,7 +141,7 @@ SC.mixin(/** @lends SC */ {
     @param {Hash} strings hash of strings
     @returns {SC} The receiver, useful for chaining calls to the same object.
   */
-  stringsFor: function(lang, strings) {
+  stringsFor: function stringsFor(lang, strings) {
     SC.mixin(SC.STRINGS, strings);
     return this ;
   }

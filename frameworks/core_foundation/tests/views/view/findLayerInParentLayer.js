@@ -11,7 +11,7 @@
 // 
 var view, parentDom, childDom, layerId ;
 module("SC.View#findLayerInParentLayer", {
-  setup: function() {
+  setup: function setup() {
     
     layerId = 'foo-123';
     
@@ -31,7 +31,7 @@ module("SC.View#findLayerInParentLayer", {
     view = SC.View.create({ layerId: layerId });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     view = parentDom = childDom = layerId = null;
   }
 });

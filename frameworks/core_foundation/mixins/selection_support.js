@@ -69,7 +69,7 @@ SC.SelectionSupport = {
 
     @returns {Object} first selectable object
   */
-  firstSelectableObject: function() {
+  firstSelectableObject: function firstSelectableObject() {
     return this.get('firstObject');
   }.property(),
 
@@ -80,7 +80,7 @@ SC.SelectionSupport = {
 
     @property {SC.SelectionSet}
   */
-  selection: function(key, value) {
+  selection: function selection(key, value) {
     var old = this._scsel_selection,
     oldlen = old ? old.get('length') : 0,
     empty,
@@ -140,7 +140,7 @@ SC.SelectionSupport = {
 
     @property {Boolean}
   */
-  hasSelection: function() {
+  hasSelection: function hasSelection() {
     var sel = this.get('selection');
     return !! sel && (sel.get('length') > 0);
   }.property('selection').cacheable(),
@@ -156,7 +156,7 @@ SC.SelectionSupport = {
     @param {Boolean} extend optionally set to YES to extend selection
     @returns {Object} receiver
   */
-  selectObjects: function(objects, extend) {
+  selectObjects: function selectObjects(objects, extend) {
 
     // handle passing an empty array
     if (!objects || objects.get('length') === 0) {
@@ -181,7 +181,7 @@ SC.SelectionSupport = {
     @param {Boolean} extend optionally set to YES to extend selection
     @returns {Object} receiver
   */
-  selectObject: function(object, extend) {
+  selectObject: function selectObject(object, extend) {
     if (object === null) {
       if (!extend) { this.set('selection', null); }
       return this;
@@ -195,7 +195,7 @@ SC.SelectionSupport = {
     @param {SC.Enumerable} objects objects to select
     @returns {Object} receiver
   */
-  deselectObjects: function(objects) {
+  deselectObjects: function deselectObjects(objects) {
 
     if (!objects || objects.get('length') === 0) { return this; } // nothing to do
     var sel = this.get('selection');
@@ -212,7 +212,7 @@ SC.SelectionSupport = {
     @param {SC.Object} object single object to select
     @returns {Object} receiver
   */
-  deselectObject: function(object) {
+  deselectObject: function deselectObject(object) {
     if (!object) { return this; } // nothing to do
     else { return this.deselectObjects([object]); }
   },
@@ -223,7 +223,7 @@ SC.SelectionSupport = {
 
     @returns {Object}
   */
-  updateSelectionAfterContentChange: function() {
+  updateSelectionAfterContentChange: function updateSelectionAfterContentChange() {
     var arrangedObjects = this.get('arrangedObjects');
     var selectionSet = this.get('selection');
     var allowsEmptySelection = this.get('allowsEmptySelection');

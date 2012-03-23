@@ -43,7 +43,7 @@ SC.mixin(SC.String, {
 
     @return {String} capitalized string
   */
-  capitalize: function(str) {
+  capitalize: function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   },
 
@@ -60,7 +60,7 @@ SC.mixin(SC.String, {
 
     @returns {String} camelized string
   */
-  camelize: function(str) {
+  camelize: function camelize(str) {
     var ret = str.replace(SC.STRING_TITLEIZE_REGEXP, function(str, separater, character) {
       return character ? character.toUpperCase() : '';
     });
@@ -83,7 +83,7 @@ SC.mixin(SC.String, {
 
     @returns {String} the decamelized string.
   */
-  decamelize: function(str) {
+  decamelize: function decamelize(str) {
     return str.replace(SC.STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
   },
 
@@ -101,7 +101,7 @@ SC.mixin(SC.String, {
 
     @returns {String} the dasherized string.
   */
-  dasherize: function(str) {
+  dasherize: function dasherize(str) {
     var cache = SC.STRING_DASHERIZE_CACHE,
         ret   = cache[str];
 
@@ -125,7 +125,7 @@ SC.mixin(SC.String, {
     @param args {Object...} optional arguments to interpolate also
     @returns {String} the localized and formatted string.
   */
-  loc: function(str) {
+  loc: function loc(str) {
     // NB: This could be implemented as a wrapper to locWithDefault() but
     // it would add some overhead to deal with the arguments and adds stack
     // frames, so we are keeping the implementation separate.
@@ -167,7 +167,7 @@ SC.mixin(SC.String, {
     @param str {String} key
     @returns {Number} the localized metric
   */
-  locMetric: function(key) {
+  locMetric: function locMetric(key) {
     var K             = SC.Locale,
         currentLocale = K.currentLocale;
 
@@ -237,7 +237,7 @@ SC.mixin(SC.String, {
     @param {String} (optional) additionalHash
     @returns {Number} the localized metric
   */
-  locLayout: function(key, additionalHash) {
+  locLayout: function locLayout(key, additionalHash) {
     var K             = SC.Locale,
         currentLocale = K.currentLocale;
 
@@ -257,7 +257,7 @@ SC.mixin(SC.String, {
     @param {Object...} args optional formatting arguments
     @returns {String} localized and formatted string
   */
-  locWithDefault: function(str, def) {
+  locWithDefault: function locWithDefault(str, def) {
     if (!SC.Locale.currentLocale) { SC.Locale.createCurrentLocale(); }
 
     var localized = SC.Locale.currentLocale.locWithDefault(str, def);
@@ -304,7 +304,7 @@ SC.mixin(SC.String, {
     @param {Number} value the number of times to multiply the string
     @returns {String} the mulitiplied string
   */
-  mult: function(str, value) {
+  mult: function mult(str, value) {
     if (SC.typeOf(value) !== SC.T_NUMBER || value < 1) return null;
     
     var ret = "";
@@ -323,15 +323,15 @@ if(String.prototype.trim) {
   SC.supplement(String.prototype,
   /** @scope String.prototype */ {
 
-    trim: function() {
+    trim: function trim() {
       return SC.String.trim(this, arguments);
     },
 
-    trimLeft: function() {
+    trimLeft: function trimLeft() {
       return SC.String.trimLeft(this, arguments);
     },
 
-    trimRight: function() {
+    trimRight: function trimRight() {
       return SC.String.trimRight(this, arguments);
     }
   });
@@ -341,15 +341,15 @@ if(String.prototype.trim) {
 SC.mixin(String.prototype,
 /** @scope String.prototype */ {
 
-  loc: function() {
+  loc: function loc() {
     return SC.String.loc(this.toString(), SC.$A(arguments));
   },
 
-  locMetric: function() {
+  locMetric: function locMetric() {
     return SC.String.locMetric(this.toString());
   },
 
-  locLayout: function(additionalHash) {
+  locLayout: function locLayout(additionalHash) {
     return SC.String.locLayout(this.toString(), additionalHash);
   }
 

@@ -46,7 +46,7 @@ SC.BaseTheme.buttonRenderDelegate = SC.RenderDelegate.create({
     @param {SC.Object} dataSource the object containing the information on how to render the button
     @param {SC.RenderContext} context the render context instance
   */
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
     
     var labelContent,
@@ -101,7 +101,7 @@ SC.BaseTheme.buttonRenderDelegate = SC.RenderDelegate.create({
     @param {SC.Object} dataSource the object containing the information on how to render the button
     @param {SC.RenderContext} jquery the jQuery object representing the HTML representation of the button
   */
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     var isToggle = (dataSource.get('buttonBehavior')===SC.TOGGLE_BEHAVIOR);
     
     this.updateSizeClassName(dataSource, jquery);
@@ -130,7 +130,7 @@ SC.BaseTheme.buttonRenderDelegate = SC.RenderDelegate.create({
   /**
     Returns the layer to be used for auto resizing.
   */
-  getRenderedAutoResizeLayer: function(dataSource, jq) {
+  getRenderedAutoResizeLayer: function getRenderedAutoResizeLayer(dataSource, jq) {
     return jq.find('.sc-button-label')[0];
   }
 });

@@ -5,7 +5,7 @@
 var View, pane, obj;
 
 module("SelectView - Selected Item", {
-  setup: function() {
+  setup: function setup() {
     pane = SC.Pane.create();
 
     obj = SC.Object.create({title: 'Lost', value: 'Found'});
@@ -23,7 +23,7 @@ module("SelectView - Selected Item", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     
   }
 });

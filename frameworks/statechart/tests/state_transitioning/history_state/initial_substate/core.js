@@ -6,14 +6,14 @@
 var statechart, stateA, stateB, stateC;
 
 module("SC.HistoryState Tests", {
-  setup: function() {
+  setup: function setup() {
     statechart = SC.Statechart.create({initialState: 'a', a: SC.State.design()});
     stateA = SC.State.create({ name: 'stateA' });
     stateB = SC.State.create({ name: 'stateB' });
     stateC = SC.State.create({ name: 'stateC' });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart = stateA = stateB = stateC = null;
   }
 });

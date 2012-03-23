@@ -199,7 +199,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
             SC.T_HASH: A JavaScript object not inheriting from SC.Object, <br>
             SC.T_ERROR: A SproutCore SC.Error object <br>
   */
-  typeOf: function(item) {
+  typeOf: function typeOf(item) {
     if (item === undefined) return SC.T_UNDEFINED ;
     if (item === null) return SC.T_NULL ;
 
@@ -233,7 +233,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj value to test
     @returns {Boolean}
   */
-  none: function(obj) {
+  none: function none(obj) {
     return obj == null;
   },
 
@@ -244,7 +244,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj value to test
     @returns {Boolean}
   */
-  empty: function(obj) {
+  empty: function empty(obj) {
     return obj === null || obj === undefined || obj === '';
   },
 
@@ -263,7 +263,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj the object to test
     @returns {Boolean}
   */
-  isArray: function(obj) {
+  isArray: function isArray(obj) {
     if (!obj || obj.setInterval) { return false; }
     if (Array.isArray && Array.isArray(obj)) { return true; }
     if (obj.objectAt) { return true; }
@@ -280,7 +280,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj object to convert
     @returns {Array} Actual array
   */
-  makeArray: function(obj) {
+  makeArray: function makeArray(obj) {
     return SC.isArray(obj) ? obj : SC.A(obj);
   },
 
@@ -292,7 +292,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} object any enumerable or array-like object.
     @returns {Array} Array of items
   */
-  A: function(obj) {
+  A: function A(obj) {
     // null or undefined -- fast path
     if ( obj === null || obj === undefined ) return [] ;
 
@@ -337,7 +337,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj any object, string, number, Element, or primitive
     @returns {String} the unique guid for this instance.
   */
-  guidFor: function(obj) {
+  guidFor: function guidFor(obj) {
     var cache, ret,
         type = typeof obj;
 
@@ -378,7 +378,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {String} key The key
     @returns {String} result
   */
-  keyFor: function(prefix, key) {
+  keyFor: function keyFor(prefix, key) {
     var ret, pcache = this._keyCache[prefix];
     if (!pcache) pcache = this._keyCache[prefix] = {}; // get cache for prefix
     ret = pcache[key];
@@ -395,7 +395,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {String} prefix prefixes the generated guid
     @returns {String} the guid
   */
-  generateGuid: function(obj, prefix) {
+  generateGuid: function generateGuid(obj, prefix) {
     var ret = (prefix + (jQuery.uuid++));
     if (obj) obj[this.guidKey] = ret ;
     return ret ;
@@ -420,7 +420,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object...} objects the object(s)
     @returns {String} the hash code for this instance.
   */
-  hashFor: function() {
+  hashFor: function hashFor() {
     var l = arguments.length,
         h = '',
         obj, f, i;
@@ -441,7 +441,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @returns {Boolean} YES if the two have equal hash code values.
 
   */
-  isEqual: function(a,b) {
+  isEqual: function isEqual(a,b) {
     // QUESTION: is there a compelling performance reason to special-case
     // undefined here?
     return this.hashFor(a) === this.hashFor(b) ;
@@ -543,7 +543,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
 
     @returns {Object}
   */
-  K: function() { return this; },
+  K: function K() { return this; },
 
   /**
     Empty array.  Useful for some optimizations.
@@ -587,7 +587,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj the object to beget
     @returns {Object} the new object.
   */
-  beget: function(obj) {
+  beget: function beget(obj) {
     if (obj === null || obj === undefined) return null ;
     var K = SC.K; K.prototype = obj ;
     var ret = new K();
@@ -608,7 +608,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Boolean} deep if true, a deep copy of the object is made
     @returns {Object} the cloned object
   */
-  copy: function(object, deep) {
+  copy: function copy(object, deep) {
     var ret = object, idx ;
 
     // fast paths
@@ -641,7 +641,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object...} object one or more objects
     @returns {Object} new Object
   */
-  merge: function() {
+  merge: function merge() {
     var ret = {}, len = arguments.length, idx;
     for(idx=0; idx<len; idx++) SC.mixin(ret, arguments[idx]);
     return ret ;
@@ -654,7 +654,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} obj The Object
     @returns {Array} array of keys
   */
-  keys: function(obj) {
+  keys: function keys(obj) {
     var ret = [];
     for(var key in obj) ret.push(key);
     return ret;
@@ -668,7 +668,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
 
     @returns {String} A description of the object
   */
-  inspect: function(obj) {
+  inspect: function inspect(obj) {
     var v, ret = [] ;
     for(var key in obj) {
       v = obj[key] ;
@@ -691,7 +691,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Object} root optional parameter specifying the place to start
     @returns {Array} array with [object, property] if found or null
   */
-  tupleForPropertyPath: function(path, root) {
+  tupleForPropertyPath: function tupleForPropertyPath(path, root) {
 
     // if the passed path is itself a tuple, return it
     if (typeof path === "object" && (path instanceof Array)) return path ;
@@ -716,7 +716,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Integer} stopAt optional point to stop searching the path.
     @returns {Object} the found object or undefined.
   */
-  objectForPropertyPath: function(path, root, stopAt) {
+  objectForPropertyPath: function objectForPropertyPath(path, root, stopAt) {
 
     var loc, nextDotAt, key, max ;
 
@@ -758,7 +758,7 @@ SC.mixin(/** @scope window.SC.prototype */ {
     @param {Integer} stopAt optional point to stop searching the path.
     @returns {Object} the found object or throws an error.
   */
-  requiredObjectForPropertyPath: function(path, root, stopAt) {
+  requiredObjectForPropertyPath: function requiredObjectForPropertyPath(path, root, stopAt) {
     var o = SC.objectForPropertyPath(path, root, stopAt);
     if(!o) {
       throw path + " could not be found";

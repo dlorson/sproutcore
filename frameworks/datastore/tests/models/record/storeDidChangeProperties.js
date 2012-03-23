@@ -7,7 +7,7 @@
 
 var store, child, Foo, json, foo ;
 module("SC.Record#storeDidChangeProperties", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
     
     store = SC.Store.create();
@@ -15,12 +15,12 @@ module("SC.Record#storeDidChangeProperties", {
       
       // record diagnostic change
       statusCnt: 0,
-      statusDidChange: function() {
+      statusDidChange: function statusDidChange() {
         this.statusCnt++;
       }.observes('status'),
       
       fooCnt: 0,
-      fooDidChange: function() {
+      fooDidChange: function fooDidChange() {
         this.fooCnt++;
       }.observes('foo')
       

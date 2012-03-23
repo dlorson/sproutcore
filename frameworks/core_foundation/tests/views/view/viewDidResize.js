@@ -14,7 +14,7 @@ module("SC.View#viewDidResize");
 test("invokes parentViewDidResize on all child views", function() {
   var callCount = 0 ;
   var ChildView = SC.View.extend({ 
-    parentViewDidResize: function() { callCount++; } 
+    parentViewDidResize: function parentViewDidResize() { callCount++; } 
   });
   
   var view = SC.View.create({
@@ -31,7 +31,7 @@ test("triggers whenever layout property is changed", function() {
   var view = SC.View.create({
     // use the callback below to detect when viewDidResize is icalled.
     childViews: [SC.View.extend({
-      parentViewDidResize: function() { callCount++; }
+      parentViewDidResize: function parentViewDidResize() { callCount++; }
     })]
   });
   
@@ -50,7 +50,7 @@ test("making sure that the frame value is correct inside viewDidResize()", funct
     
     layout: { left:0, top:0, width:400, height:400 },
     
-    viewDidResize: function() {
+    viewDidResize: function viewDidResize() {
         sc_super();
         
         // Set a global reference to my frame at this point so that we can
@@ -131,7 +131,7 @@ test("notifies 'frame' property change unless layout is fixed", function() {
   var view = SC.View.create({
     // instrument...
     callCount: 0 ,
-    frameDidChange: function() { 
+    frameDidChange: function frameDidChange() { 
       this.callCount++; 
     }.observes('frame')
   });
@@ -142,7 +142,7 @@ test("calls viewDidResize on self unless layout is fixed", function() {
   var view = SC.View.create({
     // instrument...
     callCount: 0 ,
-    viewDidResize: function() { this.callCount++; }
+    viewDidResize: function viewDidResize() { this.callCount++; }
   });
   testParentViewDidResizeWithAlignments(view);
 });
@@ -155,7 +155,7 @@ module("SC.View#beginLiveResize");
 test("invokes willBeginLiveResize on receiver and any child views that implement it", function() {
   var callCount = 0;  
   var ChildView = SC.View.extend({
-    willBeginLiveResize: function() { callCount++ ;}
+    willBeginLiveResize: function willBeginLiveResize() { callCount++ ;}
   });
   
   var view = ChildView.create({ // <-- has callback
@@ -182,7 +182,7 @@ module("SC.View#endLiveResize");
 test("invokes didEndLiveResize on receiver and any child views that implement it", function() {
   var callCount = 0;  
   var ChildView = SC.View.extend({
-    didEndLiveResize: function() { callCount++; }
+    didEndLiveResize: function didEndLiveResize() { callCount++; }
   });
   
   var view = ChildView.create({ // <-- has callback

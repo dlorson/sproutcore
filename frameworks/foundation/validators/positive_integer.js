@@ -28,7 +28,7 @@ SC.Validator.PositiveInteger = SC.Validator.extend(
   */
   defaultValue: null,
 
-  fieldValueForObject: function(object, form, field) {
+  fieldValueForObject: function fieldValueForObject(object, form, field) {
     switch(SC.typeOf(object)) {
       case SC.T_NUMBER:
         object = object.toFixed(0) ;
@@ -41,7 +41,7 @@ SC.Validator.PositiveInteger = SC.Validator.extend(
     return object ;
   },
 
-  objectForFieldValue: function(value, form, field) {
+  objectForFieldValue: function objectForFieldValue(value, form, field) {
     // strip out commas
     value = value.replace(/,/g,'');
     switch(SC.typeOf(value)) {
@@ -61,12 +61,12 @@ SC.Validator.PositiveInteger = SC.Validator.extend(
     return value ;
   },
 
-  validate: function(form, field) {
+  validate: function validate(form, field) {
     var value = field.get('fieldValue') ;
     return (value === '') || !isNaN(value) ;
   },
   
-  validateError: function(form, field) {
+  validateError: function validateError(form, field) {
     var label = field.get('errorLabel') || 'Field' ;
     return SC.$error(SC.String.loc("Invalid.Number(%@)", label), label) ;
   },
@@ -74,7 +74,7 @@ SC.Validator.PositiveInteger = SC.Validator.extend(
   /** 
     Allow only numbers
   */
-  validateKeyDown: function(form, field, charStr) {
+  validateKeyDown: function validateKeyDown(form, field, charStr) {
     var text = field.$input().val();
     if (!text) text='';
     text+=charStr;

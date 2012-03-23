@@ -33,7 +33,7 @@ SC.ObservableProtocol = {
     @param revision {Number} a revision you can use to quickly detect changes.
     @returns {void}
   */
-  propertyObserver: function(observer,target,key,value, revision) {
+  propertyObserver: function propertyObserver(observer,target,key,value, revision) {
 
   }
 

@@ -16,7 +16,7 @@ var ContentArray = SC.Object.extend(SC.Array, {
   
   length: 0,
   
-  objectAt: function(idx) {
+  objectAt: function objectAt(idx) {
     if (idx >= this.get('length')) return undefined;
     
     var content = this._content, ret ;
@@ -47,7 +47,7 @@ var pane = SC.ControlTestPane.design()
       adjustableRows: SC.IndexSet.create(0,5),
       altRowHeight: 10,
       
-      contentIndexRowHeight: function(view, content, index) {
+      contentIndexRowHeight: function contentIndexRowHeight(view, content, index) {
         var ret =this.get('rowHeight');
         if (!this.customRowHeightIndexes.contains(index)) return ret;
         return this.adjustableRows.contains(index) ? this.get('altRowHeight') : ret*2;
@@ -69,7 +69,7 @@ var pane2 = SC.ControlTestPane.design()
       content: ContentArray.create({ length: 100 }),
       customRowHeightIndexes: SC.IndexSet.create(0,1000),
       
-      contentIndexRowHeight: function(view, content, index) {
+      contentIndexRowHeight: function contentIndexRowHeight(view, content, index) {
         if (index % 2 === 0) {
           return 17;
         }

@@ -75,10 +75,10 @@ pane.show(); // add a test to show the test pane
 
 
 module('SC.LabelView ui', {
-  setup: function() {
+  setup: function setup() {
     htmlbody('<style> .sc-static-layout { border: 1px red dotted; } </style>');
   },
-  teardown: function(){
+  teardown: function teardown(){
     clearHtmlbody();
   }
 });

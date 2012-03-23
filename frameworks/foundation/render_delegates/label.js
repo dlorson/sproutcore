@@ -37,7 +37,7 @@ sc_require('render_delegates/render_delegate');
 SC.BaseTheme.labelRenderDelegate = SC.RenderDelegate.create({
   className: 'label',
   
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     this.addSizeClassName(dataSource, context);
     
     var toolTip = dataSource.get('toolTip');
@@ -66,7 +66,7 @@ SC.BaseTheme.labelRenderDelegate = SC.RenderDelegate.create({
     dataSource.get('renderState')._lastHTMLForTitleAndIcon = html;
   },
   
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     this.updateSizeClassName(dataSource, jquery);
 
     /*
@@ -103,7 +103,7 @@ SC.BaseTheme.labelRenderDelegate = SC.RenderDelegate.create({
     @param dataSource The data source that provides the title and icon properties.
     @return the html to use
   */
-  htmlForTitleAndIcon: function(dataSource) {
+  htmlForTitleAndIcon: function htmlForTitleAndIcon(dataSource) {
     var title = dataSource.get('title'),
         hint = dataSource.get('hint'),
         hintEnabled = dataSource.get('hintEnabled'),

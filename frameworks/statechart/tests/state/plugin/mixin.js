@@ -7,7 +7,7 @@ TestState = null;
 var obj, MixinA, MixinB, stateA, stateB, stateC;
 
 module("SC.State.plugin: Mixin Tests", {
-  setup: function() {
+  setup: function setup() {
     
     MixinA = {
       isMixinA: YES
@@ -39,7 +39,7 @@ module("SC.State.plugin: Mixin Tests", {
 
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     obj = TestState = MixinA = MixinB = null;
     stateA = stateB = stateC = null;
   }

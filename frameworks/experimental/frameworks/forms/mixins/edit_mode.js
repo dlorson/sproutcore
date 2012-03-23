@@ -21,21 +21,21 @@ SC.FormsEditMode = {
   /**
     Handles changes to edit state. Alerts children.
   */
-  editModeDidChange: function(){
+  editModeDidChange: function editModeDidChange(){
     this._propagateEditMode();    
   }.observes("isEditing"),
   
   /**
     Ensures that edit mode is passed to all children.
   */
-  _scfem_childViewsDidChange: function() {
+  _scfem_childViewsDidChange: function _scfem_childViewsDidChange() {
     this._propagateEditMode();
   }.observes("childViews"),
   
   /**
     Propagates edit mode.
   */
-  _propagateEditMode: function() {
+  _propagateEditMode: function _propagateEditMode() {
     var isEditing = this.get("isEditing");
     var cv = this.get("childViews");
     if (!cv) { return; }

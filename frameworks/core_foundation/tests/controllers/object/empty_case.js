@@ -12,12 +12,12 @@ var content, controller;
 // 
 
 module("SC.ObjectController - empty_case - NULL", {
-  setup: function() {
+  setup: function setup() {
     content = null;
     controller = SC.ObjectController.create({ content: content });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -44,12 +44,12 @@ test("hasContent", function() {
 // 
 
 module("SC.ObjectController - empty_case - EMPTY ARRAY", {
-  setup: function() {
+  setup: function setup() {
     content = null;
     controller = SC.ObjectController.create({ content: content });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

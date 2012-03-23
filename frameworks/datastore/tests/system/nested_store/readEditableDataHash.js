@@ -10,7 +10,7 @@
 
 var parent, store, storeKey, json;
 module("SC.NestedStore#readEditableDataHash", {
-  setup: function() {
+  setup: function setup() {
     parent = SC.Store.create();
     
     json = {

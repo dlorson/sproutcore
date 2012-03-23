@@ -10,7 +10,7 @@
 
 var store, child, storeKey, json;
 module("SC.Store#removeDataHash", {
-  setup: function() {
+  setup: function setup() {
     store = SC.Store.create();
     
     json = {

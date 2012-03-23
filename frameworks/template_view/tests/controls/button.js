@@ -1,14 +1,14 @@
 var button, rootResponder, pane, expectedAction, targetObject, sendActionSpy;
 
 module("SC.Button", {
-  setup: function() {
+  setup: function setup() {
     expectedAction = 'myAction';
     targetObject = SC.Object.create({
-      myAction: function() {
+      myAction: function myAction() {
       }
     });
 
-    var rootResponder = {sendAction: function(){} };
+    var rootResponder = {sendAction: function sendAction(){} };
     sendActionSpy = CoreTest.spyOn(rootResponder, 'sendAction');
 
     pane = SC.Object.create({

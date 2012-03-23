@@ -30,21 +30,21 @@ SC.TemplatePane.mixin( /** @scope SC.TemplatePane */ {
     @param {Object} attrs describes the pane to create
     @returns {SC.MainPane} the created pane
   */
-  append: function(attrs) {
+  append: function append(attrs) {
     var pane = SC.MainPane.extend({
       childViews: ['contentView'],
 
       contentView: SC.TemplateView.design(attrs),
 
-      touchStart: function(touch) {
+      touchStart: function touchStart(touch) {
         touch.allowDefault();
       },
 
-      touchesDragged: function(evt, touches) {
+      touchesDragged: function touchesDragged(evt, touches) {
         evt.allowDefault();
       },
 
-      touchEnd: function(touch) {
+      touchEnd: function touchEnd(touch) {
         touch.allowDefault();
       }
     });

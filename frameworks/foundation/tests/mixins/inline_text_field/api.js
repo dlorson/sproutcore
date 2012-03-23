@@ -18,11 +18,11 @@ var field;
   be individually tested elsewhere.
 */
 module("Test the public functions and properties of SC.InlineTextFieldView", {
-  setup: function() {
+  setup: function setup() {
     field = SC.InlineTextFieldView.create({});
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     field = null;
   }
 });

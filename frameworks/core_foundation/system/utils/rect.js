@@ -9,7 +9,7 @@ SC.mixin( /** @scope SC */ {
   ZERO_POINT: { x: 0, y: 0 },
 
   /** Check if the given point is inside the rect. */
-  pointInRect: function(point, f) {
+  pointInRect: function pointInRect(point, f) {
     return  (point.x >= SC.minX(f)) &&
             (point.y >= SC.minY(f)) &&
             (point.x <= SC.maxX(f)) &&
@@ -23,7 +23,7 @@ SC.mixin( /** @scope SC */ {
     @param delta {Float} an optional delta that allows for rects that do not match exactly. Defaults to 0.1
     @returns {Boolean} true if rects match
    */
-  rectsEqual: function(r1, r2, delta) {
+  rectsEqual: function rectsEqual(r1, r2, delta) {
     if (!r1 || !r2) return (r1 == r2) ;
     if (!delta && delta !== 0) delta = 0.1;
     if ((r1.y != r2.y) && (Math.abs(r1.y - r2.y) > delta)) return NO ;
@@ -39,7 +39,7 @@ SC.mixin( /** @scope SC */ {
     @param r2 {Rect} the second rect
     @returns {Rect} the intersection rect.  width || height will be 0 if they do not interset.
   */
-  intersectRects: function(r1, r2) {
+  intersectRects: function intersectRects(r1, r2) {
     // find all four edges
     var ret = {
       x: Math.max(SC.minX(r1), SC.minX(r2)),
@@ -60,7 +60,7 @@ SC.mixin( /** @scope SC */ {
     @param r2 {Rect} The second rect
     @returns {Rect} The union rect.
   */
-  unionRects: function(r1, r2) {
+  unionRects: function unionRects(r1, r2) {
     // find all four edges
     var ret = {
       x: Math.min(SC.minX(r1), SC.minX(r2)),
@@ -82,7 +82,7 @@ SC.mixin( /** @scope SC */ {
     @param r {Rect} The rect to clone.
     @returns {Rect} The cloned rect
   */
-  cloneRect: function(r) {
+  cloneRect: function cloneRect(r) {
     return { x: r.x, y: r.y, width: r.width, height: r.height } ;
   },
 
@@ -91,7 +91,7 @@ SC.mixin( /** @scope SC */ {
     @param r {Rect} The rect to stringify.
     @returns {String} A string representation of the rect.
   */
-  stringFromRect: function(r) {
+  stringFromRect: function stringFromRect(r) {
     if (!r) {
       return "(null)";
     }

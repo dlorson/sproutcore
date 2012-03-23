@@ -16,7 +16,7 @@ SC.View.reopen(
 
     @property {SC.Cursor String}
   */
-  cursor: function(key, value) {
+  cursor: function cursor(key, value) {
     var parent;
 
     if (value) { this._setCursor = value; }
@@ -30,7 +30,7 @@ SC.View.reopen(
     return null;
   }.property('parentView', 'shouldInheritCursor').cacheable(),
 
-  applyAttributesToContext: function(original, context) {
+  applyAttributesToContext: function applyAttributesToContext(original, context) {
     var cursor = this.get('cursor');
     if (cursor) { context.addClass(cursor.get('className')); }
 

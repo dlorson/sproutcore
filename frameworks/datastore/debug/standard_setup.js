@@ -9,7 +9,7 @@ var MyApp;
 
 /* Define a standard test setup for use in most integration and unit tests. */
 var StandardTestSetup = {
-  setup: function() {
+  setup: function setup() {
 
     // define namespace
     MyApp = SC.Object.create({
@@ -18,7 +18,7 @@ var StandardTestSetup = {
 
     // define basic record
     MyApp.Author = SC.Record.extend({
-      isCylon: function() {
+      isCylon: function isCylon() {
         switch(this.get('fullName')) {
           case "Saul Tigh":
           case "Galen Tyrol":
@@ -31,7 +31,7 @@ var StandardTestSetup = {
 
     // define fixture server.
     // MyApp.fixtureServer = SC.FixtureServer.create({
-    //   simulateResponseFromServer: function(guid, storeKey) {
+    //   simulateResponseFromServer: function simulateResponseFromServer(guid, storeKey) {
     //     var json = [];
     //     if(guid === '123') {
     //       json = [ {"type": "Author", "guid": "123","fullName": "Galen Tyrol", "bookTitle": "The Fear of the Spiders", "address":" London University, 142 Castro St, London, UK"}];
@@ -70,7 +70,7 @@ var StandardTestSetup = {
     return this ;
   },
   
-  loadRecords: function() {
+  loadRecords: function loadRecords() {
     
     // load in some records -- dup json first so that edits to the data will
     // not impact other tests

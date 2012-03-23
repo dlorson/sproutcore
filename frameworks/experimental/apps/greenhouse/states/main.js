@@ -30,12 +30,12 @@ Greenhouse.mixin( /** @scope Greenhouse */{
     
     loading: SC.State.design({
 
-      enterState: function(){
+      enterState: function enterState(){
         console.log('greenhouse is loading');
         var c = Greenhouse.getPath('mainPage.mainPane.container');
         c.set('nowShowing', Greenhouse.getPath('mainPage.loading'));
       },
-      exitState: function(){
+      exitState: function exitState(){
 
       },
 
@@ -45,7 +45,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       /*
         called when the file list call completes
       */
-      fileListCallDidComplete: function(){
+      fileListCallDidComplete: function fileListCallDidComplete(){
         //eval all the appropriate files
         this.gotoState('iframeLoading');
       },
@@ -53,7 +53,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
       /*
         called when the file choose call completes
       */
-      fetchTargetsDidComplete: function(){
+      fetchTargetsDidComplete: function fetchTargetsDidComplete(){
         //eval all the appropriate files
         this.gotoState('chooseApp');
       }
@@ -62,18 +62,18 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
     chooseApp: SC.State.design({
 
-      enterState: function(){
+      enterState: function enterState(){
         var c = Greenhouse.getPath('mainPage.mainPane.container');
         c.set('nowShowing', Greenhouse.getPath('mainPage.appPicker'));
       },
-      exitState: function(){
+      exitState: function exitState(){
 
       },
 
       // ..........................................................
       // Events
       //
-      loadApplication: function(){
+      loadApplication: function loadApplication(){
         Greenhouse.filesController.reload();
         Greenhouse.viewConfigsController.reload();
         this.gotoState('loading');
@@ -88,26 +88,26 @@ Greenhouse.mixin( /** @scope Greenhouse */{
 
     iframeLoading: SC.State.design({
 
-      enterState: function(){
+      enterState: function enterState(){
         var c = Greenhouse.getPath('mainPage.mainPane.container');
         c.set('nowShowing', Greenhouse.getPath('appPage.mainView'));
         //TODO disable views and display a loading spinner
       },
-      exitState: function(){
+      exitState: function exitState(){
 
       },
 
       // ..........................................................
       // Events
       //
-      iframeLoaded: function(){
+      iframeLoaded: function iframeLoaded(){
         this.gotoState('syncRunLoops');
       }
     }),
 
     syncRunLoops: SC.State.design({
 
-      enterState: function(){
+      enterState: function enterState(){
         this._setupRunLoops();
         this._grabDropTargets();
         this._setupGreenhouse();
@@ -115,14 +115,14 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         this.gotoState('readyWaiting');
         //this.invokeLater(function(){this.gotoState('readyWaiting');}); //totally cheating!!
       },
-      exitState: function(){
+      exitState: function exitState(){
 
       },
 
       // ..........................................................
       // Monkey-Patch Run Loop
       // 
-      _setupRunLoops: function(){
+      _setupRunLoops: function _setupRunLoops(){
         var iframe = Greenhouse.get('iframe'), innerBegin, outerBegin, innerEnd, outerEnd, outerSC = SC;
 
         // ..........................................................
@@ -190,7 +190,7 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         };
        },
 
-      _grabDropTargets: function(){
+      _grabDropTargets: function _grabDropTargets(){
         var iframe = Greenhouse.get('iframe'), 
             innerTargets,
             webViewFrame,
@@ -269,12 +269,12 @@ Greenhouse.mixin( /** @scope Greenhouse */{
         iframe.SC.Drag.start = SC.Drag.start;
       },
 
-      _setupGreenhouse: function(){
+      _setupGreenhouse: function _setupGreenhouse(){
         var iframe = Greenhouse.get('iframe');
         iframe.SC._Greenhouse = Greenhouse;
       },
 
-      _setupEventBlocker: function(){
+      _setupEventBlocker: function _setupEventBlocker(){
         var eventBlocker = Greenhouse.appPage.get('eventBlocker');
         Greenhouse.set('eventBlocker', eventBlocker);
       }

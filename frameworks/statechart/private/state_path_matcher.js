@@ -85,7 +85,7 @@ SC.StatePathMatcher = SC.Object.extend(
   */
   tokens: null,
   
-  init: function() {
+  init: function init() {
     sc_super();
     this._parseExpression();
   },
@@ -102,7 +102,7 @@ SC.StatePathMatcher = SC.Object.extend(
     
     @see #expression
   */
-  _parseExpression: function() {
+  _parseExpression: function _parseExpression() {
     var parts = this.expression ? this.expression.split('.') : [],
         len = parts.length, i = 0, part,
         chain = null, token, tokens = [];
@@ -153,7 +153,7 @@ SC.StatePathMatcher = SC.Object.extend(
     in both cases. If the expression is 'this' then 'this is
     returned. 
   */
-  lastPart: function() {
+  lastPart: function lastPart() {
     var tokens = this.get('tokens'),
         len = tokens ? tokens.length : 0,
         token = len > 0 ? tokens[len -1] : null;
@@ -169,14 +169,14 @@ SC.StatePathMatcher = SC.Object.extend(
     @param path {String} a dot-notation path
     @return {Boolean} true if there is a match, otherwise false
   */
-  match: function(path) {
+  match: function match(path) {
     this._stack = path.split('.');
     if (SC.empty(path) || SC.typeOf(path) !== SC.T_STRING) return NO;
     return this._chain.match();
   },
   
   /** @private */
-  _pop: function() {
+  _pop: function _pop() {
     this._lastPopped = this._stack.pop();
     return this._lastPopped;
   }
@@ -208,7 +208,7 @@ SC.StatePathMatcher._Token = SC.Object.extend({
     Used to match against what is currently on the owner's
     current path stack
   */
-  match: function() { return NO; }
+  match: function match() { return NO; }
   
 });
 
@@ -225,11 +225,11 @@ SC.StatePathMatcher._BasicToken = SC.StatePathMatcher._Token.extend({
     
   value: null,
    
-  lastPart: function() {
+  lastPart: function lastPart() {
     return this.value; 
   }.property('value').cacheable(),
     
-  match: function() {
+  match: function match() {
     var part = this.owner._pop(),
         token = this.nextToken;
     if (this.value !== part) return NO;
@@ -255,11 +255,11 @@ SC.StatePathMatcher._ExpandToken = SC.StatePathMatcher._Token.extend({
     
   end: null,
   
-  lastPart: function() {
+  lastPart: function lastPart() {
     return this.end; 
   }.property('end').cacheable(),
 
-  match: function() {
+  match: function match() {
     var start = this.start,
         end = this.end, part,
         token = this.nextToken;
@@ -293,7 +293,7 @@ SC.StatePathMatcher._ThisToken = SC.StatePathMatcher._Token.extend({
   
   lastPart: 'this',
   
-  match: function() {
+  match: function match() {
     var state = this.owner.state,
         substates = state.get('substates'),
         len = substates.length, i = 0, part;

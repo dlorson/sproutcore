@@ -7,7 +7,7 @@ var state, params, context;
 
 module("SC.StateRouteHandlerContext: retry Method Tests", {
   
-  setup: function() { 
+  setup: function setup() { 
   
     params = { };
     
@@ -15,7 +15,7 @@ module("SC.StateRouteHandlerContext: retry Method Tests", {
 
       info: {},
 
-      handler: function(params) {
+      handler: function handler(params) {
         this.info.handler = {
           params: params
         };
@@ -33,7 +33,7 @@ module("SC.StateRouteHandlerContext: retry Method Tests", {
     
   },
   
-  teardown: function() { 
+  teardown: function teardown() { 
     params = state = context = null;
   }
 

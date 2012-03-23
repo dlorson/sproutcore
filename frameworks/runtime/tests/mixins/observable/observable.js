@@ -17,20 +17,20 @@ var object, ObjectC, ObjectD, objectA, objectB ;
 
 module("object.get()", {
 
-  setup: function() {
+  setup: function setup() {
     object = SC.Object.create({
 
       normal: 'value',
       numberVal: 24,
       toggleVal: true,
 
-      computed: function() { return 'value'; }.property(),
+      computed: function computed() { return 'value'; }.property(),
 
-      method: function() { return "value"; },
+      method: function method() { return "value"; },
 
       nullProperty: null,
 
-      unknownProperty: function(key, value) {
+      unknownProperty: function unknownProperty(key, value) {
         this.lastUnknownProperty = key ;
         return "unknown" ;
       }
@@ -66,20 +66,20 @@ test("should call unknownProperty when value is undefined", function() {
 // SC.GET()
 //
 module("SC.get()", {
-  setup: function() {
+  setup: function setup() {
     objectA = SC.Object.create({
 
       normal: 'value',
       numberVal: 24,
       toggleVal: true,
 
-      computed: function() { return 'value'; }.property(),
+      computed: function computed() { return 'value'; }.property(),
 
-      method: function() { return "value"; },
+      method: function method() { return "value"; },
 
       nullProperty: null,
 
-      unknownProperty: function(key, value) {
+      unknownProperty: function unknownProperty(key, value) {
         this.lastUnknownProperty = key ;
         return "unknown" ;
       }
@@ -143,7 +143,7 @@ module("SC.getPath()");
 test("should return a property at a given path relative to the window", function() {
   window.Foo = SC.Object.create({
     Bar: SC.Object.create({
-      Baz: function() { return "blargh"; }.property()
+      Baz: function Baz() { return "blargh"; }.property()
     })
   });
 
@@ -157,7 +157,7 @@ test("should return a property at a given path relative to the window", function
 test("should return a property at a given path relative to the passed object", function() {
   var foo = SC.Object.create({
     bar: SC.Object.create({
-      baz: function() { return "blargh"; }.property()
+      baz: function baz() { return "blargh"; }.property()
     })
   });
 
@@ -194,7 +194,7 @@ test("should return a property at a given path relative to the passed object - J
 
 module("object.set()", {
 
-  setup: function() {
+  setup: function setup() {
     object = SC.Object.create({
 
       // normal property
@@ -202,7 +202,7 @@ module("object.set()", {
 
       // computed property
       _computed: "computed",
-      computed: function(key, value) {
+      computed: function computed(key, value) {
         if (value !== undefined) {
           this._computed = value ;
         }
@@ -211,7 +211,7 @@ module("object.set()", {
 
       // method, but not a property
       _method: "method",
-      method: function(key, value) {
+      method: function method(key, value) {
         if (value !== undefined) {
           this._method = value ;
         }
@@ -223,7 +223,7 @@ module("object.set()", {
 
       // unknown property
       _unknown: 'unknown',
-      unknownProperty: function(key, value) {
+      unknownProperty: function unknownProperty(key, value) {
         if (value !== undefined) {
           this._unknown = value ;
         }
@@ -273,19 +273,19 @@ test("should call unknownProperty with value when property is undefined", functi
 //
 
 module("Computed properties", {
-  setup: function() {
+  setup: function setup() {
     object = SC.Object.create({
 
       // REGULAR
 
       computedCalls: [],
-      computed: function(key, value) {
+      computed: function computed(key, value) {
         this.computedCalls.push(value);
         return 'computed';
       }.property(),
 
       computedCachedCalls: [],
-      computedCached: function(key, value) {
+      computedCached: function computedCached(key, value) {
         this.computedCachedCalls.push(value);
         return 'computedCached';
       }.property().cacheable(),
@@ -296,37 +296,37 @@ module("Computed properties", {
       changer: 'foo',
 
       dependentCalls: [],
-      dependent: function(key, value) {
+      dependent: function dependent(key, value) {
         this.dependentCalls.push(value);
         return 'dependent';
       }.property('changer'),
 
       dependentCachedCalls: [],
-      dependentCached: function(key, value) {
+      dependentCached: function dependentCached(key, value) {
         this.dependentCachedCalls.push(value);
         return 'dependentCached';
       }.property('changer').cacheable(),
 
       // every time it is recomputed, increments call
       incCallCount: 0,
-      inc: function() {
+      inc: function inc() {
         return this.incCallCount++;
       }.property('changer').cacheable(),
 
       // depends on cached property which depends on another property...
       nestedIncCallCount: 0,
-      nestedInc: function(key, value) {
+      nestedInc: function nestedInc(key, value) {
         return this.nestedIncCallCount++;
       }.property('inc').cacheable(),
 
       // two computed properties that depend on a third property
       state: 'on',
-      isOn: function(key, value) {
+      isOn: function isOn(key, value) {
         if (value !== undefined) this.set('state', 'on');
         return this.get('state') === 'on';
       }.property('state'),
 
-      isOff: function(key, value) {
+      isOff: function isOff(key, value) {
         if (value !== undefined) this.set('state', 'off');
         return this.get('state') === 'off';
       }.property('state')
@@ -489,7 +489,7 @@ test("dependent keys should be able to be specified as property paths", function
       price: 5
     }),
 
-    menuPrice: function() {
+    menuPrice: function menuPrice() {
       return this.getPath('menu.price');
     }.property('menu.price').cacheable()
   });
@@ -509,7 +509,7 @@ test("nested dependent keys should propagate after they update", function() {
       })
     }),
 
-    price: function() {
+    price: function price() {
       return this.getPath('restaurant.menu.price');
     }.property('restaurant.menu.price')
   });
@@ -545,7 +545,7 @@ test("cacheable nested dependent keys should clear after their dependencies upda
       })
     }),
 
-    price: function() {
+    price: function price() {
       return this.getPath('restaurant.menu.price');
     }.property('restaurant.menu.price').cacheable()
   });
@@ -586,7 +586,7 @@ test("cacheable nested dependent keys should clear after their dependencies upda
 
 module("Observable objects & object properties ", {
 
-  setup: function() {
+  setup: function setup() {
     window.NormalArray = [1,2,3,4,5];
     
     object = SC.Object.create({
@@ -601,11 +601,11 @@ module("Observable objects & object properties ", {
       testRemove: 'observerToBeRemoved',
       normalArray: [1,2,3,4,5],
 
-      automaticallyNotifiesObserversFor : function(key) {
+      automaticallyNotifiesObserversFor : function (key) {
         return NO;
       },
 
-      getEach: function() {
+      getEach: function getEach() {
         var keys = ['normal','abnormal'];
         var ret = [];
         for(var idx=0; idx<keys.length;idx++) {
@@ -637,7 +637,7 @@ module("Observable objects & object properties ", {
     });
   },
 
-  teardown: function() {
+  teardown: function teardown() {
     window.NormalArray = null;
   }
 
@@ -684,7 +684,7 @@ test('should notify array observer when NormalArray array changes',function(){
 
 
 module("object.addObserver()", {
-  setup: function() {
+  setup: function setup() {
 
     ObjectC = SC.Object.create({
 
@@ -697,11 +697,11 @@ module("object.addObserver()", {
       normal2: 'dependentValue',
       incrementor: 10,
 
-      action: function() {
+      action: function action() {
         this.normal1= 'newZeroValue';
       },
 
-      observeOnceAction: function() {
+      observeOnceAction: function observeOnceAction() {
         this.incrementor= this.incrementor+1;
       },
 
@@ -730,7 +730,7 @@ test("should register an observer for a property - Special case of chained prope
 
 test("passing a context", function() {
   var target = {
-    callback: function(target, key, nullVariable, context, revision) {
+    callback: function callback(target, key, nullVariable, context, revision) {
       target.context = context;
     }
   };
@@ -743,7 +743,7 @@ test("passing a context", function() {
 });
 
 module("object.removeObserver()", {
-  setup: function() {
+  setup: function setup() {
     ObjectD = SC.Object.create({
 
       ObjectF:SC.Object.create({
@@ -755,10 +755,10 @@ module("object.removeObserver()", {
       normal2: 'dependentValue',
       ArrayKeys: ['normal','normal1'],
 
-      addAction: function() {
+      addAction: function addAction() {
         this.normal1 = 'newZeroValue';
       },
-      removeAction: function() {
+      removeAction: function removeAction() {
         this.normal2 = 'newDependentValue';
       },
       removeChainedObserver:function(){
@@ -767,18 +767,18 @@ module("object.removeObserver()", {
 
       observableValue: "hello world",
 
-      observer1: function() {
+      observer1: function observer1() {
         // Just an observer
         console.log("observer!");
       },
-      observer2: function() {
+      observer2: function observer2() {
         console.log("observer2!");
         this.removeObserver('observableValue', null, 'observer1');
         this.removeObserver('observableValue', null, 'observer2');
         this.hasObserverFor('observableValue');   // Tickle 'getMembers()'
         this.removeObserver('observableValue', null, 'observer3');
       },
-      observer3: function() {
+      observer3: function observer3() {
         // Just an observer
         console.log("observer3!");
       }
@@ -832,7 +832,7 @@ test("removing an observer inside of an observer shouldn’t cause any problems"
 
 module("Bind function ", {
 
-  setup: function() {
+  setup: function setup() {
     objectA = SC.Object.create({
       name: "Sproutcore",
       location: "Timbaktu"
@@ -894,7 +894,7 @@ test("changing chained observer object to null should not raise exception", func
 
 module("addObservesHandler and removeObservesHandler functions", {
 
-  setup: function() {
+  setup: function setup() {
     window.TestNS = SC.Object.create({
       value: 0
     });
@@ -908,22 +908,22 @@ module("addObservesHandler and removeObservesHandler functions", {
       handler2NotifiedCount: 0,
       arrayHandlerNotifiedCount: 0,
       
-      handler1: function() {
+      handler1: function handler1() {
         this.handler1NotifiedCount++;
       },
       
-      handler2: function() {
+      handler2: function handler2() {
         this.handler2NotifiedCount++;
       },
       
-      arrayHandler: function() {
+      arrayHandler: function arrayHandler() {
         this.arrayHandlerNotifiedCount++;
       }
       
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     objectA = null;
     window.TestNS = null;
   }

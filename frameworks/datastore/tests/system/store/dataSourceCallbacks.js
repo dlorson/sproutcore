@@ -7,7 +7,7 @@
 
 var store, storeKey, json;
 module("SC.Store#dataSourceCallbacks", {
-  setup: function() {
+  setup: function setup() {
     
     store = SC.Store.create();
     
@@ -148,7 +148,7 @@ module("SC.Store#dataSourceCallbacks", {
   
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     SC.RunLoop.end();
   }
 });

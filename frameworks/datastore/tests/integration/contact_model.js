@@ -8,7 +8,7 @@
 
 var AB;
 module("Sample Model from an address book app", { 
-  setup: function() {
+  setup: function setup() {
 
     // define the application space
     AB = SC.Application.create({
@@ -99,7 +99,7 @@ module("Sample Model from an address book app", {
       // a contact belongs to one or more groups stored as an array on 
       // the contact.  You can change the groups array by replacing the 
       // array.
-      groups: function(key, groups) {
+      groups: function groups(key, groups) {
 
         // if groups is replaced, write back guids
         // also, each group record should have it's contacts invalidated.
@@ -122,7 +122,7 @@ module("Sample Model from an address book app", {
       country: String,   
       
       // the contact the address belongs to.
-      contact: function() {
+      contact: function contact() {
         this.get('store').record(this.readAttribute('contact'));
       }
     });

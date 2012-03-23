@@ -15,7 +15,7 @@
 SC.Validatable = {
 
   /** @private */
-  initMixin: function() {
+  initMixin: function initMixin() {
     this._validatable_validatorDidChange() ;
   },
 
@@ -55,7 +55,7 @@ SC.Validatable = {
     @type Boolean
     @default YES
   */
-  isValid: function() {
+  isValid: function isValid() {
     return SC.typeOf(this.get('value')) !== SC.T_ERROR;
   }.property('value'),
 
@@ -79,7 +79,7 @@ SC.Validatable = {
     @param {Boolean} partialChange YES if this is a partial edit.
     @returns {String} SC.VALIDATE_OK, error, or SC.VALIDATE_NO_CHANGE
   */
-  performValidate: function(partialChange) {
+  performValidate: function performValidate(partialChange) {
     var ret = SC.VALIDATE_OK ;
 
     if (this._validator) {
@@ -106,7 +106,7 @@ SC.Validatable = {
 
     @returns {String}
   */
-  performValidateSubmit: function() {
+  performValidateSubmit: function performValidateSubmit() {
     return this._validator ? this._validator.validateSubmit(this.get('ownerForm'), this) : SC.VALIDATE_OK;
   },
 
@@ -117,7 +117,7 @@ SC.Validatable = {
     @param {String} charStr the key string
     @returns {Boolean}
   */
-  performValidateKeyDown: function(evt) {
+  performValidateKeyDown: function performValidateKeyDown(evt) {
     // ignore anything with ctrl or meta key press
     var charStr = evt.getCharString();
     if (!charStr) return YES ;
@@ -130,7 +130,7 @@ SC.Validatable = {
     @field
     @type SC.Validator
   */
-  validatorObject: function() {
+  validatorObject: function validatorObject() {
     return this._validator;
   }.property(),
 
@@ -143,7 +143,7 @@ SC.Validatable = {
 
     @type Boolean
   */
-  validateSubmit: function() { return this.performValidateSubmit(); },
+  validateSubmit: function validateSubmit() { return this.performValidateSubmit(); },
 
   /**
     Convert the field value string into an object.
@@ -154,7 +154,7 @@ SC.Validatable = {
     @param {Boolean} partialChange
     @returns {Object}
   */
-  objectForFieldValue: function(fieldValue, partialChange) {
+  objectForFieldValue: function objectForFieldValue(fieldValue, partialChange) {
     return this._validator ? this._validator.objectForFieldValue(fieldValue, this.get('ownerForm'), this) : fieldValue ;
   },
 
@@ -166,24 +166,24 @@ SC.Validatable = {
     @param object {Object} the objec to convert
     @returns {Object}
   */
-  fieldValueForObject: function(object) {
+  fieldValueForObject: function fieldValueForObject(object) {
     return this._validator ? this._validator.fieldValueForObject(object, this.get('ownerForm'), this) : object ;
   },
 
   /** @private */
-  _validatable_displayObserver: function() {
+  _validatable_displayObserver: function _validatable_displayObserver() {
     this.displayDidChange();
   }.observes('isValid'),
 
   /** @private */
-  renderMixin: function(context) {
+  renderMixin: function renderMixin(context) {
     context.setClass('invalid', !this.get('isValid'));
   },
 
   /** @private
     Invoked whenever the attached validator changes.
   */
-  _validatable_validatorDidChange: function() {
+  _validatable_validatorDidChange: function _validatable_validatorDidChange() {
     var form = this.get('ownerForm') ;
     var val = SC.Validator.findFor(form, this, this.get('validator')) ;
     if (val != this._validator) {

@@ -9,7 +9,7 @@
 SC.BaseTheme.imageButtonRenderDelegate = SC.RenderDelegate.create({
   className: 'image-button',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     var image = dataSource.get('image'),
         toolTip = dataSource.get('toolTip');
 
@@ -30,7 +30,7 @@ SC.BaseTheme.imageButtonRenderDelegate = SC.RenderDelegate.create({
     }
   },
 
-  update: function(dataSource, $) {
+  update: function update(dataSource, $) {
     var image, toolTip;
 
     this.updateSizeClassName(dataSource, $);

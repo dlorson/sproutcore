@@ -8,11 +8,11 @@
 SC.BaseTheme.toolbarRenderDelegate = SC.RenderDelegate.create({
   className: 'toolbar',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     // toolbar has nothing in it
   },
   
-  update: function() {
+  update: function update() {
     // toolbar has nothing to update
   }
 });

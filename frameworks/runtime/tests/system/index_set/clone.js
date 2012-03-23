@@ -7,7 +7,7 @@
 /*global module test equals context ok same notest */
 var set ;
 module("SC.IndexSet#clone", {
-  setup: function() {
+  setup: function setup() {
     set = SC.IndexSet.create();
   }
 });

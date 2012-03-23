@@ -6,7 +6,7 @@
 var statechart1, statechart2, statechart3, statechart4;
 
 module("SC.Statechart: getState method Tests", {
-  setup: function() {
+  setup: function setup() {
     
     statechart1 = SC.Statechart.create({
       
@@ -86,7 +86,7 @@ module("SC.Statechart: getState method Tests", {
     statechart4.initStatechart();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     statechart1.destroy();
     statechart2.destroy();
     statechart3.destroy();

@@ -31,7 +31,7 @@
   
       // generates the SC.ArrayTestSuite tests for a built-in array.
       SC.ArrayTests.generate('Array', {
-        newObject: function() { return []; }
+        newObject: function newObject() { return []; }
       });
   
   ## Defining a Suite
@@ -48,7 +48,7 @@
       SC.ArrayTests = CoreTest.Suite.create("Verify SC.Array compliance", {
       
         // override to generate a new object that implements SC.Array
-        newObject: function() { return null; }
+        newObject: function newObject() { return null; }
       });
     
       SC.ArrayTests.define(function(T) {
@@ -72,7 +72,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     @param {Hash} attrs one or more attribute hashes
     @returns {CoreTest.Suite} subclass of suite.
   */
-  create: function(desc, attrs) {
+  create: function create(desc, attrs) {
     var len = arguments.length,
         ret = CoreTest.beget(this),
         idx;
@@ -100,7 +100,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     @param {Hash} attrs one or more attribute hashes
     @returns {CoreTest.Suite} suite instance
   */
-  generate: function(desc, attrs) {
+  generate: function generate(desc, attrs) {
     var len = arguments.length,
         ret = CoreTest.beget(this),
         idx, defs;
@@ -128,7 +128,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     @param {Function} func definition function
     @returns {CoreTest.Suite} receiver
   */
-  define: function(func) {
+  define: function define(func) {
     this.definitions.push(func);
     return this ;
   },
@@ -147,7 +147,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     @param {String} str detailed description for this module
     @returns {String} generated description
   */
-  desc: function(str) {
+  desc: function desc(str) {
     return this.basedesc.fmt(this.subdesc, str);
   },
   
@@ -163,7 +163,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     newObject() method and set its return value on the object property of 
     the receiver.
   */
-  setup: function() {
+  setup: function setup() {
     this.object = this.newObject();
   },
   
@@ -172,7 +172,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     destroyObject() method, passing the current object property on the 
     receiver.  It will also clear the object property.
   */
-  teardown: function() {
+  teardown: function teardown() {
     if (this.object) this.destroyObject(this.object);
     this.object = null;
   },
@@ -184,7 +184,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     
     @returns {Object} generated object
   */
-  newObject: function() { return null; },
+  newObject: function newObject() { return null; },
   
   /**
     Default method to destroy a generated object instance after a test has 
@@ -193,7 +193,7 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     
     Default method does nothing.
   */
-  destroyObject: function(obj) { 
+  destroyObject: function destroyObject(obj) { 
     // do nothing.
   },
   
@@ -204,18 +204,18 @@ CoreTest.Suite = /** @scope CoreTest.Suite.prototype */ {
     
         var T = this ;
         module(T.desc(description), {
-          setup: function() { T.setup(); },
-          teardown: function() { T.teardown(); }
+          setup: function setup() { T.setup(); },
+          teardown: function teardown() { T.teardown(); }
         }
     
     @param {String} desc detailed description
     @returns {CoreTest.Suite} receiver
   */
-  module: function(desc) {
+  module: function module(desc) {
     var T = this ;
     module(T.desc(desc), {
-      setup: function() { T.setup(); },
-      teardown: function() { T.teardown(); }
+      setup: function setup() { T.setup(); },
+      teardown: function teardown() { T.teardown(); }
     });
   }
   

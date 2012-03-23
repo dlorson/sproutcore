@@ -11,7 +11,7 @@ module("SC.View#destroyLayer");
 test("it if has no layer, does nothing", function() {
   var callCount = 0;
   var view = SC.View.create({ 
-    willDestroyLayer: function() { callCount++; }
+    willDestroyLayer: function willDestroyLayer() { callCount++; }
   });
   ok(!view.get('layer'), 'precond - does NOT have layer');
   
@@ -23,11 +23,11 @@ test("if it has a layer, calls willDestroyLayer on receiver and child views then
   var callCount = 0;
   
   var view = SC.View.create({
-    willDestroyLayer: function() { callCount++; },
+    willDestroyLayer: function willDestroyLayer() { callCount++; },
     childViews: [SC.View.extend({
       // no willDestroyLayer here... make sure no errors are thrown
       childViews: [SC.View.extend({
-        willDestroyLayer: function() { callCount++; }
+        willDestroyLayer: function willDestroyLayer() { callCount++; }
       })]
     })]
   });
@@ -44,11 +44,11 @@ test("if it has a layer, calls willDestroyLayerMixin on receiver and child views
 
   // make sure this will call both mixins...
   var mixinA = {
-    willDestroyLayerMixin: function() { callCount++; }
+    willDestroyLayerMixin: function willDestroyLayerMixin() { callCount++; }
   };
   
   var mixinB = {
-    willDestroyLayerMixin: function() { callCount++; }
+    willDestroyLayerMixin: function willDestroyLayerMixin() { callCount++; }
   };
   
   var view = SC.View.create(mixinA, mixinB, {

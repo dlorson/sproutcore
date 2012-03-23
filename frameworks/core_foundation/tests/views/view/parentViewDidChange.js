@@ -8,7 +8,7 @@
 
 var view ;
 module("SC.View#parentViewDidChange", {
-	setup: function() {
+	setup: function setup() {
 		view = SC.View.create();		
 	}
 });

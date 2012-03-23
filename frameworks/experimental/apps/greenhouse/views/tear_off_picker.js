@@ -12,7 +12,7 @@ Greenhouse.TearOffPicker = SC.PickerPane.extend(
     
   dragAction: '',
   
-  mouseDragged: function(evt){
+  mouseDragged: function mouseDragged(evt){
     
     Greenhouse.sendAction(this.get('dragAction'));
     this._blockedIframe = YES;
@@ -21,7 +21,7 @@ Greenhouse.TearOffPicker = SC.PickerPane.extend(
     return sc_super();
   },
   
-  mouseUp: function(evt){
+  mouseUp: function mouseUp(evt){
     if(this._blockedIframe){
       Greenhouse.eventBlocker.set('isVisible', NO);
       this._blockedIframe = NO;
@@ -29,14 +29,14 @@ Greenhouse.TearOffPicker = SC.PickerPane.extend(
     return YES;
   },
   
-  mouseDown: function(evt) {
+  mouseDown: function mouseDown(evt) {
     var f=this.get('frame');
     this._mouseOffsetX = f ? (f.x - evt.pageX) : 0;
     this._mouseOffsetY = f ? (f.y - evt.pageY) : 0;
     return this.modalPaneDidClick(evt);
   },
   
-  modalPaneDidClick: function(evt) {
+  modalPaneDidClick: function modalPaneDidClick(evt) {
     var f = this.get("frame");
     if(!this.clickInside(f, evt)){ 
       Greenhouse.sendAction('cancel');
@@ -44,7 +44,7 @@ Greenhouse.TearOffPicker = SC.PickerPane.extend(
     return YES ; 
   },
   
-  computeAnchorRect: function(anchor) {
+  computeAnchorRect: function computeAnchorRect(anchor) {
     var ret = SC.viewportOffset(anchor); // get x & y
     var cq = SC.$(anchor);
     var wsize = SC.RootResponder.responder.computeWindowSize() ;

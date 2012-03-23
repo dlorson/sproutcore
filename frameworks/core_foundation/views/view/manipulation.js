@@ -11,7 +11,7 @@ SC.View.reopen(
   /**
     Handles changes in the layer id.
   */
-  layerIdDidChange: function() {
+  layerIdDidChange: function layerIdDidChange() {
     var layer  = this.get('layer'),
         lid    = this.get('layerId'),
         lastId = this._lastLayerId;
@@ -44,7 +44,7 @@ SC.View.reopen(
 
     @returns {SC.View} receiver
   */
-  parentViewDidChange: function() {
+  parentViewDidChange: function parentViewDidChange() {
     this.recomputeIsVisibleInWindow() ;
 
     this.resetBuildState();
@@ -104,7 +104,7 @@ SC.View.reopen(
     @param {SC.View} beforeView
     @returns {SC.View} the receiver
   */
-  insertBefore: function(view, beforeView) {
+  insertBefore: function insertBefore(view, beforeView) {
     view.beginPropertyChanges(); // limit notifications
 
     // remove view from old parent if needed.  Also notify views.
@@ -147,7 +147,7 @@ SC.View.reopen(
     return this ;
   },
 
-  removeChild: function(original, view) {
+  removeChild: function removeChild(original, view) {
     if (!view) { return this; } // nothing to do
     if (view.parentView !== this) {
       throw "%@.removeChild(%@) must belong to parent".fmt(this,view);
@@ -180,7 +180,7 @@ SC.View.reopen(
     @param view {SC.View} the view to remove from the DOM.
     @returns {SC.View} the receiver
   */
-  replaceChild: function(view, oldView) {
+  replaceChild: function replaceChild(view, oldView) {
     // suspend notifications
     view.beginPropertyChanges();
     oldView.beginPropertyChanges();
@@ -203,7 +203,7 @@ SC.View.reopen(
     @param {Array} views views you want to add
     @returns {SC.View} receiver
   */
-  replaceAllChildren: function(views) {
+  replaceAllChildren: function replaceAllChildren(views) {
     var len = views.get('length'), idx;
 
     this.beginPropertyChanges();
@@ -222,7 +222,7 @@ SC.View.reopen(
     @param view {SC.View} the view to insert
     @returns {SC.View} the receiver
   */
-  appendChild: function(view) {
+  appendChild: function appendChild(view) {
     return this.insertBefore(view, null);
   },
 
@@ -234,7 +234,7 @@ SC.View.reopen(
     Call this to append a child while building it in. If the child is not
     buildable, this is the same as calling appendChild.
   */
-  buildInChild: function(view) {
+  buildInChild: function buildInChild(view) {
     view.willBuildInToView(this);
     this.appendChild(view);
     view.buildInToView(this);
@@ -244,7 +244,7 @@ SC.View.reopen(
     Call to remove a child after building it out. If the child is not buildable,
     this will simply call removeChild.
   */
-  buildOutChild: function(view) {
+  buildOutChild: function buildOutChild(view) {
     view.buildOutFromView(this);
   },
 
@@ -252,14 +252,14 @@ SC.View.reopen(
     Called by child view when build in finishes. By default, does nothing.
 
   */
-  buildInDidFinishFor: function(child) {
+  buildInDidFinishFor: function buildInDidFinishFor(child) {
   },
 
   /**
     @private
     Called by child view when build out finishes. By default removes the child view.
   */
-  buildOutDidFinishFor: function(child) {
+  buildOutDidFinishFor: function buildOutDidFinishFor(child) {
     this.removeChild(child);
   },
 
@@ -276,14 +276,14 @@ SC.View.reopen(
   /**
     Implement this, and call didFinishBuildIn when you are done.
   */
-  buildIn: function() {
+  buildIn: function buildIn() {
     this.buildInDidFinish();
   },
 
   /**
     Implement this, and call didFinishBuildOut when you are done.
   */
-  buildOut: function() {
+  buildOut: function buildOut() {
     this.buildOutDidFinish();
   },
 
@@ -292,7 +292,7 @@ SC.View.reopen(
 
     It is usually called before a build in, by the parent view.
   */
-  resetBuild: function() {
+  resetBuild: function resetBuild() {
 
   },
 
@@ -303,7 +303,7 @@ SC.View.reopen(
 
     This is basically called whenever build in happens.
   */
-  buildOutDidCancel: function() {
+  buildOutDidCancel: function buildOutDidCancel() {
 
   },
 
@@ -315,14 +315,14 @@ SC.View.reopen(
     So, any timers or anything you had going, you can cancel.
     Then buildOut will happen.
   */
-  buildInDidCancel: function() {
+  buildInDidCancel: function buildInDidCancel() {
 
   },
 
   /**
     Call this when you have built in.
   */
-  buildInDidFinish: function() {
+  buildInDidFinish: function buildInDidFinish() {
     this.isBuildingIn = NO;
     this._buildingInTo.buildInDidFinishFor(this);
     this._buildingInTo = null;
@@ -331,7 +331,7 @@ SC.View.reopen(
   /**
     Call this when you have finished building out.
   */
-  buildOutDidFinish: function() {
+  buildOutDidFinish: function buildOutDidFinish() {
     this.isBuildingOut = NO;
     this._buildingOutFrom.buildOutDidFinishFor(this);
     this._buildingOutFrom = null;
@@ -340,7 +340,7 @@ SC.View.reopen(
   /**
     Usually called by parentViewDidChange, this resets the build state (calling resetBuild in the process).
   */
-  resetBuildState: function() {
+  resetBuildState: function resetBuildState() {
     if (this.isBuildingIn) {
       this.buildInDidCancel();
       this.isBuildingIn = NO;
@@ -365,7 +365,7 @@ SC.View.reopen(
 
     Mostly, this cancels any build out _before_ the view is removed through parent change.
   */
-  willBuildInToView: function(view) {
+  willBuildInToView: function willBuildInToView(view) {
     // stop any current build outs (and if we need to, we also need to build in again)
     if (this.isBuildingOut) {
       this.buildOutDidCancel();
@@ -376,7 +376,7 @@ SC.View.reopen(
     @private (semi)
     Called by building parent view's buildInChild method.
   */
-  buildInToView: function(view) {
+  buildInToView: function buildInToView(view) {
     // if we are already building in, do nothing.
     if (this.isBuildingIn) { return; }
 
@@ -392,7 +392,7 @@ SC.View.reopen(
 
     The supplied view should always be the parent view.
   */
-  buildOutFromView: function(view) {
+  buildOutFromView: function buildOutFromView(view) {
     // if we are already building out, do nothing.
     if (this.isBuildingOut) { return; }
 

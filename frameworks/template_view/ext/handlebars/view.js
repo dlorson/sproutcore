@@ -1,7 +1,7 @@
 sc_require('ext/handlebars');
 
 SC.Handlebars.ViewHelper = SC.Object.create({
-  helper: function(thisContext, path, options) {
+  helper: function helper(thisContext, path, options) {
     var inverse = options.inverse;
     var data = options.data;
     var view = data.view;
@@ -68,7 +68,7 @@ SC.Handlebars.ViewHelper = SC.Object.create({
     return new Handlebars.SafeString(context.join());
   },
 
-  applyAttributes: function(options, childView, context) {
+  applyAttributes: function applyAttributes(options, childView, context) {
     var id = options.id;
     var classNames = options['class'];
 

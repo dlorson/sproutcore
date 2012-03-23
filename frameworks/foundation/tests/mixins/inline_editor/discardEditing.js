@@ -11,25 +11,25 @@
 var fakeDelegate, fakeEditor, view;
 
 fakeDelegate = {
-  acquireEditor: function() {
+  acquireEditor: function acquireEditor() {
     return fakeEditor;
   },
 
   shouldDiscardCalled: NO,
   shouldDiscardAllowed: YES,
-  inlineEditorShouldDiscardEditing: function() {
+  inlineEditorShouldDiscardEditing: function inlineEditorShouldDiscardEditing() {
     this.shouldDiscardCalled = YES;
 
     return this.shouldDiscardAllowed;
   },
 
   willDiscardCalled: NO,
-  inlineEditorWillDiscardEditing: function() {
+  inlineEditorWillDiscardEditing: function inlineEditorWillDiscardEditing() {
     this.willDiscardCalled = YES;
   },
 
   didDiscardCalled: NO,
-  inlineEditorDidDiscardEditing: function() {
+  inlineEditorDidDiscardEditing: function inlineEditorDidDiscardEditing() {
     this.didDiscardCalled = YES;
     ok(this.willDiscardCalled, "willDiscard called before didDiscard");
 
@@ -40,13 +40,13 @@ fakeDelegate = {
 fakeEditor = SC.View.create(SC.InlineEditor, {
   inlineEditorDelegate: fakeDelegate,
 
-  beginEditing: function(original, editable) {
+  beginEditing: function beginEditing(original, editable) {
     return original(editable);
   }.enhance(),
 
   discardEditingCalled: NO,
   discardEditingAllowed: YES,
-  discardEditing: function(original) {
+  discardEditing: function discardEditing(original) {
     this.discardEditingCalled = YES;
 
     var ret = original();

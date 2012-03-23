@@ -43,7 +43,7 @@ module("SC.DataSource", {
         return YES;
       },
 
-      reset: function() {
+      reset: function reset() {
         resetWasCalled = true;
         return this;
       }

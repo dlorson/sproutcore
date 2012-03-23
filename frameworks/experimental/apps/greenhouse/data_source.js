@@ -12,7 +12,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
   /**
     Fetch a group of records from the data source.  
   */
-  fetch: function(store, query) {
+  fetch: function fetch(store, query) {
     var ret = NO, rt = query.get('recordType');
     if(rt === Greenhouse.File || rt === Greenhouse.Dir){
       ret = this.listFiles(store, query);
@@ -29,13 +29,13 @@ Greenhouse.DataSource = SC.DataSource.extend({
   // ..........................................................
   // Get file list
   // 
-  listFiles: function(store, query){
+  listFiles: function listFiles(store, query){
     SC.Request.create({type: 'GET', isJSON: YES, address: '/sproutcore/fs/apps%@/?action=list'.fmt(query.get('urlPath'))})
       .notify(this,this.listFilesDidComplete, {query: query, store: store})
       .send();
   },
   
-  listFilesDidComplete: function(request, options){
+  listFilesDidComplete: function listFilesDidComplete(request, options){
     var response = request.get('response'),
         query    = options.query,
         store    = options.store,
@@ -61,7 +61,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
   /**
     Fetch the actual targets.  Only understands how to handle a remote query.
   */
-  fetchTargets: function(store, query) {
+  fetchTargets: function fetchTargets(store, query) {
     
     if (!query.get('isRemote')) return NO ; 
     
@@ -72,7 +72,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
     return YES ;
   },
   
-  fetchTargetsDidComplete: function(request, opts) {
+  fetchTargetsDidComplete: function fetchTargetsDidComplete(request, opts) {
     var response = request.get('response'),
         query    = opts.query,
         store    = opts.store,
@@ -90,7 +90,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
   // ..........................................................
   // FETCHING VIEW CONFIGS
   // 
-  fetchViewConfigs: function(store, query){
+  fetchViewConfigs: function fetchViewConfigs(store, query){
     if (!query.get('isRemote')) return NO ; 
     
     SC.Request.getUrl('/sc/greenhouseconf.json?app=%@'.fmt(query.get('app')))
@@ -99,7 +99,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
       .send();
     return YES ;
   },
-  fetchViewConfigsDidComplete: function(request, opts){
+  fetchViewConfigsDidComplete: function fetchViewConfigsDidComplete(request, opts){
     var response = request.get('response'),
         query    = opts.query,
         store    = opts.store,
@@ -124,7 +124,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  updateRecord: function(store, storeKey, params) {
+  updateRecord: function updateRecord(store, storeKey, params) {
     var file = store.materializeRecord(storeKey);
     var request = SC.Request.create({type: 'POST', address: "/sproutcore/fs/%@?action=overwrite".fmt(file.get('path')),
          body: file.get('body')})
@@ -132,7 +132,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
         .send();
     return YES ;
   },  
-  updateRecordDidComplete: function(response, params){
+  updateRecordDidComplete: function updateRecordDidComplete(response, params){
     var file = params.file, results = response.get('body'), store = params.store;
     if(SC.ok(response)){
       //HACK: for some reason the records are always 514 ready dirty not refreshing dirty...
@@ -154,7 +154,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
     @param {String} id the id to retrieve
     @returns {Boolean} YES if handled
   */
-  retrieveRecord: function(store, storeKey, params) {
+  retrieveRecord: function retrieveRecord(store, storeKey, params) {
     var file = store.materializeRecord(storeKey), request;
     if(file.kindOf(Greenhouse.File)){
       request = SC.Request.create({type: 'GET', address: "/sproutcore/fs/%@".fmt(file.get('path'))})
@@ -164,7 +164,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
     }
     return NO;
   },  
-  retrieveRecordDidComplete: function(response, params){
+  retrieveRecordDidComplete: function retrieveRecordDidComplete(response, params){
     var file = params.file, store = params.store, attributes, status;
     if(SC.ok(response)){
       attributes = file.get('attributes');//SC.clone(file.get('attributes'));
@@ -192,7 +192,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  createRecord: function(store, storeKey, params) {
+  createRecord: function createRecord(store, storeKey, params) {
     var file = store.materializeRecord(storeKey);
     var request = SC.Request.create({type: 'POST', address: "/sproutcore/fs/%@?action=touch".fmt(file.get('path')),
          body: file.get('body')})
@@ -200,7 +200,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
         .send();
     return YES ;
   },  
-  createRecordDidComplete: function(response, params){
+  createRecordDidComplete: function createRecordDidComplete(response, params){
     var file = params.file, results = response.get('body'), store = params.store;
     if(SC.ok(response)){
       //HACK: for some reason the records are always 514 ready dirty not refreshing dirty...
@@ -227,7 +227,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  destroyRecord: function(store, storeKey, params) {
+  destroyRecord: function destroyRecord(store, storeKey, params) {
     var request = SC.Request.create({type: 'POST'}), file = store.materializeRecord(storeKey);
     
     request.set('address', "/sproutcore/fs/%@?action=remove".fmt(file.get('path')));
@@ -237,7 +237,7 @@ Greenhouse.DataSource = SC.DataSource.extend({
     return YES;
   },
   
-  destroyRecordDidComplete: function(response, params){
+  destroyRecordDidComplete: function destroyRecordDidComplete(response, params){
     var status, store = params.store;
     //HACK: for some reason the records are always 514 ready dirty not refreshing dirty...
     status = store.readStatus(params.storeKey);

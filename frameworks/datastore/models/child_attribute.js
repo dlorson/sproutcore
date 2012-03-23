@@ -33,7 +33,7 @@ SC.ChildAttribute = SC.RecordAttribute.extend(
   //
   
   /**  @private - adapted for to one relationship */
-  toType: function(record, key, value) {
+  toType: function toType(record, key, value) {
     var ret   = null, rel,
         recordType  = this.get('typeClass');
             
@@ -46,7 +46,7 @@ SC.ChildAttribute = SC.RecordAttribute.extend(
   },
   
   // Default fromType is just returning itself
-  fromType: function(record, key, value) {
+  fromType: function fromType(record, key, value) {
     var sk, store, ret;
 
     if (record) {
@@ -80,7 +80,7 @@ SC.ChildAttribute = SC.RecordAttribute.extend(
     @param {Object} value the property value if called as a setter
     @returns {Object} property value
   */
-  call: function(record, key, value) {
+  call: function call(record, key, value) {
     var attrKey = this.get('key') || key, cRef,
         cacheKey = SC.keyFor('__kid__', SC.guidFor(this));
     if (value !== undefined) {

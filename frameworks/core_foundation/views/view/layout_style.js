@@ -8,26 +8,26 @@ sc_require('views/view/animation');
 */
 
 SC.CSS_TRANSFORM_MAP = {
-  rotate: function(val){
+  rotate: function rotate(val){
     return null;
   },
 
-  rotateX: function(val){
+  rotateX: function rotateX(val){
     if (SC.typeOf(val) === SC.T_NUMBER) val += 'deg';
     return 'rotateX('+val+')';
   },
 
-  rotateY: function(val){
+  rotateY: function rotateY(val){
     if (SC.typeOf(val) === SC.T_NUMBER) val += 'deg';
     return 'rotateY('+val+')';
   },
 
-  rotateZ: function(val){
+  rotateZ: function rotateZ(val){
     if (SC.typeOf(val) === SC.T_NUMBER) val += 'deg';
     return 'rotateZ('+val+')';
   },
 
-  scale: function(val){
+  scale: function scale(val){
     if (SC.typeOf(val) === SC.T_ARRAY) val = val.join(', ');
     return 'scale('+val+')';
   }
@@ -48,7 +48,7 @@ SC.View.reopen(
     @property {Hash}
     @readOnly
   */
-  layoutStyle: function() {
+  layoutStyle: function layoutStyle() {
     var props = {
       layout:       this.get('layout'),
       turbo:        this.get('hasAcceleratedLayer'),
@@ -64,7 +64,7 @@ SC.View.reopen(
 
 SC.View.LayoutStyleCalculator = SC.Object.extend({
 
-  _layoutDidUpdate: function(){
+  _layoutDidUpdate: function _layoutDidUpdate(){
     var layout = this.get('layout');
     if (!layout) { return; }
 
@@ -126,14 +126,14 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
   }.observes('layout'),
 
   // handles the case where you do width:auto or height:auto and are not using "staticLayout"
-  _invalidAutoValue: function(property){
+  _invalidAutoValue: function _invalidAutoValue(property){
     var error = SC.Error.desc("%@.layout() you cannot use %@:auto if staticLayout is disabled".fmt(
       this.get('view'), property), "%@".fmt(this.get('view')),-1);
     SC.Logger.error(error.toString());
     throw error ;
   },
 
-  _handleMistakes: function() {
+  _handleMistakes: function _handleMistakes() {
     var layout = this.get('layout');
 
     // handle invalid use of auto in absolute layouts
@@ -176,7 +176,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     }
   },
 
-  _calculatePosition: function(direction) {
+  _calculatePosition: function _calculatePosition(direction) {
     var translate = null, turbo = this.get('turbo'), ret = this.ret;
 
     var start, finish, size, maxSize, margin,
@@ -246,7 +246,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     return translate;
   },
 
-  _calculateCenter: function(direction) {
+  _calculateCenter: function _calculateCenter(direction) {
     var ret = this.ret,
         size, center, start, finish, margin,
         startBorder, startBorderVal,
@@ -300,7 +300,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     ret[finish] = null;
   },
 
-  _calculateTransforms: function(translateLeft, translateTop){
+  _calculateTransforms: function _calculateTransforms(translateLeft, translateTop){
     if (SC.platform.supportsCSSTransforms) {
       // Handle transforms
       var layout = this.get('layout');
@@ -329,7 +329,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     }
   },
 
-  _calculateAnimations: function(translateLeft, translateTop){
+  _calculateAnimations: function _calculateAnimations(translateLeft, translateTop){
     var layout = this.layout,
         animations = layout.animate,
         key;
@@ -393,14 +393,14 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
 
   // return "auto" for "auto", null for null, converts 0.XY into "XY%".
   // otherwise returns the original number, rounded down
-  _cssNumber: function(val){
+  _cssNumber: function _cssNumber(val){
     if (val == null) { return null; }
     else if (val === SC.LAYOUT_AUTO) { return SC.LAYOUT_AUTO; }
     else if (SC.isPercentage(val)) { return (val*100)+"%"; }
     else { return Math.floor(val); }
   },
 
-  calculate: function() {
+  calculate: function calculate() {
     var layout = this.get('layout'), pdim = null,
         staticLayout = this.get('staticLayout'),
         translateTop = null,
@@ -472,7 +472,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     return ret ;
   },
 
-  willRenderAnimations: function(){
+  willRenderAnimations: function willRenderAnimations(){
     if (SC.platform.supportsCSSTransitions) {
       var view = this.get('view'),
           layer = view.get('layer'),
@@ -527,7 +527,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     }
   },
 
-  didRenderAnimations: function(){
+  didRenderAnimations: function didRenderAnimations(){
     if (!SC.platform.supportsCSSTransitions) {
       var key, callback;
       // Transitions not supported
@@ -540,7 +540,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     }
   },
 
-  runAnimationCallback: function(callback, evt, propertyName, cancelled) {
+  runAnimationCallback: function runAnimationCallback(callback, evt, propertyName, cancelled) {
     var view = this.get('view');
     if (callback) {
       if (SC.typeOf(callback) !== SC.T_HASH) { callback = { action: callback }; }
@@ -550,7 +550,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     SC.View.runCallback(callback, { event: evt, propertyName: propertyName, view: view, isCancelled: cancelled });
   },
 
-  transitionDidEnd: function(evt) {
+  transitionDidEnd: function transitionDidEnd(evt) {
     var propertyName = evt.originalEvent.propertyName,
         animation, idx;
 
@@ -575,7 +575,7 @@ SC.View.LayoutStyleCalculator = SC.Object.extend({
     }
   },
 
-  removeAnimationFromLayout: function(propertyName, updateStyle, isPending) {
+  removeAnimationFromLayout: function removeAnimationFromLayout(propertyName, updateStyle, isPending) {
     if (updateStyle) {
       var layer = this.getPath('view.layer'),
           updatedCSS = [], key;

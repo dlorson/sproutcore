@@ -82,7 +82,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @type Hash
     @default {}
   */
-  headers: function() {
+  headers: function headers() {
     var ret = this._headers;
     if (!ret) { ret = this._headers = {}; }
     return ret;
@@ -154,7 +154,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @type Object|String
     @default #body
   */
-  encodedBody: function() {
+  encodedBody: function encodedBody() {
     // TODO: support XML
     var ret = this.get('body');
     if (ret && this.get('isJSON')) { ret = SC.json.encode(ret); }
@@ -176,7 +176,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.Request} request A copy of the request object, not frozen
     @param {SC.Response} response The object that will wrap the response
   */
-  willSend: function(request, response) {},
+  willSend: function willSend(request, response) {},
 
   /**
     Invoked on the original request object just after the request is sent to
@@ -190,7 +190,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.Response} response The object that will wrap the response
     @returns {Boolean} YES on success, NO on failure
   */
-  didSend: function(request, response) {},
+  didSend: function didSend(request, response) {},
 
   /**
     Invoked when a response has been received but not yet processed. This is
@@ -200,7 +200,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.Request} request A copy of the request object, frozen
     @param {SC.Response} response The object that will wrap the response
   */
-  willReceive: function(request, response) {},
+  willReceive: function willReceive(request, response) {},
 
   /**
     Invoked after a response has been processed but before any listeners are
@@ -211,7 +211,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {SC.Request} request A copy of the request object, frozen
     @param {SC.Response} response The object that will wrap the response
   */
-  didReceive: function(request, response) {},
+  didReceive: function didReceive(request, response) {},
 
 
   // ..........................................................
@@ -231,7 +231,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
 
     @returns {SC.Request} new request
   */
-  copy: function() {
+  copy: function copy() {
     var ret = {},
         keys = this.COPY_KEYS,
         loc = keys.length,
@@ -266,7 +266,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {String} value
     @returns {SC.Request|Object} receiver
   */
-  header: function(key, value) {
+  header: function header(key, value) {
     var headers;
 
     if (SC.typeOf(key) === SC.T_STRING) {
@@ -301,7 +301,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     This could be used by a subclass to blow-away any custom
     headers that were added by the super class.
   */
-  clearHeaders: function() {
+  clearHeaders: function clearHeaders() {
     this.propertyWillChange('headers');
     this._headers = {};
     this.propertyDidChange('headers');
@@ -313,7 +313,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Boolean} flag YES to make asynchronous, NO or undefined. Default YES.
     @returns {SC.Request} receiver
   */
-  async: function(flag) {
+  async: function async(flag) {
     if (flag === undefined) { flag = YES; }
     return this.set('isAsynchronous', flag);
   },
@@ -324,7 +324,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Number} timeout The timeout in milliseconds.
     @returns {SC.Request} receiver
   */
-  timeoutAfter: function(timeout) {
+  timeoutAfter: function timeoutAfter(timeout) {
     return this.set('timeout', timeout);
   },
 
@@ -334,7 +334,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Boolean} flag YES to make JSON, NO or undefined. Default YES.
     @returns {SC.Request} receiver
   */
-  json: function(flag) {
+  json: function json(flag) {
     if (flag === undefined) { flag = YES; }
     if (flag) { this.set('isXML', NO); }
     return this.set('isJSON', flag);
@@ -346,7 +346,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Boolean} flag YES to make XML, NO or undefined. Default YES.
     @returns {SC.Request} recevier
   */
-  xml: function(flag) {
+  xml: function xml(flag) {
     if (flag === undefined) { flag = YES; }
     if (flag) { this.set('isJSON', NO); }
     return this.set('isXML', flag);
@@ -356,7 +356,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     Called just before a request is enqueued.  This will encode the body 
     into JSON if it is not already encoded, and set identifying headers
   */
-  _prep: function() {
+  _prep: function _prep() {
     var hasContentType = !!this.header('Content-Type');
 
     if(this.get('attachIdentifyingHeaders')) {
@@ -380,7 +380,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {String|Object} [body]
     @returns {SC.Response} New response object
   */  
-  send: function(body) {
+  send: function send(body) {
     // Sanity-check: Be sure a timeout value was not specified if the request
     // is synchronous (because it wouldn't work).
     var timeout = this.get('timeout');
@@ -401,7 +401,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
 
     @returns {SC.Response} new response object
   */
-  resend: function() {
+  resend: function resend() {
     var req = this.get('source') ? this : this.copy()._prep();
     return SC.Request.manager.sendRequest(req);
   },
@@ -439,7 +439,7 @@ SC.Request = SC.Object.extend(SC.Copyable, SC.Freezable,
     @param {Hash} params
     @returns {SC.Request} receiver
   */
-  notify: function(status, target, action, params) {
+  notify: function notify(status, target, action, params) {
     // normalize status
     var hasStatus = YES;
     if (SC.typeOf(status) !== SC.T_NUMBER) {
@@ -472,7 +472,7 @@ SC.Request.mixin(
     @param {String} address url of request
     @returns {SC.Request} receiver
   */
-  getUrl: function(address) {
+  getUrl: function getUrl(address) {
     return this.create().set('address', address).set('type', 'GET');
   },
 
@@ -483,7 +483,7 @@ SC.Request.mixin(
     @param {String} body
     @returns {SC.Request} receiver
   */
-  postUrl: function(address, body) {
+  postUrl: function postUrl(address, body) {
     var req = this.create().set('address', address).set('type', 'POST');
     if(body) { req.set('body', body) ; }
     return req ;
@@ -495,7 +495,7 @@ SC.Request.mixin(
     @param {String} address url of request
     @returns {SC.Request} receiver
   */
-  deleteUrl: function(address) {
+  deleteUrl: function deleteUrl(address) {
     return this.create().set('address', address).set('type', 'DELETE');
   },
 
@@ -506,7 +506,7 @@ SC.Request.mixin(
     @param {String} body
     @returns {SC.Request} receiver
   */
-  putUrl: function(address, body) {
+  putUrl: function putUrl(address, body) {
     var req = this.create().set('address', address).set('type', 'PUT');
     if(body) { req.set('body', body) ; }
     return req ;
@@ -519,7 +519,7 @@ SC.Request.mixin(
     @param {String} body
     @returns {SC.Request} receiver
   */
-  patchUrl: function(address, body) {
+  patchUrl: function patchUrl(address, body) {
     var req = this.create().set('address', address).set('type', 'PATCH');
     if(body) { req.set('body', body) ; }
     return req ;
@@ -576,7 +576,7 @@ SC.Request.manager = SC.Object.create(
     @param {SC.Request} request the request to send
     @returns {SC.Object} response object
   */
-  sendRequest: function(request) {
+  sendRequest: function sendRequest(request) {
     if (!request) { return null; }
 
     // create low-level transport.  copy all critical data for request over
@@ -598,7 +598,7 @@ SC.Request.manager = SC.Object.create(
     @param {Object} response a response object
     @returns {Boolean} YES if cancelled
   */
-  cancel: function(response) {
+  cancel: function cancel(response) {
     var pending = this.get('pending'),
         inflight = this.get('inflight'),
         idx;
@@ -624,7 +624,7 @@ SC.Request.manager = SC.Object.create(
 
     @returns {Boolean} YES if any items were cancelled.
   */
-  cancelAll: function() {
+  cancelAll: function cancelAll() {
     if (this.get('pending').length || this.get('inflight').length) {
       this.set('pending', []);
       this.get('inflight').forEach(function(r) { r.cancel(); });
@@ -641,7 +641,7 @@ SC.Request.manager = SC.Object.create(
 
     @returns {Object} receiver
   */
-  fireRequestIfNeeded: function() {
+  fireRequestIfNeeded: function fireRequestIfNeeded() {
     var pending = this.get('pending'),
         inflight = this.get('inflight'),
         max = this.get('maxRequests'),
@@ -658,7 +658,7 @@ SC.Request.manager = SC.Object.create(
     Called by a response/transport object when finishes running. Removes
     the transport from the queue and kicks off the next one.
   */
-  transportDidClose: function(response) {
+  transportDidClose: function transportDidClose(response) {
     this.get('inflight').removeObject(response);
     this.fireRequestIfNeeded();
   }

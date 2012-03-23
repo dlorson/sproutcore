@@ -13,7 +13,7 @@
 SC.BaseTheme.segmentRenderDelegate = SC.RenderDelegate.create({
   className: 'segment',
 
-  render: function(dataSource, context) {
+  render: function render(dataSource, context) {
     var theme = dataSource.get('theme'),
         buttonDelegate,
         classes;
@@ -35,7 +35,7 @@ SC.BaseTheme.segmentRenderDelegate = SC.RenderDelegate.create({
     buttonDelegate.render(dataSource, context);
   },
 
-  update: function(dataSource, jquery) {
+  update: function update(dataSource, jquery) {
     var theme = dataSource.get('theme'),
         buttonDelegate,
         classes = {};

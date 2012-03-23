@@ -566,7 +566,7 @@ Handlebars.logger = {
   DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3, level: 3,
 
   // override in the host environment
-  log: function(level, str) {}
+  log: function log(level, str) {}
 };
 
 Handlebars.log = function(level, str) { Handlebars.logger.log(level, str); };
@@ -705,7 +705,7 @@ Handlebars.SafeString.prototype.toString = function() {
   };
 
   Handlebars.Utils = {
-    escapeExpression: function(string) {
+    escapeExpression: function escapeExpression(string) {
       // don't escape SafeStrings, since they're already safe
       if (string instanceof Handlebars.SafeString) {
         return string.toString();
@@ -717,7 +717,7 @@ Handlebars.SafeString.prototype.toString = function() {
       return string.replace(badChars, escapeChar);
     },
 
-    isEmpty: function(value) {
+    isEmpty: function isEmpty(value) {
       if (typeof value === "undefined") {
         return true;
       } else if (value === null) {
@@ -785,7 +785,7 @@ Handlebars.JavaScriptCompiler = function() {};
   Compiler.prototype = {
     compiler: Compiler,
 
-    disassemble: function() {
+    disassemble: function disassemble() {
       var opcodes = this.opcodes, opcode, nextCode;
       var out = [], str, name, value;
 
@@ -823,7 +823,7 @@ Handlebars.JavaScriptCompiler = function() {};
 
     guid: 0,
 
-    compile: function(program, options) {
+    compile: function compile(program, options) {
       this.children = [];
       this.depths = {list: []};
       this.options = options;
@@ -848,11 +848,11 @@ Handlebars.JavaScriptCompiler = function() {};
       return this.program(program);
     },
 
-    accept: function(node) {
+    accept: function accept(node) {
       return this[node.type](node);
     },
 
-    program: function(program) {
+    program: function program(program) {
       var statements = program.statements, statement;
       this.opcodes = [];
 
@@ -869,7 +869,7 @@ Handlebars.JavaScriptCompiler = function() {};
       return this;
     },
 
-    compileProgram: function(program) {
+    compileProgram: function compileProgram(program) {
       var result = new this.compiler().compile(program, this.options);
       var guid = this.guid++;
 
@@ -887,7 +887,7 @@ Handlebars.JavaScriptCompiler = function() {};
       return guid;
     },
 
-    block: function(block) {
+    block: function block(block) {
       var mustache = block.mustache;
       var depth, child, inverse, inverseGuid;
 
@@ -905,7 +905,7 @@ Handlebars.JavaScriptCompiler = function() {};
       this.opcode('append');
     },
 
-    inverse: function(block) {
+    inverse: function inverse(block) {
       var params = this.setupStackForMustache(block.mustache);
 
       var programGuid = this.compileProgram(block.program);
@@ -916,7 +916,7 @@ Handlebars.JavaScriptCompiler = function() {};
       this.opcode('append');
     },
 
-    hash: function(hash) {
+    hash: function hash(hash) {
       var pairs = hash.pairs, pair, val;
 
       this.opcode('push', '{}');
@@ -930,7 +930,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    partial: function(partial) {
+    partial: function partial(partial) {
       var id = partial.id;
       this.usePartial = true;
 
@@ -944,11 +944,11 @@ Handlebars.JavaScriptCompiler = function() {};
       this.opcode('append');
     },
 
-    content: function(content) {
+    content: function content(content) {
       this.opcode('appendContent', content.string);
     },
 
-    mustache: function(mustache) {
+    mustache: function mustache(mustache) {
       var params = this.setupStackForMustache(mustache);
 
       this.opcode('invokeMustache', params.length, mustache.id.original, !!mustache.hash);
@@ -960,7 +960,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    ID: function(id) {
+    ID: function ID(id) {
       this.addDepth(id.depth);
 
       this.opcode('getContext', id.depth);
@@ -972,22 +972,22 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    STRING: function(string) {
+    STRING: function STRING(string) {
       this.opcode('pushString', string.string);
     },
 
-    INTEGER: function(integer) {
+    INTEGER: function INTEGER(integer) {
       this.opcode('push', integer.integer);
     },
 
-    BOOLEAN: function(bool) {
+    BOOLEAN: function BOOLEAN(bool) {
       this.opcode('push', bool.bool);
     },
 
-    comment: function() {},
+    comment: function comment() {},
 
     // HELPERS
-    pushParams: function(params) {
+    pushParams: function pushParams(params) {
       var i = params.length, param;
 
       while(i--) {
@@ -1006,20 +1006,20 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    opcode: function(name, val1, val2, val3) {
+    opcode: function opcode(name, val1, val2, val3) {
       this.opcodes.push(Compiler.OPCODE_MAP[name]);
       if(val1 !== undefined) { this.opcodes.push(val1); }
       if(val2 !== undefined) { this.opcodes.push(val2); }
       if(val3 !== undefined) { this.opcodes.push(val3); }
     },
 
-    declare: function(name, value) {
+    declare: function declare(name, value) {
       this.opcodes.push('DECLARE');
       this.opcodes.push(name);
       this.opcodes.push(value);
     },
 
-    addDepth: function(depth) {
+    addDepth: function addDepth(depth) {
       if(depth === 0) { return; }
 
       if(!this.depths[depth]) {
@@ -1028,7 +1028,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    setupStackForMustache: function(mustache) {
+    setupStackForMustache: function setupStackForMustache(mustache) {
       var params = mustache.params;
 
       this.pushParams(params);
@@ -1046,7 +1046,7 @@ Handlebars.JavaScriptCompiler = function() {};
   JavaScriptCompiler.prototype = {
     // PUBLIC API: You can override these methods in a subclass to provide
     // alternative compiled forms for name lookup and buffering semantics
-    nameLookup: function(parent, name, type) {
+    nameLookup: function nameLookup(parent, name, type) {
             if (/^[0-9]+$/.test(name)) {
         return parent + "[" + name + "]";
       } else if (JavaScriptCompiler.isValidJavaScriptVariableName(name)) {
@@ -1057,7 +1057,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    appendToBuffer: function(string) {
+    appendToBuffer: function appendToBuffer(string) {
       if (this.environment.isSimple) {
         return "return " + string + ";";
       } else {
@@ -1065,14 +1065,14 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    initializeBuffer: function() {
+    initializeBuffer: function initializeBuffer() {
       return this.quotedString("");
     },
 
     namespace: "Handlebars",
     // END PUBLIC API
 
-    compile: function(environment, options, context, asObject) {
+    compile: function compile(environment, options, context, asObject) {
       this.environment = environment;
       this.options = options || {};
 
@@ -1110,7 +1110,7 @@ Handlebars.JavaScriptCompiler = function() {};
       return this.createFunctionContext(asObject);
     },
 
-    nextOpcode: function(n) {
+    nextOpcode: function nextOpcode(n) {
       var opcodes = this.environment.opcodes, opcode = opcodes[this.i + n], name, val;
       var extraParams, codes;
 
@@ -1132,11 +1132,11 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    eat: function(opcode) {
+    eat: function eat(opcode) {
       this.i = this.i + opcode.length;
     },
 
-    preamble: function() {
+    preamble: function preamble() {
       var out = [];
 
       if (!this.isChild) {
@@ -1160,7 +1160,7 @@ Handlebars.JavaScriptCompiler = function() {};
       this.source = out;
     },
 
-    createFunctionContext: function(asObject) {
+    createFunctionContext: function createFunctionContext(asObject) {
       var locals = this.stackVars;
       if (!this.isChild) {
         locals = locals.concat(this.context.registers.list);
@@ -1208,11 +1208,11 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    appendContent: function(content) {
+    appendContent: function appendContent(content) {
       this.source.push(this.appendToBuffer(this.quotedString(content)));
     },
 
-    append: function() {
+    append: function append() {
       var local = this.popStack();
       this.source.push("if(" + local + " || " + local + " === 0) { " + this.appendToBuffer(local) + " }");
       if (this.environment.isSimple) {
@@ -1220,7 +1220,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    appendEscaped: function() {
+    appendEscaped: function appendEscaped() {
       var opcode = this.nextOpcode(1), extra = "";
       this.context.aliases.escapeExpression = 'this.escapeExpression';
 
@@ -1232,13 +1232,13 @@ Handlebars.JavaScriptCompiler = function() {};
       this.source.push(this.appendToBuffer("escapeExpression(" + this.popStack() + ")" + extra));
     },
 
-    getContext: function(depth) {
+    getContext: function getContext(depth) {
       if(this.lastContext !== depth) {
         this.lastContext = depth;
       }
     },
 
-    lookupWithHelpers: function(name, isScoped) {
+    lookupWithHelpers: function lookupWithHelpers(name, isScoped) {
       if(name) {
         var topStack = this.nextStack();
 
@@ -1264,26 +1264,26 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    lookup: function(name) {
+    lookup: function lookup(name) {
       var topStack = this.topStack();
       this.source.push(topStack + " = (" + topStack + " === null || " + topStack + " === undefined || " + topStack + " === false ? " +
                 topStack + " : " + this.nameLookup(topStack, name, 'context') + ");");
     },
 
-    pushStringParam: function(string) {
+    pushStringParam: function pushStringParam(string) {
       this.pushStack('depth' + this.lastContext);
       this.pushString(string);
     },
 
-    pushString: function(string) {
+    pushString: function pushString(string) {
       this.pushStack(this.quotedString(string));
     },
 
-    push: function(name) {
+    push: function push(name) {
       this.pushStack(name);
     },
 
-    invokeMustache: function(paramSize, original, hasHash) {
+    invokeMustache: function invokeMustache(paramSize, original, hasHash) {
       this.populateParams(paramSize, this.quotedString(original), "{}", null, hasHash, function(nextStack, helperMissingString, id) {
         if (!this.usingKnownHelper) {
           this.context.aliases.helperMissing = 'helpers.helperMissing';
@@ -1296,7 +1296,7 @@ Handlebars.JavaScriptCompiler = function() {};
       });
     },
 
-    invokeProgram: function(guid, paramSize, hasHash) {
+    invokeProgram: function invokeProgram(guid, paramSize, hasHash) {
       var inverse = this.programExpression(this.inverse);
       var mainProgram = this.programExpression(guid);
 
@@ -1308,7 +1308,7 @@ Handlebars.JavaScriptCompiler = function() {};
       });
     },
 
-    populateParams: function(paramSize, helperId, program, inverse, hasHash, fn) {
+    populateParams: function populateParams(paramSize, helperId, program, inverse, hasHash, fn) {
       var needsRegister = hasHash || this.options.stringParams || inverse || this.options.data;
       var id = this.popStack(), nextStack;
       var params = [], param, stringParam, stringOptions;
@@ -1352,7 +1352,7 @@ Handlebars.JavaScriptCompiler = function() {};
       this.populateCall(params, id, helperId || id, fn);
     },
 
-    populateCall: function(params, id, helperId, fn) {
+    populateCall: function populateCall(params, id, helperId, fn) {
       var paramString = ["depth0"].concat(params).join(", ");
       var helperMissingString = ["depth0"].concat(helperId).concat(params).join(", ");
 
@@ -1368,11 +1368,11 @@ Handlebars.JavaScriptCompiler = function() {};
       this.usingKnownHelper = false;
     },
 
-    invokePartial: function(context) {
+    invokePartial: function invokePartial(context) {
       this.pushStack("self.invokePartial(" + this.nameLookup('partials', context, 'partial') + ", '" + context + "', " + this.popStack() + ", helpers, partials);");
     },
 
-    assignToHash: function(key) {
+    assignToHash: function assignToHash(key) {
       var value = this.popStack();
       var hash = this.topStack();
 
@@ -1383,7 +1383,7 @@ Handlebars.JavaScriptCompiler = function() {};
 
     compiler: JavaScriptCompiler,
 
-    compileChildren: function(environment, options) {
+    compileChildren: function compileChildren(environment, options) {
       var children = environment.children, child, compiler;
 
       for(var i=0, l=children.length; i<l; i++) {
@@ -1398,7 +1398,7 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    programExpression: function(guid) {
+    programExpression: function programExpression(guid) {
       if(guid == null) { return "self.noop"; }
 
       var child = this.environment.children[guid],
@@ -1420,38 +1420,38 @@ Handlebars.JavaScriptCompiler = function() {};
       }
     },
 
-    register: function(name, val) {
+    register: function register(name, val) {
       this.useRegister(name);
       this.source.push(name + " = " + val + ";");
     },
 
-    useRegister: function(name) {
+    useRegister: function useRegister(name) {
       if(!this.context.registers[name]) {
         this.context.registers[name] = true;
         this.context.registers.list.push(name);
       }
     },
 
-    pushStack: function(item) {
+    pushStack: function pushStack(item) {
       this.source.push(this.nextStack() + " = " + item + ";");
       return "stack" + this.stackSlot;
     },
 
-    nextStack: function() {
+    nextStack: function nextStack() {
       this.stackSlot++;
       if(this.stackSlot > this.stackVars.length) { this.stackVars.push("stack" + this.stackSlot); }
       return "stack" + this.stackSlot;
     },
 
-    popStack: function() {
+    popStack: function popStack() {
       return "stack" + this.stackSlot--;
     },
 
-    topStack: function() {
+    topStack: function topStack() {
       return "stack" + this.stackSlot;
     },
 
-    quotedString: function(str) {
+    quotedString: function quotedString(str) {
       return '"' + str
         .replace(/\\/g, '\\\\')
         .replace(/"/g, '\\"')
@@ -1509,13 +1509,13 @@ Handlebars.compile = function(string, options) {
 ;
 // lib/handlebars/vm.js
 Handlebars.VM = {
-  template: function(templateSpec) {
+  template: function template(templateSpec) {
     // Just add water
     var container = {
       escapeExpression: Handlebars.Utils.escapeExpression,
       invokePartial: Handlebars.VM.invokePartial,
       programs: [],
-      program: function(i, fn, data) {
+      program: function program(i, fn, data) {
         var programWrapper = this.programs[i];
         if(data) {
           return Handlebars.VM.program(fn, data);
@@ -1536,7 +1536,7 @@ Handlebars.VM = {
     };
   },
 
-  programWithDepth: function(fn, data, $depth) {
+  programWithDepth: function programWithDepth(fn, data, $depth) {
     var args = Array.prototype.slice.call(arguments, 2);
 
     return function(context, options) {
@@ -1545,15 +1545,15 @@ Handlebars.VM = {
       return fn.apply(this, [context, options.data || data].concat(args));
     };
   },
-  program: function(fn, data) {
+  program: function program(fn, data) {
     return function(context, options) {
       options = options || {};
 
       return fn(context, options.data || data);
     };
   },
-  noop: function() { return ""; },
-  invokePartial: function(partial, name, context, helpers, partials) {
+  noop: function noop() { return ""; },
+  invokePartial: function invokePartial(partial, name, context, helpers, partials) {
     if(partial === undefined) {
       throw new Handlebars.Exception("The partial " + name + " could not be found");
     } else if(partial instanceof Function) {

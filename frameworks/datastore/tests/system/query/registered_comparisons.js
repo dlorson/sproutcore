@@ -9,7 +9,7 @@
 var store, storeKey, rec1, rec2, rec3, rec4, rec5, MyApp, q;
 
 module("SC.Query comparison of records", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     // setup dummy app and store
@@ -41,7 +41,7 @@ module("SC.Query comparison of records", {
     SC.RunLoop.end();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     // IMPORTANT: must delete so we don't screw up other unit tests.
     // cleanup after ourselves
     delete SC.Query.comparisons.firstName;

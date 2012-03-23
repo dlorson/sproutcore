@@ -10,7 +10,7 @@
 
 var parent, store, child, storeKey, json, args;
 module("SC.NestedStore#commitChanges", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     parent = SC.Store.create();
@@ -127,14 +127,14 @@ test("commiting a changed record should immediately notify outstanding records i
   var Rec = SC.Record.extend({
     
     fooCnt: 0,
-    fooDidChange: function() { this.fooCnt++; }.observes('foo'),
+    fooDidChange: function fooDidChange() { this.fooCnt++; }.observes('foo'),
     
     statusCnt: 0,
-    statusDidChange: function() { this.statusCnt++; }.observes('status'),
+    statusDidChange: function statusDidChange() { this.statusCnt++; }.observes('status'),
     
-    reset: function() { this.fooCnt = this.statusCnt = 0; },
+    reset: function reset() { this.fooCnt = this.statusCnt = 0; },
     
-    equals: function(fooCnt, statusCnt, str) {
+    equals: function equals(fooCnt, statusCnt, str) {
       if (!str) str = '' ;
       equals(this.get('fooCnt'), fooCnt, str + ':fooCnt');
       equals(this.get('statusCnt'), statusCnt, str + ':statusCnt');

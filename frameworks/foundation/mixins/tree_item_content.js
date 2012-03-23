@@ -91,7 +91,7 @@ SC.TreeItemContent = {
     @param {Number} idx the index of the item in the parent
     @returns {Number} branch state
   */
-  treeItemDisclosureState: function(parent, idx) {
+  treeItemDisclosureState: function treeItemDisclosureState(parent, idx) {
     return this.get('treeItemIsExpanded') ? SC.BRANCH_OPEN : SC.BRANCH_CLOSED;
   },
 
@@ -104,7 +104,7 @@ SC.TreeItemContent = {
     @param {Number} idx the index of the item in the parent
     @returns {void}
   */
-  treeItemCollapse: function(parent, idx) {
+  treeItemCollapse: function treeItemCollapse(parent, idx) {
     this.setIfChanged('treeItemIsExpanded', NO);
   },
 
@@ -117,7 +117,7 @@ SC.TreeItemContent = {
     @param {Number} idx the index of the item in the parent
     @returns {void}
   */
-  treeItemExpand: function(parent, idx) {
+  treeItemExpand: function treeItemExpand(parent, idx) {
     this.setIfChanged('treeItemIsExpanded', YES);
   },
 
@@ -144,7 +144,7 @@ SC.TreeItemContent = {
     @param {Number} index the index of the item in the parent
     @returns {SC.IndexSet} branch indexes
   */
-  treeItemBranchIndexes: function(parent, index) {
+  treeItemBranchIndexes: function treeItemBranchIndexes(parent, index) {
     var children = this.get('treeItemChildren'),
         ret, lim, idx, item;
 

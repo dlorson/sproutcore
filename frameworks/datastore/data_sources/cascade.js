@@ -70,7 +70,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
     @param {SC.DataSource} dataSource a data source instance to add.
     @returns {SC.CascadeDataSource} receiver
   */
-  from: function(dataSource) {
+  from: function from(dataSource) {
     var dataSources = this.get('dataSources');
     if (!dataSources) this.set('dataSources', dataSources = []);
     dataSources.push(dataSource);
@@ -82,7 +82,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   // 
   
   /** @private - just cascades */
-  fetch: function(store, query) {
+  fetch: function fetch(store, query) {
     var sources = this.get('dataSources'), 
         len     = sources ? sources.length : 0,
         ret     = NO,
@@ -99,7 +99,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   
   
   /** @private - just cascades */
-  retrieveRecords: function(store, storeKeys, ids) {
+  retrieveRecords: function retrieveRecords(store, storeKeys, ids) {
     var sources = this.get('dataSources'), 
         len     = sources ? sources.length : 0,
         ret     = NO,
@@ -115,7 +115,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   },
 
   /** @private - just cascades */
-  commitRecords: function(store, createStoreKeys, updateStoreKeys, destroyStoreKeys, params) {
+  commitRecords: function commitRecords(store, createStoreKeys, updateStoreKeys, destroyStoreKeys, params) {
     var sources = this.get('dataSources'), 
         len     = sources ? sources.length : 0,
         ret     = NO,
@@ -131,7 +131,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   },
 
   /** @private - just cascades */
-  cancel: function(store, storeKeys) {
+  cancel: function cancel(store, storeKeys) {
     var sources = this.get('dataSources'), 
         len     = sources ? sources.length : 0,
         ret     = NO,
@@ -151,7 +151,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   // 
   
   /** @private */
-  init: function() {
+  init: function init() {
     sc_super();
     
     // if a dataSources array is defined, look for any strings and lookup 
@@ -167,7 +167,7 @@ SC.CascadeDataSource = SC.DataSource.extend(
   },
 
   /** @private - Determine the proper return value. */
-  _handleResponse: function(current, response) {
+  _handleResponse: function _handleResponse(current, response) {
     if (response === YES) return YES ;
     else if (current === NO) return (response === NO) ? NO : SC.MIXED_STATE ;
     else return SC.MIXED_STATE ;

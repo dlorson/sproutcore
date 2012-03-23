@@ -73,7 +73,7 @@ SC.mixin( /** @scope SC */ {
                                               true for correct results, the metrics returned will usually be much bigger than
                                               otherwise required.
   */
-  bestStringMetricsForMaxWidth: function(string,maxWidth,exampleElement,classNames,ignoreEscape) {
+  bestStringMetricsForMaxWidth: function bestStringMetricsForMaxWidth(string,maxWidth,exampleElement,classNames,ignoreEscape) {
     if(!maxWidth) { SC.warn("When calling bestMetricsForWidth, the second argument, maxWidth, is required. There's no reason to call this without a maxWidth."); return undefined; }
     maxWidth = Math.ceil(parseFloat(maxWidth));
     var                me = arguments.callee,
@@ -165,7 +165,7 @@ SC.mixin( /** @scope SC */ {
                                      values at its numerical indices were passed in themselves as individual arguments.
     @returns {Hash} A cached workspace mapped to the ordered *n*-tuple of arguments passed into it.
   */
-  cacheSlotFor: function() {
+  cacheSlotFor: function cacheSlotFor() {
     var     me = arguments.callee.caller,
           curr = me.cache || (me.cache={});
     if(!arguments[0]) return curr;
@@ -190,7 +190,7 @@ SC.mixin( /** @scope SC */ {
     Use this only on functions without side effects you depend on, and only on functions whose outputs depend entirely on their
     arguments and on nothing else external to them that could change.
   */
-  cachedVersionOf: function() {
+  cachedVersionOf: function cachedVersionOf() {
     var ret = function(func) {
       var ret = function() {     var cache = SC.cacheSlotFor(arguments);
                                  return cache.result || (cache.result = arguments.callee.func.apply(this,arguments));    };

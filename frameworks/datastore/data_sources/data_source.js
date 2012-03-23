@@ -282,7 +282,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @param {SC.Query} query query describing the request
     @returns {Boolean} YES if you can handle fetching the query, NO otherwise
   */
-  fetch: function(store, query) {
+  fetch: function fetch(store, query) {
     return NO ; // do not handle anything!
   },
 
@@ -299,7 +299,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @param {Array} ids - optional
     @returns {Boolean} YES if handled, NO otherwise
   */
-  retrieveRecords: function(store, storeKeys, ids) {
+  retrieveRecords: function retrieveRecords(store, storeKeys, ids) {
     return this._handleEach(store, storeKeys, this.retrieveRecord, ids);
   },
 
@@ -332,7 +332,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
       from the commitRecords() call on the store
     @returns {Boolean} YES if data source can handle keys
   */
-  commitRecords: function(store, createStoreKeys, updateStoreKeys, destroyStoreKeys, params) {
+  commitRecords: function commitRecords(store, createStoreKeys, updateStoreKeys, destroyStoreKeys, params) {
     var uret, dret, ret;
     if (createStoreKeys.length>0) {
       ret = this.createRecords.call(this, store, createStoreKeys, params);
@@ -368,7 +368,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @param {Array} storeKeys array of storeKeys to retrieve
     @returns {Boolean} YES if data source can handle keys
   */
-  cancel: function(store, storeKeys) {
+  cancel: function cancel(store, storeKeys) {
     return NO;
   },
 
@@ -395,7 +395,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
 
   */
-  updateRecords: function(store, storeKeys, params) {
+  updateRecords: function updateRecords(store, storeKeys, params) {
     return this._handleEach(store, storeKeys, this.updateRecord, null, params);
   },
 
@@ -419,7 +419,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
 
   */
-  createRecords: function(store, storeKeys, params) {
+  createRecords: function createRecords(store, storeKeys, params) {
     return this._handleEach(store, storeKeys, this.createRecord, null, params);
   },
 
@@ -441,14 +441,14 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @returns {Boolean} YES, NO, or SC.MIXED_STATE
 
   */
-  destroyRecords: function(store, storeKeys, params) {
+  destroyRecords: function destroyRecords(store, storeKeys, params) {
     return this._handleEach(store, storeKeys, this.destroyRecord, null, params);
   },
 
   /** @private
     invokes the named action for each store key.  returns proper value
   */
-  _handleEach: function(store, storeKeys, action, ids, params) {
+  _handleEach: function _handleEach(store, storeKeys, action, ids, params) {
     var len = storeKeys.length, idx, ret, cur, idOrParams;
 
     for(idx=0;idx<len;idx++) {
@@ -484,7 +484,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  updateRecord: function(store, storeKey, params) {
+  updateRecord: function updateRecord(store, storeKey, params) {
     return NO ;
   },
 
@@ -496,7 +496,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
     @param {String} id the id to retrieve
     @returns {Boolean} YES if handled
   */
-  retrieveRecord: function(store, storeKey, id) {
+  retrieveRecord: function retrieveRecord(store, storeKey, id) {
     return NO ;
   },
 
@@ -513,7 +513,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  createRecord: function(store, storeKey, params) {
+  createRecord: function createRecord(store, storeKey, params) {
     return NO ;
   },
 
@@ -530,7 +530,7 @@ SC.DataSource = SC.Object.extend( /** @scope SC.DataSource.prototype */ {
       from the commitRecords() call on the store
     @returns {Boolean} YES if handled
   */
-  destroyRecord: function(store, storeKey, params) {
+  destroyRecord: function destroyRecord(store, storeKey, params) {
     return NO ;
   }
 

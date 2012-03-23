@@ -13,40 +13,40 @@ SC.StatechartMonitor = SC.Object.extend({
   
   sequence: null,
   
-  init: function() {
+  init: function init() {
     sc_super();
     this.reset();
   },
   
-  reset: function() {
+  reset: function reset() {
     this.propertyWillChange('length');
     this.sequence = [];
     this.propertyDidChange('length');
   },
   
-  length: function() {
+  length: function length() {
     return this.sequence.length;
   }.property(),
   
-  pushEnteredState: function(state) {
+  pushEnteredState: function pushEnteredState(state) {
     this.propertyWillChange('length');
     this.sequence.push({ action: 'entered', state: state });
     this.propertyDidChange('length'); 
   },
   
-  pushExitedState: function(state) {
+  pushExitedState: function pushExitedState(state) {
     this.propertyWillChange('length');
     this.sequence.push({ action: 'exited', state: state });
     this.propertyDidChange('length');
   },
   
-  matchSequence: function() {
+  matchSequence: function matchSequence() {
     return SC.StatechartSequenceMatcher.create({
       statechartMonitor: this
     });
   },
   
-  matchEnteredStates: function() {
+  matchEnteredStates: function matchEnteredStates() {
     var expected = SC.A(arguments.length === 1 ? arguments[0] : arguments),
         actual = this.getPath('statechart.enteredStates'),
         matched = 0,
@@ -63,7 +63,7 @@ SC.StatechartMonitor = SC.Object.extend({
     return matched === actual.length;
   },
   
-  toString: function() {
+  toString: function toString() {
     var seq = "",
         i = 0,
         len = 0,

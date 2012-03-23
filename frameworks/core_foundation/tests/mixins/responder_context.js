@@ -7,14 +7,14 @@
 /*global module test equals context ok same */
 var S, A, a, B, Manager;
 module("ResponderContext", {
-  setup: function() {
+  setup: function setup() {
     Manager = SC.Responder.create(SC.ResponderContext, {  });
     var TestResponder = SC.Responder.extend({
-      didBecomeFirstResponder: function() {
+      didBecomeFirstResponder: function didBecomeFirstResponder() {
         this.didBecome = YES;
         this.hasFirst = YES;
       },
-      willLoseFirstResponder: function() {
+      willLoseFirstResponder: function willLoseFirstResponder() {
         this.didLose = YES;
         this.hasFirst = NO;
       }

@@ -12,7 +12,7 @@ var src, content, controller;
 // 
 
 module("SC.ObjectController - single_enumerable_case - OBSERVABLE OBJECT", {
-  setup: function() {
+  setup: function setup() {
     src        = SC.Object.create({ foo: "foo1", bar: "bar1" });
     content    = SC.Set.create().add(src); // use generic enumerable
     controller = SC.ObjectController.create({ 
@@ -21,7 +21,7 @@ module("SC.ObjectController - single_enumerable_case - OBSERVABLE OBJECT", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -97,7 +97,7 @@ test("hasContent", function() {
 // 
 
 module("SC.ObjectController - single_enumerable_case - ALLOWS MULTIPLE", {
-  setup: function() {
+  setup: function setup() {
     src        = SC.Object.create({ foo: "foo1", bar: "bar1" });
     content    = SC.Set.create().add(src); // use generic enumerable
     controller = SC.ObjectController.create({ 
@@ -106,7 +106,7 @@ module("SC.ObjectController - single_enumerable_case - ALLOWS MULTIPLE", {
     });
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });
@@ -182,7 +182,7 @@ test("hasContent", function() {
 // 
 
 module("SC.ObjectController - single_enumerable_case after content set - ALLOWS MULTIPLE", {
-  setup: function() {
+  setup: function setup() {
     src        = SC.Object.create({ foo: "foo1", bar: "bar1" });
     content    = SC.Set.create(); // use generic enumerable
     controller = SC.ObjectController.create({ 
@@ -192,7 +192,7 @@ module("SC.ObjectController - single_enumerable_case after content set - ALLOWS 
     content.add(src)
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     controller.destroy();
   }
 });

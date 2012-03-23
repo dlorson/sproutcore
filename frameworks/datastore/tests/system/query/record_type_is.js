@@ -8,7 +8,7 @@
 // test parsing of query string
 var rec, q;
 module("SC.Query comparison of record types", {
-  setup: function() {
+  setup: function setup() {
     SC.RunLoop.begin();
 
     // setup dummy app and store

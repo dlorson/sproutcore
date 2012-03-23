@@ -8,7 +8,7 @@
 // test core array-mapping methods for RecordArray
 var store, storeKey, json, rec, storeKeys, recs, query, recsController, fooQuery, fooRecs, fooRecsController;
 module("SC.RecordArray core methods", {
-  setup: function() {
+  setup: function setup() {
     // setup dummy store
     store = SC.Store.create();
 
@@ -29,7 +29,7 @@ module("SC.RecordArray core methods", {
     recsController = SC.Object.create({
       content: recs,
       bigCost: NO,
-      veryExpensiveObserver: function() {
+      veryExpensiveObserver: function veryExpensiveObserver() {
         this.set('bigCost', YES);
       }.observes('.content.[]')
     });
@@ -40,7 +40,7 @@ module("SC.RecordArray core methods", {
     fooRecsController = SC.Object.create({
       content: fooRecs,
       bigCost: NO,
-      veryExpensiveObserver: function() {
+      veryExpensiveObserver: function veryExpensiveObserver() {
         this.set('bigCost', YES);
       }.observes('.content.[]')
     });
@@ -169,11 +169,11 @@ test("adding an array observer to a SC.RecordArray should cause the array to flu
   var callCount = 0;
 
   recs.addArrayObservers({
-    didChange: function() {
+    didChange: function didChange() {
       callCount++;
     },
 
-    willChange: function() { }
+    willChange: function willChange() { }
   });
 
   recs.get('length');
@@ -189,7 +189,7 @@ test("adding an array observer to a SC.RecordArray should cause the array to flu
 var json2, foo, bar ;
 
 module("SC.RecordArray core methods", {
-  setup: function() {
+  setup: function setup() {
     // setup dummy store
     store = SC.Store.create();
 

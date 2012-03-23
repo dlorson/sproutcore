@@ -26,20 +26,20 @@ Greenhouse.File = SC.Record.extend(
   
   isFile: YES,
 
-  path: function(){
+  path: function path(){
     return this.get('dir') + this.get('name');
   }.property('name', 'dir').cacheable(),
   
-  pageRegex: function(){
+  pageRegex: function pageRegex(){
     var b = this.get('body'), re =/(\w+)\.(\w+)\s*=\s*SC\.Page\.(design|create)/;
     return b ? b.match(re): b;
   }.property('body').cacheable(),
   
-  isPage: function(){
+  isPage: function isPage(){
     return this.get('pageRegex') !== null;
   }.property('pageRegex').cacheable(),
   
-  pageName: function(){
+  pageName: function pageName(){
     var r = this.get('pageRegex') || [];
     return "%@.%@".fmt(r[1],r[2]);
   }.property('pageRegex').cacheable()

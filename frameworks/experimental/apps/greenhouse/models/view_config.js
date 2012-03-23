@@ -23,7 +23,7 @@ Greenhouse.ViewConfig = SC.Record.extend(
   name: SC.Record.attr(String),
   path: SC.Record.attr(String),
   
-  body: function(){
+  body: function body(){
     var ret = {name: this.get('name'), path: this.get('path'), views: [], controllers: [], panes: []},
         views = this.get('views'),
         controllers = this.get('controllers'),

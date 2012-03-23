@@ -32,7 +32,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
 
     @property {Number}
   */
-  length: function() {
+  length: function length() {
     var ret     = 0,
         sets    = this._sets,
         objects = this._objects;
@@ -51,7 +51,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
 
     @property {SC.Array}
   */
-  sources: function() {
+  sources: function sources() {
     var ret  = [],
         sets = this._sets,
         len  = sets ? sets.length : 0,
@@ -71,7 +71,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {SC.Array} source the source object
     @returns {SC.IndexSet} index set or null
   */
-  indexSetForSource: function(source) {
+  indexSetForSource: function indexSetForSource(source) {
     if (!source || !source.isSCArray) return null; // nothing to do
 
     var cache   = this._indexSetCache,
@@ -115,7 +115,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     Internal method gets the index set for the source, ignoring objects
     that have been added directly.
   */
-  _indexSetForSource: function(source, canCreate) {
+  _indexSetForSource: function _indexSetForSource(source, canCreate) {
     if (canCreate === undefined) canCreate = YES;
 
     var guid  = SC.guidFor(source),
@@ -156,7 +156,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Number} length length if passing start/length pair.
     @returns {SC.SelectionSet} receiver
   */
-  add: function(source, start, length) {
+  add: function add(source, start, length) {
 
     if (this.isFrozen) throw SC.FROZEN_ERROR ;
 
@@ -216,7 +216,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Number} length length if passing start/length pair.
     @returns {SC.SelectionSet} receiver
   */
-  remove: function(source, start, length) {
+  remove: function remove(source, start, length) {
 
     if (this.isFrozen) throw SC.FROZEN_ERROR ;
 
@@ -291,7 +291,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Number} length optional range length
     @returns {Boolean}
   */
-  contains: function(source, start, length) {
+  contains: function contains(source, start, length) {
     if (start === undefined && length === undefined) {
       return this.containsObject(source);
     }
@@ -310,7 +310,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Number} length optional range length
     @returns {Boolean}
   */
-  intersects: function(source, start, length) {
+  intersects: function intersects(source, start, length) {
     var set = this.indexSetForSource(source, NO);
     if (!set) return NO ;
     return set.intersects(start, length);
@@ -331,7 +331,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} object
     @returns {SC.SelectionSet} receiver
   */
-  addObject: function(object) {
+  addObject: function addObject(object) {
     var ary = this._TMP_ARY, ret;
     ary[0] = object;
 
@@ -349,7 +349,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {SC.Enumerable} objects
     @returns {SC.SelectionSet} receiver
   */
-  addObjects: function(objects) {
+  addObjects: function addObjects(objects) {
     var cur = this._objects,
         oldlen, newlen;
     if (!cur) cur = this._objects = SC.CoreSet.create();
@@ -374,7 +374,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} object
     @returns {SC.SelectionSet} receiver
   */
-  removeObject: function(object) {
+  removeObject: function removeObject(object) {
     var ary = this._TMP_ARY, ret;
     ary[0] = object;
 
@@ -392,7 +392,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} object
     @returns {SC.SelectionSet} receiver
   */
-  removeObjects: function(objects) {
+  removeObjects: function removeObjects(objects) {
     var cur = this._objects,
         oldlen, newlen, sets;
 
@@ -427,7 +427,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} object the object to search for
     @returns {Boolean}
   */
-  containsObject: function(object) {
+  containsObject: function containsObject(object) {
     // fast path
     var objects = this._objects ;
     if (objects && objects.contains(object)) return YES ;
@@ -457,7 +457,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} source the source to limit
     @returns {SC.SelectionSet} receiver
   */
-  constrain: function(source) {
+  constrain: function constrain(source) {
     var set, len, max, objects;
 
     this.beginPropertyChanges();
@@ -494,7 +494,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} obj another object.
     @returns {Boolean}
   */
-  isEqual: function(obj) {
+  isEqual: function isEqual(obj) {
     var left, right, idx, len, sources, source;
 
     // fast paths
@@ -532,7 +532,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
 
     @returns {SC.SelectionSet}
   */
-  clear: function() {
+  clear: function clear() {
     if (this.isFrozen) throw SC.FROZEN_ERROR;
     if (this._sets) this._sets.length = 0 ; // truncate
     if (this._objects) this._objects = null;
@@ -550,7 +550,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
 
    @returns {SC.SelectionSet}
   */
-  copy: function() {
+  copy: function copy() {
     var ret  = this.constructor.create(),
         sets = this._sets,
         len  = sets ? sets.length : 0 ,
@@ -574,7 +574,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
 
     Freezing a SelectionSet also freezes its internal sets.
   */
-  freeze: function() {
+  freeze: function freeze() {
     if (this.get('isFrozen')) { return this ; }
     var sets = this._sets,
         loc  = sets ? sets.length : 0,
@@ -596,7 +596,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
   //
 
   /** @private */
-  toString: function() {
+  toString: function toString() {
     var sets = this._sets || [];
     sets = sets.map(function(set) {
       return set.toString().replace("SC.IndexSet", SC.guidFor(set.source));
@@ -606,7 +606,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
   },
 
   /** @private */
-  firstObject: function() {
+  firstObject: function firstObject() {
     var sets    = this._sets,
         objects = this._objects;
 
@@ -627,7 +627,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     Implement primitive enumerable support.  Returns each object in the
     selection.
   */
-  nextObject: function(count, lastObject, context) {
+  nextObject: function nextObject(count, lastObject, context) {
     var objects, ret;
 
     // TODO: Make this more efficient.  Right now it collects all objects
@@ -664,7 +664,7 @@ SC.SelectionSet = SC.Object.extend(SC.Enumerable, SC.Freezable, SC.Copyable,
     @param {Object} target optional content. otherwise uses window
     @returns {SC.SelectionSet} receiver
   */
-  forEach: function(callback, target) {
+  forEach: function forEach(callback, target) {
     var sets = this._sets,
         objects = this._objects,
         len = sets ? sets.length : 0,

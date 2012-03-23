@@ -16,26 +16,26 @@
 
 function testConsole() {
   return {
-    log: function() { return true; },
-    alert: function() { return true; },
-    debug: function() { return true; },
-    dir: function() { return true; },
-    dirxml: function() { return true; },
-    error: function() { return true; },
-    group: function() { return true; },
-    groupEnd: function() { return true; },
-    info: function() { return true; },
-    profile: function() { return true; },
-    profileEnd: function() { return true; },
-    time: function() { return true; },
-    timeEnd: function() { return true; },
-    trace: function() { return true; },
-    warn: function() { return true; }
+    log: function log() { return true; },
+    alert: function alert() { return true; },
+    debug: function debug() { return true; },
+    dir: function dir() { return true; },
+    dirxml: function dirxml() { return true; },
+    error: function error() { return true; },
+    group: function group() { return true; },
+    groupEnd: function groupEnd() { return true; },
+    info: function info() { return true; },
+    profile: function profile() { return true; },
+    profileEnd: function profileEnd() { return true; },
+    time: function time() { return true; },
+    timeEnd: function timeEnd() { return true; },
+    trace: function trace() { return true; },
+    warn: function warn() { return true; }
   };
 }
 
 module("SC.Logger", {
-  setup: function() {
+  setup: function setup() {
     SC.Logger.set('reporter', testConsole());
     
     SC.Logger.debugEnabled = true;
@@ -43,7 +43,7 @@ module("SC.Logger", {
     SC.Logger.fallBackOnLog = true;
     SC.Logger.fallBackOnAlert = false;
   },
-  teardown: function() {
+  teardown: function teardown() {
   }
 });
 

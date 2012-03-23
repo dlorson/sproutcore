@@ -19,7 +19,7 @@ var parent, child;
   tests.
 */
 var commonSetup = {
-  setup: function() {
+  setup: function setup() {
     
     // create basic parent view
     parent = SC.View.create({
@@ -30,7 +30,7 @@ var commonSetup = {
     child = SC.View.create();
   },
   
-  teardown: function() {
+  teardown: function teardown() {
     parent = child = null ;
   }
 };

@@ -49,7 +49,7 @@ SC.ResponderContext = {
   /** @property
     The next responder for an app is always its defaultResponder.
   */
-  nextResponder: function() {
+  nextResponder: function nextResponder() {
     return this.get('defaultResponder');
   }.property('defaultResponder').cacheable(),
 
@@ -68,7 +68,7 @@ SC.ResponderContext = {
     nextResponder property.  If the property is a string, then lookup the path
     in the receiver.
   */
-  nextResponderFor: function(responder) {
+  nextResponderFor: function nextResponderFor(responder) {
     var next = responder.get('nextResponder');
     if (typeof next === SC.T_STRING) {
       next = SC.objectForPropertyPath(next, this);
@@ -79,7 +79,7 @@ SC.ResponderContext = {
   /**
     Finds the responder name by searching the responders one time.
   */
-  responderNameFor: function(responder) {
+  responderNameFor: function responderNameFor(responder) {
     if (!responder) return "(No Responder)";
     else if (responder._scrc_name) return responder._scrc_name;
 
@@ -90,7 +90,7 @@ SC.ResponderContext = {
     return responder._scrc_name || responder.toString(); // try again
   },
 
-  _findResponderNamesFor: function(responder, level, path) {
+  _findResponderNamesFor: function _findResponderNamesFor(responder, level, path) {
     var key, value;
 
     for(key in responder) {
@@ -119,7 +119,7 @@ SC.ResponderContext = {
     @param {Event} evt that cause this to become first responder
     @returns {SC.ResponderContext} receiver
   */
-  makeFirstResponder: function(responder, evt) {
+  makeFirstResponder: function makeFirstResponder(responder, evt) {
     var current = this.get('firstResponder'),
         last    = this.get('nextResponder'),
         trace   = this.get('trace'),
@@ -182,7 +182,7 @@ SC.ResponderContext = {
     return this ;
   },
 
-  _notifyWillLoseFirstResponder: function(responder, cur, root, evt) {
+  _notifyWillLoseFirstResponder: function _notifyWillLoseFirstResponder(responder, cur, root, evt) {
     if (!cur || cur === root) return ; // nothing to do
 
     cur.willLoseFirstResponder(responder, evt);
@@ -192,7 +192,7 @@ SC.ResponderContext = {
     if (next) this._notifyWillLoseFirstResponder(responder, next, root);
   },
 
-  _notifyDidBecomeFirstResponder: function(responder, cur, root) {
+  _notifyDidBecomeFirstResponder: function _notifyDidBecomeFirstResponder(responder, cur, root) {
     if (!cur || cur === root) return ; // nothing to do
 
     var next = this.nextResponderFor(cur);
@@ -205,7 +205,7 @@ SC.ResponderContext = {
   /**
     Re-enters the current responder (calling willLoseFirstResponder and didBecomeFirstResponder).
   */
-  resetFirstResponder: function() {
+  resetFirstResponder: function resetFirstResponder() {
     var current = this.get('firstResponder');
     if (!current) return;
     current.willLoseFirstResponder();
@@ -223,7 +223,7 @@ SC.ResponderContext = {
     @param {Object} context optional additional context info
     @returns {SC.Responder} the responder that handled it or null
   */
-  sendAction: function(action, sender, context) {
+  sendAction: function sendAction(action, sender, context) {
     var working = this.get('firstResponder'),
         last    = this.get('nextResponder'),
         trace   = this.get('trace'),

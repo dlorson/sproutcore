@@ -18,7 +18,7 @@ test("single timer should execute once and invalidate", function() {
   var start = SC.RunLoop.currentRunLoop.get('startTime') ;
   var t = SC.Timer.schedule({
     target: this,
-    action: function() { fired.push(Date.now()); },
+    action: function action() { fired.push(Date.now()); },
     interval: 100, 
     repeats: NO
   });
@@ -56,7 +56,7 @@ test("repeating timer with no limit should repeat until terminated", function() 
   
   var t = SC.Timer.schedule({
     target: this,
-    action: function() { 
+    action: function action() { 
       fired.push(Date.now()); 
       if (--runs <= 0) t.invalidate(); 
     },
@@ -100,7 +100,7 @@ test("repeating timer should terminate after expiration", function() {
   
   var t = SC.Timer.schedule({
     target: this,
-    action: function() { 
+    action: function action() { 
       fired.push(Date.now()); 
     },
     interval: 100, 
@@ -140,7 +140,7 @@ test("scheduling multiple timers at the same time should cause them to fire at s
   
   var t1 = SC.Timer.schedule({
     target: this, 
-    action: function() { 
+    action: function action() { 
       f1 = SC.RunLoop.currentRunLoop.get('startTime'); 
     },
     interval: 100
@@ -148,7 +148,7 @@ test("scheduling multiple timers at the same time should cause them to fire at s
   
   var t2 = SC.Timer.schedule({
     target: this, 
-    action: function() { 
+    action: function action() { 
       f2 = SC.RunLoop.currentRunLoop.get('startTime'); 
     },
     interval: 100

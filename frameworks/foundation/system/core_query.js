@@ -19,7 +19,7 @@
     @param {Boolean} shouldAdd for class name if a string was passed
     @returns {SC.CoreQuery} receiver
   */
-  setClass: function(className, shouldAdd) {
+  setClass: function setClass(className, shouldAdd) {
     if (SC.none(className)) { return this; } //nothing to do
     var isHash = SC.typeOf(className) !== SC.T_STRING,
         fix = this._fixupClass, key;
@@ -48,7 +48,7 @@
   },
 
   /** @private used by setClass */
-  _fixupClass: function(classNames, name, shouldAdd) {
+  _fixupClass: function _fixupClass(classNames, name, shouldAdd) {
     var indexOf = classNames.indexOf(name);
     // if should add, add class...
     if (shouldAdd) {
