@@ -429,6 +429,8 @@ SC.CoreView.reopen(
     invokes the same on all child views.
   */
   _notifyDidCreateLayer: function _notifyDidCreateLayer() {
+  
+  	console.log("_notifyDidCreateLayer: " + this);
   	
     this.notifyPropertyChange('layer');
 
